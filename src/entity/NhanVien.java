@@ -5,8 +5,7 @@ import java.sql.Date;
 
 public class NhanVien implements Serializable {
 	
-	//test update
-	//trọng non =))
+	//1234235345545646466
 	/**
 	 * 
 	 */
