@@ -6,6 +6,7 @@ import java.sql.Date;
 public class NhanVien implements Serializable {
 	
 	//test update
+	//trọng non =))
 	/**
 	 * 
 	 */
