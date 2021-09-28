@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class NhanVien implements Serializable {
+	
+	//test update
 	/**
 	 * 
 	 */
