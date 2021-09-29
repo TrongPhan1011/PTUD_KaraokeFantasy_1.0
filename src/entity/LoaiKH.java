@@ -8,8 +8,9 @@ public class LoaiKH implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String maLoaiKH;
-	protected String tenLoaiKH;
+	private String maLoaiKH;
+	private String tenLoaiKH;
+	
 	public String getMaLoaiKH() {
 		return maLoaiKH;
 	}

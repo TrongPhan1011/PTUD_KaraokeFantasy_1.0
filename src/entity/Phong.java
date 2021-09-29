@@ -8,9 +8,9 @@ public class Phong implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String maPhong;
-	protected String tinhTrangPhong;
-	protected double giaPhong;
+	private String maPhong;
+	private String tinhTrangPhong;
+	private double giaPhong;
 	
 	private LoaiPhong loaiPhong;
 

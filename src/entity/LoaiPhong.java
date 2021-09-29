@@ -8,8 +8,8 @@ public class LoaiPhong implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String maLoaiPhong;
-	protected String tenLoaiPhong;
+	private String maLoaiPhong;
+	private String tenLoaiPhong;
 	public String getMaLoaiPhong() {
 		return maLoaiPhong;
 	}

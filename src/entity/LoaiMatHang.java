@@ -10,6 +10,7 @@ public class LoaiMatHang implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String maLoaiMatHang;
 	private String tenLoaiMatHang;
+	
 	public String getMaLoaiMatHang() {
 		return maLoaiMatHang;
 	}

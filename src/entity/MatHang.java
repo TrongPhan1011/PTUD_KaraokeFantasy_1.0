@@ -7,10 +7,10 @@ public class MatHang implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String maMatHang;
-	protected String tenMatHang;
-	protected int soLuongMatHang;
-	protected double giaMatHang;
+	private String maMatHang;
+	private String tenMatHang;
+	private int soLuongMH;
+	private double giaMatHang;
 	
 	private LoaiMatHang loaiMatHang;
 
@@ -31,11 +31,11 @@ public class MatHang implements Serializable {
 	}
 
 	public int getSoLuongMatHang() {
-		return soLuongMatHang;
+		return soLuongMH;
 	}
 
 	public void setSoLuongMatHang(int soLuongMatHang) {
-		this.soLuongMatHang = soLuongMatHang;
+		this.soLuongMH = soLuongMatHang;
 	}
 
 	public double getGiaMatHang() {
@@ -59,7 +59,7 @@ public class MatHang implements Serializable {
 		super();
 		this.maMatHang = maMatHang;
 		this.tenMatHang = tenMatHang;
-		this.soLuongMatHang = soLuongMatHang;
+		this.soLuongMH = soLuongMatHang;
 		this.giaMatHang = giaMatHang;
 		this.loaiMatHang = loaiMatHang;
 	}
@@ -70,6 +70,12 @@ public class MatHang implements Serializable {
 	public MatHang(String maMatHang) {
 		super();
 		this.maMatHang = maMatHang;
+	}
+
+	@Override
+	public String toString() {
+		return "MatHang [maMatHang=" + maMatHang + ", tenMatHang=" + tenMatHang + ", soLuongMatHang=" + soLuongMH
+				+ ", giaMatHang=" + giaMatHang + ", loaiMatHang=" + loaiMatHang + "]";
 	}
 
 	@Override

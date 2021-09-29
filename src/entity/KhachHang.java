@@ -9,14 +9,14 @@ public class KhachHang implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String maKhangHang;
-	protected String tenKH;
-	protected String sdt;
-	protected int cccd;
-	protected Date ngaySinh;
-	protected String gioiTinh;
-	protected int diemTichLuy;
-	protected Date ngayDangKy;
+	private String maKhangHang;
+	private String tenKH;
+	private String sdt;
+	private int cccd;
+	private Date ngaySinh;
+	private String gioiTinh;
+	private int diemTichLuy;
+	private Date ngayDangKy;
 	
 	private LoaiKH loaiKH;
 	//Get Set
@@ -95,6 +95,13 @@ public class KhachHang implements Serializable {
 	public KhachHang(String maKhangHang) {
 		super();
 		this.maKhangHang = maKhangHang;
+	}
+	
+	@Override
+	public String toString() {
+		return "KhachHang [maKhangHang=" + maKhangHang + ", tenKH=" + tenKH + ", sdt=" + sdt + ", cccd=" + cccd
+				+ ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diemTichLuy=" + diemTichLuy + ", ngayDangKy="
+				+ ngayDangKy + ", loaiKH=" + loaiKH + "]";
 	}
 	@Override
 	public int hashCode() {
