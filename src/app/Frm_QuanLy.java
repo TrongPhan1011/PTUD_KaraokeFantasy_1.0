@@ -59,6 +59,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private JPanel pItemDDP;
 	private JLabel lblQLNV_1;
 	private JPanel pItemQLBH;
+	private Frm_KhachHang Frm_KhachHang;
 
 	/**
 	 * Launch the application.
@@ -143,7 +144,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		if(lblHeaderMa.toString().contains("QL")) {
 			pItemNhanVien = new JPanel();
-			pItemNhanVien.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
+			pItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			pItemNhanVien.setBackground(new Color(255, 240, 245));
 			pItemNhanVien.setBounds(x, 0, 132, 31);
 			pMenu.add(pItemNhanVien);
@@ -155,6 +156,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			lblQLNV.setBounds(0, 0, 132, 31);
 			pItemNhanVien.add(lblQLNV);
 			pItemNhanVien.addMouseListener(this);
+			lblQLNV.addMouseListener(this);
 			
 			x = x + 142; //  chuyen vi tri sang mot doan 
 		}
@@ -164,7 +166,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 				x += 255;
 			pItemQLBH = new JPanel();
 			pItemQLBH.setLayout(null);
-			pItemQLBH.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
+			pItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			pItemQLBH.setBackground(new Color(255, 240, 245));
 			pItemQLBH.setBounds(x, 0, 132, 31);
 			pMenu.add(pItemQLBH);
@@ -182,9 +184,9 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
 			pItemDDP = new JPanel();
 			pItemDDP.setLayout(null);
-			pItemDDP.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
+			pItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			pItemDDP.setBackground(new Color(255, 240, 245));
-			pItemDDP.setBounds(x, 1, 161, 31);
+			pItemDDP.setBounds(x, 0, 161, 31);
 			pMenu.add(pItemDDP);
 			
 			lblQLDDP = new JLabel("Quản lý đơn đặt phòng");
@@ -203,7 +205,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 				x += 275;
 			pItemPhong = new JPanel();
 			pItemPhong.setLayout(null);
-			pItemPhong.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
+			pItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			pItemPhong.setBackground(new Color(255, 240, 245));
 			pItemPhong.setBounds(x, 0, 202, 31);   // 692
 			pMenu.add(pItemPhong);
@@ -221,23 +223,27 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			
 			pItemKH = new JPanel();
 			pItemKH.setLayout(null);
-			pItemKH.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
+			pItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			pItemKH.setBackground(new Color(255, 240, 245));
 			pItemKH.setBounds(x, 0, 142, 31);  // 904
 			pMenu.add(pItemKH);
+			pItemKH.addMouseListener(this);
 			
 			lblQLKH = new JLabel("Quản lý khách Hàng");
 			lblQLKH.setHorizontalAlignment(SwingConstants.CENTER);
 			lblQLKH.setFont(new Font("SansSerif", Font.BOLD, 13));
 			lblQLKH.setBounds(0, 0, 142, 31);
 			pItemKH.add(lblQLKH);
+			lblQLKH.addMouseListener(this);
 			x += 142;
+			
+			
 		}
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
 			x += 10;
 			pItemTK = new JPanel();
 			pItemTK.setLayout(null);
-			pItemTK.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
+			pItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			pItemTK.setBackground(new Color(255, 240, 245));
 			pItemTK.setBounds(x, 0, 132, 31); // 1056
 			pMenu.add(pItemTK);
@@ -276,16 +282,48 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		btnDangXuat.addActionListener(this);
 	}
 	
-	public void loadFrmNhanVien() {
+	// reset màu menu
+	public void resetColorMenu() {
+		pItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		pItemNhanVien.setBackground(new Color(255, 240, 245));
 		
+		pItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		pItemQLBH.setBackground(new Color(255, 240, 245));
+		
+		pItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		pItemDDP.setBackground(new Color(255, 240, 245));
+		
+		pItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		pItemPhong.setBackground(new Color(255, 240, 245));
+		
+		pItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		pItemKH.setBackground(new Color(255, 240, 245));
+		
+		pItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		pItemTK.setBackground(new Color(255, 240, 245));
+		
+	}
+	
+	public void loadFrmNhanVien() {
+			resetColorMenu();
 			pContent.removeAll();
-			pItemNhanVien.setBackground(Color.white);
+			pItemNhanVien.setBackground(new Color(192,255,255));    //new Color(233,136,236)
 			pItemNhanVien.setBorder(BorderFactory.createLineBorder(Color.white));
 			frm_NhanVien = new Frm_NhanVien("QL","Phan Huu Trong");
 			pContent.add(frm_NhanVien.getPanel());
 
 		
 	}
+	public void loadFrmKhachHang() {
+		resetColorMenu();
+		pContent.removeAll();
+		pItemKH.setBackground(new Color(192,255,255));
+		pItemKH.setBorder(BorderFactory.createLineBorder(Color.white));
+		Frm_KhachHang = new Frm_KhachHang("QL","Phan Huu Trong");
+		pContent.add(Frm_KhachHang.getFrmKH());
+
+	
+}
 	
 
 	@Override
@@ -302,10 +340,14 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		Object o = e.getSource();
 		if(o.equals(pItemNhanVien)||o.equals(lblQLNV)) {
-			loadFrmNhanVien();}
-			
+			loadFrmNhanVien();
+	
+			}
+		 if(o.equals(pItemKH)||o.equals(lblQLKH)) {
+			loadFrmKhachHang();
 			
 		}
+	}
 		
 	
 
@@ -317,12 +359,6 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-//		Object o = e.getSource();
-//		if(o.equals(pItemNhanVien)) {
-//			pItemNhanVien.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
-//			pItemNhanVien.setBackground(new Color(255, 240, 245));
-//			
-//		}
 		
 	}
 
