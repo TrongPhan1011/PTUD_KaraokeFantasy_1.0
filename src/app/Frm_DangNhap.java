@@ -124,7 +124,7 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 		if(o.equals(btnDangNhap)) {	
-			Frm_NhanVien frmNhanVien = new Frm_NhanVien();
+			Frm_QuanLy frmNhanVien = new Frm_QuanLy();
 			frmNhanVien.setVisible(true);
 			this.setVisible(false);
 			
