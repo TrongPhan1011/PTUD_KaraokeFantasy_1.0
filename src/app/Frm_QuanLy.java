@@ -82,9 +82,11 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	public Frm_QuanLy() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Quản lý nhân viên");
-		setExtendedState(MAXIMIZED_BOTH);
+//		setExtendedState(MAXIMIZED_BOTH);
+		setSize(1281,750);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
+		setResizable(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1281, 78);
@@ -105,7 +107,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		lblHeaderTen.setBounds(908, 11, 135, 20);
 		panel.add(lblHeaderTen);
 		
-		lblHeaderMa = new JLabel("Mã nhân viên: QL1234 ");
+		lblHeaderMa = new JLabel("Mã: QL1234 ");
 		lblHeaderMa.setForeground(Color.WHITE);
 		lblHeaderMa.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblHeaderMa.setBounds(908, 42, 135, 20);
@@ -133,11 +135,11 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		JPanel pMenu = new JPanel();
 		pMenu.setBackground(new Color(221, 160, 221));
-		pMenu.setBounds(-66, 77, 1347, 31);
+		pMenu.setBounds(0, 77, 1281, 31);
 		getContentPane().add(pMenu);
 		pMenu.setLayout(null);
 		
-		int x = 237;    // vi tri chieu ngang cua item
+		int x = 160;    // vi tri chieu ngang cua item
 		
 		if(lblHeaderMa.toString().contains("QL")) {
 			pItemNhanVien = new JPanel();
@@ -159,7 +161,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
 			if(lblHeaderMa.toString().contains("TN"))
-				x += 200;
+				x += 255;
 			pItemQLBH = new JPanel();
 			pItemQLBH.setLayout(null);
 			pItemQLBH.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
@@ -198,7 +200,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("PV")) {
 			x = x  + 29;
 			if(lblHeaderMa.toString().contains("PV"))
-				x += 270;
+				x += 275;
 			pItemPhong = new JPanel();
 			pItemPhong.setLayout(null);
 			pItemPhong.setBorder(new LineBorder(new Color(192, 192, 192), 2, true));
@@ -250,7 +252,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		}
 		
 		pContent = new JPanel();
-		pContent.setBounds(10, 109, 1281, 641);
+		pContent.setBounds(0, 109, 1281, 606);
 		getContentPane().add(pContent);
 		pContent.setLayout(null);
 		
