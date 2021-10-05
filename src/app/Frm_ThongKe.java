@@ -8,6 +8,10 @@ import javax.swing.JCheckBox;
 
 public class Frm_ThongKe extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
 	private Panel pMain;

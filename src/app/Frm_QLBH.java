@@ -5,6 +5,8 @@ import java.awt.Panel;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Frm_QLBH extends JPanel {
 
@@ -29,10 +31,12 @@ public class Frm_QLBH extends JPanel {
 		add(pMain);
 		pMain.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(114, 0, 96, 20);
-		pMain.add(textField);
-		textField.setColumns(10);
+		JLabel lblNewLabel = new JLabel("Quản lý bán hàng");
+		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblNewLabel.setBounds(22, 11, 255, 33);
+		pMain.add(lblNewLabel);
+		
+		
 		
 	}
 }

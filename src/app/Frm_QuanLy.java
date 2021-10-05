@@ -1,65 +1,32 @@
 package app;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.Icon;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JToggleButton;
-import java.awt.Font;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JCheckBoxMenuItem;
-import java.awt.CardLayout;
-import javax.swing.JToolBar;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
 
 public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 
-	private JPanel contentPane;
-	private Frm_NhanVien nhanVien;
-	private JPanel pItemNhanVien;
-	private JLabel lblQLNV;
+
+	private static final long serialVersionUID = 1L;
 	private Frm_NhanVien frm_NhanVien;
 	private JPanel pContent;
 	private JButton btnDangXuat;
 	private JLabel lblHeaderTen;
 	private JLabel lblHeaderMa;
-	private JLabel lblQLTK;
-	private JPanel pItemTK;
-	private JLabel lblQLKH;
-	private JPanel pItemKH;
-	private JLabel lblQLP;
-	private JPanel pItemPhong;
-	private JLabel lblQLDDP;
-	private JPanel pItemDDP;
-	private JLabel lblQLNV_1;
-	private JPanel pItemQLBH;
 	private Frm_KhachHang Frm_KhachHang;
 	private JButton btnItemNhanVien;
 	private JButton btnItemQLBH;
@@ -363,7 +330,6 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Object o = e.getSource();
 		
 	}
 		

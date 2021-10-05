@@ -5,10 +5,15 @@ import java.awt.Panel;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class Frm_KhachHang extends JPanel {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
 	private Panel pMain;
@@ -29,7 +34,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.setLayout(null);
 		
 		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(166, 0, 116, 23);
+		btnNewButton.setBounds(25, 11, 116, 23);
 		pMain.add(btnNewButton);
 		
 		

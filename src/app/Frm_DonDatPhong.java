@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Panel;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 
 public class Frm_DonDatPhong extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
 	private Panel pMain;

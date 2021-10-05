@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 
 public class Frm_PhongMatHang extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
 	private Panel pMain;
@@ -30,5 +34,9 @@ public class Frm_PhongMatHang extends JPanel {
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(197, 0, 48, 14);
 		pMain.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(90, 43, 48, 14);
+		pMain.add(lblNewLabel_1);
 	}
 }
