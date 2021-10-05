@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import java.awt.Font;
 import javax.swing.JPopupMenu;
@@ -322,7 +323,12 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	}
 	
 	public void dangXuat() {
-		
+		int optDangXuat = JOptionPane.showConfirmDialog(this, "Bạn có chắn chắn muốn đăng xuất không?", "Thông báo", JOptionPane.YES_NO_OPTION );
+		if(optDangXuat == JOptionPane.YES_OPTION) {
+			Frm_DangNhap frame = new Frm_DangNhap();
+			frame.setVisible(true);
+			this.setVisible(false);
+		}
 	}
 	
 
@@ -330,9 +336,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if(o.equals(btnDangXuat)){
-			Frm_DangNhap frame = new Frm_DangNhap();
-			frame.setVisible(true);
-			this.setVisible(false);
+			dangXuat();
 		}
 		
 		if(o.equals(btnItemNhanVien)) {
