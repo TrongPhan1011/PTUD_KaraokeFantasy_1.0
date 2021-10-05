@@ -60,6 +60,16 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private JLabel lblQLNV_1;
 	private JPanel pItemQLBH;
 	private Frm_KhachHang Frm_KhachHang;
+	private JButton btnItemNhanVien;
+	private JButton btnItemQLBH;
+	private JButton btnItemDDP;
+	private JButton btnItemPhong;
+	private JButton btnItemKH;
+	private JButton btnItemTK;
+	private Frm_QLBH Frm_QLBH;
+	private Frm_DonDatPhong Frm_DDP;
+	private Frm_PhongMatHang Frm_Phong;
+	private Frm_ThongKe Frm_ThongKe;
 
 	/**
 	 * Launch the application.
@@ -143,57 +153,40 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		int x = 160;    // vi tri chieu ngang cua item
 		
 		if(lblHeaderMa.toString().contains("QL")) {
-			pItemNhanVien = new JPanel();
-			pItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			pItemNhanVien.setBackground(new Color(255, 240, 245));
-			pItemNhanVien.setBounds(x, 0, 132, 31);
-			pMenu.add(pItemNhanVien);
-			pItemNhanVien.setLayout(null);
-			
-			lblQLNV = new JLabel("Quản lý nhân viên");
-			lblQLNV.setHorizontalAlignment(SwingConstants.CENTER);
-			lblQLNV.setFont(new Font("SansSerif", Font.BOLD, 13));
-			lblQLNV.setBounds(0, 0, 132, 31);
-			pItemNhanVien.add(lblQLNV);
-			pItemNhanVien.addMouseListener(this);
-			lblQLNV.addMouseListener(this);
-			
+			btnItemNhanVien = new JButton("Quản lý nhân viên");
+			btnItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemNhanVien.setBackground(new Color(255, 240, 245));
+			btnItemNhanVien.setBounds(x, 0, 132, 31);
+			pMenu.add(btnItemNhanVien);
+			btnItemNhanVien.addActionListener(this);
 			x = x + 142; //  chuyen vi tri sang mot doan 
 		}
 		
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
 			if(lblHeaderMa.toString().contains("TN"))
 				x += 255;
-			pItemQLBH = new JPanel();
-			pItemQLBH.setLayout(null);
-			pItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			pItemQLBH.setBackground(new Color(255, 240, 245));
-			pItemQLBH.setBounds(x, 0, 132, 31);
-			pMenu.add(pItemQLBH);
+			btnItemQLBH = new JButton("Quản lý bán hàng");
+			btnItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemQLBH.setBackground(new Color(255, 240, 245));
+			btnItemQLBH.setBounds(x, 0, 132, 31);
+			pMenu.add(btnItemQLBH);
+			btnItemQLBH.addActionListener(this);
 			
-			lblQLNV_1 = new JLabel("Quản lý bán hàng");
-			lblQLNV_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblQLNV_1.setFont(new Font("SansSerif", Font.BOLD, 13));
-			lblQLNV_1.setBounds(0, 0, 132, 31);
-			pItemQLBH.add(lblQLNV_1);
+			
 			x = x + 142;
 			
 		
 		}
 		
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
-			pItemDDP = new JPanel();
-			pItemDDP.setLayout(null);
-			pItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			pItemDDP.setBackground(new Color(255, 240, 245));
-			pItemDDP.setBounds(x, 0, 161, 31);
-			pMenu.add(pItemDDP);
-			
-			lblQLDDP = new JLabel("Quản lý đơn đặt phòng");
-			lblQLDDP.setHorizontalAlignment(SwingConstants.CENTER);
-			lblQLDDP.setFont(new Font("SansSerif", Font.BOLD, 13));
-			lblQLDDP.setBounds(0, 0, 158, 31);
-			pItemDDP.add(lblQLDDP);
+			btnItemDDP = new JButton("Quản lý đơn đặt phòng");
+			btnItemDDP.setLayout(null);
+			btnItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemDDP.setBackground(new Color(255, 240, 245));
+			btnItemDDP.setBounds(x, 0, 161, 31);
+			pMenu.add(btnItemDDP);
+			btnItemDDP.addActionListener(this);
+
 			
 			x = x + 142;
 			if(lblHeaderMa.toString().contains("TN"))
@@ -203,56 +196,43 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			x = x  + 29;
 			if(lblHeaderMa.toString().contains("PV"))
 				x += 275;
-			pItemPhong = new JPanel();
-			pItemPhong.setLayout(null);
-			pItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			pItemPhong.setBackground(new Color(255, 240, 245));
-			pItemPhong.setBounds(x, 0, 202, 31);   // 692
-			pMenu.add(pItemPhong);
+			btnItemPhong = new JButton("Quản lý phòng và mặt hàng");
+			btnItemPhong.setLayout(null);
+			btnItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemPhong.setBackground(new Color(255, 240, 245));
+			btnItemPhong.setBounds(x, 0, 202, 31);   // 692
+			pMenu.add(btnItemPhong);
+			btnItemPhong.addActionListener(this);
 			
-			lblQLP = new JLabel("Quản lý phòng và mặt hàng");
-			lblQLP.setHorizontalAlignment(SwingConstants.CENTER);
-			lblQLP.setFont(new Font("SansSerif", Font.BOLD, 13));
-			lblQLP.setBounds(0, 0, 197, 31);
-			pItemPhong.add(lblQLP);
 			x = x + 142;
 		}
 		
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("PV")) {
 			x += 70;
 			
-			pItemKH = new JPanel();
-			pItemKH.setLayout(null);
-			pItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			pItemKH.setBackground(new Color(255, 240, 245));
-			pItemKH.setBounds(x, 0, 142, 31);  // 904
-			pMenu.add(pItemKH);
-			pItemKH.addMouseListener(this);
+			btnItemKH = new JButton("Quản lý khách Hàng");
+			btnItemKH.setLayout(null);
+			btnItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemKH.setBackground(new Color(255, 240, 245));
+			btnItemKH.setBounds(x, 0, 142, 31);  // 904
+			pMenu.add(btnItemKH);
+			btnItemKH.addActionListener(this);
 			
-			lblQLKH = new JLabel("Quản lý khách Hàng");
-			lblQLKH.setHorizontalAlignment(SwingConstants.CENTER);
-			lblQLKH.setFont(new Font("SansSerif", Font.BOLD, 13));
-			lblQLKH.setBounds(0, 0, 142, 31);
-			pItemKH.add(lblQLKH);
-			lblQLKH.addMouseListener(this);
+			
 			x += 142;
 			
 			
 		}
 		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
 			x += 10;
-			pItemTK = new JPanel();
-			pItemTK.setLayout(null);
-			pItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			pItemTK.setBackground(new Color(255, 240, 245));
-			pItemTK.setBounds(x, 0, 132, 31); // 1056
-			pMenu.add(pItemTK);
+			btnItemTK = new JButton("Quản lý thống kê");
+			btnItemTK.setLayout(null);
+			btnItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemTK.setBackground(new Color(255, 240, 245));
+			btnItemTK.setBounds(x, 0, 132, 31); // 1056
+			pMenu.add(btnItemTK);
+			btnItemTK.addActionListener(this);
 			
-			lblQLTK = new JLabel("Quản lý thống kê");
-			lblQLTK.setHorizontalAlignment(SwingConstants.CENTER);
-			lblQLTK.setFont(new Font("SansSerif", Font.BOLD, 13));
-			lblQLTK.setBounds(0, 0, 132, 31);
-			pItemTK.add(lblQLTK);
 			
 		
 		}
@@ -284,31 +264,31 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	
 	// reset màu menu
 	public void resetColorMenu() {
-		pItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		pItemNhanVien.setBackground(new Color(255, 240, 245));
+		btnItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnItemNhanVien.setBackground(new Color(255, 240, 245));
 		
-		pItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		pItemQLBH.setBackground(new Color(255, 240, 245));
+		btnItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnItemQLBH.setBackground(new Color(255, 240, 245));
 		
-		pItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		pItemDDP.setBackground(new Color(255, 240, 245));
+		btnItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnItemDDP.setBackground(new Color(255, 240, 245));
 		
-		pItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		pItemPhong.setBackground(new Color(255, 240, 245));
+		btnItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnItemPhong.setBackground(new Color(255, 240, 245));
 		
-		pItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		pItemKH.setBackground(new Color(255, 240, 245));
+		btnItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnItemKH.setBackground(new Color(255, 240, 245));
 		
-		pItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		pItemTK.setBackground(new Color(255, 240, 245));
+		btnItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnItemTK.setBackground(new Color(255, 240, 245));
 		
 	}
 	
 	public void loadFrmNhanVien() {
 			resetColorMenu();
 			pContent.removeAll();
-			pItemNhanVien.setBackground(new Color(192,255,255));    //new Color(233,136,236)
-			pItemNhanVien.setBorder(BorderFactory.createLineBorder(Color.white));
+			btnItemNhanVien.setBackground(new Color(192,255,255)); //new Color(233,136,236)
+			btnItemNhanVien.setBorder(BorderFactory.createLineBorder(Color.white));
 			frm_NhanVien = new Frm_NhanVien("QL","Phan Huu Trong");
 			pContent.add(frm_NhanVien.getPanel());
 
@@ -317,13 +297,50 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	public void loadFrmKhachHang() {
 		resetColorMenu();
 		pContent.removeAll();
-		pItemKH.setBackground(new Color(192,255,255));
-		pItemKH.setBorder(BorderFactory.createLineBorder(Color.white));
+		btnItemKH.setBackground(new Color(192,255,255));
+		btnItemKH.setBorder(BorderFactory.createLineBorder(Color.white));
 		Frm_KhachHang = new Frm_KhachHang("QL","Phan Huu Trong");
 		pContent.add(Frm_KhachHang.getFrmKH());
-
 	
-}
+	}
+	public void loadFrmQLBH() {
+		resetColorMenu();
+		pContent.removeAll();
+		btnItemQLBH.setBackground(new Color(192,255,255));
+		btnItemQLBH.setBorder(BorderFactory.createLineBorder(Color.white));
+		Frm_QLBH = new Frm_QLBH("QL","Phan Huu Trong");
+		pContent.add(Frm_QLBH.getFrmQLBH());
+	
+	}
+	public void loadFrmDDP() {
+		resetColorMenu();
+		pContent.removeAll();
+		btnItemDDP.setBackground(new Color(192,255,255));
+		btnItemDDP.setBorder(BorderFactory.createLineBorder(Color.white));
+		Frm_DDP = new Frm_DonDatPhong("QL","Phan Huu Trong");
+		pContent.add(Frm_DDP.getFrmDDP());
+	
+	}
+	
+	public void loadFrmPhong() {
+		resetColorMenu();
+		pContent.removeAll();
+		btnItemPhong.setBackground(new Color(192,255,255));
+		btnItemPhong.setBorder(BorderFactory.createLineBorder(Color.white));
+		Frm_Phong = new Frm_PhongMatHang("QL","Phan Huu Trong");
+		pContent.add(Frm_Phong.getFrmPhong());
+	
+	}
+	
+	public void loadFrmThongKe() {
+		resetColorMenu();
+		pContent.removeAll();
+		btnItemTK.setBackground(new Color(192,255,255));
+		btnItemTK.setBorder(BorderFactory.createLineBorder(Color.white));
+		Frm_ThongKe = new Frm_ThongKe("QL","Phan Huu Trong");
+		pContent.add(Frm_ThongKe.getFrmThongKe());
+	
+	}
 	
 
 	@Override
@@ -331,22 +348,34 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnDangXuat)){
 			pContent.removeAll();
-			
 		}
+		
+		if(o.equals(btnItemNhanVien)) {
+			loadFrmNhanVien();
+		}
+		if(o.equals(btnItemQLBH)) {
+			loadFrmQLBH();
+		}
+		if(o.equals(btnItemKH)) {
+			loadFrmKhachHang();
+		}
+		if(o.equals(btnItemDDP)) {
+			loadFrmDDP();
+		}
+		if(o.equals(btnItemPhong)) {
+			loadFrmPhong();
+		}
+		if(o.equals(btnItemTK)) {
+			loadFrmThongKe();
+		}
+		
 		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object o = e.getSource();
-		if(o.equals(pItemNhanVien)||o.equals(lblQLNV)) {
-			loadFrmNhanVien();
-	
-			}
-		 if(o.equals(pItemKH)||o.equals(lblQLKH)) {
-			loadFrmKhachHang();
-			
-		}
+		
 	}
 		
 	
