@@ -71,9 +71,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private Frm_PhongMatHang Frm_Phong;
 	private Frm_ThongKe Frm_ThongKe;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -87,9 +85,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public Frm_QuanLy() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Quản lý nhân viên");
@@ -242,23 +238,6 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		getContentPane().add(pContent);
 		pContent.setLayout(null);
 		
-		
-		
-//		JButton btnNewButton = new JButton("New button");
-//		btnNewButton.setBounds(744, 189, 89, 23);
-//		getContentPane().add(btnNewButton);
-//		
-//		JLabel lblNewLabel = new JLabel("New label");
-//		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\PhatTrienUngDung\\DoAn1\\KaraokeFantasy\\data\\img\\background.png"));
-//		lblNewLabel.setBounds(0, 0, 1281, 738);
-//		getContentPane().add(lblNewLabel);
-		
-		
-		
-		
-		
-		
-		
 		btnDangXuat.addActionListener(this);
 	}
 	
@@ -342,12 +321,18 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	
 	}
 	
+	public void dangXuat() {
+		
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if(o.equals(btnDangXuat)){
-			pContent.removeAll();
+			Frm_DangNhap frame = new Frm_DangNhap();
+			frame.setVisible(true);
+			this.setVisible(false);
 		}
 		
 		if(o.equals(btnItemNhanVien)) {

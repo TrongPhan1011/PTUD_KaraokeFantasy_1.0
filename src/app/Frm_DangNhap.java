@@ -19,14 +19,25 @@ import javax.swing.border.LineBorder;
 
 public class Frm_DangNhap extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtTaiKhoan;
 	private JTextField txtMatKhau;
 	private JButton btnThoat;
 	private JButton btnDangNhap;
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Frm_DangNhap frame = new Frm_DangNhap();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	public Frm_DangNhap() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
