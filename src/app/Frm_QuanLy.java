@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,6 +42,11 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private Frm_DonDatPhong Frm_DDP;
 	private Frm_PhongMatHang Frm_Phong;
 	private Frm_ThongKe Frm_ThongKe;
+	private Date dNow;
+	private LocalDate now;
+	private int ngay;
+	private int thang;
+	private int nam;
 
 	
 	public static void main(String[] args) {
@@ -76,6 +85,27 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		lblLogo.setIcon(new ImageIcon(resizelogo));
 		panel.add(lblLogo);
 		
+		now = LocalDate.now();
+		ngay = now.getDayOfMonth();
+		thang = now.getMonthValue() -1;
+		nam = now.getYear();
+		
+		dNow = new Date(nam,thang,ngay);
+		
+		
+		JLabel lblHeaderDate = new JLabel("Hiện tại:");
+		lblHeaderDate.setForeground(Color.WHITE);
+		lblHeaderDate.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblHeaderDate.setBounds(489, 41, 66, 21);
+		panel.add(lblHeaderDate);
+		
+		JLabel lblNgayHienTai = new JLabel(ngay+" / "+thang+" / "+nam);
+		lblNgayHienTai.setForeground(Color.WHITE);
+		lblNgayHienTai.setFont(new Font("SansSerif", Font.BOLD, 22));
+		lblNgayHienTai.setBounds(565, 38, 151, 21);
+		panel.add(lblNgayHienTai);
+		
+		
 		lblHeaderTen = new JLabel("Tên Nhân Viên");
 		lblHeaderTen.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblHeaderTen.setForeground(Color.WHITE);
@@ -107,6 +137,8 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		lblQL.setBounds(14, 9, 37, 35);
 		lblQL.setFont(new Font("SansSerif", Font.BOLD, 20));
 		pQL.add(lblQL);
+		
+		
 		
 		JPanel pMenu = new JPanel();
 		pMenu.setBackground(new Color(221, 160, 221));
@@ -236,7 +268,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			pContent.removeAll();
 			btnItemNhanVien.setBackground(new Color(192,255,255)); //new Color(233,136,236)
 			btnItemNhanVien.setBorder(BorderFactory.createLineBorder(Color.white));
-			frm_NhanVien = new Frm_NhanVien("QL","Phan Huu Trong");
+			frm_NhanVien = new Frm_NhanVien("QL","Phan Huu Trong", dNow);
 			pContent.add(frm_NhanVien.getPanel());
 
 		
@@ -246,7 +278,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemKH.setBackground(new Color(192,255,255));
 		btnItemKH.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_KhachHang = new Frm_KhachHang("QL","Phan Huu Trong");
+		Frm_KhachHang = new Frm_KhachHang("QL","Phan Huu Trong",dNow);
 		pContent.add(Frm_KhachHang.getFrmKH());
 	
 	}
@@ -255,7 +287,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemQLBH.setBackground(new Color(192,255,255));
 		btnItemQLBH.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_QLBH = new Frm_QLBH("QL","Phan Huu Trong");
+		Frm_QLBH = new Frm_QLBH("QL","Phan Huu Trong", dNow);
 		pContent.add(Frm_QLBH.getFrmQLBH());
 	
 	}
@@ -264,7 +296,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemDDP.setBackground(new Color(192,255,255));
 		btnItemDDP.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_DDP = new Frm_DonDatPhong("QL","Phan Huu Trong");
+		Frm_DDP = new Frm_DonDatPhong("QL","Phan Huu Trong", dNow);
 		pContent.add(Frm_DDP.getFrmDDP());
 	
 	}
@@ -274,7 +306,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemPhong.setBackground(new Color(192,255,255));
 		btnItemPhong.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_Phong = new Frm_PhongMatHang("QL","Phan Huu Trong");
+		Frm_Phong = new Frm_PhongMatHang("QL","Phan Huu Trong",dNow);
 		pContent.add(Frm_Phong.getFrmPhong());
 	
 	}
@@ -284,7 +316,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemTK.setBackground(new Color(192,255,255));
 		btnItemTK.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_ThongKe = new Frm_ThongKe("QL","Phan Huu Trong");
+		Frm_ThongKe = new Frm_ThongKe("QL","Phan Huu Trong",dNow);
 		pContent.add(Frm_ThongKe.getFrmThongKe());
 	
 	}
@@ -295,6 +327,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			Frm_DangNhap frame = new Frm_DangNhap();
 			frame.setVisible(true);
 			this.setVisible(false);
+			
 		}
 	}
 	

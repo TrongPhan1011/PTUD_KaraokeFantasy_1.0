@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +29,8 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 	private JButton btnDangNhap;
 	
 	public static void main(String[] args) {
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -120,6 +124,9 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 		Image imgNhac2 = Toolkit.getDefaultToolkit ().getImage ("data\\img\\IconNhac2.png");
 		Image resizeNhac2 = imgNhac2.getScaledInstance(lblNhac2.getWidth(), lblNhac2.getHeight(), 0);
 		lblNhac2.setIcon(new ImageIcon(resizeNhac2));
+		
+		
+		
 		
 		btnDangNhap.addActionListener(this);
 		btnThoat.addActionListener(this);
