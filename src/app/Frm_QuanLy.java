@@ -264,6 +264,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	}
 	
 	public void loadFrmNhanVien() {
+			setTitle("Quản lý nhân viên");
 			resetColorMenu();
 			pContent.removeAll();
 			btnItemNhanVien.setBackground(new Color(192,255,255)); //new Color(233,136,236)
@@ -274,6 +275,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 	}
 	public void loadFrmKhachHang() {
+		setTitle("Quản lý khách hàng");
 		resetColorMenu();
 		pContent.removeAll();
 		btnItemKH.setBackground(new Color(192,255,255));
@@ -283,6 +285,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	
 	}
 	public void loadFrmQLBH() {
+		setTitle("Quản lý hóa đơn");
 		resetColorMenu();
 		pContent.removeAll();
 		btnItemQLBH.setBackground(new Color(192,255,255));
@@ -292,6 +295,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	
 	}
 	public void loadFrmDDP() {
+		setTitle("Quản lý đơn đặt phòng");
 		resetColorMenu();
 		pContent.removeAll();
 		btnItemDDP.setBackground(new Color(192,255,255));
@@ -302,6 +306,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	}
 	
 	public void loadFrmPhong() {
+		setTitle("Quản lý phòng và mặt hàng");
 		resetColorMenu();
 		pContent.removeAll();
 		btnItemPhong.setBackground(new Color(192,255,255));
@@ -312,6 +317,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	}
 	
 	public void loadFrmThongKe() {
+		setTitle("Quản lý thống kê");
 		resetColorMenu();
 		pContent.removeAll();
 		btnItemTK.setBackground(new Color(192,255,255));
