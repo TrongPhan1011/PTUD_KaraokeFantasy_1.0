@@ -95,24 +95,84 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnDSHD.setBounds(1013, 11, 194, 33);
 		pMain.add(btnDSHD);
 		
-		JLabel lblPhong = new JLabel("Phòng");
-		lblPhong.setFont(new Font("SansSerif", Font.BOLD, 20));
+		JLabel lblHeaderPhong = new JLabel("Phòng");
+		lblHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 20));
 	
-		lblPhong.setBounds(575, 51, 71, 26);
-		pMain.add(lblPhong);
+		lblHeaderPhong.setBounds(575, 51, 71, 26);
+		pMain.add(lblHeaderPhong);
 		
 		JPanel pPhong = new JPanel();
-		pPhong.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		
 		pPhong.setBackground(Color.white);		//new Color(164, 44, 167,20)
 
 		
 		JScrollPane scrollPane = new JScrollPane(pPhong);
 		scrollPane.setViewportView(pPhong);
+		scrollPane.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		
 		scrollPane.setBounds(46, 78, 1191, 108);
 		pMain.add(scrollPane);
+		
+		JLabel lblSubPhong = new JLabel("Phòng : ");
+		lblSubPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblSubPhong.setBounds(37, 201, 56, 26);
+		pMain.add(lblSubPhong);
+		
+		JLabel lblMaPhong = new JLabel("P001");
+		lblMaPhong.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblMaPhong.setBounds(92, 201, 56, 26);
+		pMain.add(lblMaPhong);
+		
+		JLabel lblSubTenKH = new JLabel("Tên khách hàng : ");
+		lblSubTenKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblSubTenKH.setBounds(192, 201, 120, 26);
+		pMain.add(lblSubTenKH);
+		
+		JLabel lblTenKH = new JLabel("Phan Hữu Trọng");
+		lblTenKH.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblTenKH.setBounds(310, 201, 194, 26);
+		pMain.add(lblTenKH);
+		
+		JLabel lblSubGioVao = new JLabel("Giờ vào: ");
+		lblSubGioVao.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblSubGioVao.setBounds(514, 201, 61, 26);
+		pMain.add(lblSubGioVao);
+		
+		JLabel lblGioVao = new JLabel("15h : 30");
+		lblGioVao.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblGioVao.setBounds(575, 201, 83, 26);
+		pMain.add(lblGioVao);
+		
+		JLabel lblSubGioRa = new JLabel("Giờ ra: ");
+		lblSubGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblSubGioRa.setBounds(675, 201, 61, 26);
+		pMain.add(lblSubGioRa);
+		
+		JComboBox<String> cbbGioRa = new JComboBox<String>();
+		cbbGioRa.setBackground(Color.WHITE);
+		cbbGioRa.setBounds(731, 205, 47, 22);
+		cbbGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		
+		for(int i=0 ; i <24;i++ ) {
+			cbbGioRa.addItem(""+i);
+		}
+		pMain.add(cbbGioRa);
+		
+		JLabel blbSubAfterGioRa = new JLabel(":");
+		blbSubAfterGioRa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		blbSubAfterGioRa.setBounds(780, 209, 6, 14);
+		pMain.add(blbSubAfterGioRa);
+		
+		JComboBox<String> cbbPhutRa = new JComboBox<String>();
+		cbbPhutRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbPhutRa.setBackground(Color.WHITE);
+		cbbPhutRa.setBounds(787, 205, 47, 22);
+		for(int i =0; i<60; i++) {
+			cbbPhutRa.addItem(""+i);
+		}
+		pMain.add(cbbPhutRa);
 		
 		
 

@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
 
 import javax.swing.BorderFactory;
@@ -63,6 +62,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	}
 
 	
+	@SuppressWarnings("deprecation")
 	public Frm_QuanLy() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Quản lý nhân viên");
@@ -87,7 +87,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		now = LocalDate.now();
 		ngay = now.getDayOfMonth();
-		thang = now.getMonthValue() -1;
+		thang = now.getMonthValue();
 		nam = now.getYear();
 		
 		dNow = new Date(nam,thang,ngay);
