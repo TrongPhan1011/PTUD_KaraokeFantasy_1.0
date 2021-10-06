@@ -2,38 +2,28 @@ package app;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-
-
-
-import entity.LoaiPhong;
-import entity.Phong;
-
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import javax.swing.border.TitledBorder;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class Frm_QLBH extends JPanel implements ActionListener {
 
@@ -44,6 +34,9 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 	private JTextField textField;
 	private JTextField txtTim;
 	private JTextField textField_1;
+	private JTable table;
+	private DefaultTableModel modelMatHang;
+	private JTable tbMatHang;
 	
 	public Panel getFrmQLBH() {
 		return this.pMain;
@@ -254,6 +247,69 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		rdbtnGiamSL.setBounds(62, 185, 147, 35);
 		pDichVu.add(rdbtnGiamSL);
+		
+		JButton btnThemMH = new JButton("Thêm mặt hàng");
+		btnThemMH.setForeground(Color.WHITE);
+		btnThemMH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnThemMH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true)); //new Color(57, 210, 247)
+		btnThemMH.setBackground(new Color(57, 210, 247));
+		btnThemMH.setBounds(57, 227, 152, 33);
+		pDichVu.add(btnThemMH);
+		
+		JButton btnXoaMH = new JButton("Xóa");
+		btnXoaMH.setForeground(Color.WHITE);
+		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnXoaMH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnXoaMH.setBackground(new Color(114, 23, 153));
+		btnXoaMH.setBounds(14, 271, 98, 33);
+		pDichVu.add(btnXoaMH);
+		
+		JButton btnLmMi = new JButton("Làm mới");
+		btnLmMi.setForeground(Color.WHITE);
+		btnLmMi.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnLmMi.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnLmMi.setBackground(new Color(114, 23, 153));
+		btnLmMi.setBounds(147, 271, 98, 33);
+		pDichVu.add(btnLmMi);
+		
+		String col [] = {"Tên mặt hàng", "Tên loại", "Số lượng", "Đơn giá","Tổng tiền"};
+		modelMatHang = new DefaultTableModel(col,0);
+		
+		tbMatHang = new JTable(modelMatHang);
+		tbMatHang.setShowHorizontalLines(false);
+		tbMatHang.setShowGrid(false);
+		tbMatHang.setBackground(Color.WHITE);
+		tbMatHang.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		
+		JTableHeader tbHeader = tbMatHang.getTableHeader();
+		tbHeader.setBackground(new Color(164, 44, 167));
+		tbHeader.setForeground(Color.white);
+		tbHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
+		
+		tbMatHang.setSelectionBackground(new Color(164, 44, 167,30));
+		tbMatHang.setRowHeight(30);
+		
+		tbMatHang.setOpaque(false);
+		
+//		demo dữ liệu:
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		modelMatHang.addRow(new Object[] {"123","123"});
+		
+
+		
+		JScrollPane spMatHang = new JScrollPane(tbMatHang);
+		spMatHang.setBounds(315, 245, 707, 282);
+		spMatHang.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
+		spMatHang.setBackground(new Color(164, 44, 167));
+		pMain.add(spMatHang);
 		
 		
 
