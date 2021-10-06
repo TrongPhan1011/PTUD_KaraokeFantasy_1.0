@@ -206,7 +206,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JPanel pDichVu = new JPanel();
 		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Dịch vụ ", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
-		pDichVu.setBackground(Color.WHITE);
+		pDichVu.setBackground(new Color(0,0,0,0));
 		pDichVu.setBounds(37, 235, 255, 344);
 		pMain.add(pDichVu);
 		pDichVu.setLayout(null);
@@ -244,7 +244,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		textField_1.setColumns(10);
 		
 		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
-		rdbtnGiamSL.setBackground(Color.WHITE);
+		rdbtnGiamSL.setBackground(new Color(0,0,0,0));
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		rdbtnGiamSL.setBounds(62, 185, 147, 35);
 		pDichVu.add(rdbtnGiamSL);
@@ -329,13 +329,13 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JRadioButton rdbtnChoThanhToan = new JRadioButton("Chờ thanh toán");
 		rdbtnChoThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnChoThanhToan.setBackground(Color.WHITE);
+		rdbtnChoThanhToan.setBackground(new Color(0,0,0,0));
 		rdbtnChoThanhToan.setBounds(1043, 316, 153, 33);
 		pMain.add(rdbtnChoThanhToan);
 		
 		JRadioButton rdbtnDaThanhToan = new JRadioButton("Đã thanh toán");
 		rdbtnDaThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnDaThanhToan.setBackground(Color.WHITE);
+		rdbtnDaThanhToan.setBackground(new Color(0,0,0,0));  //
 		rdbtnDaThanhToan.setBounds(1043, 352, 120, 33);
 		pMain.add(rdbtnDaThanhToan);
 		
@@ -343,6 +343,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		bg.add(rdbtnChoThanhToan);
 		bg.add(rdbtnDaThanhToan);
 		rdbtnChoThanhToan.setSelected(true);
+		
 		
 		JButton btnThanhToan = new JButton("Thanh toán");
 		btnThanhToan.setForeground(Color.WHITE);
@@ -412,10 +413,15 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		lblVn_1.setBounds(904, 559, 90, 26);
 		pMain.add(lblVn_1);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-		panel.setBounds(729, 555, 276, 2);
-		pMain.add(panel);
+		JPanel pLine = new JPanel();
+		pLine.setBackground(Color.BLACK);
+		pLine.setBounds(729, 555, 276, 2);
+		pMain.add(pLine);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon("data\\img\\background.png"));
+		lblNewLabel_2.setBounds(0, 0, 1281, 606);
+		pMain.add(lblNewLabel_2);
 		
 		
 		
