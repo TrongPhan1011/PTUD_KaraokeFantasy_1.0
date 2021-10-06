@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -23,6 +24,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener{
 	private Panel pMain;
 	private String sHeaderTenNV;
 	private String sHeaderMaNV;
+	private Date dNgayHienTai;
 	private JTextField textField;
 	private JButton btnNewButton_1;
 	
@@ -30,10 +32,11 @@ public class Frm_NhanVien extends JPanel implements ActionListener{
 		return pMain;
 	}
 	
-	public  Frm_NhanVien(String sHeaderTenNV, String sHeaderMaNV) {
+	public  Frm_NhanVien(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 		
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
+		this.dNgayHienTai = dNgayHienTai;
 		
 		setLayout(null);
 		pMain = new Panel();

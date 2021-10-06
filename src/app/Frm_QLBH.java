@@ -1,15 +1,19 @@
 package app;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+
 
 import entity.LoaiPhong;
 import entity.Phong;
@@ -22,11 +26,18 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagLayout;
 
 public class Frm_QLBH extends JPanel implements ActionListener {
 
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
+	private Date dNgayHienTai;
 	private Panel pMain;
 	private JTextField textField;
 	private JTextField txtTim;
@@ -35,10 +46,11 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		return this.pMain;
 	}
 	
-	public Frm_QLBH(String sHeaderTenNV, String sHeaderMaNV)  {
+	public Frm_QLBH(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai)  {
 		
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
+		this.dNgayHienTai = dNgayHienTai;
 		
 		setLayout(null);
 		pMain = new Panel();
@@ -85,18 +97,60 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JLabel lblPhong = new JLabel("Phòng");
 		lblPhong.setFont(new Font("SansSerif", Font.BOLD, 20));
+	
 		lblPhong.setBounds(575, 51, 71, 26);
 		pMain.add(lblPhong);
 		
 		JPanel pPhong = new JPanel();
-		pPhong.setBackground(Color.LIGHT_GRAY);
-		pPhong.setBounds(37, 88, 1191, 121);
-		pMain.add(pPhong);
-		pPhong.setLayout(null);
+		pPhong.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		pPhong.setBackground(Color.white);		//new Color(164, 44, 167,20)
+
 		
-//		JScrollBar scrollBar = new JScrollBar(pPhong);
-//		scrollBar.setBounds(1174, 0, 17, 121);
-//		pPhong.add(scrollBar);
+		JScrollPane scrollPane = new JScrollPane(pPhong);
+		scrollPane.setViewportView(pPhong);
+		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
+		
+		
+		scrollPane.setBounds(46, 78, 1191, 108);
+		pMain.add(scrollPane);
+		
+		
+
+		
+		for(int i =0; i< 15; i++) {
+			JPanel pn = new JPanel();
+			
+			JButton btnPhong = new JButton("P001");
+			pn.add(btnPhong);
+			btnPhong.setBackground(new Color(57, 210, 247));
+			btnPhong.setPreferredSize(new Dimension(70,70));
+			btnPhong.setBorder(new LineBorder(Color.white,10));
+			
+			JLabel lblTenPhong = new JLabel("P001");
+			lblTenPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
+			pn.setBackground(new Color(164, 44, 167,20));
+		
+			
+			pn.add(lblTenPhong);
+			pPhong.add(pn);
+			
+			
+		
+		}
+		
+		
+
+		
+//		JButton btnPhong = new JButton("P001");
+//		btnPhong.setBackground(new Color(57, 210, 247));
+//		btnPhong.setBorder(new LineBorder(Color.white,5,true));
+//		btnPhong.setBounds(30, 11, 88, 61);
+//		pPhong.add(btnPhong);
+//		
+//		JLabel lblTenPhong = new JLabel("P001");
+//		lblTenPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
+//		lblTenPhong.setBounds(55, 83, 48, 14);
+//		pPhong.add(lblTenPhong);
 		
 //		JLabel lblSapXep = new JLabel("Sắp xếp:");
 //		lblSapXep.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -115,7 +169,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 //		
 //		pMain.add(cbSapXep);
 		
-		Phong p1 = new Phong("P001", "Dang hoat dong",100000, new LoaiPhong("LP001","VIP"));
+		
 		
 		
 		

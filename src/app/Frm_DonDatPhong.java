@@ -2,6 +2,7 @@ package app;
 
 import java.awt.Color;
 import java.awt.Panel;
+import java.sql.Date;
 
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -15,15 +16,17 @@ public class Frm_DonDatPhong extends JPanel {
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
 	private Panel pMain;
+	private Date dNgayHienTai;
 	
 	
 	public Panel getFrmDDP() {
 		return this.pMain;
 	}
-	public Frm_DonDatPhong(String sHeaderTenNV, String sHeaderMaNV) {
+	public Frm_DonDatPhong(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
+		this.dNgayHienTai = dNgayHienTai;
 		
 		setLayout(null);
 		pMain = new Panel();

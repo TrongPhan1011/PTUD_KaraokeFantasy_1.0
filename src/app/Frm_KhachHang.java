@@ -2,7 +2,11 @@ package app;
 
 import java.awt.Color;
 import java.awt.Panel;
+
 import java.awt.Toolkit;
+
+import java.sql.Date;
+
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -24,6 +28,7 @@ public class Frm_KhachHang extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
+	private Date dNgayHienTai;
 	private Panel pMain;
 	private JTextField textFieldTK;
 	private JTextField textFieldHoTen;
@@ -33,10 +38,11 @@ public class Frm_KhachHang extends JPanel {
 	public Panel getFrmKH() {
 		return this.pMain;
 	}
-	public Frm_KhachHang(String sHeaderTenNV, String sHeaderMaNV) {
+	public Frm_KhachHang(String sHeaderTenNV, String sHeaderMaNV,Date dNgayHienTai) {
 
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
+		this.dNgayHienTai = dNgayHienTai;
 		
 		setLayout(null);
 		pMain = new Panel();
