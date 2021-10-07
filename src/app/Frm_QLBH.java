@@ -323,11 +323,12 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		spMatHang.setBackground(new Color(164, 44, 167));
 		pMain.add(spMatHang);
 		
-		ButtonGroup bg = new ButtonGroup();
+
 		
 		JLabel lblSubGiaPhong = new JLabel("Giá phòng: ");
 		lblSubGiaPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblSubGiaPhong.setBounds(390, 522, 77, 26);
+		
 		pMain.add(lblSubGiaPhong);
 		
 		JLabel lblGiaPhong = new JLabel("100 000 vnđ");
@@ -408,6 +409,10 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		rdbtnDaThanhToan.setBackground(new Color(238,239,243));
 		rdbtnDaThanhToan.setBounds(21, 124, 120, 33);
 		pThanhToan.add(rdbtnDaThanhToan);
+		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnChoThanhToan);
+		bg.add(rdbtnDaThanhToan);
 		
 		JButton btnThanhToan = new JButton("Thanh toán");
 		btnThanhToan.setForeground(Color.WHITE);
