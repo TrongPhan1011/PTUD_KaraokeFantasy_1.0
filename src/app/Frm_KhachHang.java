@@ -107,7 +107,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		JLabel lblSDT = new JLabel("SĐT:");
 		lblSDT.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblSDT.setBounds(249, 107, 46, 14);
+		lblSDT.setBounds(249, 111, 46, 14);
 		pMain.add(lblSDT);
 		
 		textFieldSDT = new JTextField();
@@ -141,7 +141,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		JLabel lblCccd = new JLabel("CCCD:");
 		lblCccd.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCccd.setBounds(596, 107, 65, 14);
+		lblCccd.setBounds(603, 111, 65, 14);
 		pMain.add(lblCccd);
 		
 		textFieldCccd = new JTextField();
@@ -168,22 +168,22 @@ public class Frm_KhachHang extends JPanel {
 		
 		JLabel lblNgaySinh = new JLabel("Ngày sinh:");
 		lblNgaySinh.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNgaySinh.setBounds(965, 68, 75, 18);
+		lblNgaySinh.setBounds(943, 68, 75, 18);
 		pMain.add(lblNgaySinh);
 		
 		JLabel lblNgayDangKy = new JLabel("Ngày đăng ký:");
 		lblNgayDangKy.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNgayDangKy.setBounds(965, 107, 102, 20);
+		lblNgayDangKy.setBounds(943, 108, 102, 20);
 		pMain.add(lblNgayDangKy);
 		
 		JLabel lblDiem = new JLabel("Điểm tích lũy:");
 		lblDiem.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblDiem.setBounds(965, 156, 102, 18);
+		lblDiem.setBounds(943, 153, 102, 18);
 		pMain.add(lblDiem);
 		
 		
 		textFieldPoint = new JTextField();
-		textFieldPoint.setBounds(1077, 150, 108, 28);
+		textFieldPoint.setBounds(1041, 150, 108, 28);
 		textFieldPoint.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(textFieldPoint);
 		textFieldPoint.setColumns(10);
@@ -192,7 +192,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNgaySinh = new JComboBox<String>();
 		cbbNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgaySinh.setBackground(Color.white);
-		cbbNgaySinh.setBounds(1070, 68, 47, 27);
+		cbbNgaySinh.setBounds(1041, 69, 47, 27);
 		for(int i = 1;i <=31; i++) {
 			cbbNgaySinh.addItem(""+i);
 		}
@@ -201,7 +201,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbThangSinh = new JComboBox<String>();
 		cbbThangSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangSinh.setBackground(Color.white);
-		cbbThangSinh.setBounds(1132, 68, 46, 27);
+		cbbThangSinh.setBounds(1098, 68, 46, 27);
 		for(int i = 1; i <= 12;i++) {
 			cbbThangSinh.addItem(""+i);
 		}
@@ -210,7 +210,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNamSinh = new JComboBox<String>();
 		cbbNamSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNamSinh.setBackground(Color.white);
-		cbbNamSinh.setBounds(1188, 68, 72, 27);
+		cbbNamSinh.setBounds(1154, 68, 72, 27);
 		for(int i = 2004; i > 1900; i--) {
 			cbbNamSinh.addItem(""+i);
 		}
@@ -337,6 +337,24 @@ public class Frm_KhachHang extends JPanel {
 		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		textAreaDiaChi.setBounds(342, 152, 189, 51);
 		pMain.add(textAreaDiaChi);
+		
+		JComboBox<String> cbbNgayDangKy = new JComboBox<String>();
+		cbbNgayDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbNgayDangKy.setBackground(Color.WHITE);
+		cbbNgayDangKy.setBounds(1041, 105, 47, 27);
+		pMain.add(cbbNgayDangKy);
+		
+		JComboBox<String> cbbThangDangKy = new JComboBox<String>();
+		cbbThangDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbThangDangKy.setBackground(Color.WHITE);
+		cbbThangDangKy.setBounds(1098, 105, 46, 27);
+		pMain.add(cbbThangDangKy);
+		
+		JComboBox<String> cbbNamDangKy = new JComboBox<String>();
+		cbbNamDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbNamDangKy.setBackground(Color.WHITE);
+		cbbNamDangKy.setBounds(1154, 105, 72, 27);
+		pMain.add(cbbNamDangKy);
 		
 
 		
