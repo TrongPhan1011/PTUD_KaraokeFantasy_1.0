@@ -290,7 +290,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemQLBH.setBackground(new Color(192,255,255));
 		btnItemQLBH.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_QLBH = new Frm_QLBH("QL","Phan Huu Trong", dNow);
+		Frm_QLBH = new Frm_QLBH(this,"QL","Phan Huu Trong", dNow);
 		pContent.add(Frm_QLBH.getFrmQLBH());
 	
 	}

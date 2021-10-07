@@ -3,10 +3,12 @@ package app;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -15,6 +17,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -25,12 +28,14 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.UIManager;
 
 public class Frm_QLBH extends JPanel implements ActionListener {
 
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
 	private Date dNgayHienTai;
+	private JFrame frm;
 	private Panel pMain;
 	
 	private JTextField txtTim;
@@ -38,16 +43,18 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 	
 	private DefaultTableModel modelMatHang;
 	private JTable tbMatHang;
+	private JButton btnDSHD;
 	
 	public Panel getFrmQLBH() {
 		return this.pMain;
 	}
 	
-	public Frm_QLBH(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai)  {
+	public Frm_QLBH(JFrame frm,String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai)  {
 		
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
 		this.dNgayHienTai = dNgayHienTai;
+		this.frm = frm;
 		
 		setLayout(null);
 		pMain = new Panel();
@@ -84,13 +91,14 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
 		pMain.add(btnTim);
 		
-		JButton btnDSHD = new JButton("Xem danh sách hóa đơn");
+		btnDSHD = new JButton("Xem danh sách hóa đơn");
 		btnDSHD.setForeground(Color.WHITE);
 		btnDSHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnDSHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnDSHD.setBackground(new Color(114, 23, 153));
 		btnDSHD.setBounds(1043, 13, 194, 33);
 		pMain.add(btnDSHD);
+		btnDSHD.addActionListener(this);
 		
 		JLabel lblHeaderPhong = new JLabel("Phòng");
 		lblHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 20));
@@ -196,7 +204,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JLabel lblNgayLap = new JLabel("10/11/2021");
 		lblNgayLap.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblNgayLap.setBounds(1165, 201, 83, 26);
+		lblNgayLap.setBounds(1157, 201, 83, 26);
 		pMain.add(lblNgayLap);
 		
 		JLabel lblSubNgayLap = new JLabel("Ngày lập hóa đơn:");
@@ -206,7 +214,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JPanel pDichVu = new JPanel();
 		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Dịch vụ ", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
-		pDichVu.setBackground(new Color(0,0,0,0));
+		pDichVu.setBackground(new Color(238,239,243,90));
 		pDichVu.setBounds(37, 235, 255, 344);
 		pMain.add(pDichVu);
 		pDichVu.setLayout(null);
@@ -247,7 +255,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		txtSoLuong.setColumns(10);
 		
 		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
-		rdbtnGiamSL.setBackground(new Color(0,0,0,0));
+		rdbtnGiamSL.setBackground(new Color(238,239,243));
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		rdbtnGiamSL.setBounds(62, 185, 147, 35);
 		pDichVu.add(rdbtnGiamSL);
@@ -315,62 +323,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		spMatHang.setBackground(new Color(164, 44, 167));
 		pMain.add(spMatHang);
 		
-		JLabel lblSubNhanVien = new JLabel("Nhân viên lập hóa đơn :");
-		lblSubNhanVien.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubNhanVien.setBounds(1032, 246, 161, 26);
-		pMain.add(lblSubNhanVien);
-		
-		JLabel lblPhanHuTrng = new JLabel("QL001");
-		lblPhanHuTrng.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPhanHuTrng.setBounds(1187, 246, 61, 26);
-		pMain.add(lblPhanHuTrng);
-		
-		JLabel lblSubTTHD = new JLabel("Trạng thái hóa đơn:");
-		lblSubTTHD.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubTTHD.setBounds(1032, 283, 131, 26);
-		pMain.add(lblSubTTHD);
-		
-		JRadioButton rdbtnChoThanhToan = new JRadioButton("Chờ thanh toán");
-		rdbtnChoThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnChoThanhToan.setBackground(new Color(0,0,0,0));
-		rdbtnChoThanhToan.setBounds(1043, 316, 153, 33);
-		pMain.add(rdbtnChoThanhToan);
-		
-		JRadioButton rdbtnDaThanhToan = new JRadioButton("Đã thanh toán");
-		rdbtnDaThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnDaThanhToan.setBackground(new Color(0,0,0,0));  //
-		rdbtnDaThanhToan.setBounds(1043, 352, 120, 33);
-		pMain.add(rdbtnDaThanhToan);
-		
 		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnChoThanhToan);
-		bg.add(rdbtnDaThanhToan);
-		rdbtnChoThanhToan.setSelected(true);
-		
-		
-		JButton btnThanhToan = new JButton("Thanh toán");
-		btnThanhToan.setForeground(Color.WHITE);
-		btnThanhToan.setFont(new Font("SansSerif", Font.BOLD, 20));
-		btnThanhToan.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnThanhToan.setBackground(new Color(57, 210, 247));
-		btnThanhToan.setBounds(1032, 410, 205, 53);
-		pMain.add(btnThanhToan);
-		
-		JButton btnSuaHD = new JButton("Sửa hóa đơn");
-		btnSuaHD.setForeground(Color.WHITE);
-		btnSuaHD.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnSuaHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnSuaHD.setBackground(new Color(114, 23, 153));
-		btnSuaHD.setBounds(1032, 515, 98, 33);
-		pMain.add(btnSuaHD);
-		
-		JButton btnLamMoiHD = new JButton("Làm mới");
-		btnLamMoiHD.setForeground(Color.WHITE);
-		btnLamMoiHD.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLamMoiHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnLamMoiHD.setBackground(new Color(114, 23, 153));
-		btnLamMoiHD.setBounds(1140, 515, 97, 33);
-		pMain.add(btnLamMoiHD);
 		
 		JLabel lblSubGiaPhong = new JLabel("Giá phòng: ");
 		lblSubGiaPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -421,14 +374,73 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		pLine.setBounds(729, 555, 276, 2);
 		pMain.add(pLine);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("data\\img\\background.png"));
-		lblNewLabel_2.setBounds(0, 0, 1281, 606);
-		Image imgBackground = Toolkit.getDefaultToolkit ().getImage ("data\\img\\background.png");
-		Image resizeBG = imgBackground.getScaledInstance(lblNewLabel_2.getWidth(), lblNewLabel_2.getHeight(), 0);
-		lblNewLabel_2.setIcon(new ImageIcon(resizeBG));
+		JPanel pThanhToan = new JPanel();
+		pThanhToan.setBackground(new Color(238,239,243));
+		pThanhToan.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Thanh toán", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pThanhToan.setBounds(1024, 238, 216, 341);
+		pMain.add(pThanhToan);
+		pThanhToan.setLayout(null);
 		
-		pMain.add(lblNewLabel_2);
+		JLabel lblSubNhanVien = new JLabel("Nhân viên lập hóa đơn :");
+		lblSubNhanVien.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblSubNhanVien.setBounds(10, 21, 161, 26);
+		pThanhToan.add(lblSubNhanVien);
+		
+		JLabel lblPhanHuTrng = new JLabel("QL001");
+		lblPhanHuTrng.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblPhanHuTrng.setBounds(163, 21, 50, 26);
+		pThanhToan.add(lblPhanHuTrng);
+		
+		JLabel lblSubTTHD = new JLabel("Trạng thái hóa đơn:");
+		lblSubTTHD.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblSubTTHD.setBounds(10, 51, 131, 26);
+		pThanhToan.add(lblSubTTHD);
+		
+		JRadioButton rdbtnChoThanhToan = new JRadioButton("Chờ thanh toán");
+		rdbtnChoThanhToan.setSelected(true);
+		rdbtnChoThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdbtnChoThanhToan.setBackground(new Color(238,239,243));
+		rdbtnChoThanhToan.setBounds(20, 88, 139, 33);
+		pThanhToan.add(rdbtnChoThanhToan);
+		
+		JRadioButton rdbtnDaThanhToan = new JRadioButton("Đã thanh toán");
+		rdbtnDaThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdbtnDaThanhToan.setBackground(new Color(238,239,243));
+		rdbtnDaThanhToan.setBounds(21, 124, 120, 33);
+		pThanhToan.add(rdbtnDaThanhToan);
+		
+		JButton btnThanhToan = new JButton("Thanh toán");
+		btnThanhToan.setForeground(Color.WHITE);
+		btnThanhToan.setFont(new Font("SansSerif", Font.BOLD, 20));
+		btnThanhToan.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnThanhToan.setBackground(new Color(57, 210, 247));
+		btnThanhToan.setBounds(10, 188, 193, 53);
+		pThanhToan.add(btnThanhToan);
+		
+		JButton btnSuaHD = new JButton("Sửa hóa đơn");
+		btnSuaHD.setForeground(Color.WHITE);
+		btnSuaHD.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnSuaHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnSuaHD.setBackground(new Color(114, 23, 153));
+		btnSuaHD.setBounds(10, 279, 98, 33);
+		pThanhToan.add(btnSuaHD);
+		
+		JButton btnLamMoiHD = new JButton("Làm mới");
+		btnLamMoiHD.setForeground(Color.WHITE);
+		btnLamMoiHD.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnLamMoiHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnLamMoiHD.setBackground(new Color(114, 23, 153));
+		btnLamMoiHD.setBounds(113, 279, 90, 33);
+		pThanhToan.add(btnLamMoiHD);
+		
+		JLabel lblBackground = new JLabel("");
+		lblBackground.setIcon(new ImageIcon("data\\img\\background.png"));
+		lblBackground.setBounds(0, 0, 1281, 606);
+		Image imgBackground = Toolkit.getDefaultToolkit ().getImage ("data\\img\\background.png");
+		Image resizeBG = imgBackground.getScaledInstance(lblBackground.getWidth(), lblBackground.getHeight(), 0);
+		lblBackground.setIcon(new ImageIcon(resizeBG));
+		
+		pMain.add(lblBackground);
 		
 		
 		
@@ -497,7 +509,14 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object o = e.getSource();
+		if(o.equals(btnDSHD)) {
+			Frm_DanhSachHoaDon frm_DanhSachHoaDon = new Frm_DanhSachHoaDon(frm);
+			frm_DanhSachHoaDon.setVisible(true);
+			frm.setVisible(false);
+			
+			
+		}
 		
 	}
 }
