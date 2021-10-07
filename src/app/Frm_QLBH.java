@@ -32,10 +32,10 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 	private String sHeaderTenNV;
 	private Date dNgayHienTai;
 	private Panel pMain;
-	private JTextField textField;
+	
 	private JTextField txtTim;
-	private JTextField textField_1;
-	private JTable table;
+	private JTextField txtSoLuong;
+	
 	private DefaultTableModel modelMatHang;
 	private JTable tbMatHang;
 	
@@ -56,15 +56,15 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		add(pMain);
 		pMain.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Quản lý bán hàng");
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
-		lblNewLabel.setBounds(37, 10, 255, 33);
-		pMain.add(lblNewLabel);
+		JLabel lbbTitle = new JLabel("Quản lý bán hàng");
+		lbbTitle.setFont(new Font("SansSerif", Font.BOLD, 22));
+		lbbTitle.setBounds(37, 10, 255, 33);
+		pMain.add(lbbTitle);
 		
-		JLabel lblNewLabel_1 = new JLabel("Tìm kiếm:");
-		lblNewLabel_1.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(374, 13, 90, 35);
-		pMain.add(lblNewLabel_1);
+		JLabel lblSubTimKiem = new JLabel("Tìm kiếm:");
+		lblSubTimKiem.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lblSubTimKiem.setBounds(374, 13, 90, 35);
+		pMain.add(lblSubTimKiem);
 		
 		txtTim = new JTextField();
 		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -238,10 +238,13 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		lblSoluongMH.setBounds(10, 142, 84, 26);
 		pDichVu.add(lblSoluongMH);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(112, 141, 133, 30);
-		pDichVu.add(textField_1);
-		textField_1.setColumns(10);
+		txtSoLuong = new JTextField();
+		txtSoLuong.setBackground(new Color(255, 255, 255));
+		txtSoLuong.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtSoLuong.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
+		txtSoLuong.setBounds(112, 141, 133, 30);
+		pDichVu.add(txtSoLuong);
+		txtSoLuong.setColumns(10);
 		
 		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
 		rdbtnGiamSL.setBackground(new Color(0,0,0,0));
@@ -361,13 +364,13 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnSuaHD.setBounds(1032, 515, 98, 33);
 		pMain.add(btnSuaHD);
 		
-		JButton btnLmMi_1 = new JButton("Làm mới");
-		btnLmMi_1.setForeground(Color.WHITE);
-		btnLmMi_1.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLmMi_1.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnLmMi_1.setBackground(new Color(114, 23, 153));
-		btnLmMi_1.setBounds(1140, 515, 97, 33);
-		pMain.add(btnLmMi_1);
+		JButton btnLamMoiHD = new JButton("Làm mới");
+		btnLamMoiHD.setForeground(Color.WHITE);
+		btnLamMoiHD.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnLamMoiHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnLamMoiHD.setBackground(new Color(114, 23, 153));
+		btnLamMoiHD.setBounds(1140, 515, 97, 33);
+		pMain.add(btnLamMoiHD);
 		
 		JLabel lblSubGiaPhong = new JLabel("Giá phòng: ");
 		lblSubGiaPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -396,22 +399,22 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		lblpSubPhuThu.setBounds(831, 522, 61, 26);
 		pMain.add(lblpSubPhuThu);
 		
-		JLabel lblVn = new JLabel("50 000 vnđ");
-		lblVn.setForeground(Color.RED);
-		lblVn.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblVn.setBounds(904, 522, 90, 26);
-		pMain.add(lblVn);
+		JLabel lblPhuThu = new JLabel("50 000 vnđ");
+		lblPhuThu.setForeground(Color.RED);
+		lblPhuThu.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblPhuThu.setBounds(904, 522, 90, 26);
+		pMain.add(lblPhuThu);
 		
-		JLabel lblThnhTin = new JLabel("Thành tiền: ");
-		lblThnhTin.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		lblThnhTin.setBounds(804, 559, 90, 26);
-		pMain.add(lblThnhTin);
+		JLabel lblSubThanhTien = new JLabel("Thành tiền: ");
+		lblSubThanhTien.setFont(new Font("SansSerif", Font.PLAIN, 17));
+		lblSubThanhTien.setBounds(804, 559, 90, 26);
+		pMain.add(lblSubThanhTien);
 		
-		JLabel lblVn_1 = new JLabel("50 000 vnđ");
-		lblVn_1.setForeground(Color.RED);
-		lblVn_1.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 17));
-		lblVn_1.setBounds(904, 559, 90, 26);
-		pMain.add(lblVn_1);
+		JLabel lblThanhTien = new JLabel("50 000 vnđ");
+		lblThanhTien.setForeground(Color.RED);
+		lblThanhTien.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 17));
+		lblThanhTien.setBounds(904, 559, 90, 26);
+		pMain.add(lblThanhTien);
 		
 		JPanel pLine = new JPanel();
 		pLine.setBackground(Color.BLACK);
@@ -421,6 +424,10 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon("data\\img\\background.png"));
 		lblNewLabel_2.setBounds(0, 0, 1281, 606);
+		Image imgBackground = Toolkit.getDefaultToolkit ().getImage ("data\\img\\background.png");
+		Image resizeBG = imgBackground.getScaledInstance(lblNewLabel_2.getWidth(), lblNewLabel_2.getHeight(), 0);
+		lblNewLabel_2.setIcon(new ImageIcon(resizeBG));
+		
 		pMain.add(lblNewLabel_2);
 		
 		
