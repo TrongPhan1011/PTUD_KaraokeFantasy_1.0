@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Frm_KhachHang extends JPanel {
 	
@@ -41,7 +42,6 @@ public class Frm_KhachHang extends JPanel {
 	private JTextField textFieldTK;
 	private JTextField textFieldHoTen;
 	private JTextField textFieldSDT;
-	private JTextField textFieldAddress;
 	private JTextField textFieldCccd;
 	private JTextField textFieldPoint;
 	private JTable tableKH;
@@ -100,7 +100,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblHoTen);
 		
 		textFieldHoTen = new JTextField();
-		textFieldHoTen.setBounds(342, 67, 189, 20);
+		textFieldHoTen.setBounds(342, 67, 189, 28);
 		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(textFieldHoTen);
 		textFieldHoTen.setColumns(10);
@@ -111,23 +111,15 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblSDT);
 		
 		textFieldSDT = new JTextField();
-		textFieldSDT.setBounds(342, 106, 189, 20);
+		textFieldSDT.setBounds(342, 106, 189, 28);
 		textFieldSDT.setBorder(new LineBorder(new Color(114, 23 ,153),2 , true));
 		pMain.add(textFieldSDT);
 		textFieldSDT.setColumns(10);
 		
 		JLabel lblAddress = new JLabel("Địa chỉ:");
 		lblAddress.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblAddress.setBounds(249, 178, 72, 20);
+		lblAddress.setBounds(249, 152, 72, 20);
 		pMain.add(lblAddress);
-		
-		textFieldAddress = new JTextField();
-		textFieldAddress.setForeground(Color.BLACK);
-		textFieldAddress.setBackground(Color.WHITE);
-		textFieldAddress.setBounds(342, 156, 189, 62);
-		textFieldAddress.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		pMain.add(textFieldAddress);
-		textFieldAddress.setColumns(10);
 		
 		JLabel lblLoaiKH = new JLabel("Loại khách hàng:");
 		lblLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -136,7 +128,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		JComboBox <String> loaiKH = new JComboBox<String>();
 		loaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		loaiKH.setBounds(741, 69, 124, 20);
+		loaiKH.setBounds(741, 69, 124, 26);
 		//loaiKH.setForeground(new Color(255, 255, 255));
 		loaiKH.setBackground(new Color(255, 255, 255));
 		String cbbLoaiKH [] = {"Thường", "Thành viên", "VIP"};
@@ -153,7 +145,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblCccd);
 		
 		textFieldCccd = new JTextField();
-		textFieldCccd.setBounds(741, 106, 124, 20);
+		textFieldCccd.setBounds(741, 106, 124, 28);
 		
 		pMain.add(textFieldCccd);
 		textFieldCccd.setColumns(10);
@@ -165,7 +157,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblGioiTinh);
 		
 		JComboBox<String> gioiTinh = new JComboBox<String>();
-		gioiTinh.setBounds(744, 156, 65, 22);
+		gioiTinh.setBounds(744, 156, 65, 28);
 		gioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		gioiTinh.setBackground(Color.WHITE);
 		String cbbGioiTinh [] = {"Nam", "Nữ"};
@@ -191,7 +183,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		
 		textFieldPoint = new JTextField();
-		textFieldPoint.setBounds(1070, 157, 90, 20);
+		textFieldPoint.setBounds(1077, 150, 108, 28);
 		textFieldPoint.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(textFieldPoint);
 		textFieldPoint.setColumns(10);
@@ -200,7 +192,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNgaySinh = new JComboBox<String>();
 		cbbNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgaySinh.setBackground(Color.white);
-		cbbNgaySinh.setBounds(1070, 68, 47, 22);
+		cbbNgaySinh.setBounds(1070, 68, 47, 27);
 		for(int i = 1;i <=31; i++) {
 			cbbNgaySinh.addItem(""+i);
 		}
@@ -209,7 +201,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbThangSinh = new JComboBox<String>();
 		cbbThangSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangSinh.setBackground(Color.white);
-		cbbThangSinh.setBounds(1132, 68, 46, 22);
+		cbbThangSinh.setBounds(1132, 68, 46, 27);
 		for(int i = 1; i <= 12;i++) {
 			cbbThangSinh.addItem(""+i);
 		}
@@ -218,7 +210,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNamSinh = new JComboBox<String>();
 		cbbNamSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNamSinh.setBackground(Color.white);
-		cbbNamSinh.setBounds(1188, 68, 72, 22);
+		cbbNamSinh.setBounds(1188, 68, 72, 27);
 		for(int i = 2004; i > 1900; i--) {
 			cbbNamSinh.addItem(""+i);
 		}
@@ -230,7 +222,7 @@ public class Frm_KhachHang extends JPanel {
 		btnThemKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemKH.setBackground(new Color(114, 23, 153));
-		btnThemKH.setBounds(374, 233, 124, 46);
+		btnThemKH.setBounds(387, 230, 98, 35);
 		pMain.add(btnThemKH);
 		
 		JButton btnSuaKH = new JButton("Sửa");
@@ -238,7 +230,7 @@ public class Frm_KhachHang extends JPanel {
 		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaKH.setBackground(new Color(114, 23, 153));
-		btnSuaKH.setBounds(537, 233, 124, 46);
+		btnSuaKH.setBounds(560, 230, 108, 35);
 		pMain.add(btnSuaKH);
 		
 		JButton btnXoaKH = new JButton("Xóa");
@@ -246,7 +238,7 @@ public class Frm_KhachHang extends JPanel {
 		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaKH.setBackground(new Color(114, 23, 153));
-		btnXoaKH.setBounds(698, 233, 124, 46);
+		btnXoaKH.setBounds(722, 230, 118, 35);
 		pMain.add(btnXoaKH);
 		
 		JButton btnReset = new JButton("Reset");
@@ -254,12 +246,12 @@ public class Frm_KhachHang extends JPanel {
 		btnReset.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnReset.setBackground(new Color(114, 23, 153));
-		btnReset.setBounds(859, 233, 124, 46);
+		btnReset.setBounds(896, 230, 118, 35);
 		pMain.add(btnReset);
 		
 		JLabel lblSort = new JLabel("Sắp xếp:");
 		lblSort.setFont(new Font("SansSerif", Font.BOLD, 13));
-		lblSort.setBounds(249, 288, 57, 14);
+		lblSort.setBounds(249, 288, 65, 19);
 		pMain.add(lblSort);
 		
 		JComboBox<String> cbbSort = new JComboBox<String>();
@@ -272,22 +264,22 @@ public class Frm_KhachHang extends JPanel {
 		cbbSort.setBounds(316, 285, 98, 22);
 		pMain.add(cbbSort);
 		
-		JRadioButton rdbtnTheoMaKH = new JRadioButton("Theo mã khác hàng");
+		JRadioButton rdbtnTheoMaKH = new JRadioButton("Theo mã khách hàng");
 		rdbtnTheoMaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		rdbtnTheoMaKH.setBackground(new Color(0,0,0,0));
-		rdbtnTheoMaKH.setBounds(439, 286, 124, 23);
+		rdbtnTheoMaKH.setBounds(439, 286, 179, 23);
 		pMain.add(rdbtnTheoMaKH);
 		
 		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên khách hàng");
 		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		rdbtnTheoTenKH.setBackground(new Color(0,0,0,0));
-		rdbtnTheoTenKH.setBounds(584, 286, 136, 23);
+		rdbtnTheoTenKH.setBounds(620, 285, 189, 23);
 		pMain.add(rdbtnTheoTenKH);
 		
 		JRadioButton rdbtnTheoLoaiKH = new JRadioButton("Theo loại khách hàng");
 		rdbtnTheoLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		rdbtnTheoLoaiKH.setBackground(new Color(0,0,0,0));
-		rdbtnTheoLoaiKH.setBounds(741, 286, 143, 23);
+		rdbtnTheoLoaiKH.setBounds(811, 285, 179, 23);
 		pMain.add(rdbtnTheoLoaiKH);
 		
 		ButtonGroup bg = new ButtonGroup();
@@ -340,6 +332,11 @@ public class Frm_KhachHang extends JPanel {
 		tableKH.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		tableKH.setSelectionBackground(new Color(164, 44, 167,30));
 		scrollPaneKH.setViewportView(tableKH);
+		
+		JTextArea textAreaDiaChi = new JTextArea();
+		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
+		textAreaDiaChi.setBounds(342, 152, 189, 51);
+		pMain.add(textAreaDiaChi);
 		
 
 		
