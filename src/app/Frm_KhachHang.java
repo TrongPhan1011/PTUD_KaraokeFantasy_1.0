@@ -342,17 +342,31 @@ public class Frm_KhachHang extends JPanel {
 		cbbNgayDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgayDangKy.setBackground(Color.WHITE);
 		cbbNgayDangKy.setBounds(1041, 105, 47, 27);
+		for(int i = 1; i <= 31; i++ ) {
+			cbbNgayDangKy.addItem(""+i);
+		}
 		pMain.add(cbbNgayDangKy);
 		
 		JComboBox<String> cbbThangDangKy = new JComboBox<String>();
 		cbbThangDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangDangKy.setBackground(Color.WHITE);
 		cbbThangDangKy.setBounds(1098, 105, 46, 27);
+		for(int i =1; i <=12; i++) {
+			cbbThangDangKy.addItem(""+i);
+		}
 		pMain.add(cbbThangDangKy);
+		
+		
+		
 		
 		JComboBox<String> cbbNamDangKy = new JComboBox<String>();
 		cbbNamDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNamDangKy.setBackground(Color.WHITE);
+		int namHienTai = dNgayHienTai.getYear();
+		int namBatDau = namHienTai - 10;
+		for(int i = namBatDau; i <= namHienTai; i++) {
+			cbbNamDangKy.addItem(""+i);
+		}
 		cbbNamDangKy.setBounds(1154, 105, 72, 27);
 		pMain.add(cbbNamDangKy);
 		
