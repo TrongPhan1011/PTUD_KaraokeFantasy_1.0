@@ -114,6 +114,11 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnDSHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnDSHD.setBackground(new Color(114, 23, 153));
 		btnDSHD.setBounds(1043, 13, 213, 33);
+		
+		Image imgListHD = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconList.png");
+		Image resizeImgListHD = imgListHD.getScaledInstance(25, 25, 0);
+		btnDSHD.setIcon(new ImageIcon(resizeImgListHD));
+		
 		pMain.add(btnDSHD);
 		btnDSHD.addActionListener(this);
 		
@@ -276,6 +281,11 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnThemMH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true)); //new Color(57, 210, 247)
 		btnThemMH.setBackground(new Color(57, 210, 247));
 		btnThemMH.setBounds(68, 221, 166, 33);
+		
+		Image imgThemMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
+		Image resizeImgThemMH = imgThemMH.getScaledInstance(25, 25, 0);
+		btnThemMH.setIcon(new ImageIcon(resizeImgThemMH));
+		
 		pDichVu.add(btnThemMH);
 		
 		JButton btnXoaMH = new JButton("Xóa");
@@ -283,16 +293,25 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaMH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaMH.setBackground(new Color(114, 23, 153));
-		btnXoaMH.setBounds(10, 274, 98, 33);
+		btnXoaMH.setBounds(10, 274, 114, 33);
+		
+		Image imgXoaMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconRemove.png");
+		Image resizeImgXoaMH = imgXoaMH.getScaledInstance(25, 25, 0);
+		btnXoaMH.setIcon(new ImageIcon(resizeImgXoaMH));
 		pDichVu.add(btnXoaMH);
 		
-		JButton btnLmMi = new JButton("Làm mới");
-		btnLmMi.setForeground(Color.WHITE);
-		btnLmMi.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnLmMi.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnLmMi.setBackground(new Color(114, 23, 153));
-		btnLmMi.setBounds(160, 274, 98, 33);
-		pDichVu.add(btnLmMi);
+		JButton btnLamMoiMH = new JButton("Làm mới");
+		btnLamMoiMH.setForeground(Color.WHITE);
+		btnLamMoiMH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnLamMoiMH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnLamMoiMH.setBackground(new Color(114, 23, 153));
+		btnLamMoiMH.setBounds(157, 274, 114, 33);
+		
+		Image imgLamMoiMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
+		Image resizeImgLamMoiMH = imgLamMoiMH.getScaledInstance(25, 25, 0);
+		btnLamMoiMH.setIcon(new ImageIcon(resizeImgLamMoiMH));
+		
+		pDichVu.add(btnLamMoiMH);
 		
 		String col [] = {"Tên mặt hàng", "Tên loại", "Số lượng", "Đơn giá","Tổng tiền"};
 		modelMatHang = new DefaultTableModel(col,0);
@@ -428,16 +447,25 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnThanhToan.setForeground(Color.WHITE);
 		btnThanhToan.setFont(new Font("SansSerif", Font.BOLD, 20));
 		btnThanhToan.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnThanhToan.setBackground(new Color(57, 210, 247));
+		btnThanhToan.setBackground(new Color(57, 210, 247));   //new Color(114, 23, 153)   new Color(57, 210, 247)
 		btnThanhToan.setBounds(27, 166, 176, 53);
 		pThanhToan.add(btnThanhToan);
+		
+		Image imgThanhToan = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
+		Image resizeImgThanhToan = imgThanhToan.getScaledInstance(30, 30, 0);
+		btnThanhToan.setIcon(new ImageIcon(resizeImgThanhToan));
 		
 		JButton btnSuaHD = new JButton("Sửa hóa đơn");
 		btnSuaHD.setForeground(Color.WHITE);
 		btnSuaHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaHD.setBackground(new Color(114, 23, 153));
-		btnSuaHD.setBounds(10, 275, 105, 33);
+		btnSuaHD.setBounds(52, 237, 131, 33);
+		
+		Image imgSuaTT = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconTool.png");
+		Image resizeImgSuaTT = imgSuaTT.getScaledInstance(25, 25, 0);
+		btnSuaHD.setIcon(new ImageIcon(resizeImgSuaTT));
+		
 		pThanhToan.add(btnSuaHD);
 		
 		JButton btnLamMoiHD = new JButton("Làm mới");
@@ -445,7 +473,12 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnLamMoiHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoiHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLamMoiHD.setBackground(new Color(114, 23, 153));
-		btnLamMoiHD.setBounds(132, 275, 90, 33);
+		btnLamMoiHD.setBounds(52, 275, 131, 33);
+		
+		Image imgLamMoiHD = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
+		Image resizeImgLamMoiHD = imgLamMoiHD.getScaledInstance(25, 25, 0);
+		btnLamMoiHD.setIcon(new ImageIcon(resizeImgLamMoiHD));
+		
 		pThanhToan.add(btnLamMoiHD);
 		
 		JLabel lblBackground = new JLabel("");

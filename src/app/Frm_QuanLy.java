@@ -79,7 +79,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		panel.setLayout(null);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setBounds(23, 0, 256, 78);
+		lblLogo.setBounds(23, 11, 217, 56);
 		Image imglogo = Toolkit.getDefaultToolkit ().getImage ("data\\img\\logo.png");
 		Image resizelogo = imglogo.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), 0);
 		lblLogo.setIcon(new ImageIcon(resizelogo));

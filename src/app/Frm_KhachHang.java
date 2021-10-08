@@ -110,13 +110,11 @@ public class Frm_KhachHang extends JPanel {
 		
 		textFieldHoTen = new JTextField();
 		textFieldHoTen.setFont(new Font("SansSerif", Font.PLAIN, 14));
-<<<<<<< HEAD
+
 		textFieldHoTen.setBounds(342, 67, 189, 28);
 		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-=======
 		textFieldHoTen.setBounds(239, 62, 189, 28);
 		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
->>>>>>> 556a772346d2e66ad5e7ce86d2c5c00cf88b5435
 		pMain.add(textFieldHoTen);
 		textFieldHoTen.setColumns(10);
 		
@@ -126,14 +124,11 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblSDT);
 		
 		textFieldSDT = new JTextField();
-<<<<<<< HEAD
 		textFieldSDT.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textFieldSDT.setBounds(342, 106, 189, 28);
 		textFieldSDT.setBorder(new LineBorder(new Color(114, 23 ,153),2 , true));
-=======
 		textFieldSDT.setBounds(239, 101, 189, 28);
 		textFieldSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
->>>>>>> 556a772346d2e66ad5e7ce86d2c5c00cf88b5435
 		pMain.add(textFieldSDT);
 		textFieldSDT.setColumns(10);
 		
@@ -167,11 +162,8 @@ public class Frm_KhachHang extends JPanel {
 		
 		textFieldCccd = new JTextField();
 		textFieldCccd.setFont(new Font("SansSerif", Font.PLAIN, 14));
-<<<<<<< HEAD
 		textFieldCccd.setBounds(741, 106, 124, 28);
-=======
 		textFieldCccd.setBounds(631, 98, 124, 28);
->>>>>>> 556a772346d2e66ad5e7ce86d2c5c00cf88b5435
 		
 		pMain.add(textFieldCccd);
 		textFieldCccd.setColumns(10);
@@ -209,14 +201,11 @@ public class Frm_KhachHang extends JPanel {
 		
 		
 		textFieldPoint = new JTextField();
-<<<<<<< HEAD
 		textFieldPoint.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textFieldPoint.setBounds(1041, 150, 108, 28);
 		textFieldPoint.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-=======
 		textFieldPoint.setBounds(952, 145, 185, 28);
 		textFieldPoint.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
->>>>>>> 556a772346d2e66ad5e7ce86d2c5c00cf88b5435
 		pMain.add(textFieldPoint);
 		textFieldPoint.setColumns(10);
 		
@@ -327,14 +316,11 @@ public class Frm_KhachHang extends JPanel {
 		
 		
 		JTextArea textAreaDiaChi = new JTextArea();
-<<<<<<< HEAD
 		textAreaDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		textAreaDiaChi.setBounds(342, 145, 189, 51);
-=======
 		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		textAreaDiaChi.setBounds(239, 140, 189, 51);
->>>>>>> 556a772346d2e66ad5e7ce86d2c5c00cf88b5435
 		pMain.add(textAreaDiaChi);
 		
 		JComboBox<String> cbbNgayDangKy = new JComboBox<String>();
@@ -411,6 +397,14 @@ public class Frm_KhachHang extends JPanel {
 		bg.add(rdbtnTheoTenKH);
 		bg.add(rdbtnTheoLoaiKH);
 		rdbtnTheoMaKH.setSelected(true);
+		
+		JLabel lblBackground = new JLabel("");
+		lblBackground.setIcon(new ImageIcon("data\\img\\background.png"));
+		lblBackground.setBounds(0, 0, 1281, 606);
+		Image imgBackground = Toolkit.getDefaultToolkit ().getImage ("data\\img\\background.png");
+		Image resizeBG = imgBackground.getScaledInstance(lblBackground.getWidth(), lblBackground.getHeight(), 0);
+		lblBackground.setIcon(new ImageIcon(resizeBG));
+		pMain.add(lblBackground);
 
 //		test
 		
