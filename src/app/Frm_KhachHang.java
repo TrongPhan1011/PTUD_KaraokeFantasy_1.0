@@ -369,7 +369,7 @@ public class Frm_KhachHang extends JPanel {
 		bg.add(rdbtnTheoLoaiKH);
 		rdbtnTheoMaKH.setSelected(true);
 
-		
+//		test
 		
 		
 		
