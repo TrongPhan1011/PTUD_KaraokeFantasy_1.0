@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class HoaDon implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String maHoaDon;
 	private Date ngayLap;
 	private NhanVien nhanVien;

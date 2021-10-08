@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 
 public class CTDDP implements Serializable {
 
@@ -12,11 +13,18 @@ public class CTDDP implements Serializable {
 	
 	private String maCTDDP;
 	private Date ngayDen;
+	private Time gioDen;
 	private String trangThaiCTDDP;
 	private DonDatPhong donDatPhong;
 	private Phong phong;
 	private MatHang matHang;
 	
+	public Time getGioDen() {
+		return gioDen;
+	}
+	public void setGioDen(Time gioDen) {
+		this.gioDen = gioDen;
+	}
 	public String getMaCTDDP() {
 		return maCTDDP;
 	}
@@ -56,16 +64,7 @@ public class CTDDP implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public CTDDP(String maCTDDP, Date ngayDen, String trangThaiCTDDP, DonDatPhong donDatPhong, Phong phong,
-			MatHang matHang) {
-		super();
-		this.maCTDDP = maCTDDP;
-		this.ngayDen = ngayDen;
-		this.trangThaiCTDDP = trangThaiCTDDP;
-		this.donDatPhong = donDatPhong;
-		this.phong = phong;
-		this.matHang = matHang;
-	}
+	
 	public CTDDP() {
 		super();
 	}
@@ -73,11 +72,36 @@ public class CTDDP implements Serializable {
 		super();
 		this.maCTDDP = maCTDDP;
 	}
+	
+	public CTDDP(String maCTDDP, Date ngayDen, Time gioDen, String trangThaiCTDDP, DonDatPhong donDatPhong, Phong phong,
+			MatHang matHang) {
+		super();
+		this.maCTDDP = maCTDDP;
+		this.ngayDen = ngayDen;
+		this.gioDen = gioDen;
+		this.trangThaiCTDDP = trangThaiCTDDP;
+		this.donDatPhong = donDatPhong;
+		this.phong = phong;
+		this.matHang = matHang;
+	}
+	
+	
+	public CTDDP(String maCTDDP, Date ngayDen, Time gioDen, String trangThaiCTDDP, DonDatPhong donDatPhong,
+			Phong phong) {
+		super();
+		this.maCTDDP = maCTDDP;
+		this.ngayDen = ngayDen;
+		this.gioDen = gioDen;
+		this.trangThaiCTDDP = trangThaiCTDDP;
+		this.donDatPhong = donDatPhong;
+		this.phong = phong;
+	}
 	@Override
 	public String toString() {
-		return "CTDDP [maCTDDP=" + maCTDDP + ", ngayDen=" + ngayDen + ", trangThaiCTDDP=" + trangThaiCTDDP
-				+ ", donDatPhong=" + donDatPhong + ", phong=" + phong + ", matHang=" + matHang + "]";
+		return "CTDDP [maCTDDP=" + maCTDDP + ", ngayDen=" + ngayDen + ", gioDen=" + gioDen + ", trangThaiCTDDP="
+				+ trangThaiCTDDP + ", donDatPhong=" + donDatPhong + ", phong=" + phong + ", matHang=" + matHang + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

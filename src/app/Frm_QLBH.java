@@ -3,15 +3,19 @@ package app;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.Toolkit;
-import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -28,10 +32,19 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.UIManager;
 
-public class Frm_QLBH extends JPanel implements ActionListener {
+import connection.ConnectDB;
+import dao.DAOLoaiMH;
+import dao.DAOMatHang;
+import entity.LoaiMatHang;
+import entity.MatHang;
 
+public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,ItemListener {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String sHeaderMaNV;
 	private String sHeaderTenNV;
 	private Date dNgayHienTai;
@@ -44,6 +57,10 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 	private DefaultTableModel modelMatHang;
 	private JTable tbMatHang;
 	private JButton btnDSHD;
+	private DAOLoaiMH daoLoaiMH;
+	private JComboBox<String> cbbTenMH;
+	private JComboBox<String> cbbLoaiMH;
+	private DAOMatHang daoMatHang;
 	
 	public Panel getFrmQLBH() {
 		return this.pMain;
@@ -65,7 +82,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JLabel lbbTitle = new JLabel("Quản lý bán hàng");
 		lbbTitle.setFont(new Font("SansSerif", Font.BOLD, 22));
-		lbbTitle.setBounds(37, 10, 255, 33);
+		lbbTitle.setBounds(24, 10, 268, 33);
 		pMain.add(lbbTitle);
 		
 		JLabel lblSubTimKiem = new JLabel("Tìm kiếm:");
@@ -96,7 +113,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnDSHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnDSHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnDSHD.setBackground(new Color(114, 23, 153));
-		btnDSHD.setBounds(1043, 13, 194, 33);
+		btnDSHD.setBounds(1043, 13, 213, 33);
 		pMain.add(btnDSHD);
 		btnDSHD.addActionListener(this);
 		
@@ -117,7 +134,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		
-		scrollPane.setBounds(37, 78, 1200, 108);
+		scrollPane.setBounds(24, 78, 1232, 108);
 		pMain.add(scrollPane);
 		
 		JLabel lblSubPhong = new JLabel("Phòng : ");
@@ -188,14 +205,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		cbbPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbPhuThu.setBackground(Color.WHITE);
 		cbbPhuThu.setBounds(919, 205, 90, 22);
-//		
-//		int namHienTai = dNgayHienTai.getYear()+10;
-//		int namBatDau = namHienTai -20;
-//		for(int i =namBatDau; i <= namHienTai; i++) {
-//			cbbPhuThu.addItem(""+i);
-//		}
-//		cbbPhuThu.setSelectedItem(dNgayHienTai.getYear()+"");
-//		
+	
 		String sPhuThu [] = {"Không","Ngày lễ","Cuối tuần"};
 		for(int i =0; i< sPhuThu.length;i++) {
 			cbbPhuThu.addItem(sPhuThu[i]);
@@ -204,7 +214,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JLabel lblNgayLap = new JLabel("10/11/2021");
 		lblNgayLap.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblNgayLap.setBounds(1157, 201, 83, 26);
+		lblNgayLap.setBounds(1173, 201, 83, 26);
 		pMain.add(lblNgayLap);
 		
 		JLabel lblSubNgayLap = new JLabel("Ngày lập hóa đơn:");
@@ -215,7 +225,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		JPanel pDichVu = new JPanel();
 		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Dịch vụ ", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 		pDichVu.setBackground(new Color(238,239,243,90));
-		pDichVu.setBounds(37, 235, 255, 344);
+		pDichVu.setBounds(24, 235, 281, 322);
 		pMain.add(pDichVu);
 		pDichVu.setLayout(null);
 		
@@ -224,10 +234,10 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		lblSubLMH.setBounds(10, 38, 102, 26);
 		pDichVu.add(lblSubLMH);
 		
-		JComboBox<String> cbbLoaiMH = new JComboBox<String>();
+		cbbLoaiMH = new JComboBox<String>();
 		cbbLoaiMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbLoaiMH.setBackground(Color.WHITE);
-		cbbLoaiMH.setBounds(112, 36, 133, 30);
+		cbbLoaiMH.setBounds(112, 36, 159, 30);
 		pDichVu.add(cbbLoaiMH);
 		
 		JLabel lblSubTenMH = new JLabel("Tên mặt hàng: ");
@@ -235,10 +245,10 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		lblSubTenMH.setBounds(10, 90, 102, 26);
 		pDichVu.add(lblSubTenMH);
 		
-		JComboBox<String> cbbTenMH = new JComboBox<String>();
+		cbbTenMH = new JComboBox<String>();
 		cbbTenMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbTenMH.setBackground(Color.WHITE);
-		cbbTenMH.setBounds(112, 88, 133, 30);
+		cbbTenMH.setBounds(112, 88, 159, 30);
 		pDichVu.add(cbbTenMH);
 		
 		JLabel lblSoluongMH = new JLabel("Số lượng:");
@@ -250,14 +260,14 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		txtSoLuong.setBackground(new Color(255, 255, 255));
 		txtSoLuong.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		txtSoLuong.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
-		txtSoLuong.setBounds(112, 141, 133, 30);
+		txtSoLuong.setBounds(112, 141, 146, 30);
 		pDichVu.add(txtSoLuong);
 		txtSoLuong.setColumns(10);
 		
 		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
 		rdbtnGiamSL.setBackground(new Color(238,239,243));
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		rdbtnGiamSL.setBounds(62, 185, 147, 35);
+		rdbtnGiamSL.setBounds(58, 179, 147, 35);
 		pDichVu.add(rdbtnGiamSL);
 		
 		JButton btnThemMH = new JButton("Thêm mặt hàng");
@@ -265,7 +275,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnThemMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemMH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true)); //new Color(57, 210, 247)
 		btnThemMH.setBackground(new Color(57, 210, 247));
-		btnThemMH.setBounds(57, 227, 152, 33);
+		btnThemMH.setBounds(68, 221, 166, 33);
 		pDichVu.add(btnThemMH);
 		
 		JButton btnXoaMH = new JButton("Xóa");
@@ -273,7 +283,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaMH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaMH.setBackground(new Color(114, 23, 153));
-		btnXoaMH.setBounds(14, 280, 98, 33);
+		btnXoaMH.setBounds(10, 274, 98, 33);
 		pDichVu.add(btnXoaMH);
 		
 		JButton btnLmMi = new JButton("Làm mới");
@@ -281,7 +291,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnLmMi.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLmMi.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLmMi.setBackground(new Color(114, 23, 153));
-		btnLmMi.setBounds(147, 280, 98, 33);
+		btnLmMi.setBounds(160, 274, 98, 33);
 		pDichVu.add(btnLmMi);
 		
 		String col [] = {"Tên mặt hàng", "Tên loại", "Số lượng", "Đơn giá","Tổng tiền"};
@@ -378,7 +388,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		JPanel pThanhToan = new JPanel();
 		pThanhToan.setBackground(new Color(238,239,243));
 		pThanhToan.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Thanh toán", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pThanhToan.setBounds(1024, 238, 216, 341);
+		pThanhToan.setBounds(1024, 238, 232, 319);
 		pMain.add(pThanhToan);
 		pThanhToan.setLayout(null);
 		
@@ -389,7 +399,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		
 		JLabel lblPhanHuTrng = new JLabel("QL001");
 		lblPhanHuTrng.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPhanHuTrng.setBounds(163, 21, 50, 26);
+		lblPhanHuTrng.setBounds(163, 21, 59, 26);
 		pThanhToan.add(lblPhanHuTrng);
 		
 		JLabel lblSubTTHD = new JLabel("Trạng thái hóa đơn:");
@@ -401,13 +411,13 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		rdbtnChoThanhToan.setSelected(true);
 		rdbtnChoThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
 		rdbtnChoThanhToan.setBackground(new Color(238,239,243));
-		rdbtnChoThanhToan.setBounds(20, 88, 139, 33);
+		rdbtnChoThanhToan.setBounds(37, 77, 153, 33);
 		pThanhToan.add(rdbtnChoThanhToan);
 		
 		JRadioButton rdbtnDaThanhToan = new JRadioButton("Đã thanh toán");
 		rdbtnDaThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
 		rdbtnDaThanhToan.setBackground(new Color(238,239,243));
-		rdbtnDaThanhToan.setBounds(21, 124, 120, 33);
+		rdbtnDaThanhToan.setBounds(38, 113, 152, 33);
 		pThanhToan.add(rdbtnDaThanhToan);
 		
 		ButtonGroup bg = new ButtonGroup();
@@ -419,7 +429,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnThanhToan.setFont(new Font("SansSerif", Font.BOLD, 20));
 		btnThanhToan.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThanhToan.setBackground(new Color(57, 210, 247));
-		btnThanhToan.setBounds(10, 188, 193, 53);
+		btnThanhToan.setBounds(27, 166, 176, 53);
 		pThanhToan.add(btnThanhToan);
 		
 		JButton btnSuaHD = new JButton("Sửa hóa đơn");
@@ -427,7 +437,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnSuaHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaHD.setBackground(new Color(114, 23, 153));
-		btnSuaHD.setBounds(10, 279, 98, 33);
+		btnSuaHD.setBounds(10, 275, 105, 33);
 		pThanhToan.add(btnSuaHD);
 		
 		JButton btnLamMoiHD = new JButton("Làm mới");
@@ -435,7 +445,7 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		btnLamMoiHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoiHD.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLamMoiHD.setBackground(new Color(114, 23, 153));
-		btnLamMoiHD.setBounds(113, 279, 90, 33);
+		btnLamMoiHD.setBounds(132, 275, 90, 33);
 		pThanhToan.add(btnLamMoiHD);
 		
 		JLabel lblBackground = new JLabel("");
@@ -446,6 +456,32 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 		lblBackground.setIcon(new ImageIcon(resizeBG));
 		
 		pMain.add(lblBackground);
+		
+		//connect database
+		try {
+			ConnectDB.getinstance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		//khai bao dao
+		daoLoaiMH = new DAOLoaiMH();
+		daoMatHang = new DAOMatHang();
+		
+		//Load tên loại mặt hàng
+		ArrayList<LoaiMatHang> lsLoaiMH = daoLoaiMH.getAllLoaiMatHang();
+		for(LoaiMatHang lmh : lsLoaiMH) {
+			cbbLoaiMH.addItem(lmh.getTenLoaiMatHang());
+		}
+		
+		// Load ten mat hang mac dinh :
+		String tenMH = (String) cbbLoaiMH.getSelectedItem();
+		String maLoaiMatHang = daoLoaiMH.getMaLoaiMHTheoTen(tenMH);
+		ArrayList<MatHang> lsMH = daoMatHang.getMatHangTheoMaLoai(maLoaiMatHang);
+		cbbTenMH.removeAllItems();
+		for(MatHang mh : lsMH) {
+			cbbTenMH.addItem(mh.getTenMatHang());
+		}
 		
 		
 		
@@ -467,45 +503,15 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 			
 			pn.add(lblTenPhong);
 			pPhong.add(pn);
-			
-			
 		
 		}
 		
 		
-
-		
-//		JButton btnPhong = new JButton("P001");
-//		btnPhong.setBackground(new Color(57, 210, 247));
-//		btnPhong.setBorder(new LineBorder(Color.white,5,true));
-//		btnPhong.setBounds(30, 11, 88, 61);
-//		pPhong.add(btnPhong);
-//		
-//		JLabel lblTenPhong = new JLabel("P001");
-//		lblTenPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
-//		lblTenPhong.setBounds(55, 83, 48, 14);
-//		pPhong.add(lblTenPhong);
-		
-//		JLabel lblSapXep = new JLabel("Sắp xếp:");
-//		lblSapXep.setFont(new Font("SansSerif", Font.BOLD, 14));
-//		lblSapXep.setBounds(494, 80, 90, 35);
-//		pMain.add(lblSapXep);
-//		
-//		JComboBox cbSapXep = new JComboBox();
-//		cbSapXep.setBackground(Color.WHITE);
-//		cbSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
-//		cbSapXep.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
-//		cbSapXep.setBounds(610, 80, 145, 30);
-//		String dsSX[] = {"Theo tên","Chờ thanh toán","Phòng trống"} ;
-//		cbSapXep.addItem("Tất cả");
-//		cbSapXep.setSelectedItem("Tất cả");
-//		
-//		
-//		pMain.add(cbSapXep);
 		
 		
-		
-		
+		//action 
+		cbbLoaiMH.addItemListener(this);
+		cbbTenMH.addItemListener(this);
 		
 	
 		
@@ -522,6 +528,50 @@ public class Frm_QLBH extends JPanel implements ActionListener {
 			
 			
 		}
+		
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		
+		if(e.getItem() == cbbLoaiMH.getSelectedItem()) {
+			String tenMH = (String) cbbLoaiMH.getSelectedItem();
+			String maLoaiMatHang = daoLoaiMH.getMaLoaiMHTheoTen(tenMH);
+			ArrayList<MatHang> lsMH = daoMatHang.getMatHangTheoMaLoai(maLoaiMatHang);
+			cbbTenMH.removeAllItems();
+			for(MatHang mh : lsMH) {
+				cbbTenMH.addItem(mh.getTenMatHang());
+			}
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -16,7 +16,7 @@ public class NhanVien implements Serializable {
 	private Date ngaySinh;
 	private String diaChi;
 	private String sdt;
-	private int cccd;
+	private String cccd;
 	private double luong;
 	private int caLamViec;
 	
@@ -78,11 +78,11 @@ public class NhanVien implements Serializable {
 		this.sdt = sdt;
 	}
 
-	public int getCccd() {
+	public String getCccd() {
 		return cccd;
 	}
 
-	public void setCccd(int cccd) {
+	public void setCccd(String cccd) {
 		this.cccd = cccd;
 	}
 
@@ -111,7 +111,7 @@ public class NhanVien implements Serializable {
 	}
 
 	public NhanVien(String maNhanVien, String tenNhanVien, String chucVu, String gioiTinh, Date ngaySinh, String diaChi,
-			String sdt, int cccd, double luong, int caLamViec, TaiKhoan taiKhoan) {
+			String sdt, String cccd, double luong, int caLamViec, TaiKhoan taiKhoan) {
 		super();
 		this.maNhanVien = maNhanVien;
 		this.tenNhanVien = tenNhanVien;

@@ -1,11 +1,12 @@
 package entity;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class CTHD {
 	private String maCTHD;
-	private Date gioVao;
-	private Date gioRa;
+	private Time gioVao;
+	private Time gioRa;
 	private int soLuong;
 	private String trangThaiCTHD;
 	private String phuThu;
@@ -27,7 +28,7 @@ public class CTHD {
 		return gioVao;
 	}
 
-	public void setGioVao(Date gioVao) {
+	public void setGioVao(Time gioVao) {
 		this.gioVao = gioVao;
 	}
 
@@ -35,7 +36,7 @@ public class CTHD {
 		return gioRa;
 	}
 
-	public void setGioRa(Date gioRa) {
+	public void setGioRa(Time gioRa) {
 		this.gioRa = gioRa;
 	}
 
@@ -91,7 +92,7 @@ public class CTHD {
 		return tongTien;
 	}
 
-	public CTHD(String maCTHD, Date gioVao, Date gioRa, int soLuong, String trangThaiCTHD, String phuThu,
+	public CTHD(String maCTHD, Time gioVao, Time gioRa, int soLuong, String trangThaiCTHD, String phuThu,
 			MatHang matHang, Phong phong, HoaDon hoaDon) {
 		super();
 		this.maCTHD = maCTHD;
