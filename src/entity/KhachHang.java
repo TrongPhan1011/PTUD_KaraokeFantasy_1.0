@@ -12,7 +12,7 @@ public class KhachHang implements Serializable {
 	private String maKhangHang;
 	private String tenKH;
 	private String sdt;
-	private int cccd;
+	private String cccd;
 	private Date ngaySinh;
 	private String gioiTinh;
 	private int diemTichLuy;
@@ -38,10 +38,10 @@ public class KhachHang implements Serializable {
 	public void setSdt(String sdt) {
 		this.sdt = sdt;
 	}
-	public int getCccd() {
+	public String getCccd() {
 		return cccd;
 	}
-	public void setCccd(int cccd) {
+	public void setCccd(String cccd) {
 		this.cccd = cccd;
 	}
 	public Date getNgaySinh() {
@@ -75,7 +75,7 @@ public class KhachHang implements Serializable {
 		this.loaiKH = loaiKH;
 	}
 	
-	public KhachHang(String maKhangHang, String tenKH, String sdt, int cccd, Date ngaySinh, String gioiTinh,
+	public KhachHang(String maKhangHang, String tenKH, String sdt, String cccd, Date ngaySinh, String gioiTinh,
 			int diemTichLuy, Date ngayDangKy, LoaiKH loaiKH) {
 		super();
 		this.maKhangHang = maKhangHang;
