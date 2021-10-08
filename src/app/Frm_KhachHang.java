@@ -18,6 +18,7 @@ import java.awt.Image;
 
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
@@ -64,6 +65,13 @@ public class Frm_KhachHang extends JPanel {
 		add(pMain);
 		pMain.setLayout(null);
 		
+		
+		JLabel lblQuanLyKH = new JLabel("Quản lý khách hàng");
+		lblQuanLyKH.setFont(new Font("SansSerif", Font.BOLD, 22));
+		lblQuanLyKH.setBounds(37, 10, 255, 33);
+		pMain.add(lblQuanLyKH);
+		
+
 		JLabel lblTimKiem = new JLabel("Tìm Kiếm:");
 		lblTimKiem.setFont(new Font("SansSerif", Font.BOLD, 14));
 		lblTimKiem.setBounds(374, 13, 90, 35);
@@ -141,7 +149,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		JLabel lblCccd = new JLabel("CCCD:");
 		lblCccd.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCccd.setBounds(603, 111, 65, 14);
+		lblCccd.setBounds(596, 111, 65, 14);
 		pMain.add(lblCccd);
 		
 		textFieldCccd = new JTextField();
@@ -153,11 +161,11 @@ public class Frm_KhachHang extends JPanel {
 		
 		JLabel lblGioiTinh = new JLabel("Giới tính:");
 		lblGioiTinh.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblGioiTinh.setBounds(596, 158, 72, 14);
+		lblGioiTinh.setBounds(596, 152, 72, 14);
 		pMain.add(lblGioiTinh);
 		
 		JComboBox<String> gioiTinh = new JComboBox<String>();
-		gioiTinh.setBounds(744, 156, 65, 28);
+		gioiTinh.setBounds(741, 144, 65, 28);
 		gioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		gioiTinh.setBackground(Color.WHITE);
 		String cbbGioiTinh [] = {"Nam", "Nữ"};
@@ -222,7 +230,7 @@ public class Frm_KhachHang extends JPanel {
 		btnThemKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemKH.setBackground(new Color(114, 23, 153));
-		btnThemKH.setBounds(387, 230, 98, 35);
+		btnThemKH.setBounds(384, 207, 108, 35);
 		pMain.add(btnThemKH);
 		
 		JButton btnSuaKH = new JButton("Sửa");
@@ -230,7 +238,7 @@ public class Frm_KhachHang extends JPanel {
 		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaKH.setBackground(new Color(114, 23, 153));
-		btnSuaKH.setBounds(560, 230, 108, 35);
+		btnSuaKH.setBounds(557, 207, 108, 35);
 		pMain.add(btnSuaKH);
 		
 		JButton btnXoaKH = new JButton("Xóa");
@@ -238,7 +246,7 @@ public class Frm_KhachHang extends JPanel {
 		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaKH.setBackground(new Color(114, 23, 153));
-		btnXoaKH.setBounds(722, 230, 118, 35);
+		btnXoaKH.setBounds(722, 207, 108, 35);
 		pMain.add(btnXoaKH);
 		
 		JButton btnReset = new JButton("Reset");
@@ -246,75 +254,21 @@ public class Frm_KhachHang extends JPanel {
 		btnReset.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnReset.setBackground(new Color(114, 23, 153));
-		btnReset.setBounds(896, 230, 118, 35);
+		btnReset.setBounds(892, 207, 108, 35);
 		pMain.add(btnReset);
 		
-		JLabel lblSort = new JLabel("Sắp xếp:");
-		lblSort.setFont(new Font("SansSerif", Font.BOLD, 13));
-		lblSort.setBounds(249, 288, 65, 19);
-		pMain.add(lblSort);
 		
-		JComboBox<String> cbbSort = new JComboBox<String>();
-		cbbSort.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbSort.setBackground(Color.WHITE);
-		String cbSort [] = {"Tăng dần", "Giảm dần"};
-		for(int i = 0; i< cbSort.length; i++) {
-			cbbSort.addItem(cbSort[i]);
-		}
-		cbbSort.setBounds(316, 285, 98, 22);
-		pMain.add(cbbSort);
-		
-		JRadioButton rdbtnTheoMaKH = new JRadioButton("Theo mã khách hàng");
-		rdbtnTheoMaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoMaKH.setBackground(new Color(0,0,0,0));
-		rdbtnTheoMaKH.setBounds(439, 286, 179, 23);
-		pMain.add(rdbtnTheoMaKH);
-		
-		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên khách hàng");
-		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoTenKH.setBackground(new Color(0,0,0,0));
-		rdbtnTheoTenKH.setBounds(620, 285, 189, 23);
-		pMain.add(rdbtnTheoTenKH);
-		
-		JRadioButton rdbtnTheoLoaiKH = new JRadioButton("Theo loại khách hàng");
-		rdbtnTheoLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoLoaiKH.setBackground(new Color(0,0,0,0));
-		rdbtnTheoLoaiKH.setBounds(811, 285, 179, 23);
-		pMain.add(rdbtnTheoLoaiKH);
-		
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnTheoMaKH);
-		bg.add(rdbtnTheoTenKH);
-		bg.add(rdbtnTheoLoaiKH);
-		rdbtnTheoMaKH.setSelected(true);
 		
 		JScrollPane scrollPaneKH = new JScrollPane();
 		scrollPaneKH.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		scrollPaneKH.setBackground(new Color(164, 44, 167));
-		scrollPaneKH.setBounds(22, 329, 1238, 266);
+		scrollPaneKH.setBounds(23, 329, 1220, 266);
 		pMain.add(scrollPaneKH);
 		
-		tableKH = new JTable();
-		tableKH.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"M\u00E3 KH", "H\u1ECD v\u00E0 t\u00EAn KH", "Lo\u1EA1i KH", "Gi\u1EDBi t\u00EDnh", "Ng\u00E0y sinh", "\u0110\u1ECBa ch\u1EC9", "S\u0110T", "CCCD", "Ng\u00E0y \u0111\u0103ng k\u00FD", "\u0110i\u1EC3m t\u00EDch l\u0169y"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		String col [] = {"Mã KH", "Họ và tên KH", "Loại KH", "Giới tính","Ngày sinh","Địa chỉ", "SĐT", "CCCD","Ngày đăng ký","Điểm tích lũy"};
+		DefaultTableModel modelKhachHang = new DefaultTableModel(col,0);
+		tableKH = new JTable(modelKhachHang);
+		
 		
 		JTableHeader tbHeader = tableKH.getTableHeader();
 		tbHeader.setBackground(new Color(164, 44, 167));
@@ -335,7 +289,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		JTextArea textAreaDiaChi = new JTextArea();
 		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		textAreaDiaChi.setBounds(342, 152, 189, 51);
+		textAreaDiaChi.setBounds(342, 145, 189, 51);
 		pMain.add(textAreaDiaChi);
 		
 		JComboBox<String> cbbNgayDangKy = new JComboBox<String>();
@@ -370,6 +324,47 @@ public class Frm_KhachHang extends JPanel {
 		cbbNamDangKy.setBounds(1154, 105, 72, 27);
 		pMain.add(cbbNamDangKy);
 		
+		JPanel pSapXep = new JPanel();
+		pSapXep.setBackground(new Color(255,255,255));
+		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Sắp xếp", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pSapXep.setBounds(307, 249, 707, 69);
+		pMain.add(pSapXep);
+		//pSapXep.setLayout(null);
+		
+		JComboBox<String> cbbSort = new JComboBox<String>();
+		cbbSort.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbSort.setBackground(Color.WHITE);
+		String cbSort [] = {"Tăng dần", "Giảm dần"};
+		for(int i = 0; i< cbSort.length; i++) {
+			cbbSort.addItem(cbSort[i]);
+		}
+		cbbSort.setBounds(316, 285, 98, 22);
+		pSapXep.add(cbbSort);
+		
+		JRadioButton rdbtnTheoMaKH = new JRadioButton("Theo mã khách hàng");
+		rdbtnTheoMaKH.setSelected(true);
+		rdbtnTheoMaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdbtnTheoMaKH.setBackground(Color.WHITE);
+		rdbtnTheoMaKH.setBounds(439, 286, 179, 23);
+		pSapXep.add(rdbtnTheoMaKH);
+		
+		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên khách hàng");
+		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdbtnTheoTenKH.setBackground(Color.WHITE);
+		rdbtnTheoTenKH.setBounds(620, 285, 189, 23);
+		pSapXep.add(rdbtnTheoTenKH);
+		
+		JRadioButton rdbtnTheoLoaiKH = new JRadioButton("Theo loại khách hàng");
+		rdbtnTheoLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdbtnTheoLoaiKH.setBackground(Color.WHITE);
+		rdbtnTheoLoaiKH.setBounds(811, 285, 179, 23);
+		pSapXep.add(rdbtnTheoLoaiKH);
+		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnTheoMaKH);
+		bg.add(rdbtnTheoTenKH);
+		bg.add(rdbtnTheoLoaiKH);
+		rdbtnTheoMaKH.setSelected(true);
 
 		
 		
