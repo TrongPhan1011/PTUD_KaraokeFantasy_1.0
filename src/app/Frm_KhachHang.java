@@ -78,6 +78,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblTimKiem);
 		
 		textFieldTK = new JTextField();
+		textFieldTK.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textFieldTK.setBounds(474, 12, 281, 33);
 		textFieldTK.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(textFieldTK);
@@ -108,6 +109,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblHoTen);
 		
 		textFieldHoTen = new JTextField();
+		textFieldHoTen.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textFieldHoTen.setBounds(342, 67, 189, 28);
 		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(textFieldHoTen);
@@ -119,6 +121,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblSDT);
 		
 		textFieldSDT = new JTextField();
+		textFieldSDT.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textFieldSDT.setBounds(342, 106, 189, 28);
 		textFieldSDT.setBorder(new LineBorder(new Color(114, 23 ,153),2 , true));
 		pMain.add(textFieldSDT);
@@ -153,6 +156,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblCccd);
 		
 		textFieldCccd = new JTextField();
+		textFieldCccd.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textFieldCccd.setBounds(741, 106, 124, 28);
 		
 		pMain.add(textFieldCccd);
@@ -191,6 +195,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		
 		textFieldPoint = new JTextField();
+		textFieldPoint.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textFieldPoint.setBounds(1041, 150, 108, 28);
 		textFieldPoint.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(textFieldPoint);
@@ -283,11 +288,27 @@ public class Frm_KhachHang extends JPanel {
 		tableKH.setShowGrid(false);
 		tableKH.setShowHorizontalLines(false);
 		tableKH.setBackground(Color.WHITE);
-		tableKH.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		tableKH.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		tableKH.setRowHeight(30);
+		tableKH.setOpaque(false);
 		tableKH.setSelectionBackground(new Color(164, 44, 167,30));
 		scrollPaneKH.setViewportView(tableKH);
 		
+//		demo dữ liệu:
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		modelKhachHang.addRow(new Object[] {"123","123"});
+		
+		
 		JTextArea textAreaDiaChi = new JTextArea();
+		textAreaDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		textAreaDiaChi.setBounds(342, 145, 189, 51);
 		pMain.add(textAreaDiaChi);
