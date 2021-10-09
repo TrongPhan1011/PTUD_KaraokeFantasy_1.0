@@ -19,7 +19,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 
@@ -52,6 +55,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(new FlatLightLaf());
 					Frm_QuanLy frame = new Frm_QuanLy();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -152,6 +156,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			btnItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemNhanVien.setBackground(new Color(255, 240, 245));
 			btnItemNhanVien.setBounds(x, 0, 132, 31);
+			btnItemNhanVien.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemNhanVien);
 			btnItemNhanVien.addActionListener(this);
 			x = x + 142; //  chuyen vi tri sang mot doan 
@@ -164,6 +169,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			btnItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemQLBH.setBackground(new Color(255, 240, 245));
 			btnItemQLBH.setBounds(x, 0, 132, 31);
+			btnItemQLBH.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemQLBH);
 			btnItemQLBH.addActionListener(this);
 			
@@ -179,6 +185,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			btnItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemDDP.setBackground(new Color(255, 240, 245));
 			btnItemDDP.setBounds(x, 0, 161, 31);
+			btnItemDDP.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemDDP);
 			btnItemDDP.addActionListener(this);
 
@@ -196,6 +203,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			btnItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemPhong.setBackground(new Color(255, 240, 245));
 			btnItemPhong.setBounds(x, 0, 202, 31);   // 692
+			btnItemPhong.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemPhong);
 			btnItemPhong.addActionListener(this);
 			
@@ -210,6 +218,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			btnItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemKH.setBackground(new Color(255, 240, 245));
 			btnItemKH.setBounds(x, 0, 142, 31);  // 904
+			btnItemKH.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemKH);
 			btnItemKH.addActionListener(this);
 			
@@ -225,6 +234,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			btnItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemTK.setBackground(new Color(255, 240, 245));
 			btnItemTK.setBounds(x, 0, 132, 31); // 1056
+			btnItemTK.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemTK);
 			btnItemTK.addActionListener(this);
 			

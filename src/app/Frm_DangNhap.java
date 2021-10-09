@@ -16,8 +16,12 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class Frm_DangNhap extends JFrame implements ActionListener {
 
@@ -34,6 +38,7 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(new FlatLightLaf());
 					Frm_DangNhap frame = new Frm_DangNhap();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -112,6 +117,7 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 		JLabel lblNhac1 = new JLabel("");
 		
 		lblNhac1.setBounds(28, 299, 103, 122);
+		
 		
 		Image imgNhac1 = Toolkit.getDefaultToolkit ().getImage ("data\\img\\IconNhac1.png");
 		Image resizeNhac1 = imgNhac1.getScaledInstance(lblNhac1.getWidth(), lblNhac1.getHeight(), 0);

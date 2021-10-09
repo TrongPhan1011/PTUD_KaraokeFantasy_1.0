@@ -446,6 +446,8 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		lblSubTTHD.setBounds(10, 51, 131, 26);
 		pThanhToan.add(lblSubTTHD);
 		
+		
+		
 		JRadioButton rdbtnChoThanhToan = new JRadioButton("Chờ thanh toán");
 		rdbtnChoThanhToan.setSelected(true);
 		rdbtnChoThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
