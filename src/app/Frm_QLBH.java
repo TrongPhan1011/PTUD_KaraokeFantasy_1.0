@@ -291,7 +291,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		txtSoLuong.setColumns(10);
 		
 		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
-		rdbtnGiamSL.setBackground(new Color(238,239,243));
+		rdbtnGiamSL.setBackground(new Color(228,210,239));
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		rdbtnGiamSL.setBounds(58, 179, 147, 35);
 		pDichVu.add(rdbtnGiamSL);
@@ -425,7 +425,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		pMain.add(pLine);
 		
 		JPanel pThanhToan = new JPanel();
-		pThanhToan.setBackground(new Color(238,239,243));
+		pThanhToan.setBackground(new Color(238,239,243,90));
 		pThanhToan.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Thanh toán", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pThanhToan.setBounds(1024, 238, 232, 319);
 		pMain.add(pThanhToan);
@@ -449,13 +449,13 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		JRadioButton rdbtnChoThanhToan = new JRadioButton("Chờ thanh toán");
 		rdbtnChoThanhToan.setSelected(true);
 		rdbtnChoThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnChoThanhToan.setBackground(new Color(238,239,243));
+		rdbtnChoThanhToan.setBackground(new Color(220,210,239));
 		rdbtnChoThanhToan.setBounds(37, 77, 153, 33);
 		pThanhToan.add(rdbtnChoThanhToan);
 		
 		JRadioButton rdbtnDaThanhToan = new JRadioButton("Đã thanh toán");
 		rdbtnDaThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnDaThanhToan.setBackground(new Color(238,239,243));
+		rdbtnDaThanhToan.setBackground(new Color(228,210,239));
 		rdbtnDaThanhToan.setBounds(38, 113, 152, 33);
 		pThanhToan.add(rdbtnDaThanhToan);
 		
