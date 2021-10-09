@@ -125,6 +125,13 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 		Image resizeNhac2 = imgNhac2.getScaledInstance(lblNhac2.getWidth(), lblNhac2.getHeight(), 0);
 		lblNhac2.setIcon(new ImageIcon(resizeNhac2));
 		
+		JLabel lblBackground = new JLabel("");
+		lblBackground.setBounds(0, 0, 488, 465);
+		getContentPane().add(lblBackground);
+		Image imgBackground = Toolkit.getDefaultToolkit ().getImage ("data\\img\\imgGradient.jpg");
+		Image resizeBackground = imgBackground.getScaledInstance(lblBackground.getWidth(), lblBackground.getHeight(), 0);
+		lblBackground.setIcon(new ImageIcon(resizeBackground));
+		
 		
 		
 		

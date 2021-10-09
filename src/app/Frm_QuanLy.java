@@ -118,12 +118,11 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		lblHeaderMa.setBounds(908, 42, 135, 20);
 		panel.add(lblHeaderMa);
 		
-		btnDangXuat = new JButton("Đăng Xuất");
+		btnDangXuat = new FixButton("Đăng Xuất");
 		btnDangXuat.setForeground(Color.WHITE);
 		btnDangXuat.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnDangXuat.setBounds(1134, 20, 110, 30);
-		btnDangXuat.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
-		btnDangXuat.setBackground(new Color(164, 44, 167));
+		btnDangXuat.setBounds(1134, 20, 110, 35);
+		btnDangXuat.setBackground(new Color(0xE91940));
 		panel.add(btnDangXuat);
 		
 		JPanel pQL = new JPanel();
