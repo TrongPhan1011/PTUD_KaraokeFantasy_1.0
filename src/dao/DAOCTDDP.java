@@ -38,6 +38,7 @@ public class DAOCTDDP {
 				ctddp.setMatHang(new MatHang(rs.getNString(5)));
 				ctddp.setPhong(new Phong(rs.getNString(6)));
 				ctddp.setDonDatPhong(new DonDatPhong(ma));
+				ctddp.setSoLuongMH(rs.getInt(8));
 				
 				lsCTDDP.add(ctddp);
 				

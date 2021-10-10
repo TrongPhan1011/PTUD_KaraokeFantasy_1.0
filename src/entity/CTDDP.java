@@ -17,7 +17,15 @@ public class CTDDP implements Serializable {
 	private String trangThaiCTDDP;
 	private DonDatPhong donDatPhong;
 	private Phong phong;
+	private int soLuongMH;
 	private MatHang matHang;
+	
+	public int getSoLuongMH() {
+		return soLuongMH;
+	}
+	public void setSoLuongMH(int soLuongMH) {
+		this.soLuongMH = soLuongMH;
+	}
 	
 	public Time getGioDen() {
 		return gioDen;
@@ -73,8 +81,11 @@ public class CTDDP implements Serializable {
 		this.maCTDDP = maCTDDP;
 	}
 	
+
+	
+	
 	public CTDDP(String maCTDDP, Date ngayDen, Time gioDen, String trangThaiCTDDP, DonDatPhong donDatPhong, Phong phong,
-			MatHang matHang) {
+			int soLuongMH, MatHang matHang) {
 		super();
 		this.maCTDDP = maCTDDP;
 		this.ngayDen = ngayDen;
@@ -82,9 +93,9 @@ public class CTDDP implements Serializable {
 		this.trangThaiCTDDP = trangThaiCTDDP;
 		this.donDatPhong = donDatPhong;
 		this.phong = phong;
+		this.soLuongMH = soLuongMH;
 		this.matHang = matHang;
 	}
-	
 	
 	public CTDDP(String maCTDDP, Date ngayDen, Time gioDen, String trangThaiCTDDP, DonDatPhong donDatPhong,
 			Phong phong) {
