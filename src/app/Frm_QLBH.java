@@ -15,7 +15,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -30,14 +32,25 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import connection.ConnectDB;
+import dao.DAOCTDDP;
+import dao.DAODonDatPhong;
+import dao.DAOKhachHang;
 import dao.DAOLoaiMH;
+import dao.DAOLoaiPhong;
 import dao.DAOMatHang;
+import dao.DAOPhong;
+import entity.CTDDP;
+import entity.DonDatPhong;
+import entity.KhachHang;
 import entity.LoaiMatHang;
+import entity.LoaiPhong;
 import entity.MatHang;
+import entity.Phong;
 
 public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,ItemListener {
 
@@ -67,6 +80,17 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	private JButton btnThanhToan;
 	private JButton btnSuaHD;
 	private JButton btnLamMoiHD;
+	private DAOCTDDP daoCTDDP;
+	private JPanel pPhong;
+	private DAOLoaiPhong daoLoaiPhong;
+	private JLabel lblMaPhong;
+	private DAODonDatPhong daoDDP;
+	private DAOPhong daoPhong;
+	private JLabel lblMaKH;
+	private DAOKhachHang daoKhachHang;
+	private JLabel lblTenKH;
+	private JLabel lblGioVao;
+	private JLabel lblPhutVao;
 	
 	public Panel getFrmQLBH() {
 		return this.pMain;
@@ -79,6 +103,24 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		this.dNgayHienTai = dNgayHienTai;
 		this.frm = frm;
 		
+//connect database
+		try {
+			ConnectDB.getinstance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+//khai bao dao
+		daoLoaiMH = new DAOLoaiMH();
+		daoMatHang = new DAOMatHang();
+		daoCTDDP = new DAOCTDDP();
+		daoLoaiPhong = new DAOLoaiPhong();
+		daoDDP = new DAODonDatPhong();
+		daoPhong = new DAOPhong();
+		daoKhachHang =  new DAOKhachHang();
+		
+		
+//Main UI
 		setLayout(null);
 		pMain = new Panel();
 		pMain.setBackground(Color.WHITE);
@@ -100,19 +142,11 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		txtTim.setBounds(474, 12, 281, 33);
 		txtTim.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
+
 		pMain.add(txtTim);
 		txtTim.setColumns(10);
 		
-//		JButton btnTim = new JButton("Tìm");
-//		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
-//		btnTim.setBounds(786, 11, 98, 33);
-////		btnTim.setBackground(new Color(114, 23 ,153));
-//		btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-//		btnTim.setForeground(Color.WHITE);
-//		Image imgTim = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconKinhLup.png");
-//		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
-//		btnTim.setIcon(new ImageIcon(resizeImgTim));
-//		pMain.add(btnTim);
+
 		
 		
 		btnTim = new FixButton("Tìm"); 
@@ -121,6 +155,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnTim.setBounds(786, 11, 98, 33);
 		Image imgTim = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconKinhLup.png");
 		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
+		
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
 		
 		pMain.add(btnTim);
@@ -149,7 +184,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		lblHeaderPhong.setBounds(575, 51, 71, 26);
 		pMain.add(lblHeaderPhong);
 		
-		JPanel pPhong = new JPanel();
+		pPhong = new JPanel();
 		
 		pPhong.setBackground(Color.white);		//new Color(164, 44, 167,20)
 
@@ -159,49 +194,62 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		scrollPane.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
 		
+		loadPhong();
 		
 		scrollPane.setBounds(24, 78, 1232, 108);
 		pMain.add(scrollPane);
 		
 		JLabel lblSubPhong = new JLabel("Phòng : ");
 		lblSubPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubPhong.setBounds(37, 201, 56, 26);
+		lblSubPhong.setBounds(78, 197, 56, 26);
 		pMain.add(lblSubPhong);
 		
-		JLabel lblMaPhong = new JLabel("P001");
+		lblMaPhong = new JLabel("");
 		lblMaPhong.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblMaPhong.setBounds(92, 201, 56, 26);
+		lblMaPhong.setBounds(133, 197, 71, 26);
 		pMain.add(lblMaPhong);
 		
-		JLabel lblSubTenKH = new JLabel("Tên khách hàng : ");
+		JLabel lblSubTenKH = new JLabel("Khách hàng: ");
 		lblSubTenKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubTenKH.setBounds(158, 201, 120, 26);
+		lblSubTenKH.setBounds(246, 197, 90, 26);
 		pMain.add(lblSubTenKH);
 		
-		JLabel lblTenKH = new JLabel("KH001- Phan Hữu Trọng");
+		lblMaKH = new JLabel("");
+		lblMaKH.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblMaKH.setBounds(330, 197, 71, 26);
+		pMain.add(lblMaKH);
+		
+		lblTenKH = new JLabel("");
 		lblTenKH.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblTenKH.setBounds(276, 201, 177, 26);
+		lblTenKH.setBounds(374, 197, 201, 26);
 		pMain.add(lblTenKH);
+		
 		
 		JLabel lblSubGioVao = new JLabel("Giờ vào: ");
 		lblSubGioVao.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubGioVao.setBounds(487, 201, 61, 26);
+		lblSubGioVao.setBounds(607, 197, 61, 26);
 		pMain.add(lblSubGioVao);
 		
-		JLabel lblGioVao = new JLabel("15h : 30");
+		lblGioVao = new JLabel("");
 		lblGioVao.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblGioVao.setBounds(548, 201, 83, 26);
+		lblGioVao.setBounds(668, 197, 27, 26);
 		pMain.add(lblGioVao);
+		
+		lblPhutVao = new JLabel("");
+		lblPhutVao.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblPhutVao.setBounds(705, 197, 27, 26);
+		pMain.add(lblPhutVao);
 		
 		JLabel lblSubGioRa = new JLabel("Giờ ra: ");
 		lblSubGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubGioRa.setBounds(641, 201, 61, 26);
+		lblSubGioRa.setBounds(774, 197, 61, 26);
 		pMain.add(lblSubGioRa);
 		
 		JComboBox<String> cbbGioRa = new JComboBox<String>();
 		cbbGioRa.setBackground(Color.WHITE);
-		cbbGioRa.setBounds(697, 205, 47, 22);
+		cbbGioRa.setBounds(821, 201, 56, 22);
 		cbbGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbGioRa.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		
 		for(int i=0 ; i <24;i++ ) {
 			cbbGioRa.addItem(""+i);
@@ -209,14 +257,16 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		pMain.add(cbbGioRa);
 		
 		JLabel blbSubAfterGioRa = new JLabel(":");
-		blbSubAfterGioRa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		blbSubAfterGioRa.setBounds(746, 209, 6, 14);
+		blbSubAfterGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		blbSubAfterGioRa.setBounds(879, 205, 6, 14);
 		pMain.add(blbSubAfterGioRa);
 		
 		JComboBox<String> cbbPhutRa = new JComboBox<String>();
 		cbbPhutRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbPhutRa.setBackground(Color.WHITE);
-		cbbPhutRa.setBounds(753, 205, 47, 22);
+		cbbPhutRa.setBounds(886, 201, 60, 22);
+		cbbPhutRa.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		
 		for(int i =0; i<60; i++) {
 			cbbPhutRa.addItem(""+i);
 		}
@@ -224,29 +274,20 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 		JLabel lblSubPhuThu = new JLabel("Phụ thu: ");
 		lblSubPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubPhuThu.setBounds(855, 201, 61, 26);
+		lblSubPhuThu.setBounds(986, 197, 61, 26);
 		pMain.add(lblSubPhuThu);
 		
 		JComboBox<String> cbbPhuThu = new JComboBox<String>();
 		cbbPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbPhuThu.setBackground(Color.WHITE);
-		cbbPhuThu.setBounds(919, 205, 90, 22);
+		cbbPhuThu.setBounds(1050, 201, 90, 22);
+		cbbPhuThu.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 	
 		String sPhuThu [] = {"Không","Ngày lễ","Cuối tuần"};
 		for(int i =0; i< sPhuThu.length;i++) {
 			cbbPhuThu.addItem(sPhuThu[i]);
 		}
 		pMain.add(cbbPhuThu);
-		
-		JLabel lblNgayLap = new JLabel("10/11/2021");
-		lblNgayLap.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblNgayLap.setBounds(1173, 201, 83, 26);
-		pMain.add(lblNgayLap);
-		
-		JLabel lblSubNgayLap = new JLabel("Ngày lập hóa đơn:");
-		lblSubNgayLap.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubNgayLap.setBounds(1032, 201, 131, 26);
-		pMain.add(lblSubNgayLap);
 		
 		JPanel pDichVu = new JPanel();
 		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Dịch vụ ", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
@@ -264,6 +305,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		cbbLoaiMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbLoaiMH.setBackground(Color.WHITE);
 		cbbLoaiMH.setBounds(112, 36, 159, 30);
+		cbbLoaiMH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		pDichVu.add(cbbLoaiMH);
 		
 		JLabel lblSubTenMH = new JLabel("Tên mặt hàng: ");
@@ -275,6 +317,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		cbbTenMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbTenMH.setBackground(Color.WHITE);
 		cbbTenMH.setBounds(112, 88, 159, 30);
+		cbbTenMH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		pDichVu.add(cbbTenMH);
 		
 		JLabel lblSoluongMH = new JLabel("Số lượng:");
@@ -285,15 +328,15 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		txtSoLuong = new JTextField();
 		txtSoLuong.setBackground(new Color(255, 255, 255));
 		txtSoLuong.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtSoLuong.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
-		txtSoLuong.setBounds(112, 141, 146, 30);
+		txtSoLuong.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));;
+		txtSoLuong.setBounds(112, 141, 159, 30);
 		pDichVu.add(txtSoLuong);
 		txtSoLuong.setColumns(10);
 		
 		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
 		rdbtnGiamSL.setBackground(new Color(228,210,239));
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		rdbtnGiamSL.setBounds(58, 179, 147, 35);
+		rdbtnGiamSL.setBounds(72, 179, 147, 35);
 		pDichVu.add(rdbtnGiamSL);
 		
 		btnThemMH = new FixButton("Thêm mặt hàng");
@@ -309,7 +352,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 		pDichVu.add(btnThemMH);
 		
-		 btnXoaMH = new FixButton("Xóa");
+		btnXoaMH = new FixButton("Xóa");
 		btnXoaMH.setForeground(Color.WHITE);
 		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		
@@ -337,8 +380,8 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		modelMatHang = new DefaultTableModel(col,0);
 		
 		tbMatHang = new JTable(modelMatHang);
-		tbMatHang.setShowHorizontalLines(false);
-		tbMatHang.setShowGrid(false);
+		tbMatHang.setShowHorizontalLines(true);
+		tbMatHang.setShowGrid(true);
 		tbMatHang.setBackground(Color.WHITE);
 		tbMatHang.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		
@@ -348,9 +391,19 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		tbHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
 		
 		tbMatHang.setSelectionBackground(new Color(164, 44, 167,30));
+		tbMatHang.setSelectionForeground(new Color(114, 23, 153));
 		tbMatHang.setRowHeight(30);
 		
-		tbMatHang.setOpaque(false);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+		
+		tbMatHang.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+		tbMatHang.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+		tbMatHang.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+		
+		
+		
+//		tbMatHang.setOpaque(false);
 		
 //		demo dữ liệu:
 		modelMatHang.addRow(new Object[] {"123","123"});
@@ -509,18 +562,15 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		Image resizeBG = imgBackground.getScaledInstance(lblBackground.getWidth(), lblBackground.getHeight(), 0);
 		lblBackground.setIcon(new ImageIcon(resizeBG));
 		
+		
+		JLabel blbSubAfterGioRa_1 = new JLabel(":");
+		blbSubAfterGioRa_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		blbSubAfterGioRa_1.setBounds(691, 203, 12, 14);
+		pMain.add(blbSubAfterGioRa_1);
+		
 		pMain.add(lblBackground);
 		
-		//connect database
-		try {
-			ConnectDB.getinstance().connect();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		//khai bao dao
-		daoLoaiMH = new DAOLoaiMH();
-		daoMatHang = new DAOMatHang();
+	
 		
 		//Load tên loại mặt hàng
 		ArrayList<LoaiMatHang> lsLoaiMH = daoLoaiMH.getAllLoaiMatHang();
@@ -541,24 +591,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 
 		
-		for(int i =0; i< 15; i++) {
-			JPanel pn = new JPanel();
-			
-			JButton btnPhong = new JButton("P001");
-			pn.add(btnPhong);
-			btnPhong.setBackground(new Color(57, 210, 247));
-			btnPhong.setPreferredSize(new Dimension(70,70));
-			btnPhong.setBorder(new LineBorder(Color.white,10));
-			
-			JLabel lblTenPhong = new JLabel("P001");
-			lblTenPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
-			pn.setBackground(new Color(164, 44, 167,20));
 		
-			
-			pn.add(lblTenPhong);
-			pPhong.add(pn);
-		
-		}
 		
 		
 		
@@ -566,11 +599,83 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		//action 
 		cbbLoaiMH.addItemListener(this);
 		cbbTenMH.addItemListener(this);
+		btnLamMoiHD.addActionListener(this);
 		
 	
 		
 		
 	}
+	
+	public void loadPhong() {
+
+	
+		ArrayList<Phong> lsPhong = daoPhong.getPhongTheoTrangThaiCTDDP();
+		for(Phong p : lsPhong) {
+			JPanel pn = new JPanel();
+			LoaiPhong lp = daoLoaiPhong.getLoaiPhongTheoMa(p.getLoaiPhong().getMaLoaiPhong());
+			JButton btnPhong = new JButton(p.getMaPhong());
+			pn.add(btnPhong);
+			btnPhong.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					Object o = e.getSource();
+					if(o.equals(btnPhong)) {
+						loadInfo(p);
+					}
+					
+				}
+			});
+			
+			btnPhong.setBackground(new Color(57, 210, 247));
+			btnPhong.setPreferredSize(new Dimension(70,70));
+			btnPhong.setBorder(new LineBorder(Color.white,10));
+			
+			JLabel lblTenPhong = new JLabel(lp.getTenLoaiPhong()+ " "+ p.getMaPhong());
+			lblTenPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
+			pn.setBackground(new Color(248, 238, 248));
+		
+			pn.add(lblTenPhong);
+			
+			pPhong.add(pn);
+		
+		}
+	}
+	
+	public void loadInfo(Phong p) {
+		lblMaPhong.setText(p.getMaPhong());
+		DonDatPhong ddp = daoDDP.getDDPTheoMaPhongTrangThaiPhong(p.getMaPhong());
+		
+		KhachHang kh = daoKhachHang.getKHTheoMa(ddp.getMaDDP());
+		CTDDP ctddp = daoCTDDP.getCTDDPTheoMaDDP(ddp.getMaDDP()).get(0);
+		Time gioDen = ctddp.getGioDen();
+		lblMaKH.setText(kh.getMaKhangHang());
+		lblTenKH.setText(" - "+kh.getTenKH());
+		lblGioVao.setText(""+gioDen.getHours());
+		lblPhutVao.setText(""+gioDen.getMinutes());
+		loadTable(ddp);
+	}
+	
+	public void loadTable(DonDatPhong ddp) {
+		clearTable();
+		ArrayList<CTDDP> lsCTDDP = daoCTDDP.getCTDDPTheoMaDDP(ddp.getMaDDP());
+		for(CTDDP ctddp : lsCTDDP) {
+			MatHang mh = daoMatHang.getMHTheoMaMH(ctddp.getMatHang().getMaMatHang());
+			LoaiMatHang loaiMH = daoLoaiMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
+			double tongTien = mh.getGiaMatHang() * ctddp.getSoLuongMH();
+			modelMatHang.addRow(new Object[] {
+					mh.getTenMatHang(),loaiMH.getTenLoaiMatHang(),ctddp.getSoLuongMH(),mh.getGiaMatHang(),tongTien
+			});
+		}
+	}
+	
+	public void clearTable() {
+		while (tbMatHang.getRowCount() > 0) {
+			modelMatHang.removeRow(0);
+		}
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -579,7 +684,11 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 			Frm_DanhSachHoaDon frm_DanhSachHoaDon = new Frm_DanhSachHoaDon(frm);
 			frm_DanhSachHoaDon.setVisible(true);
 			frm.setVisible(false);
-			
+		}
+		if(o.equals(btnLamMoiHD)) {
+			lblMaPhong.setText("");
+			txtTim.setText("");
+			txtSoLuong.setText("");
 			
 		}
 		

@@ -130,7 +130,7 @@ public class Frm_ThongKe extends JPanel {
 		pThongKe.add(lblChonNgay);
 		
 		JComboBox<String> cbbNgaySinh = new JComboBox<String>();
-		cbbNgaySinh.setFont(new Font("SansSerif" , Font.PLAIN, 15));
+		cbbNgaySinh.setFont(new Font("SansSerif"  , Font.PLAIN, 15));
 		cbbNgaySinh.setBackground(Color.white);
 		cbbNgaySinh.setBounds(140, 81, 150, 36);
 		for(int i = 1;i <=31; i++) {

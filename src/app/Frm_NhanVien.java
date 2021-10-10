@@ -7,20 +7,28 @@ import java.beans.PropertyChangeListener;
 import java.sql.Date;
 import java.util.*;
 import java.text.DateFormat;
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.ColorChooserUI;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.SqlDateModel;
+
 import com.mindfusion.drawing.Colors;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.border.EmptyBorder;
 
 public class Frm_NhanVien extends JPanel implements ActionListener {
 
@@ -179,60 +187,72 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		lblNgaySinh.setBounds(859, 65, 75, 18);
 		pMain.add(lblNgaySinh);
 		
-//		ftfNgaySinh.setValue(new Date());
-		ftfNgaySinh.setBounds(964, 62, 100, 25);
-		ftfNgaySinh.setEditable(false);
-		pMain.add(ftfNgaySinh);
+		SqlDateModel modelNgaySinh=new SqlDateModel();
+		modelNgaySinh.setSelected(true);
+		//modelNgaySinh.setDate(2000, 0, 1); //month= 0+1 = 1
+		Properties p=new Properties();
+		p.put("text.day", "Day");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		JDatePanelImpl panel=new JDatePanelImpl(modelNgaySinh, p);
+		JDatePickerImpl datePicker=new JDatePickerImpl(panel, new AbstractFormatter() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Object stringToValue(String text) throws ParseException {
+//				text=new String("Chọn ngày");
+//				return text;
+				return "";
+			}
+
+			@Override
+			public String valueToString(Object value) throws ParseException {
+				if(value != null) {
+					Calendar cal = (Calendar) value;
+					SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy");
+					String strDate = format.format(cal.getTime());
+					return strDate;
+				}
+				return "";
+			}
+			
+		});
+		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
+		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
 		
-		ImageIcon iconLich=new ImageIcon("data/img/lich1.png");
-		JButton btnLich=new FixButton("");
+		datePicker.setBounds(964, 62, 120, 26);
+		datePicker.setTextEditable(true);
+		
+		pMain.add(datePicker);
+		
+
+//		ftfNgaySinh.setBounds(964, 62, 100, 25);
+//		ftfNgaySinh.setEditable(false);
+//		pMain.add(ftfNgaySinh);
+//		
+		JButton btnLich=new JButton();
 		btnLich.setBackground(Color.WHITE);
 		btnLich.setBorder(new LineBorder(new Color(255, 255, 255), 5, true));
-		btnLich.setIcon(iconLich);
+		btnLich.setIcon(new ImageIcon("data/img/lich1.png"));
 		btnLich.setBounds(1072, 62, 26, 25);
-//		btnLich.setBorder(new EtchedBorder(60));
-		pMain.add(btnLich);
+//		btnLich.setPreferredSize(new Dimension(26, 25));
+//		pMain.add(btnLich);
+		datePicker.add(btnLich);
 		
-//		CalendarWindow calendarWindow=new CalendarWindow();
-//		calendarWindow.addPropertyChangeListener(this);
-//		//JComboBox<Object> cbbNgaySinh = new JComboBox<Object>(getMouseListeners());
-//		
 //		btnLich.addActionListener(new ActionListener() {
 //
 //			@Override
 //			public void actionPerformed(ActionEvent e) {
 //				// TODO Auto-generated method stub
-//				calendarWindow.setLocation(ftfNgaySinh.getLocationOnScreen().x, (ftfNgaySinh.getLocationOnScreen().y + ftfNgaySinh.getHeight()));
-//				Date d = (Date) ftfNgaySinh.getValue();
 //				
-//				calendarWindow.resetSelection(d);
-//				calendarWindow.setUndecorated(true);
-//				calendarWindow.setVisible(true);
 //			}
 //			
-//		});
-//		
-//		//pMain.add(btnLich);
-//		pMain.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		
-//		JComboBox<String> cbbNgaySinh = new JComboBox<String>();
-//		cbbNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
-//		cbbNgaySinh.setBackground(Color.WHITE);
-//		cbbNgaySinh.setBounds(964, 65, 50, 27);
-//		pMain.add(cbbNgaySinh);
-//		
-//		JComboBox<String> cbbThangSinh = new JComboBox<String>();
-//		cbbThangSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
-//		cbbThangSinh.setBackground(Color.WHITE);
-//		cbbThangSinh.setBounds(1024, 65, 50, 27);
-//		pMain.add(cbbThangSinh);
-//		
-//		JComboBox<String> cbbNamSinh = new JComboBox<String>();
-//		cbbNamSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
-//		cbbNamSinh.setBackground(Color.WHITE);
-//		cbbNamSinh.setBounds(1084, 65, 72, 27);
-//		pMain.add(cbbNamSinh);
-		
+//		});	
 		
 		//calamviec
 		JLabel lblCaLamViec = new JLabel("Ca làm việc:");
@@ -293,30 +313,37 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		//sapxep
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Sắp xếp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pSapXep.setBackground(Color.WHITE);
+		pSapXep.setBackground(new Color(220,210,239));
 		pSapXep.setBounds(270, 236, 733, 66);
 		pMain.add(pSapXep);
 		
 		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[] {"Tăng dần", "Giảm dần"});
 		cbbSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbSapXep.setBackground(Color.WHITE);
+		cbbSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		pSapXep.add(cbbSapXep);
 		
 		JRadioButton radTheoMaNV = new JRadioButton("Theo mã nhân viên");
 		radTheoMaNV.setSelected(true);
 		radTheoMaNV.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoMaNV.setBackground(Color.WHITE);
+		radTheoMaNV.setBackground(new Color(220,210,239));
 		pSapXep.add(radTheoMaNV);
 		
 		JRadioButton radTheoTenNV = new JRadioButton("Theo tên nhân viên");
 		radTheoTenNV.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoTenNV.setBackground(Color.WHITE);
+		radTheoTenNV.setBackground(new Color(220,210,239));
 		pSapXep.add(radTheoTenNV);
 		
 		JRadioButton radTheoChucVuNV = new JRadioButton("Theo chức vụ nhân viên");
 		radTheoChucVuNV.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoChucVuNV.setBackground(Color.WHITE);
+		radTheoChucVuNV.setBackground(new Color(220,210,239));
 		pSapXep.add(radTheoChucVuNV);
+		
+		ButtonGroup bgRad=new ButtonGroup();
+		bgRad.add(radTheoMaNV);
+		bgRad.add(radTheoTenNV);
+		bgRad.add(radTheoChucVuNV);
+		radTheoMaNV.setSelected(true);
 		
 		//bangthongtinNV
 		JScrollPane scrollPaneNV = new JScrollPane();
@@ -344,8 +371,9 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 //		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
 //		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
 //		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
-		tableNV.setShowGrid(false);
-		tableNV.setShowHorizontalLines(false);
+		
+//		tableNV.setShowGrid(false);
+//		tableNV.setShowHorizontalLines(false);
 		tableNV.setBackground(Color.WHITE);
 		tableNV.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		tableNV.setRowHeight(30);
@@ -386,13 +414,4 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		
 	}
 
-//	@Override
-//	public void propertyChange(PropertyChangeEvent evt) {
-//		// TODO Auto-generated method stub
-//		if(evt.getPropertyName().equals("selectedDate")) {
-//			java.util.Calendar cal = (Calendar) evt.getNewValue();
-//			Date selDate = (Date) cal.getTime();
-//			ftfNgaySinh.setValue(selDate);
-//		}
-//	}
 }

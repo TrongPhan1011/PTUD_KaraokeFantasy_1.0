@@ -41,6 +41,11 @@ public class Frm_KhachHang extends JPanel {
 	private Date dNgayHienTai;
 	private Panel pMain;
 	private JTextField textFieldTK;
+	private JButton btnTim;
+	private JButton btnThemKH;
+	private JButton btnSuaKH;
+	private JButton btnXoaKH;
+	private JButton btnReset;
 	private JTextField textFieldHoTen;
 	private JTextField textFieldSDT;
 	private JTextField textFieldCccd;
@@ -84,12 +89,12 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(textFieldTK);
 		textFieldTK.setColumns(10);
 		
-		JButton btnTim = new JButton("Tìm");
+		btnTim = new FixButton("Tìm");
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTim.setBounds(786, 11, 98, 33);
 		btnTim.setBackground(new Color(114, 23 ,153));
-		btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnTim.setForeground(Color.WHITE);
+		//btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		//btnTim.setForeground(Color.WHITE);
 		Image imgTim = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconKinhLup.png");
 		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
@@ -145,6 +150,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox <String> loaiKH = new JComboBox<String>();
 		loaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		loaiKH.setBounds(631, 60, 124, 27);
+		loaiKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		//loaiKH.setForeground(new Color(255, 255, 255));
 		loaiKH.setBackground(new Color(255, 255, 255));
 		String cbbLoaiKH [] = {"Thường", "Thành viên", "VIP"};
@@ -178,6 +184,7 @@ public class Frm_KhachHang extends JPanel {
 		gioiTinh.setBounds(631, 136, 124, 28);
 		gioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		gioiTinh.setBackground(Color.WHITE);
+		gioiTinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		String cbbGioiTinh [] = {"Nam", "Nữ"};
 		for(int i = 0;i < cbbGioiTinh.length; i++) {
 			gioiTinh.addItem(cbbGioiTinh[i]);
@@ -213,6 +220,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNgaySinh = new JComboBox<String>();
 		cbbNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgaySinh.setBackground(Color.white);
+		cbbNgaySinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbNgaySinh.setBounds(952, 64, 47, 26);
 		for(int i = 1;i <=31; i++) {
 			cbbNgaySinh.addItem(""+i);
@@ -222,6 +230,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbThangSinh = new JComboBox<String>();
 		cbbThangSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangSinh.setBackground(Color.white);
+		cbbThangSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbThangSinh.setBounds(1009, 63, 46, 27);
 		for(int i = 1; i <= 12;i++) {
 			cbbThangSinh.addItem(""+i);
@@ -231,43 +240,56 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNamSinh = new JComboBox<String>();
 		cbbNamSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNamSinh.setBackground(Color.white);
+		cbbNamSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbNamSinh.setBounds(1065, 63, 72, 27);
 		for(int i = 2004; i > 1900; i--) {
 			cbbNamSinh.addItem(""+i);
 		}
 		pMain.add(cbbNamSinh);
 
-		
-		JButton btnThemKH = new JButton("Thêm");
+		btnThemKH = new FixButton("Thêm");
 		btnThemKH.setForeground(Color.WHITE);
 		btnThemKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemKH.setBackground(new Color(114, 23, 153));
 		btnThemKH.setBounds(318, 222, 108, 35);
+		Image imgThemKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
+		Image resizeImgThemKH = imgThemKH.getScaledInstance(25, 25, 0);
+		btnThemKH.setIcon(new ImageIcon(resizeImgThemKH));
 		pMain.add(btnThemKH);
 		
-		JButton btnSuaKH = new JButton("Sửa");
+		btnSuaKH = new FixButton("Sửa");
 		btnSuaKH.setForeground(Color.WHITE);
 		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaKH.setBackground(new Color(114, 23, 153));
 		btnSuaKH.setBounds(486, 222, 108, 35);
+		Image imgSuaKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconTool.png");
+		Image resizeImgSuaKH = imgSuaKH.getScaledInstance(25, 25, 0);
+		btnSuaKH.setIcon(new ImageIcon(resizeImgSuaKH));
 		pMain.add(btnSuaKH);
 		
-		JButton btnXoaKH = new JButton("Xóa");
+		btnXoaKH = new FixButton("Xóa");
 		btnXoaKH.setForeground(Color.WHITE);
 		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaKH.setBackground(new Color(114, 23, 153));
 		btnXoaKH.setBounds(651, 222, 108, 35);
+		Image imgXoaKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconRemove.png");
+		Image resizeImgXoaKH = imgXoaKH.getScaledInstance(25, 25, 0);
+		btnXoaKH.setIcon(new ImageIcon(resizeImgXoaKH));
 		pMain.add(btnXoaKH);
 		
-		JButton btnReset = new JButton("Reset");
+		btnReset = new FixButton("Làm mới");
 		btnReset.setForeground(Color.WHITE);
 		btnReset.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnReset.setBackground(new Color(114, 23, 153));
 		btnReset.setBounds(821, 222, 108, 35);
+		Image imgLamMoiKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
+		Image resizeImgLamMoiKH = imgLamMoiKH.getScaledInstance(25, 25, 0);
+		btnReset.setIcon(new ImageIcon(resizeImgLamMoiKH));
+		
 		pMain.add(btnReset);
 		
 		
@@ -298,7 +320,8 @@ public class Frm_KhachHang extends JPanel {
 		tableKH.setBackground(Color.WHITE);
 		tableKH.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		tableKH.setRowHeight(30);
-		tableKH.setOpaque(false);
+		tableKH.setGridColor(getBackground());
+		//tableKH.setOpaque(false);
 		tableKH.setSelectionBackground(new Color(164, 44, 167,30));
 		scrollPaneKH.setViewportView(tableKH);
 		
@@ -326,6 +349,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNgayDangKy = new JComboBox<String>();
 		cbbNgayDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgayDangKy.setBackground(Color.WHITE);
+		cbbNgayDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbNgayDangKy.setBounds(952, 102, 47, 27);
 		for(int i = 1; i <= 31; i++ ) {
 			cbbNgayDangKy.addItem(""+i);
@@ -335,6 +359,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbThangDangKy = new JComboBox<String>();
 		cbbThangDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangDangKy.setBackground(Color.WHITE);
+		cbbThangDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbThangDangKy.setBounds(1009, 102, 46, 27);
 		for(int i =1; i <=12; i++) {
 			cbbThangDangKy.addItem(""+i);
@@ -347,6 +372,7 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbNamDangKy = new JComboBox<String>();
 		cbbNamDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNamDangKy.setBackground(Color.WHITE);
+		cbbNamDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		int namHienTai = dNgayHienTai.getYear();
 		int namBatDau = namHienTai - 10;
 		for(int i = namBatDau; i <= namHienTai; i++) {
@@ -356,7 +382,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(cbbNamDangKy);
 		
 		JPanel pSapXep = new JPanel();
-		pSapXep.setBackground(new Color(255,255,255));
+		pSapXep.setBackground(new Color(238,239,243,90));
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23, 153), 1, true), "S\u1EAFp x\u1EBFp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pSapXep.setBounds(239, 267, 816, 51);
 		pMain.add(pSapXep);
@@ -365,6 +391,8 @@ public class Frm_KhachHang extends JPanel {
 		JComboBox<String> cbbSort = new JComboBox<String>();
 		cbbSort.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbSort.setBackground(Color.WHITE);
+		cbbSort.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		
 		String cbSort [] = {"Tăng dần", "Giảm dần"};
 		for(int i = 0; i< cbSort.length; i++) {
 			cbbSort.addItem(cbSort[i]);
@@ -376,19 +404,19 @@ public class Frm_KhachHang extends JPanel {
 		JRadioButton rdbtnTheoMaKH = new JRadioButton("Theo mã khách hàng");
 		rdbtnTheoMaKH.setSelected(true);
 		rdbtnTheoMaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoMaKH.setBackground(Color.WHITE);
+		rdbtnTheoMaKH.setBackground(new Color(220,210,239));
 		rdbtnTheoMaKH.setBounds(211, 15, 167, 27);
 		pSapXep.add(rdbtnTheoMaKH);
 		
 		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên khách hàng");
 		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoTenKH.setBackground(Color.WHITE);
+		rdbtnTheoTenKH.setBackground(new Color(220,210,239));
 		rdbtnTheoTenKH.setBounds(420, 15, 171, 27);
 		pSapXep.add(rdbtnTheoTenKH);
 		
 		JRadioButton rdbtnTheoLoaiKH = new JRadioButton("Theo loại khách hàng");
 		rdbtnTheoLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoLoaiKH.setBackground(Color.WHITE);
+		rdbtnTheoLoaiKH.setBackground(new Color(220,210,239));
 		rdbtnTheoLoaiKH.setBounds(616, 15, 171, 27);
 		pSapXep.add(rdbtnTheoLoaiKH);
 		

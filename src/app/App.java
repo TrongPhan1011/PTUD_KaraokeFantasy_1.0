@@ -7,6 +7,7 @@ public class App {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					Frm_DangNhap frame = new Frm_DangNhap();
 					frame.setVisible(true);
 				} catch (Exception e) {
