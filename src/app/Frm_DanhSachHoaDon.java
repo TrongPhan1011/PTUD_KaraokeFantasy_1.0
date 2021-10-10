@@ -36,6 +36,8 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 	private JFrame frm;
 	private JTable tableDanhSachKH;
 	private JTable tableDanhSachMH;
+	private JButton btnTim;
+	private JButton btnLamMoi;
 
 
 //	public static void main(String[] args) {
@@ -98,7 +100,7 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		pMain.add(textFieldTK);
 		textFieldTK.setColumns(10);
 		
-		JButton btnTim = new JButton("Tìm");
+		btnTim = new FixButton("Tìm");
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTim.setBounds(690, 30, 98, 33);
 		btnTim.setBackground(new Color(114, 23 ,153));
@@ -150,12 +152,15 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		bg.add(rdbtnTheoGia);
 		rdbtnTheoMa.setSelected(true);
 		
-		JButton btnLamMoi = new JButton("Làm mới");
+		btnLamMoi = new FixButton("Làm mới");
 		btnLamMoi.setForeground(Color.WHITE);
 		btnLamMoi.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoi.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLamMoi.setBackground(new Color(114, 23, 153));
 		btnLamMoi.setBounds(571, 15, 98, 25);
+		Image imgLamMoiDS = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
+		Image resizeImgLamMoiDS = imgLamMoiDS.getScaledInstance(25, 25, 0);
+		btnLamMoi.setIcon(new ImageIcon(resizeImgLamMoiDS));
 		pSapXep.add(btnLamMoi);
 		
 		JScrollPane scrollPaneListKH = new JScrollPane();
