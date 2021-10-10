@@ -309,7 +309,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 		pDichVu.add(btnThemMH);
 		
-		 btnXoaMH = new FixButton("Xóa");
+		btnXoaMH = new FixButton("Xóa");
 		btnXoaMH.setForeground(Color.WHITE);
 		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		

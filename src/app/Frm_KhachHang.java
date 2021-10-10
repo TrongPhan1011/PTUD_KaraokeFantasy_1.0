@@ -41,6 +41,11 @@ public class Frm_KhachHang extends JPanel {
 	private Date dNgayHienTai;
 	private Panel pMain;
 	private JTextField textFieldTK;
+	private JButton btnTim;
+	private JButton btnThemKH;
+	private JButton btnSuaKH;
+	private JButton btnXoaKH;
+	private JButton btnReset;
 	private JTextField textFieldHoTen;
 	private JTextField textFieldSDT;
 	private JTextField textFieldCccd;
@@ -84,12 +89,12 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(textFieldTK);
 		textFieldTK.setColumns(10);
 		
-		JButton btnTim = new JButton("Tìm");
+		btnTim = new FixButton("Tìm");
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTim.setBounds(786, 11, 98, 33);
 		btnTim.setBackground(new Color(114, 23 ,153));
-		btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnTim.setForeground(Color.WHITE);
+		//btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		//btnTim.setForeground(Color.WHITE);
 		Image imgTim = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconKinhLup.png");
 		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
@@ -237,37 +242,49 @@ public class Frm_KhachHang extends JPanel {
 		}
 		pMain.add(cbbNamSinh);
 
-		
-		JButton btnThemKH = new JButton("Thêm");
+		btnThemKH = new FixButton("Thêm");
 		btnThemKH.setForeground(Color.WHITE);
 		btnThemKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemKH.setBackground(new Color(114, 23, 153));
 		btnThemKH.setBounds(318, 222, 108, 35);
+		Image imgThemKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
+		Image resizeImgThemKH = imgThemKH.getScaledInstance(25, 25, 0);
+		btnThemKH.setIcon(new ImageIcon(resizeImgThemKH));
 		pMain.add(btnThemKH);
 		
-		JButton btnSuaKH = new JButton("Sửa");
+		btnSuaKH = new FixButton("Sửa");
 		btnSuaKH.setForeground(Color.WHITE);
 		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaKH.setBackground(new Color(114, 23, 153));
 		btnSuaKH.setBounds(486, 222, 108, 35);
+		Image imgSuaKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconTool.png");
+		Image resizeImgSuaKH = imgSuaKH.getScaledInstance(25, 25, 0);
+		btnSuaKH.setIcon(new ImageIcon(resizeImgSuaKH));
 		pMain.add(btnSuaKH);
 		
-		JButton btnXoaKH = new JButton("Xóa");
+		btnXoaKH = new FixButton("Xóa");
 		btnXoaKH.setForeground(Color.WHITE);
 		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaKH.setBackground(new Color(114, 23, 153));
 		btnXoaKH.setBounds(651, 222, 108, 35);
+		Image imgXoaKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconRemove.png");
+		Image resizeImgXoaKH = imgXoaKH.getScaledInstance(25, 25, 0);
+		btnXoaKH.setIcon(new ImageIcon(resizeImgXoaKH));
 		pMain.add(btnXoaKH);
 		
-		JButton btnReset = new JButton("Reset");
+		btnReset = new FixButton("Làm mới");
 		btnReset.setForeground(Color.WHITE);
 		btnReset.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnReset.setBackground(new Color(114, 23, 153));
 		btnReset.setBounds(821, 222, 108, 35);
+		Image imgLamMoiKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
+		Image resizeImgLamMoiKH = imgLamMoiKH.getScaledInstance(25, 25, 0);
+		btnReset.setIcon(new ImageIcon(resizeImgLamMoiKH));
+		
 		pMain.add(btnReset);
 		
 		
