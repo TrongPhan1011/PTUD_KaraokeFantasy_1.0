@@ -53,4 +53,5 @@ public class DAOLoaiMH {
 		return maLoai;
 		
 	}
+	
 }

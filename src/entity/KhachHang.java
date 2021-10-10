@@ -11,6 +11,7 @@ public class KhachHang implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String maKhangHang;
 	private String tenKH;
+	private String diaChi;
 	private String sdt;
 	private String cccd;
 	private Date ngaySinh;
@@ -18,6 +19,14 @@ public class KhachHang implements Serializable {
 	private int diemTichLuy;
 	private Date ngayDangKy;
 	
+	
+	public String getDiaChi() {
+		return diaChi;
+	}
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
 	private LoaiKH loaiKH;
 	//Get Set
 	public String getMaKhangHang() {
@@ -75,18 +84,20 @@ public class KhachHang implements Serializable {
 		this.loaiKH = loaiKH;
 	}
 	
-	public KhachHang(String maKhangHang, String tenKH, String sdt, String cccd, Date ngaySinh, String gioiTinh,
-			int diemTichLuy, Date ngayDangKy, LoaiKH loaiKH) {
+	
+	public KhachHang(String maKhangHang, String tenKH, String diaChi, String sdt, String cccd, Date ngaySinh,
+			String gioiTinh, int diemTichLuy, Date ngayDangKy, LoaiKH loaiKH) {
 		super();
 		this.maKhangHang = maKhangHang;
 		this.tenKH = tenKH;
+		this.diaChi = diaChi;
 		this.sdt = sdt;
 		this.cccd = cccd;
 		this.ngaySinh = ngaySinh;
 		this.gioiTinh = gioiTinh;
 		this.diemTichLuy = diemTichLuy;
 		this.ngayDangKy = ngayDangKy;
-		this.setLoaiKH(loaiKH);
+		this.loaiKH = loaiKH;
 	}
 	public KhachHang() {
 		super();
@@ -97,11 +108,12 @@ public class KhachHang implements Serializable {
 		this.maKhangHang = maKhangHang;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "KhachHang [maKhangHang=" + maKhangHang + ", tenKH=" + tenKH + ", sdt=" + sdt + ", cccd=" + cccd
-				+ ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diemTichLuy=" + diemTichLuy + ", ngayDangKy="
-				+ ngayDangKy + ", loaiKH=" + loaiKH + "]";
+		return "KhachHang [maKhangHang=" + maKhangHang + ", tenKH=" + tenKH + ", diaChi=" + diaChi + ", sdt=" + sdt
+				+ ", cccd=" + cccd + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diemTichLuy="
+				+ diemTichLuy + ", ngayDangKy=" + ngayDangKy + ", loaiKH=" + loaiKH + "]";
 	}
 	@Override
 	public int hashCode() {
