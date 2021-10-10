@@ -156,6 +156,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		JComboBox<Object> cbbChucVu = new JComboBox<Object>(new Object[] {"Quản lý", "Phục vụ", "Thu ngân"});
 		cbbChucVu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbChucVu.setBackground(Color.WHITE);
+		cbbChucVu.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cbbChucVu.setBounds(657, 61, 124, 25);
 		pMain.add(cbbChucVu);
 		
@@ -178,6 +179,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		JComboBox<Object> cbbGioiTinh = new JComboBox<Object>(new Object[] {"Nam", "Nữ"});
 		cbbGioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbGioiTinh.setBackground(Color.WHITE);
+		cbbGioiTinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cbbGioiTinh.setBounds(657, 138, 65, 25);
 		pMain.add(cbbGioiTinh);
 		
@@ -262,6 +264,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		JComboBox<Object> cbbCaLamViec = new JComboBox<Object>(new Object[] {"Ca 1", "Ca 2", "Ca 3"});
 		cbbCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbCaLamViec.setBackground(Color.WHITE);
+		cbbCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cbbCaLamViec.setBounds(964, 102, 65, 25);
 		pMain.add(cbbCaLamViec);
 		
