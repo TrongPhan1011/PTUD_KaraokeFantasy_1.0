@@ -36,6 +36,8 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 	private JFrame frm;
 	private JTable tableDanhSachKH;
 	private JTable tableDanhSachMH;
+	private JButton btnTim;
+	private JButton btnLamMoi;
 
 
 //	public static void main(String[] args) {
@@ -98,7 +100,7 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		pMain.add(textFieldTK);
 		textFieldTK.setColumns(10);
 		
-		JButton btnTim = new JButton("Tìm");
+		btnTim = new FixButton("Tìm");
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTim.setBounds(690, 30, 98, 33);
 		btnTim.setBackground(new Color(114, 23 ,153));
@@ -110,13 +112,14 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		pMain.add(btnTim);
 		
 		JPanel pSapXep = new JPanel();
-		pSapXep.setBackground(new Color(255,255,255));
+		pSapXep.setBackground(new Color(220,210,239));
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23, 153), 1, true), "S\u1EAFp x\u1EBFp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pSapXep.setBounds(190, 75, 694, 49);
 		pMain.add(pSapXep);
 		
 		JComboBox<String> cbbSort = new JComboBox<String>();
 		cbbSort.setBounds(22, 13, 112, 28);
+		cbbSort.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbSort.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbSort.setBackground(Color.WHITE);
 		String cbSort [] = {"Tăng dần", "Giảm dần"};
@@ -129,19 +132,19 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		JRadioButton rdbtnTheoMa = new JRadioButton("Theo mã");
 		rdbtnTheoMa.setBounds(160, 14, 85, 27);
 		rdbtnTheoMa.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoMa.setBackground(Color.WHITE);
+		rdbtnTheoMa.setBackground(new Color(220,210,239));
 		pSapXep.add(rdbtnTheoMa);
 		
 		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên khách hàng");
 		rdbtnTheoTenKH.setBounds(268, 13, 167, 28);
 		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoTenKH.setBackground(Color.WHITE);
+		rdbtnTheoTenKH.setBackground(new Color(220,210,239));
 		pSapXep.add(rdbtnTheoTenKH);
 		
 		JRadioButton rdbtnTheoGia = new JRadioButton("Theo giá");
 		rdbtnTheoGia.setBounds(462, 14, 85, 27);
 		rdbtnTheoGia.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoGia.setBackground(Color.white);
+		rdbtnTheoGia.setBackground(new Color(220,210,239));
 		pSapXep.add(rdbtnTheoGia);
 		
 		ButtonGroup bg = new ButtonGroup();
@@ -150,12 +153,15 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		bg.add(rdbtnTheoGia);
 		rdbtnTheoMa.setSelected(true);
 		
-		JButton btnLamMoi = new JButton("Làm mới");
+		btnLamMoi = new FixButton("Làm mới");
 		btnLamMoi.setForeground(Color.WHITE);
 		btnLamMoi.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoi.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLamMoi.setBackground(new Color(114, 23, 153));
 		btnLamMoi.setBounds(571, 15, 98, 25);
+		Image imgLamMoiDS = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
+		Image resizeImgLamMoiDS = imgLamMoiDS.getScaledInstance(25, 25, 0);
+		btnLamMoi.setIcon(new ImageIcon(resizeImgLamMoiDS));
 		pSapXep.add(btnLamMoi);
 		
 		JScrollPane scrollPaneListKH = new JScrollPane();
@@ -170,6 +176,7 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		tableDanhSachKH.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		tableDanhSachKH.setShowHorizontalLines(false);
 		tableDanhSachKH.setRowHeight(30);
+		tableDanhSachKH.setSelectionBackground(new Color(164, 44, 167,30));
 		tableDanhSachKH.setOpaque(false);
 		tableDanhSachKH.setShowGrid(false);
 		
