@@ -99,7 +99,7 @@ public class Frm_PhongMatHang extends JPanel {
 		JPanel pDichVu = new JPanel();
 		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Quản lý bán hàng ", TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
 		pDichVu.setBackground(new Color(238,239,243,90));
-		pDichVu.setBounds(37, 60, 420, 170);
+		pDichVu.setBounds(37, 60, 468, 170);
 		pMain.add(pDichVu);
 		pDichVu.setLayout(null);
 		
@@ -113,7 +113,7 @@ public class Frm_PhongMatHang extends JPanel {
 		txtTenMH = new JTextField();
 		txtTenMH.setBackground(new Color(255, 255, 255));
 		txtTenMH.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtTenMH.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
+		txtTenMH.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtTenMH.setBounds(120, 20, 250, 26);
 		pDichVu.add(txtTenMH);
 		txtTenMH.setColumns(30);
@@ -127,7 +127,7 @@ public class Frm_PhongMatHang extends JPanel {
 		txtDonGia = new JTextField();
 		txtDonGia.setBackground(new Color(255, 255, 255));
 		txtDonGia.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtDonGia.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
+		txtDonGia.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtDonGia.setBounds(120, 50, 250, 26);
 		pDichVu.add(txtDonGia);
 		txtDonGia.setColumns(20);
@@ -140,7 +140,7 @@ public class Frm_PhongMatHang extends JPanel {
 		txtSoLuong = new JTextField();
 		txtSoLuong.setBackground(new Color(255, 255, 255));
 		txtSoLuong.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtSoLuong.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
+		txtSoLuong.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtSoLuong.setBounds(120, 80, 250, 26);
 		pDichVu.add(txtSoLuong);
 		txtSoLuong.setColumns(20);
@@ -159,6 +159,8 @@ public class Frm_PhongMatHang extends JPanel {
 		pRadio = new JPanel();
 		rdQLMH = new JRadioButton("Quản lý mặt hàng");
 		rdQLP = new JRadioButton("Quản lý phòng");
+		rdQLMH.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		rdQLP.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		rdQLMH.setBackground(Color.WHITE);
 		rdQLP.setBackground(Color.white);
 		pRadio.setBounds(550, 110, 150, 100);
@@ -173,7 +175,7 @@ public class Frm_PhongMatHang extends JPanel {
 		JPanel pPhong = new JPanel();
 		pPhong.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Quản lý phòng ", TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
 		pPhong.setBackground(new Color(238,239,243,90));
-		pPhong.setBounds(780, 60, 450, 170);
+		pPhong.setBounds(730, 60, 500, 170);
 		pMain.add(pPhong);
 		pPhong.setLayout(null);
 		
@@ -187,7 +189,7 @@ public class Frm_PhongMatHang extends JPanel {
 		txtTenMH = new JTextField();
 		txtTenMH.setBackground(new Color(255, 255, 255));
 		txtTenMH.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtTenMH.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
+		txtTenMH.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtTenMH.setBounds(145, 20, 250, 26);
 		pPhong.add(txtTenMH);
 		txtTenMH.setColumns(30);
@@ -228,42 +230,54 @@ public class Frm_PhongMatHang extends JPanel {
 		txtGiaP = new JTextField();
 		txtGiaP.setBackground(new Color(255, 255, 255));
 		txtGiaP.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtGiaP.setBorder(new LineBorder(new Color(0, 146, 182), 1, true));
+		txtGiaP.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtGiaP.setBounds(145, 110, 250, 26);
 		pPhong.add(txtGiaP);
 		txtGiaP.setColumns(30);
 		
 		/////
-		JButton btnThemKH = new JButton("Thêm");
+		FixButton btnThemKH = new FixButton("Thêm");
 		btnThemKH.setForeground(Color.WHITE);
 		btnThemKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+//		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemKH.setBackground(new Color(114, 43, 153));
-		btnThemKH.setBounds(387, 245, 98, 35);
+		btnThemKH.setBounds(387, 245, 118, 35);
+		Image imgThemKH = Toolkit.getDefaultToolkit().getImage("data\\img\\iconGrayThem.png");
+		Image resizeImgThemKH = imgThemKH.getScaledInstance(25, 25, 0);
+		btnThemKH.setIcon(new ImageIcon(resizeImgThemKH));
 		pMain.add(btnThemKH);
 		
-		JButton btnSuaKH = new JButton("Sửa");
+		FixButton btnSuaKH = new FixButton("Sửa");
 		btnSuaKH.setForeground(Color.WHITE);
 		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+//		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaKH.setBackground(new Color(114, 43, 153));
-		btnSuaKH.setBounds(560, 245, 108, 35);
+		btnSuaKH.setBounds(550, 245, 118, 35);
+		Image imgSuaKH = Toolkit.getDefaultToolkit().getImage("data\\img\\iconTool.png");
+		Image resizeImgSuaKH = imgSuaKH.getScaledInstance(25, 25, 0);
+		btnSuaKH.setIcon(new ImageIcon(resizeImgSuaKH));
 		pMain.add(btnSuaKH);
 		
-		JButton btnXoaKH = new JButton("Xóa");
+		FixButton btnXoaKH = new FixButton("Xóa");
 		btnXoaKH.setForeground(Color.WHITE);
 		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+//		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaKH.setBackground(new Color(114, 43, 153));
-		btnXoaKH.setBounds(722, 245, 118, 35);
+		btnXoaKH.setBounds(715, 245, 125, 35);
+		Image imgXoaKH = Toolkit.getDefaultToolkit().getImage("data\\img\\iconRemove.png");
+		Image resizeImgXoaKH = imgXoaKH.getScaledInstance(25, 25, 0);
+		btnXoaKH.setIcon(new ImageIcon(resizeImgXoaKH));
 		pMain.add(btnXoaKH);
 		
-		JButton btnReset = new JButton("Reset");
+		FixButton btnReset = new FixButton("Làm mới");
 		btnReset.setForeground(Color.WHITE);
 		btnReset.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+//		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnReset.setBackground(new Color(114, 43, 153));
-		btnReset.setBounds(896, 245, 118, 35);
+		btnReset.setBounds(881, 245, 144, 35);
+		Image imgLamMoiKH = Toolkit.getDefaultToolkit().getImage("data\\img\\iconReset.png");
+		Image resizeImgLamMoiKH = imgLamMoiKH.getScaledInstance(25, 25, 0);
+		btnReset.setIcon(new ImageIcon(resizeImgLamMoiKH));
 		pMain.add(btnReset);
 		//////////////////////////////////////////////
 		pSX = new JPanel();
@@ -395,13 +409,12 @@ public class Frm_PhongMatHang extends JPanel {
 		spPhong.setBackground(new Color(164, 44, 167));
 		pMain.add(spPhong);
 		////
-		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon("data\\img\\background.png"));
-		lblBackground.setBounds(0, 0, 618, 606);
-		Image imgBackground = Toolkit.getDefaultToolkit ().getImage ("data\\img\\background.png");
-		Image resizeBG = imgBackground.getScaledInstance(lblBackground.getWidth(), lblBackground.getHeight(), 0);
-		lblBackground.setIcon(new ImageIcon(resizeBG));
-		
-		pMain.add(lblBackground);
+		JLabel lblBackGround=new JLabel("");
+		lblBackGround.setIcon(new ImageIcon("data\\img\\background.png"));
+		lblBackGround.setBounds(0, 0, 1281, 606);
+		Image imgBackGround = Toolkit.getDefaultToolkit().getImage("data\\img\\background.png");
+		Image resizeBG = imgBackGround.getScaledInstance(lblBackGround.getWidth(), lblBackGround.getHeight(), 0);
+		lblBackGround.setIcon(new ImageIcon(resizeBG));
+		pMain.add(lblBackGround);
 	}
 }

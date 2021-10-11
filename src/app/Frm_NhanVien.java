@@ -41,7 +41,6 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 	private String sHeaderTenNV, sHeaderMaNV;
 	private Date dNgayHienTai;
 	private JTextField txtTim, txtHoTen, txtSDT, txtCccd;
-	JFormattedTextField ftfNgaySinh = new JFormattedTextField(DateFormat.getDateInstance(DateFormat.SHORT));
 	
 	public Panel getPanel() {
 		return pMain;
@@ -130,7 +129,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		//sdt
 		JLabel lblSDT = new JLabel("SĐT:");
 		lblSDT.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblSDT.setBounds(165, 108, 46, 14);
+		lblSDT.setBounds(165, 107, 46, 19);
 		pMain.add(lblSDT);
 		txtSDT = new JTextField();
 		txtSDT.setColumns(10);
@@ -156,13 +155,14 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		JComboBox<Object> cbbChucVu = new JComboBox<Object>(new Object[] {"Quản lý", "Phục vụ", "Thu ngân"});
 		cbbChucVu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbChucVu.setBackground(Color.WHITE);
+		cbbChucVu.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cbbChucVu.setBounds(657, 61, 124, 25);
 		pMain.add(cbbChucVu);
 		
 		//cccc
 		JLabel lblCccd = new JLabel("CCCD:");
 		lblCccd.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCccd.setBounds(512, 108, 65, 14);
+		lblCccd.setBounds(512, 103, 65, 19);
 		pMain.add(lblCccd);
 		txtCccd = new JTextField();
 		txtCccd.setColumns(10);
@@ -173,12 +173,13 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		//gioitinh
 		JLabel lblGioiTinh = new JLabel("Giới tính:");
 		lblGioiTinh.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblGioiTinh.setBounds(512, 145, 72, 14);
+		lblGioiTinh.setBounds(512, 143, 72, 14);
 		pMain.add(lblGioiTinh);
 		JComboBox<Object> cbbGioiTinh = new JComboBox<Object>(new Object[] {"Nam", "Nữ"});
 		cbbGioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbGioiTinh.setBackground(Color.WHITE);
-		cbbGioiTinh.setBounds(657, 138, 65, 25);
+		cbbGioiTinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		cbbGioiTinh.setBounds(657, 137, 65, 25);
 		pMain.add(cbbGioiTinh);
 		
 		//ngaysinh
@@ -242,7 +243,8 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		btnLich.setBounds(1072, 62, 26, 25);
 //		btnLich.setPreferredSize(new Dimension(26, 25));
 //		pMain.add(btnLich);
-		datePicker.add(btnLich);
+		
+		//datePicker.add(btnLich);
 		
 //		btnLich.addActionListener(new ActionListener() {
 //
@@ -262,6 +264,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		JComboBox<Object> cbbCaLamViec = new JComboBox<Object>(new Object[] {"Ca 1", "Ca 2", "Ca 3"});
 		cbbCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbCaLamViec.setBackground(Color.WHITE);
+		cbbCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cbbCaLamViec.setBounds(964, 102, 65, 25);
 		pMain.add(cbbCaLamViec);
 		
@@ -314,7 +317,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Sắp xếp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pSapXep.setBackground(new Color(220,210,239));
-		pSapXep.setBounds(270, 236, 733, 66);
+		pSapXep.setBounds(270, 236, 733, 69);
 		pMain.add(pSapXep);
 		
 		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[] {"Tăng dần", "Giảm dần"});
