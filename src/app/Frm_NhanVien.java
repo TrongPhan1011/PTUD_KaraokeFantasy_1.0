@@ -243,7 +243,8 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		btnLich.setBounds(1072, 62, 26, 25);
 //		btnLich.setPreferredSize(new Dimension(26, 25));
 //		pMain.add(btnLich);
-		datePicker.add(btnLich);
+		
+		//datePicker.add(btnLich);
 		
 //		btnLich.addActionListener(new ActionListener() {
 //
