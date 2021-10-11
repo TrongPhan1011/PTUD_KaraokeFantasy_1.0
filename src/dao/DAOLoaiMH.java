@@ -36,7 +36,7 @@ public class DAOLoaiMH {
 		LoaiMatHang loaiMH = new LoaiMatHang();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from LoaiMatHang where maLoaiMatHang = '"+ma+"'";
+		String sql = "select * from LoaiMatHang where maLoaiMH = '"+ma+"'";
 		
 		try {
 			Statement stm = con.createStatement();
@@ -58,7 +58,7 @@ public class DAOLoaiMH {
 		String maLoai ="";
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select maLoaiMatHang from LoaiMatHang where tenLoaiMatHang = N'"+ten +"'";
+		String sql = "select maLoaiMH from LoaiMatHang where tenLoaiMH = N'"+ten +"'";
 		
 		try {
 			Statement stm = con.createStatement();

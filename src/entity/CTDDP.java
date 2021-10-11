@@ -11,57 +11,21 @@ public class CTDDP implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String maCTDDP;
-	private Date ngayDen;
-	private Time gioDen;
-	private String trangThaiCTDDP;
+	
 	private DonDatPhong donDatPhong;
-	private Phong phong;
 	private int soLuongMH;
 	private MatHang matHang;
-	
-	public int getSoLuongMH() {
-		return soLuongMH;
-	}
-	public void setSoLuongMH(int soLuongMH) {
-		this.soLuongMH = soLuongMH;
-	}
-	
-	public Time getGioDen() {
-		return gioDen;
-	}
-	public void setGioDen(Time gioDen) {
-		this.gioDen = gioDen;
-	}
-	public String getMaCTDDP() {
-		return maCTDDP;
-	}
-	public void setMaCTDDP(String maCTDDP) {
-		this.maCTDDP = maCTDDP;
-	}
-	public Date getNgayDen() {
-		return ngayDen;
-	}
-	public void setNgayDen(Date ngayDen) {
-		this.ngayDen = ngayDen;
-	}
-	public String getTrangThaiCTDDP() {
-		return trangThaiCTDDP;
-	}
-	public void setTrangThaiCTDDP(String trangThaiCTDDP) {
-		this.trangThaiCTDDP = trangThaiCTDDP;
-	}
 	public DonDatPhong getDonDatPhong() {
 		return donDatPhong;
 	}
 	public void setDonDatPhong(DonDatPhong donDatPhong) {
 		this.donDatPhong = donDatPhong;
 	}
-	public Phong getPhong() {
-		return phong;
+	public int getSoLuongMH() {
+		return soLuongMH;
 	}
-	public void setPhong(Phong phong) {
-		this.phong = phong;
+	public void setSoLuongMH(int soLuongMH) {
+		this.soLuongMH = soLuongMH;
 	}
 	public MatHang getMatHang() {
 		return matHang;
@@ -72,52 +36,30 @@ public class CTDDP implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	public CTDDP() {
+	public CTDDP(DonDatPhong donDatPhong, int soLuongMH, MatHang matHang) {
 		super();
-	}
-	public CTDDP(String maCTDDP) {
-		super();
-		this.maCTDDP = maCTDDP;
-	}
-	
-
-	
-	
-	public CTDDP(String maCTDDP, Date ngayDen, Time gioDen, String trangThaiCTDDP, DonDatPhong donDatPhong, Phong phong,
-			int soLuongMH, MatHang matHang) {
-		super();
-		this.maCTDDP = maCTDDP;
-		this.ngayDen = ngayDen;
-		this.gioDen = gioDen;
-		this.trangThaiCTDDP = trangThaiCTDDP;
 		this.donDatPhong = donDatPhong;
-		this.phong = phong;
 		this.soLuongMH = soLuongMH;
 		this.matHang = matHang;
 	}
-	
-	public CTDDP(String maCTDDP, Date ngayDen, Time gioDen, String trangThaiCTDDP, DonDatPhong donDatPhong,
-			Phong phong) {
+	public CTDDP() {
 		super();
-		this.maCTDDP = maCTDDP;
-		this.ngayDen = ngayDen;
-		this.gioDen = gioDen;
-		this.trangThaiCTDDP = trangThaiCTDDP;
+	}
+	public CTDDP(DonDatPhong donDatPhong, MatHang matHang) {
+		super();
 		this.donDatPhong = donDatPhong;
-		this.phong = phong;
+		this.matHang = matHang;
 	}
 	@Override
 	public String toString() {
-		return "CTDDP [maCTDDP=" + maCTDDP + ", ngayDen=" + ngayDen + ", gioDen=" + gioDen + ", trangThaiCTDDP="
-				+ trangThaiCTDDP + ", donDatPhong=" + donDatPhong + ", phong=" + phong + ", matHang=" + matHang + "]";
+		return "CTDDP [donDatPhong=" + donDatPhong + ", soLuongMH=" + soLuongMH + ", matHang=" + matHang + "]";
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((donDatPhong == null) ? 0 : donDatPhong.hashCode());
+		result = prime * result + ((matHang == null) ? 0 : matHang.hashCode());
 		return result;
 	}
 	@Override
@@ -134,8 +76,14 @@ public class CTDDP implements Serializable {
 				return false;
 		} else if (!donDatPhong.equals(other.donDatPhong))
 			return false;
+		if (matHang == null) {
+			if (other.matHang != null)
+				return false;
+		} else if (!matHang.equals(other.matHang))
+			return false;
 		return true;
 	}
+	
 	
 	
 	

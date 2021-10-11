@@ -11,17 +11,16 @@ import entity.LoaiPhong;
 import entity.Phong;
 
 public class DAOPhong {
-	public ArrayList<Phong> getPhongTheoTrangThaiCTDDP() {
+	public ArrayList<Phong> getPhongDangHoatDong() {
 		
 		
 		ArrayList< Phong> lsPhong = new ArrayList<Phong>();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "SELECT Phong.*\r\n"
-				+ "FROM  CTDDP INNER JOIN\r\n"
-				+ "         Phong ON CTDDP.maPhong = Phong.maPhong INNER JOIN\r\n"
-				+ "         DonDatPhong ON CTDDP.maDDP = DonDatPhong.maDDP\r\n"
-				+ "WHERE phong.tinhTrangPhong = N'Đã đặt' or Phong.tinhTrangPhong = N'Đang hoạt động'";
+				+ "FROM  DonDatPhong INNER JOIN\r\n"
+				+ "         Phong ON DonDatPhong.maPhong = Phong.maPhong\r\n"
+				+ "WHERE tinhTrangPhong = N'Đang hoạt động' and TrangThaiDDP = N'Đã xác nhận'";
 		
 		try {
 			Statement stm = con.createStatement();
@@ -30,9 +29,9 @@ public class DAOPhong {
 				Phong p = new Phong();
 				
 				p.setMaPhong(rs.getNString(1));
-				p.setTinhTrangPhong(rs.getNString(2));
-				p.setGiaPhong(rs.getDouble(3));
-				p.setLoaiPhong(new LoaiPhong(rs.getNString(4)));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
 				
 				lsPhong.add(p);
 				

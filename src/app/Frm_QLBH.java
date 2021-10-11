@@ -194,7 +194,6 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		scrollPane.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
 		
-		loadPhong();
 		
 		scrollPane.setBounds(24, 78, 1232, 108);
 		pMain.add(scrollPane);
@@ -406,16 +405,16 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 //		tbMatHang.setOpaque(false);
 		
 //		demo dữ liệu:
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
+//		modelMatHang.addRow(new Object[] {"123","123"});
 		
 
 		
@@ -586,14 +585,8 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		for(MatHang mh : lsMH) {
 			cbbTenMH.addItem(mh.getTenMatHang());
 		}
-		
-		
-		
-
-		
-		
-		
-		
+//		Load Phong dang hoat dong
+		loadPhong();
 		
 		
 		//action 
@@ -609,7 +602,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	public void loadPhong() {
 
 	
-		ArrayList<Phong> lsPhong = daoPhong.getPhongTheoTrangThaiCTDDP();
+		ArrayList<Phong> lsPhong = daoPhong.getPhongDangHoatDong();
 		for(Phong p : lsPhong) {
 			JPanel pn = new JPanel();
 			LoaiPhong lp = daoLoaiPhong.getLoaiPhongTheoMa(p.getLoaiPhong().getMaLoaiPhong());
@@ -645,11 +638,10 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	
 	public void loadInfo(Phong p) {
 		lblMaPhong.setText(p.getMaPhong());
-		DonDatPhong ddp = daoDDP.getDDPTheoMaPhongTrangThaiPhong(p.getMaPhong());
+		DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(p.getMaPhong());
 		
-		KhachHang kh = daoKhachHang.getKHTheoMa(ddp.getMaDDP());
-		CTDDP ctddp = daoCTDDP.getCTDDPTheoMaDDP(ddp.getMaDDP()).get(0);
-		Time gioDen = ctddp.getGioDen();
+		KhachHang kh = daoKhachHang.getKHTheoMa(ddp.getKhachHang().getMaKhangHang());
+		Time gioDen = ddp.getGioDen();
 		lblMaKH.setText(kh.getMaKhangHang());
 		lblTenKH.setText(" - "+kh.getTenKH());
 		lblGioVao.setText(""+gioDen.getHours());

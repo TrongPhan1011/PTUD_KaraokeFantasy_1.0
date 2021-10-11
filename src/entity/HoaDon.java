@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 
 public class HoaDon implements Serializable {
 	/**
@@ -10,8 +11,14 @@ public class HoaDon implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String maHoaDon;
 	private Date ngayLap;
+	private Time gioVao;
+	private Time gioRa;
+	private String phuThu;
+	private String trangThaiHD;
+	
 	private NhanVien nhanVien;
 	private KhachHang khachHang;
+	private Phong phong;
 	public String getMaHoaDon() {
 		return maHoaDon;
 	}
@@ -23,6 +30,30 @@ public class HoaDon implements Serializable {
 	}
 	public void setNgayLap(Date ngayLap) {
 		this.ngayLap = ngayLap;
+	}
+	public Time getGioVao() {
+		return gioVao;
+	}
+	public void setGioVao(Time gioVao) {
+		this.gioVao = gioVao;
+	}
+	public Time getGioRa() {
+		return gioRa;
+	}
+	public void setGioRa(Time gioRa) {
+		this.gioRa = gioRa;
+	}
+	public String getPhuThu() {
+		return phuThu;
+	}
+	public void setPhuThu(String phuThu) {
+		this.phuThu = phuThu;
+	}
+	public String getTrangThaiHD() {
+		return trangThaiHD;
+	}
+	public void setTrangThaiHD(String trangThaiHD) {
+		this.trangThaiHD = trangThaiHD;
 	}
 	public NhanVien getNhanVien() {
 		return nhanVien;
@@ -36,30 +67,52 @@ public class HoaDon implements Serializable {
 	public void setKhachHang(KhachHang khachHang) {
 		this.khachHang = khachHang;
 	}
-	public HoaDon(String maHoaDon, Date ngayLap, NhanVien nhanVien, KhachHang khachHang) {
+	public Phong getPhong() {
+		return phong;
+	}
+	public void setPhong(Phong phong) {
+		this.phong = phong;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public HoaDon(String maHoaDon, Date ngayLap, Time gioVao, Time gioRa, String phuThu, String trangThaiHD,
+			NhanVien nhanVien, KhachHang khachHang, Phong phong) {
 		super();
 		this.maHoaDon = maHoaDon;
 		this.ngayLap = ngayLap;
+		this.gioVao = gioVao;
+		this.gioRa = gioRa;
+		this.phuThu = phuThu;
+		this.trangThaiHD = trangThaiHD;
 		this.nhanVien = nhanVien;
 		this.khachHang = khachHang;
-	}
-	public HoaDon() {
-		super();
+		this.phong = phong;
 	}
 	public HoaDon(String maHoaDon) {
 		super();
 		this.maHoaDon = maHoaDon;
 	}
+	public HoaDon() {
+		super();
+	}
+	
+	//tinh thanh tien
+	public double tinhThanhTien() {
+		double thanhTien = 0;
+		return thanhTien;
+	}
 	@Override
 	public String toString() {
-		return "HoaDon [maHoaDon=" + maHoaDon + ", ngayLap=" + ngayLap + ", nhanVien=" + nhanVien + ", khachHang="
-				+ khachHang + "]";
+		return "HoaDon [maHoaDon=" + maHoaDon + ", ngayLap=" + ngayLap + ", gioVao=" + gioVao + ", gioRa=" + gioRa
+				+ ", phuThu=" + phuThu + ", trangThaiHD=" + trangThaiHD + ", nhanVien=" + nhanVien + ", khachHang="
+				+ khachHang + ", phong=" + phong + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((khachHang == null) ? 0 : khachHang.hashCode());
+		result = prime * result + ((maHoaDon == null) ? 0 : maHoaDon.hashCode());
 		return result;
 	}
 	@Override
@@ -71,13 +124,18 @@ public class HoaDon implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		HoaDon other = (HoaDon) obj;
-		if (khachHang == null) {
-			if (other.khachHang != null)
+		if (maHoaDon == null) {
+			if (other.maHoaDon != null)
 				return false;
-		} else if (!khachHang.equals(other.khachHang))
+		} else if (!maHoaDon.equals(other.maHoaDon))
 			return false;
 		return true;
 	}
+	
+	
+	
+	
+	
 	
 	
 }

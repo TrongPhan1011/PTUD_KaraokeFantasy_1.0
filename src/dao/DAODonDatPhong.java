@@ -43,15 +43,13 @@ public class DAODonDatPhong {
 	}
 	
 	
-	public DonDatPhong getDDPTheoMaPhongTrangThaiPhong(String ma){
+	public DonDatPhong getDDPTheoMaPhong(String ma){
 		DonDatPhong ddp = new DonDatPhong();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "SELECT DonDatPhong.*\r\n"
-				+ "FROM  CTDDP INNER JOIN\r\n"
-				+ "         Phong ON CTDDP.maPhong = Phong.maPhong INNER JOIN\r\n"
-				+ "         DonDatPhong ON CTDDP.maDDP = DonDatPhong.maDDP\r\n"
-				+ "WHERE Phong.maPhong = '"+ma+"' and  phong.tinhTrangPhong = N'Đã đặt' or Phong.tinhTrangPhong = N'Đang hoạt động' \r\n"
+				+ "FROM  DonDatPhong\r\n"
+				+ "where maPhong = N'"+ma+"' and TrangThaiDDP = N'Đã xác nhận'"
 				+ "";
 		
 		try {
@@ -60,10 +58,13 @@ public class DAODonDatPhong {
 			while(rs.next()) {
 				
 				ddp.setMaDDP(rs.getNString(1));
-				ddp.setNgayLap(rs.getDate(2));
+				ddp.setPhong(new Phong(rs.getNString(2)));
 				ddp.setKhachHang(new KhachHang(rs.getNString(3)));
 				ddp.setNhanVien(new NhanVien(rs.getNString(4)));
-
+				ddp.setNgayLap(rs.getDate(5));
+				ddp.setGioDen(rs.getTime(6));
+				ddp.setNgayDen(rs.getDate(7));
+				ddp.setTrangThaiDDP(rs.getNString(8));
 				
 				
 			}

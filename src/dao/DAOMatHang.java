@@ -15,18 +15,18 @@ public class DAOMatHang {
 		MatHang mh = new MatHang();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from MatHang where maMatHang = '"+ma +"'";
+		String sql = "select * from MatHang where maMH = '"+ ma +"'";
 		
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			while(rs.next()) {
 				
-				mh.setMaMatHang(rs.getString(1));
-				mh.setTenMatHang(rs.getString(2));
-				mh.setSoLuongMatHang(rs.getInt(3));
-				mh.setGiaMatHang(rs.getDouble(4));
-				mh.setLoaiMatHang(new LoaiMatHang(rs.getNString(5)));
+				mh.setMaMatHang(rs.getNString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getNString(2)));
+				mh.setTenMatHang(rs.getNString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
 				
 				
 				
@@ -43,7 +43,7 @@ public class DAOMatHang {
 		
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from MatHang where MaLoaiMatHang = '"+Maloai +"'";
+		String sql = "select * from MatHang where MaLoaiMH = '"+Maloai +"'";
 		
 		try {
 			Statement stm = con.createStatement();
@@ -51,11 +51,11 @@ public class DAOMatHang {
 			while(rs.next()) {
 				MatHang mh = new MatHang();
 				
-				mh.setMaMatHang(rs.getString(1));
-				mh.setTenMatHang(rs.getString(2));
-				mh.setSoLuongMatHang(rs.getInt(3));
-				mh.setGiaMatHang(rs.getDouble(4));
-				mh.setLoaiMatHang(new LoaiMatHang(Maloai));
+				mh.setMaMatHang(rs.getNString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getNString(2)));
+				mh.setTenMatHang(rs.getNString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
 				
 				lsMatHang.add(mh);
 				

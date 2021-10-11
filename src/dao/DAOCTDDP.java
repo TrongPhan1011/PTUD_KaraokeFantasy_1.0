@@ -19,26 +19,17 @@ public class DAOCTDDP {
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "SELECT CTDDP.*\r\n"
-				+ "FROM  CTDDP INNER JOIN\r\n"
-				+ "         Phong ON CTDDP.maPhong = Phong.maPhong INNER JOIN\r\n"
-				+ "         DonDatPhong ON CTDDP.maDDP = DonDatPhong.maDDP\r\n"
-				+ "WHERE  DonDatPhong.maDDP = '"+ma+"' and phong.tinhTrangPhong = N'Đã đặt' or Phong.tinhTrangPhong = N'Đang hoạt động' \r\n"
-				+ "";
+				+ "FROM  CTDDP where maDDP = '"+ma+"'";
 		
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			while(rs.next()) {
 				CTDDP ctddp = new CTDDP();
-				
-				ctddp.setMaCTDDP(rs.getNString(1));
-				ctddp.setNgayDen(rs.getDate(2));
-				ctddp.setGioDen(rs.getTime(3));
-				ctddp.setTrangThaiCTDDP(rs.getNString(4));
-				ctddp.setMatHang(new MatHang(rs.getNString(5)));
-				ctddp.setPhong(new Phong(rs.getNString(6)));
+
 				ctddp.setDonDatPhong(new DonDatPhong(ma));
-				ctddp.setSoLuongMH(rs.getInt(8));
+				ctddp.setMatHang(new MatHang(rs.getNString(2)));
+				ctddp.setSoLuongMH(rs.getInt(3));
 				
 				lsCTDDP.add(ctddp);
 				

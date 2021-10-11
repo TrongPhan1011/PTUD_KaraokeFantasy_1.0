@@ -4,132 +4,62 @@ import java.sql.Time;
 import java.util.Date;
 
 public class CTHD {
-	private String maCTHD;
-	private Time gioVao;
-	private Time gioRa;
 	private int soLuong;
-	private String trangThaiCTHD;
-	private String phuThu;
 	private MatHang matHang;
-	private Phong phong;
 	private HoaDon hoaDon;
-	
 	private double tongTien = soLuong* matHang.getGiaMatHang();
-
-	public String getMaCTHD() {
-		return maCTHD;
-	}
-
-	public void setMaCTHD(String maCTHD) {
-		this.maCTHD = maCTHD;
-	}
-
-	public Date getGioVao() {
-		return gioVao;
-	}
-
-	public void setGioVao(Time gioVao) {
-		this.gioVao = gioVao;
-	}
-
-	public Date getGioRa() {
-		return gioRa;
-	}
-
-	public void setGioRa(Time gioRa) {
-		this.gioRa = gioRa;
-	}
-
 	public int getSoLuong() {
 		return soLuong;
 	}
-
 	public void setSoLuong(int soLuong) {
 		this.soLuong = soLuong;
 	}
-
-	public String getTrangThaiCTHD() {
-		return trangThaiCTHD;
-	}
-
-	public void setTrangThaiCTHD(String trangThaiCTHD) {
-		this.trangThaiCTHD = trangThaiCTHD;
-	}
-
-	public String getPhuThu() {
-		return phuThu;
-	}
-
-	public void setPhuThu(String phuThu) {
-		this.phuThu = phuThu;
-	}
-
 	public MatHang getMatHang() {
 		return matHang;
 	}
-
 	public void setMatHang(MatHang matHang) {
 		this.matHang = matHang;
 	}
-
-	public Phong getPhong() {
-		return phong;
-	}
-
-	public void setPhong(Phong phong) {
-		this.phong = phong;
-	}
-
 	public HoaDon getHoaDon() {
 		return hoaDon;
 	}
-
 	public void setHoaDon(HoaDon hoaDon) {
 		this.hoaDon = hoaDon;
 	}
-
 	public double getTongTien() {
 		return tongTien;
 	}
-
-	public CTHD(String maCTHD, Time gioVao, Time gioRa, int soLuong, String trangThaiCTHD, String phuThu,
-			MatHang matHang, Phong phong, HoaDon hoaDon) {
+	public void setTongTien(double tongTien) {
+		this.tongTien = tongTien;
+	}
+	public CTHD(int soLuong, MatHang matHang, HoaDon hoaDon, double tongTien) {
 		super();
-		this.maCTHD = maCTHD;
-		this.gioVao = gioVao;
-		this.gioRa = gioRa;
 		this.soLuong = soLuong;
-		this.trangThaiCTHD = trangThaiCTHD;
-		this.phuThu = phuThu;
 		this.matHang = matHang;
-		this.phong = phong;
 		this.hoaDon = hoaDon;
+		this.tongTien = tongTien;
 	}
-
-	public CTHD(String maCTHD) {
-		super();
-		this.maCTHD = maCTHD;
-	}
-
 	public CTHD() {
 		super();
 	}
-
+	public CTHD(MatHang matHang, HoaDon hoaDon) {
+		super();
+		this.matHang = matHang;
+		this.hoaDon = hoaDon;
+	}
 	@Override
 	public String toString() {
-		return "CTHD [maCTHD=" + maCTHD + ", gioVao=" + gioVao + ", gioRa=" + gioRa + ", soLuong=" + soLuong
-				+ ", trangThaiCTHD=" + trangThaiCTHD + ", phuThu=" + phuThu + ", matHang=" + matHang + ", phong="
-				+ phong + ", hoaDon=" + hoaDon + ", tongTien=" + tongTien + "]";
+		return "CTHD [soLuong=" + soLuong + ", matHang=" + matHang + ", hoaDon=" + hoaDon + ", tongTien=" + tongTien
+				+ "]";
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((gioRa == null) ? 0 : gioRa.hashCode());
+		result = prime * result + ((hoaDon == null) ? 0 : hoaDon.hashCode());
+		result = prime * result + ((matHang == null) ? 0 : matHang.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -139,13 +69,21 @@ public class CTHD {
 		if (getClass() != obj.getClass())
 			return false;
 		CTHD other = (CTHD) obj;
-		if (gioRa == null) {
-			if (other.gioRa != null)
+		if (hoaDon == null) {
+			if (other.hoaDon != null)
 				return false;
-		} else if (!gioRa.equals(other.gioRa))
+		} else if (!hoaDon.equals(other.hoaDon))
+			return false;
+		if (matHang == null) {
+			if (other.matHang != null)
+				return false;
+		} else if (!matHang.equals(other.matHang))
 			return false;
 		return true;
 	}
+	
+	
+
 	
 	
 }
