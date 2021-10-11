@@ -7,8 +7,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="Library/sqljdbc42.jar"/>
-	<classpathentry exported="true" kind="lib" path="Library/flatlaf-1.4.jar"/>
 	<classpathentry kind="lib" path="Library/JPlanner.jar"/>
 	<classpathentry kind="lib" path="Library/jdatepicker-1.3.4.jar"/>
+	<classpathentry kind="lib" path="Library/flatlaf-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

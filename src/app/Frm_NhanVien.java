@@ -41,7 +41,6 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 	private String sHeaderTenNV, sHeaderMaNV;
 	private Date dNgayHienTai;
 	private JTextField txtTim, txtHoTen, txtSDT, txtCccd;
-	JFormattedTextField ftfNgaySinh = new JFormattedTextField(DateFormat.getDateInstance(DateFormat.SHORT));
 	
 	public Panel getPanel() {
 		return pMain;
