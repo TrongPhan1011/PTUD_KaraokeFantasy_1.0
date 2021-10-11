@@ -21,6 +21,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 	private JButton btnTim, btnThemDDP, btnSuaDDP, btnXoaDDP, btnLamMoiDDP;
 	private JLabel lblTenKH;
 	private JTextField txtTenKH;
+	private JLabel lblNgaySinh;
 	
 	public Panel getFrmDDP() {
 		return this.pMain;
@@ -96,6 +97,11 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		cbbLoaiKH.setBackground(Color.WHITE);
 		cbbLoaiKH.setBounds(175, 100, 189, 27);
 		pMain.add(cbbLoaiKH);
+		
+		lblNgaySinh = new JLabel("Ngày sinh:");
+		lblNgaySinh.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblNgaySinh.setBounds(442, 69, 102, 19);
+		pMain.add(lblNgaySinh);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
