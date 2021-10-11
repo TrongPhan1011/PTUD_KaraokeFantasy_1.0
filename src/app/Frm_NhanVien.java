@@ -179,7 +179,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		cbbGioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbGioiTinh.setBackground(Color.WHITE);
 		cbbGioiTinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbGioiTinh.setBounds(657, 137, 65, 25);
+		cbbGioiTinh.setBounds(657, 137, 124, 25);
 		pMain.add(cbbGioiTinh);
 		
 		//ngaysinh
@@ -225,6 +225,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
 		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
+		datePicker.getJFormattedTextField().setText(".....-.....-......");
 		
 		datePicker.setBounds(964, 62, 120, 26);
 		datePicker.setTextEditable(true);
@@ -265,10 +266,10 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		cbbCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbCaLamViec.setBackground(Color.WHITE);
 		cbbCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbCaLamViec.setBounds(964, 102, 65, 25);
+		cbbCaLamViec.setBounds(964, 102, 120, 25);
 		pMain.add(cbbCaLamViec);
 		
-		//btnthem,sua,xoa,resetNV
+		//btnthem,sua,xoa,lammoiNV
 		btnThemNV = new FixButton("Thêm");
 		btnThemNV.setForeground(Color.WHITE);
 		btnThemNV.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -384,7 +385,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		tableNV.setSelectionBackground(new Color(164, 44, 167, 30));
 		scrollPaneNV.setViewportView(tableNV);
 		
-		//demo data
+		//demo data nv
 		modelNV.addRow(new Object[] {"123","123"});
 		modelNV.addRow(new Object[] {"123","123"});
 		modelNV.addRow(new Object[] {"123","123"});

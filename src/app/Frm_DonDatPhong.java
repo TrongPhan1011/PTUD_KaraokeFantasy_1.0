@@ -4,9 +4,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Properties;
 
 import javax.swing.*;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.SqlDateModel;
+import javax.swing.border.TitledBorder;
 
 public class Frm_DonDatPhong extends JPanel implements ActionListener {
 
@@ -17,11 +30,14 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 	private String sHeaderMaNV, sHeaderTenNV;
 	private Panel pMain;
 	private Date dNgayHienTai;
-	private JTextField txtTim;
+	private JLabel lblQLDDP, lblTim, lblTenKH, lblLoaiKH, lblNgayDen, lblSDT, lblGioDen, lblTinhTrangDDP, lblDiaChi, lblChonPhong, lblNgayLap,
+				   lblNgayHienTai, lblBackGround;
+	private JTextField txtTim, txtTenKH, txtSDT, txtGioDen;
+	private JTextArea txtDiaChi;
 	private JButton btnTim, btnThemDDP, btnSuaDDP, btnXoaDDP, btnLamMoiDDP;
-	private JLabel lblTenKH;
-	private JTextField txtTenKH;
-	private JLabel lblNgaySinh;
+	private Date dNow;
+	private LocalDate now;
+	private int ngay, thang, nam;
 	
 	public Panel getFrmDDP() {
 		return this.pMain;
@@ -39,16 +55,19 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		add(pMain);
 		pMain.setLayout(null);
 		
-		JLabel lblQLDDP = new JLabel("Quản lý đơn đặt phòng");
+		//lblDDP
+		lblQLDDP = new JLabel("Quản lý đơn đặt phòng");
 		lblQLDDP.setFont(new Font("SansSerif", Font.BOLD, 22));
 		lblQLDDP.setBounds(37, 10, 255, 33);
 		pMain.add(lblQLDDP);
 		
-		JLabel lblTim = new JLabel("Tìm kiếm:");
+		//lblTim
+		lblTim = new JLabel("Tìm kiếm:");
 		lblTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		lblTim.setBounds(374, 13, 90, 35);
 		pMain.add(lblTim);
 		
+		//txtTim
 		txtTim = new JTextField();
 		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		txtTim.setColumns(10);
@@ -56,11 +75,11 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		txtTim.setBounds(474, 12, 281, 33);
 		pMain.add(txtTim);
 		
+		//btnTim
 		btnTim = new FixButton("Tìm");
 		btnTim.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -74,23 +93,27 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
 		pMain.add(btnTim);
 		
+		//lblTenKH
 		lblTenKH = new JLabel("Tên khách hàng:");
 		lblTenKH.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblTenKH.setBounds(47, 65, 118, 19);
 		pMain.add(lblTenKH);
 		
+		//txtTenKH
 		txtTenKH = new JTextField();
-		txtTenKH.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtTenKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtTenKH.setColumns(10);
 		txtTenKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		txtTenKH.setBounds(175, 60, 189, 28);
+		txtTenKH.setBounds(175, 62, 189, 25);
 		pMain.add(txtTenKH);
 		
-		JLabel lblLoaiKH = new JLabel("Loại khách hàng:");
+		//lblLoaiKH
+		lblLoaiKH = new JLabel("Loại khách hàng:");
 		lblLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblLoaiKH.setBounds(47, 105, 124, 19);
 		pMain.add(lblLoaiKH);
 		
+		//cbbLoaiKH
 		JComboBox<Object> cbbLoaiKH = new JComboBox<Object>(new Object[] {"Thường", "Thành viên", "VIP"});
 		cbbLoaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbLoaiKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
@@ -98,11 +121,327 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		cbbLoaiKH.setBounds(175, 100, 189, 27);
 		pMain.add(cbbLoaiKH);
 		
-		lblNgaySinh = new JLabel("Ngày sinh:");
-		lblNgaySinh.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNgaySinh.setBounds(442, 69, 102, 19);
-		pMain.add(lblNgaySinh);
+		//lblNgayDen
+		lblNgayDen = new JLabel("Ngày đến:");
+		lblNgayDen.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblNgayDen.setBounds(413, 65, 74, 19);
+		pMain.add(lblNgayDen);
+		
+		//modelNgayDen
+		SqlDateModel modelNgayDen=new SqlDateModel();
+		modelNgayDen.setSelected(true);
+		Properties p=new Properties();
+		p.put("text.day", p);
+		p.put("text.month", p);
+		p.put("text.year", p);
+		JDatePanelImpl panel=new JDatePanelImpl(modelNgayDen, p);
+		JDatePickerImpl datePicker=new JDatePickerImpl(panel, new AbstractFormatter() {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String valueToString(Object value) throws ParseException {
+				if(value != null) {
+					Calendar cal = (Calendar) value;
+					SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy");
+					String strDate = format.format(cal.getTime());
+					return strDate;
+				}
+				return "";
+			}
+			
+			@Override
+			public Object stringToValue(String text) throws ParseException {
+				return "";
+			}
+		});
+		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
+		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
+		datePicker.getJFormattedTextField().setText(".....-.....-......");
+		
+		datePicker.setBounds(496, 61, 120, 26);
+		datePicker.setTextEditable(true);
+		
+		pMain.add(datePicker);
+		
+		//lblSDT
+		lblSDT = new JLabel("SĐT:");
+		lblSDT.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblSDT.setBounds(413, 105, 46, 19);
+		pMain.add(lblSDT);
+		
+		//txtSDT
+		txtSDT = new JTextField();
+		txtSDT.setColumns(10);
+		txtSDT.setFont(new Font("SansSerif", Font.BOLD, 15));
+		txtSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		txtSDT.setBounds(496, 100, 120, 25);
+		pMain.add(txtSDT);
+		
+		//lblGioDen
+		lblGioDen = new JLabel("Giờ đến:");
+		lblGioDen.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblGioDen.setBounds(677, 65, 68, 19);
+		pMain.add(lblGioDen);
+		
+		//txtGioDen
+		txtGioDen = new JTextField();
+		txtGioDen.setColumns(10);
+		txtGioDen.setFont(new Font("SansSerif", Font.BOLD, 15));
+		txtGioDen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		txtGioDen.setBounds(755, 62, 74, 25);
+		pMain.add(txtGioDen);
+		
+		//lblDiaChi
+		lblDiaChi = new JLabel("Địa chỉ:");
+		lblDiaChi.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblDiaChi.setBounds(677, 105, 61, 20);
+		pMain.add(lblDiaChi);
+		
+		//txtDiaChi
+		txtDiaChi = new JTextArea();
+		txtDiaChi.setFont(new Font("SansSerif", Font.BOLD, 15));
+		txtDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		txtDiaChi.setBounds(755, 100, 452, 25);
+		pMain.add(txtDiaChi);
+		
+		//lblTinhTrangDDP
+		lblTinhTrangDDP = new JLabel("Tình trạng đơn đặt phòng:");
+		lblTinhTrangDDP.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblTinhTrangDDP.setBounds(867, 65, 189, 19);
+		pMain.add(lblTinhTrangDDP);
+		
+		//cbbTinhTrangDDP
+		JComboBox<Object> cbbTinhTrangDDP = new JComboBox<Object>(new Object[]{"Đã nhận phòng", "Chờ nhận phòng", "Hủy"});
+		cbbTinhTrangDDP.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbTinhTrangDDP.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		cbbTinhTrangDDP.setBackground(Color.WHITE);
+		cbbTinhTrangDDP.setBounds(1066, 62, 141, 27);
+		pMain.add(cbbTinhTrangDDP);
+		
+		//lblChonPhong
+		lblChonPhong = new JLabel("Chọn phòng:");
+		lblChonPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblChonPhong.setBounds(47, 155, 98, 19);
+		pMain.add(lblChonPhong);
+		
+		//bangthongtinPhong
+		JScrollPane scrollPaneChonPhong = new JScrollPane();
+		scrollPaneChonPhong.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
+		scrollPaneChonPhong.setBackground(new Color(164, 44, 167));
+		scrollPaneChonPhong.setBounds(175, 150, 654, 105);
+		pMain.add(scrollPaneChonPhong);
+		
+		String colPhong[] = {"Mã phòng", "Mã loại phòng", "Loại phòng", "Giá phòng", "Tình trạng phòng"};
+		DefaultTableModel modelPhong=new DefaultTableModel(colPhong, 0);
+		
+		JTable tablePhong=new JTable(modelPhong);
+		JTableHeader tbHeaderPhong = tablePhong.getTableHeader();
+		tbHeaderPhong.setBackground(new Color(164, 44, 167));
+		tbHeaderPhong.setForeground(Color.white);
+		tbHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
+		
+		tablePhong.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tablePhong.getColumnModel().getColumn(1).setPreferredWidth(30);
+		tablePhong.getColumnModel().getColumn(2).setPreferredWidth(35);
+		tablePhong.getColumnModel().getColumn(3).setPreferredWidth(40);
+		tablePhong.getColumnModel().getColumn(4).setPreferredWidth(50);
+		
+		tablePhong.setBackground(Color.white);
+		tablePhong.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		tablePhong.setRowHeight(20);
+		tablePhong.setOpaque(false);
+		tablePhong.setSelectionBackground(new Color(164, 44, 167, 30));
+		scrollPaneChonPhong.setViewportView(tablePhong);
+		
+		//demo data phong
+		modelPhong.addRow(new Object[] {"123", "123", "1"});
+		modelPhong.addRow(new Object[] {"123", "123"});
+		modelPhong.addRow(new Object[] {"123", "123"});
+		modelPhong.addRow(new Object[] {"123", "123"});
+		modelPhong.addRow(new Object[] {"123", "123"});
+		modelPhong.addRow(new Object[] {"123", "123", "6"});
+		
+		//lblNgayLap
+		lblNgayLap = new JLabel("Ngày lập:");
+		lblNgayLap.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblNgayLap.setBounds(880, 155, 74, 19);
+		pMain.add(lblNgayLap);
+		
+		//ngay thang nam lap DDP
+		now = LocalDate.now();
+		ngay = now.getDayOfMonth();
+		thang = now.getMonthValue();
+		nam = now.getYear();
+		dNow = new Date(nam, thang, ngay);
+		lblNgayHienTai = new JLabel(ngay+" / "+thang+" / "+nam);
+		lblNgayHienTai.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblNgayHienTai.setBounds(1015, 155, 98, 19);
+		pMain.add(lblNgayHienTai);
+		
+		JLabel lblNVLap = new JLabel("Nhân viên lập:");
+		lblNVLap.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblNVLap.setBounds(880, 185, 107, 19);
+		pMain.add(lblNVLap);
+		
+		JLabel lblMaNVLap = new JLabel("NVXXX");
+		lblMaNVLap.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblMaNVLap.setBounds(1015, 185, 61, 19);
+		pMain.add(lblMaNVLap);
+		
+		JLabel lblTenNVLap = new JLabel("Nguyễn Thanh Toàn");
+		lblTenNVLap.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblTenNVLap.setBounds(1015, 205, 149, 19);
+		pMain.add(lblTenNVLap);
+		
+		JLabel lblSoLuongPhong = new JLabel("Số lượng phòng:");
+		lblSoLuongPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblSoLuongPhong.setBounds(880, 231, 124, 19);
+		pMain.add(lblSoLuongPhong);
+		
+		JLabel lblSoLuong = new JLabel("1");
+		lblSoLuong.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblSoLuong.setBounds(1015, 231, 29, 19);
+		pMain.add(lblSoLuong);
+		
+		//btnthem,sua,xoa,lammoiDDP
+		btnThemDDP = new FixButton("Thêm");
+		btnThemDDP.setForeground(Color.white);
+		btnThemDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnThemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnThemDDP.setBackground(new Color(114, 23, 153));
+		btnThemDDP.setBounds(384, 265, 110, 35);
+		Image imgThemDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconGrayThem.png");
+		Image resizeImgThemDDP = imgThemDDP.getScaledInstance(25, 25, 0);
+		btnThemDDP.setIcon(new ImageIcon(resizeImgThemDDP));
+		pMain.add(btnThemDDP);
+		
+		btnSuaDDP = new FixButton("Sửa");
+		btnSuaDDP.setForeground(Color.white);
+		btnSuaDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnSuaDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnSuaDDP.setBackground(new Color(114, 23, 153));
+		btnSuaDDP.setBounds(525, 265, 110, 35);
+		Image imgSuaDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconTool.png");
+		Image resizeImgSuaDDP = imgSuaDDP.getScaledInstance(25, 25, 0);
+		btnSuaDDP.setIcon(new ImageIcon(resizeImgSuaDDP));
+		pMain.add(btnSuaDDP);
+		
+		btnXoaDDP = new FixButton("Xóa");
+		btnXoaDDP.setForeground(Color.white);
+		btnXoaDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnXoaDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnXoaDDP.setBackground(new Color(114, 23, 153));
+		btnXoaDDP.setBounds(663, 265, 110, 35);
+		Image imgXoaDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconRemove.png");
+		Image resizeImgXoaDDP = imgXoaDDP.getScaledInstance(25, 25, 0);
+		btnXoaDDP.setIcon(new ImageIcon(resizeImgXoaDDP));
+		pMain.add(btnXoaDDP);
+		
+		btnLamMoiDDP = new FixButton("Làm mới");
+		btnLamMoiDDP.setForeground(Color.white);
+		btnLamMoiDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnLamMoiDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnLamMoiDDP.setBackground(new Color(114, 23, 153));
+		btnLamMoiDDP.setBounds(804, 265, 110, 35);
+		Image imgLamMoiDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconReset.png");
+		Image resizeImgLamMoiDDP = imgLamMoiDDP.getScaledInstance(25, 25, 0);
+		btnLamMoiDDP.setIcon(new ImageIcon(resizeImgLamMoiDDP));
+		pMain.add(btnLamMoiDDP);
+		
+		//sapxep
+		JPanel pSapXep = new JPanel();
+		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Sắp xếp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pSapXep.setBackground(new Color(220, 210, 239));
+		pSapXep.setBounds(302, 310, 685, 69);
+		pMain.add(pSapXep);
+		
+		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[]{"Tăng dần", "Giảm dần"});
+		cbbSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		cbbSapXep.setBackground(Color.WHITE);
+		pSapXep.add(cbbSapXep);
+		
+		JRadioButton radTheoMaPhong = new JRadioButton("Theo mã phòng");
+		radTheoMaPhong.setSelected(true);
+		radTheoMaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
+		radTheoMaPhong.setBackground(new Color(220, 210, 239));
+		pSapXep.add(radTheoMaPhong);
+		
+		JRadioButton radTheoLoaiPhong = new JRadioButton("Theo loại phòng");
+		radTheoLoaiPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
+		radTheoLoaiPhong.setBackground(new Color(220, 210, 239));
+		pSapXep.add(radTheoLoaiPhong);
+		
+		JRadioButton radTheoGiaPhong = new JRadioButton("Theo giá phòng");
+		radTheoGiaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
+		radTheoGiaPhong.setBackground(new Color(220, 210, 239));
+		pSapXep.add(radTheoGiaPhong);
+		
+		ButtonGroup bgRad=new ButtonGroup();
+		bgRad.add(radTheoMaPhong);
+		bgRad.add(radTheoLoaiPhong);
+		bgRad.add(radTheoGiaPhong);
+		radTheoMaPhong.setSelected(true);
+		
+		//bangthongtinDDP
+		JScrollPane scrollPaneDDP = new JScrollPane();
+		scrollPaneDDP.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
+		scrollPaneDDP.setBackground(new Color(164, 44, 167));
+		scrollPaneDDP.setBounds(42, 390, 1195, 196);
+		pMain.add(scrollPaneDDP);
+		
+		String colDDP[] = {"Mã đơn đặt phòng", "Mã khách hàng", "Tên khách hàng", "Ngày đến", "Giờ đến", "Mã phòng", "Mã nhân viên lập", "Số lượng", "Ngày lập", "Tình trạng phòng"};
+		DefaultTableModel modelDDP=new DefaultTableModel(colDDP, 0);
+		
+		JTable tableDDP=new JTable(modelDDP);
+		JTableHeader tbHeaderDDP = tableDDP.getTableHeader();
+		tbHeaderDDP.setBackground(new Color(164, 44, 167));
+		tbHeaderDDP.setForeground(Color.white);
+		tbHeaderDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
+		
+		tableDDP.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tableDDP.getColumnModel().getColumn(1).setPreferredWidth(30);
+		tableDDP.getColumnModel().getColumn(2).setPreferredWidth(50);
+		tableDDP.getColumnModel().getColumn(3).setPreferredWidth(40);
+		tableDDP.getColumnModel().getColumn(4).setPreferredWidth(40);
+		tableDDP.getColumnModel().getColumn(5).setPreferredWidth(30);
+		tableDDP.getColumnModel().getColumn(6).setPreferredWidth(30);
+		tableDDP.getColumnModel().getColumn(7).setPreferredWidth(20);
+		tableDDP.getColumnModel().getColumn(8).setPreferredWidth(40);
+		tableDDP.getColumnModel().getColumn(9).setPreferredWidth(50);
+		
+		tableDDP.setBackground(Color.white);
+		tableDDP.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		tableDDP.setRowHeight(25);
+		tableDDP.setOpaque(false);
+		tableDDP.setSelectionBackground(new Color(164, 44, 167, 30));
+		scrollPaneDDP.setViewportView(tableDDP);
+		
+		//demo data DDP
+		modelDDP.addRow(new Object[] {"123","123"});
+		modelDDP.addRow(new Object[] {"123","123"});
+		modelDDP.addRow(new Object[] {"123","123"});
+		modelDDP.addRow(new Object[] {"123","123"});
+		modelDDP.addRow(new Object[] {"123","123"});
+		modelDDP.addRow(new Object[] {"123","123"});
+		modelDDP.addRow(new Object[] {"123","123"});
+		
+		//background
+		lblBackGround=new JLabel("");
+		lblBackGround.setIcon(new ImageIcon("data\\img\\background.png"));
+		lblBackGround.setBounds(0, 0, 1281, 606);
+		Image imgBackGround = Toolkit.getDefaultToolkit().getImage("data\\img\\background.png");
+		Image resizeBG = imgBackGround.getScaledInstance(lblBackGround.getWidth(), lblBackGround.getHeight(), 0);
+		lblBackGround.setIcon(new ImageIcon(resizeBG));
+		pMain.add(lblBackGround);
+		
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
