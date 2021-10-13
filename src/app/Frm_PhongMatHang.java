@@ -71,7 +71,9 @@ public class Frm_PhongMatHang extends JPanel {
 		pMain.setBounds(0, 0, 1281, 606);
 		add(pMain);
 		pMain.setLayout(null);
-		
+		////////////////
+		//Tim Kiem//////
+		////////////////
 		JLabel lblTimKiem = new JLabel("Tìm Kiếm:");
 		lblTimKiem.setFont(new Font("SansSerif", Font.BOLD, 14));
 		lblTimKiem.setBounds(374, 13, 90, 35);
@@ -93,9 +95,10 @@ public class Frm_PhongMatHang extends JPanel {
 		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
 		pMain.add(btnTim);
-		
 		//--- 
-		
+		////////////////
+		//QLBH//////
+		////////////////
 		JPanel pDichVu = new JPanel();
 		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Quản lý bán hàng ", TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
 		pDichVu.setBackground(new Color(238,239,243,90));
@@ -161,16 +164,17 @@ public class Frm_PhongMatHang extends JPanel {
 		rdQLP = new JRadioButton("Quản lý phòng");
 		rdQLMH.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		rdQLP.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		rdQLMH.setBackground(Color.WHITE);
-		rdQLP.setBackground(Color.white);
-		pRadio.setBounds(550, 110, 150, 100);
+		rdQLMH.setBackground(new Color(220,210,239));
+		rdQLP.setBackground(new Color(220,210,239));
+		pRadio.setBackground(new Color(220,210,239));
+		pRadio.setBounds(550, 110, 150, 55);
 //		rdQLP.setBounds(550, 130, 150, 20);
 		pRadio.add(rdQLMH);
 		pRadio.add(rdQLP);
 		pMain.add(pRadio);
-		pRadio.setBackground(new Color(0,0,0,0));
+//		pRadio.setBackground(new Color(0,0,0,0));
 		//---------------------------------
-		//table 2
+		//QLP
 		//----
 		JPanel pPhong = new JPanel();
 		pPhong.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Quản lý phòng ", TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
@@ -234,7 +238,10 @@ public class Frm_PhongMatHang extends JPanel {
 		txtGiaP.setBounds(145, 110, 250, 26);
 		pPhong.add(txtGiaP);
 		txtGiaP.setColumns(30);
-		
+		/////
+		////////////////
+		//Buttons//////
+		////////////////
 		/////
 		FixButton btnThemKH = new FixButton("Thêm");
 		btnThemKH.setForeground(Color.WHITE);
@@ -280,7 +287,11 @@ public class Frm_PhongMatHang extends JPanel {
 		btnReset.setIcon(new ImageIcon(resizeImgLamMoiKH));
 		pMain.add(btnReset);
 		//////////////////////////////////////////////
+		////////////////
+		//Sap Xep//////
+		////////////////
 		pSX = new JPanel();
+		pSX.setBackground(new Color(220,210,239));
 		JLabel lblSort = new JLabel("Sắp xếp:");
 		lblSort.setFont(new Font("SansSerif", Font.BOLD, 13));
 		lblSort.setBounds(20, 10, 65, 19);
@@ -288,7 +299,7 @@ public class Frm_PhongMatHang extends JPanel {
 		
 		JComboBox<String> cbbSort = new JComboBox<String>();
 		cbbSort.setFont(new Font("SansSerif", Font.PLAIN, 15));
-//		cbbSort.setBackground(Color.WHITE);
+		cbbSort.setBackground(new Color(220,210,239));
 		String cbSort [] = {"Tăng dần", "Giảm dần"};
 		for(int i = 0; i< cbSort.length; i++) {
 			cbbSort.addItem(cbSort[i]);
@@ -298,19 +309,19 @@ public class Frm_PhongMatHang extends JPanel {
 		
 		JRadioButton rdbtnTheoMaKH = new JRadioButton("Theo mã");
 		rdbtnTheoMaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoMaKH.setBackground(Color.white);
+		rdbtnTheoMaKH.setBackground(new Color(220,210,239));
 		rdbtnTheoMaKH.setBounds(100, 100, 179, 23);
 		pSX.add(rdbtnTheoMaKH);
 		
 		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên");
 		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoTenKH.setBackground(Color.white);
+		rdbtnTheoTenKH.setBackground(new Color(220,210,239));
 		rdbtnTheoTenKH.setBounds(10, 0, 189, 23);
 		pSX.add(rdbtnTheoTenKH);
 		
 		JRadioButton rdbtnTheoLoaiKH = new JRadioButton("Theo loại");
 		rdbtnTheoLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoLoaiKH.setBackground(Color.white);
+		rdbtnTheoLoaiKH.setBackground(new Color(220,210,239));
 		rdbtnTheoLoaiKH.setBounds(10, 0, 179, 23);
 		pSX.add(rdbtnTheoLoaiKH);
 		
@@ -325,8 +336,8 @@ public class Frm_PhongMatHang extends JPanel {
 		bg1.add(rdQLP);
 		rdQLMH.setSelected(true);
 		
-		pSX.setBounds(295, 285, 750, 45);
-		pSX.setBackground(new Color(0,0,0,0));
+		pSX.setBounds(295, 285, 750, 33);
+		//pSX.setBackground(new Color(0,0,0,0));
 		pMain.add(pSX);
 		/////
 		// Table down
