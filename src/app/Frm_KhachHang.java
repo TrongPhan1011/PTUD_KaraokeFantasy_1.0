@@ -221,7 +221,7 @@ public class Frm_KhachHang extends JPanel {
 		cbbNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgaySinh.setBackground(Color.white);
 		cbbNgaySinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbNgaySinh.setBounds(952, 64, 47, 26);
+		cbbNgaySinh.setBounds(952, 61, 47, 26);
 		for(int i = 1;i <=31; i++) {
 			cbbNgaySinh.addItem(""+i);
 		}
@@ -231,7 +231,7 @@ public class Frm_KhachHang extends JPanel {
 		cbbThangSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangSinh.setBackground(Color.white);
 		cbbThangSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbThangSinh.setBounds(1009, 63, 46, 27);
+		cbbThangSinh.setBounds(1009, 61, 56, 27);
 		for(int i = 1; i <= 12;i++) {
 			cbbThangSinh.addItem(""+i);
 		}
@@ -241,7 +241,7 @@ public class Frm_KhachHang extends JPanel {
 		cbbNamSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNamSinh.setBackground(Color.white);
 		cbbNamSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbNamSinh.setBounds(1065, 63, 72, 27);
+		cbbNamSinh.setBounds(1075, 61, 72, 27);
 		for(int i = 2004; i > 1900; i--) {
 			cbbNamSinh.addItem(""+i);
 		}
@@ -252,7 +252,7 @@ public class Frm_KhachHang extends JPanel {
 		btnThemKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemKH.setBackground(new Color(114, 23, 153));
-		btnThemKH.setBounds(318, 222, 108, 35);
+		btnThemKH.setBounds(319, 202, 108, 35);
 		Image imgThemKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
 		Image resizeImgThemKH = imgThemKH.getScaledInstance(25, 25, 0);
 		btnThemKH.setIcon(new ImageIcon(resizeImgThemKH));
@@ -263,7 +263,7 @@ public class Frm_KhachHang extends JPanel {
 		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaKH.setBackground(new Color(114, 23, 153));
-		btnSuaKH.setBounds(486, 222, 108, 35);
+		btnSuaKH.setBounds(489, 202, 108, 35);
 		Image imgSuaKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconTool.png");
 		Image resizeImgSuaKH = imgSuaKH.getScaledInstance(25, 25, 0);
 		btnSuaKH.setIcon(new ImageIcon(resizeImgSuaKH));
@@ -274,7 +274,7 @@ public class Frm_KhachHang extends JPanel {
 		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaKH.setBackground(new Color(114, 23, 153));
-		btnXoaKH.setBounds(651, 222, 108, 35);
+		btnXoaKH.setBounds(647, 202, 108, 35);
 		Image imgXoaKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconRemove.png");
 		Image resizeImgXoaKH = imgXoaKH.getScaledInstance(25, 25, 0);
 		btnXoaKH.setIcon(new ImageIcon(resizeImgXoaKH));
@@ -285,7 +285,7 @@ public class Frm_KhachHang extends JPanel {
 		btnReset.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnReset.setBackground(new Color(114, 23, 153));
-		btnReset.setBounds(821, 222, 108, 35);
+		btnReset.setBounds(821, 202, 108, 35);
 		Image imgLamMoiKH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
 		Image resizeImgLamMoiKH = imgLamMoiKH.getScaledInstance(25, 25, 0);
 		btnReset.setIcon(new ImageIcon(resizeImgLamMoiKH));
@@ -297,7 +297,7 @@ public class Frm_KhachHang extends JPanel {
 		JScrollPane scrollPaneKH = new JScrollPane();
 		scrollPaneKH.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		scrollPaneKH.setBackground(new Color(164, 44, 167));
-		scrollPaneKH.setBounds(31, 329, 1212, 266);
+		scrollPaneKH.setBounds(31, 310, 1212, 285);
 		pMain.add(scrollPaneKH);
 		
 		String col [] = {"Mã KH", "Họ và tên KH", "Loại KH", "Giới tính","Ngày sinh","Địa chỉ", "SĐT", "CCCD","Ngày đăng ký","Điểm tích lũy"};
@@ -315,10 +315,10 @@ public class Frm_KhachHang extends JPanel {
 		tableKH.getColumnModel().getColumn(1).setPreferredWidth(96);
 		tableKH.getColumnModel().getColumn(3).setPreferredWidth(59);
 		tableKH.getColumnModel().getColumn(4).setPreferredWidth(74);
-		tableKH.setShowGrid(false);
-		tableKH.setShowHorizontalLines(false);
+		tableKH.setShowGrid(true);
+		tableKH.setShowHorizontalLines(true);
 		tableKH.setBackground(Color.WHITE);
-		tableKH.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		tableKH.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		tableKH.setRowHeight(30);
 		tableKH.setGridColor(getBackground());
 		//tableKH.setOpaque(false);
@@ -360,7 +360,7 @@ public class Frm_KhachHang extends JPanel {
 		cbbThangDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangDangKy.setBackground(Color.WHITE);
 		cbbThangDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbThangDangKy.setBounds(1009, 102, 46, 27);
+		cbbThangDangKy.setBounds(1009, 102, 56, 27);
 		for(int i =1; i <=12; i++) {
 			cbbThangDangKy.addItem(""+i);
 		}
@@ -378,13 +378,13 @@ public class Frm_KhachHang extends JPanel {
 		for(int i = namBatDau; i <= namHienTai; i++) {
 			cbbNamDangKy.addItem(""+i);
 		}
-		cbbNamDangKy.setBounds(1065, 102, 72, 27);
+		cbbNamDangKy.setBounds(1077, 101, 72, 27);
 		pMain.add(cbbNamDangKy);
 		
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBackground(new Color(238,239,243,90));
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23, 153), 1, true), "S\u1EAFp x\u1EBFp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pSapXep.setBounds(239, 267, 816, 51);
+		pSapXep.setBounds(239, 248, 816, 51);
 		pMain.add(pSapXep);
 		//pSapXep.setLayout(null);
 		

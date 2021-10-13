@@ -174,11 +174,11 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		DefaultTableModel modelListKH = new DefaultTableModel(col, 0);		
 		tableDanhSachKH = new JTable(modelListKH);
 		tableDanhSachKH.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		tableDanhSachKH.setShowHorizontalLines(false);
+		tableDanhSachKH.setShowHorizontalLines(true);
 		tableDanhSachKH.setRowHeight(30);
 		tableDanhSachKH.setSelectionBackground(new Color(164, 44, 167,30));
-		tableDanhSachKH.setOpaque(false);
-		tableDanhSachKH.setShowGrid(false);
+		//tableDanhSachKH.setOpaque(false);
+		tableDanhSachKH.setShowGrid(true);
 		
 		JTableHeader tbHeader = tableDanhSachKH.getTableHeader();
 		tbHeader.setBackground(new Color(164, 44, 167));
@@ -236,11 +236,11 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		DefaultTableModel modelListMH = new DefaultTableModel(colMH, 0);	
 		
 		tableDanhSachMH = new JTable(modelListMH);
-		tableDanhSachMH.setShowHorizontalLines(false);
-		tableDanhSachMH.setShowGrid(false);
+		tableDanhSachMH.setShowHorizontalLines(true);
+		tableDanhSachMH.setShowGrid(true);
 		tableDanhSachMH.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		tableDanhSachMH.setRowHeight(30);
-		tableDanhSachMH.setOpaque(false);
+		//tableDanhSachMH.setOpaque(false);
 		
 		JTableHeader tbHeaderMH = tableDanhSachMH.getTableHeader();
 		tbHeaderMH.setBackground(new Color(164, 44, 167));
