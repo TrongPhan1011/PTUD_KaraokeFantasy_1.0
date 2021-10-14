@@ -69,7 +69,7 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		getContentPane().add(pMain);
 		pMain.setLayout(null);
 		
-		btnQuayLai = new JButton("Quay lại");
+		btnQuayLai = new FixButton("Quay lại");
 		btnQuayLai.setFont(new Font("SansSerif", Font.BOLD, 15));
 		btnQuayLai.setBackground(new Color(114, 23 ,153));
 		btnQuayLai.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
