@@ -129,28 +129,21 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		pSapXep.setLayout(null);
 		pSapXep.add(cbbSort);
 		
-		JRadioButton rdbtnTheoMa = new JRadioButton("Theo mã");
-		rdbtnTheoMa.setBounds(160, 14, 85, 27);
+		JRadioButton rdbtnTheoMa = new JRadioButton("Theo mã HĐ");
+		rdbtnTheoMa.setBounds(160, 14, 129, 27);
 		rdbtnTheoMa.setFont(new Font("SansSerif", Font.BOLD, 14));
 		rdbtnTheoMa.setBackground(new Color(220,210,239));
 		pSapXep.add(rdbtnTheoMa);
 		
 		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên khách hàng");
-		rdbtnTheoTenKH.setBounds(268, 13, 167, 28);
+		rdbtnTheoTenKH.setBounds(308, 13, 201, 28);
 		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		rdbtnTheoTenKH.setBackground(new Color(220,210,239));
 		pSapXep.add(rdbtnTheoTenKH);
 		
-		JRadioButton rdbtnTheoGia = new JRadioButton("Theo giá");
-		rdbtnTheoGia.setBounds(462, 14, 85, 27);
-		rdbtnTheoGia.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoGia.setBackground(new Color(220,210,239));
-		pSapXep.add(rdbtnTheoGia);
-		
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(rdbtnTheoMa);
 		bg.add(rdbtnTheoTenKH);
-		bg.add(rdbtnTheoGia);
 		rdbtnTheoMa.setSelected(true);
 		
 		btnLamMoi = new FixButton("Làm mới");
@@ -160,7 +153,7 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		btnLamMoi.setBackground(new Color(114, 23, 153));
 		btnLamMoi.setBounds(571, 15, 98, 25);
 		Image imgLamMoiDS = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
-		Image resizeImgLamMoiDS = imgLamMoiDS.getScaledInstance(25, 25, 0);
+		Image resizeImgLamMoiDS = imgLamMoiDS.getScaledInstance(20, 20, 0);
 		btnLamMoi.setIcon(new ImageIcon(resizeImgLamMoiDS));
 		pSapXep.add(btnLamMoi);
 		
@@ -177,6 +170,7 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		tableDanhSachKH.setShowHorizontalLines(true);
 		tableDanhSachKH.setRowHeight(30);
 		tableDanhSachKH.setSelectionBackground(new Color(164, 44, 167,30));
+		tableDanhSachKH.setSelectionForeground(new Color(114, 23, 153));
 		//tableDanhSachKH.setOpaque(false);
 		tableDanhSachKH.setShowGrid(true);
 		
@@ -239,6 +233,8 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 		tableDanhSachMH.setShowHorizontalLines(true);
 		tableDanhSachMH.setShowGrid(true);
 		tableDanhSachMH.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		tableDanhSachMH.setSelectionBackground(new Color(164, 44, 167,30));
+		tableDanhSachMH.setSelectionForeground(new Color(114, 23, 153));
 		tableDanhSachMH.setRowHeight(30);
 		//tableDanhSachMH.setOpaque(false);
 		

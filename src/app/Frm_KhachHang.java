@@ -35,6 +35,7 @@ import entity.LoaiMatHang;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 
 public class Frm_KhachHang extends JPanel {
 	
@@ -92,7 +93,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		JLabel lblQuanLyKH = new JLabel("Quản lý khách hàng");
 		lblQuanLyKH.setFont(new Font("SansSerif", Font.BOLD, 22));
-		lblQuanLyKH.setBounds(31, 11, 202, 33);
+		lblQuanLyKH.setBounds(31, 11, 251, 33);
 		pMain.add(lblQuanLyKH);
 		
 
@@ -227,9 +228,8 @@ public class Frm_KhachHang extends JPanel {
 		
 		textFieldPoint = new JTextField();
 		textFieldPoint.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldPoint.setBounds(1041, 150, 108, 28);
+		textFieldPoint.setBounds(945, 145, 202, 28);
 		textFieldPoint.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		textFieldPoint.setBounds(952, 145, 185, 28);
 		textFieldPoint.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		pMain.add(textFieldPoint);
 		textFieldPoint.setColumns(10);
@@ -239,7 +239,7 @@ public class Frm_KhachHang extends JPanel {
 		cbbNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgaySinh.setBackground(Color.white);
 		cbbNgaySinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbNgaySinh.setBounds(952, 61, 47, 26);
+		cbbNgaySinh.setBounds(945, 61, 56, 26);
 		for(int i = 1;i <=31; i++) {
 			cbbNgaySinh.addItem(""+i);
 		}
@@ -249,7 +249,7 @@ public class Frm_KhachHang extends JPanel {
 		cbbThangSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbThangSinh.setBackground(Color.white);
 		cbbThangSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbThangSinh.setBounds(1009, 61, 56, 27);
+		cbbThangSinh.setBounds(1009, 61, 56, 26);
 		for(int i = 1; i <= 12;i++) {
 			cbbThangSinh.addItem(""+i);
 		}
@@ -323,6 +323,7 @@ public class Frm_KhachHang extends JPanel {
 		tableKH = new JTable(modelKhachHang);
 		
 		
+		
 		JTableHeader tbHeader = tableKH.getTableHeader();
 		tbHeader.setBackground(new Color(164, 44, 167));
 		tbHeader.setForeground(Color.white);
@@ -336,6 +337,8 @@ public class Frm_KhachHang extends JPanel {
 		tableKH.setShowGrid(true);
 		tableKH.setShowHorizontalLines(true);
 		tableKH.setBackground(Color.WHITE);
+		tableKH.setSelectionBackground(new Color(164, 44, 167,30));
+		tableKH.setSelectionForeground(new Color(114, 23, 153));
 		tableKH.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		tableKH.setRowHeight(30);
 		tableKH.setGridColor(getBackground());
@@ -368,7 +371,7 @@ public class Frm_KhachHang extends JPanel {
 		cbbNgayDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNgayDangKy.setBackground(Color.WHITE);
 		cbbNgayDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbNgayDangKy.setBounds(952, 102, 47, 27);
+		cbbNgayDangKy.setBounds(945, 102, 56, 27);
 		for(int i = 1; i <= 31; i++ ) {
 			cbbNgayDangKy.addItem(""+i);
 		}
@@ -396,7 +399,7 @@ public class Frm_KhachHang extends JPanel {
 		for(int i = namBatDau; i <= namHienTai; i++) {
 			cbbNamDangKy.addItem(""+i);
 		}
-		cbbNamDangKy.setBounds(1077, 101, 72, 27);
+		cbbNamDangKy.setBounds(1075, 101, 72, 27);
 		pMain.add(cbbNamDangKy);
 		
 		JPanel pSapXep = new JPanel();
