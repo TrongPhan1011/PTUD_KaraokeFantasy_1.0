@@ -6,7 +6,8 @@ import java.awt.Panel;
 import java.awt.Toolkit;
 
 import java.sql.Date;
-
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.ButtonGroup;
@@ -25,6 +26,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import connection.ConnectDB;
+import dao.DAOLoaiKH;
+import entity.LoaiKH;
+import entity.LoaiMatHang;
+
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -51,6 +58,7 @@ public class Frm_KhachHang extends JPanel {
 	private JTextField textFieldCccd;
 	private JTextField textFieldPoint;
 	private JTable tableKH;
+	private DAOLoaiKH daoLoaiKH;
 
 
 
@@ -63,6 +71,17 @@ public class Frm_KhachHang extends JPanel {
 		this.sHeaderTenNV = sHeaderTenNV;
 		this.dNgayHienTai = dNgayHienTai;
 		
+		//connect database
+		try {
+			ConnectDB.getinstance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//khai bao dao
+		daoLoaiKH = new DAOLoaiKH();
+		
+		
+		//Giao dien
 		setLayout(null);
 		pMain = new Panel();
 		pMain.setBackground(Color.WHITE);
@@ -73,25 +92,25 @@ public class Frm_KhachHang extends JPanel {
 		
 		JLabel lblQuanLyKH = new JLabel("Quản lý khách hàng");
 		lblQuanLyKH.setFont(new Font("SansSerif", Font.BOLD, 22));
-		lblQuanLyKH.setBounds(31, 11, 255, 33);
+		lblQuanLyKH.setBounds(31, 11, 202, 33);
 		pMain.add(lblQuanLyKH);
 		
 
 		JLabel lblTimKiem = new JLabel("Tìm Kiếm:");
 		lblTimKiem.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lblTimKiem.setBounds(374, 13, 90, 35);
+		lblTimKiem.setBounds(374, 6, 90, 35);
 		pMain.add(lblTimKiem);
 		
 		textFieldTK = new JTextField();
 		textFieldTK.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldTK.setBounds(474, 12, 281, 33);
+		textFieldTK.setBounds(474, 5, 281, 33);
 		textFieldTK.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(textFieldTK);
 		textFieldTK.setColumns(10);
 		
 		btnTim = new FixButton("Tìm");
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnTim.setBounds(786, 11, 98, 33);
+		btnTim.setBounds(786, 4, 98, 33);
 		btnTim.setBackground(new Color(114, 23 ,153));
 		//btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		//btnTim.setForeground(Color.WHITE);
@@ -116,7 +135,7 @@ public class Frm_KhachHang extends JPanel {
 		textFieldHoTen = new JTextField();
 		textFieldHoTen.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-		textFieldHoTen.setBounds(342, 67, 189, 28);
+		textFieldHoTen.setBounds(230, 62, 189, 28);
 		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		textFieldHoTen.setBounds(239, 62, 189, 28);
 		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
@@ -130,7 +149,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		textFieldSDT = new JTextField();
 		textFieldSDT.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldSDT.setBounds(342, 106, 189, 28);
+		textFieldSDT.setBounds(239, 100, 189, 28);
 		textFieldSDT.setBorder(new LineBorder(new Color(114, 23 ,153),2 , true));
 		textFieldSDT.setBounds(239, 101, 189, 28);
 		textFieldSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
@@ -149,14 +168,14 @@ public class Frm_KhachHang extends JPanel {
 		
 		JComboBox <String> loaiKH = new JComboBox<String>();
 		loaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		loaiKH.setBounds(631, 60, 124, 27);
+		loaiKH.setBounds(610, 60, 170, 27);
 		loaiKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		//loaiKH.setForeground(new Color(255, 255, 255));
 		loaiKH.setBackground(new Color(255, 255, 255));
-		String cbbLoaiKH [] = {"Thường", "Thành viên", "VIP"};
-		for(int i = 0;i < cbbLoaiKH.length; i++) {
-			loaiKH.addItem(cbbLoaiKH[i]);
-		}
+		/*
+		 * String cbbLoaiKH [] = {"Thường", "Thành viên", "VIP"}; for(int i = 0;i <
+		 * cbbLoaiKH.length; i++) { loaiKH.addItem(cbbLoaiKH[i]); }
+		 */
 
 		pMain.add(loaiKH);
 		
@@ -168,8 +187,7 @@ public class Frm_KhachHang extends JPanel {
 		
 		textFieldCccd = new JTextField();
 		textFieldCccd.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldCccd.setBounds(741, 106, 124, 28);
-		textFieldCccd.setBounds(631, 98, 124, 28);
+		textFieldCccd.setBounds(610, 100, 170, 27);
 		
 		pMain.add(textFieldCccd);
 		textFieldCccd.setColumns(10);
@@ -181,7 +199,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblGioiTinh);
 		
 		JComboBox<String> gioiTinh = new JComboBox<String>();
-		gioiTinh.setBounds(631, 136, 124, 28);
+		gioiTinh.setBounds(610, 140, 170, 28);
 		gioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		gioiTinh.setBackground(Color.WHITE);
 		gioiTinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
@@ -435,7 +453,11 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(lblBackground);
 
 //		test
-		
+		//Load tên loại KH
+		ArrayList<LoaiKH> lsLoaiKH = daoLoaiKH.getAllLoaiKH();
+		for(LoaiKH lmh : lsLoaiKH) {
+			loaiKH.addItem(lmh.getTenLoaiKH());
+		}
 		
 		
 	}
