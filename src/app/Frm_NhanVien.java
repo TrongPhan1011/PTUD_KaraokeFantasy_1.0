@@ -179,7 +179,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		cbbGioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbGioiTinh.setBackground(Color.WHITE);
 		cbbGioiTinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbGioiTinh.setBounds(657, 137, 65, 25);
+		cbbGioiTinh.setBounds(657, 137, 124, 25);
 		pMain.add(cbbGioiTinh);
 		
 		//ngaysinh
@@ -225,8 +225,9 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
 		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
+		datePicker.getJFormattedTextField().setText(" ... - ... - .....");
 		
-		datePicker.setBounds(964, 62, 120, 26);
+		datePicker.setBounds(964, 62, 120, 22);
 		datePicker.setTextEditable(true);
 		
 		pMain.add(datePicker);
@@ -265,10 +266,10 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		cbbCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbCaLamViec.setBackground(Color.WHITE);
 		cbbCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbCaLamViec.setBounds(964, 102, 65, 25);
+		cbbCaLamViec.setBounds(964, 102, 120, 25);
 		pMain.add(cbbCaLamViec);
 		
-		//btnthem,sua,xoa,resetNV
+		//btnthem,sua,xoa,lammoiNV
 		btnThemNV = new FixButton("Thêm");
 		btnThemNV.setForeground(Color.WHITE);
 		btnThemNV.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -316,30 +317,35 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		//sapxep
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Sắp xếp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pSapXep.setBackground(new Color(220,210,239));
-		pSapXep.setBounds(270, 236, 733, 69);
+		pSapXep.setBackground(new Color(201, 194, 237));
+		pSapXep.setBounds(250, 230, 777, 50);
 		pMain.add(pSapXep);
+		pSapXep.setLayout(null);
 		
 		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[] {"Tăng dần", "Giảm dần"});
 		cbbSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbSapXep.setBackground(Color.WHITE);
 		cbbSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		cbbSapXep.setBounds(45, 14, 102, 28);
 		pSapXep.add(cbbSapXep);
 		
 		JRadioButton radTheoMaNV = new JRadioButton("Theo mã nhân viên");
+		radTheoMaNV.setBounds(175, 17, 159, 25);
 		radTheoMaNV.setSelected(true);
 		radTheoMaNV.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoMaNV.setBackground(new Color(220,210,239));
+		radTheoMaNV.setBackground(new Color(201, 194, 237));
 		pSapXep.add(radTheoMaNV);
 		
 		JRadioButton radTheoTenNV = new JRadioButton("Theo tên nhân viên");
+		radTheoTenNV.setBounds(358, 17, 161, 25);
 		radTheoTenNV.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoTenNV.setBackground(new Color(220,210,239));
+		radTheoTenNV.setBackground(new Color(201, 194, 237));
 		pSapXep.add(radTheoTenNV);
 		
 		JRadioButton radTheoChucVuNV = new JRadioButton("Theo chức vụ nhân viên");
+		radTheoChucVuNV.setBounds(545, 17, 195, 25);
 		radTheoChucVuNV.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoChucVuNV.setBackground(new Color(220,210,239));
+		radTheoChucVuNV.setBackground(new Color(201, 194, 237));
 		pSapXep.add(radTheoChucVuNV);
 		
 		ButtonGroup bgRad=new ButtonGroup();
@@ -352,13 +358,21 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		JScrollPane scrollPaneNV = new JScrollPane();
 		scrollPaneNV.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		scrollPaneNV.setBackground(new Color(164, 44, 167));
-		scrollPaneNV.setBounds(22, 320, 1220, 266);
+		scrollPaneNV.setBounds(21, 290, 1223, 305);
 		pMain.add(scrollPaneNV);
 		
 		String col[] = {"Mã NV", "Họ và tên nhân viên", "Chức vụ", "Giới tính", "Ngày sinh", "Địa chỉ", "SĐT", "CCCD", "Ca làm việc", "Lương"};
 		DefaultTableModel modelNV = new DefaultTableModel(col, 0);
 		
 		JTable tableNV = new JTable(modelNV);
+		tableNV.setShowHorizontalLines(true); 
+		tableNV.setShowGrid(true);
+		tableNV.setBackground(Color.white);
+		tableNV.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		tableNV.setSelectionBackground(new Color(164, 44, 167, 30));
+		tableNV.setSelectionForeground(new Color(114, 23, 153));
+		tableNV.setRowHeight(30);
+		
 		JTableHeader tbHeader = tableNV.getTableHeader();
 		tbHeader.setBackground(new Color(164, 44, 167));
 		tbHeader.setForeground(Color.white);
@@ -375,16 +389,10 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 //		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
 //		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
 		
-//		tableNV.setShowGrid(false);
-//		tableNV.setShowHorizontalLines(false);
-		tableNV.setBackground(Color.WHITE);
-		tableNV.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		tableNV.setRowHeight(30);
-		tableNV.setOpaque(false);
-		tableNV.setSelectionBackground(new Color(164, 44, 167, 30));
+		//tableNV.setOpaque(false);
 		scrollPaneNV.setViewportView(tableNV);
 		
-		//demo data
+		//demo data nv
 		modelNV.addRow(new Object[] {"123","123"});
 		modelNV.addRow(new Object[] {"123","123"});
 		modelNV.addRow(new Object[] {"123","123"});
