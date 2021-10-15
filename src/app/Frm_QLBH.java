@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -592,10 +593,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnThemMH.addActionListener(this);
 		btnLamMoiMH.addActionListener(this);
 		btnXoaMH.addActionListener(this);
-		
-	
-		
-		
+		btnThanhToan.addActionListener(this);
 	}
 //	end main
 	
@@ -650,7 +648,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		loadTable(ddp);
 	}
 	
-//	Table
+//	Table   
 	
 	public void loadTable(DonDatPhong ddp) {
 		clearTable();
@@ -700,22 +698,31 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 //	Thanh toán
 //	themHD
 	public void themHD() {
-		String maHD = daoMa.getMaHD();
-		Phong p = daoPhong.getPhongTheoMa(lblMaPhong.getText());
-		KhachHang kh = daoKhachHang.getKHTheoMa(lblMaKH.getText());
-		NhanVien nv = daoNhanVien.getNVTheoMa(sHeaderMaNV);
-		Date ngayLap = dNgayHienTai;
-		int gioVao = Integer.parseInt(lblGioVao.getText()),
-			phutVao = Integer.parseInt(lblPhutVao.getText());
-		int gioRa = Integer.parseInt(cbbGioRa.getSelectedItem().toString()),
-				phutRa = Integer.parseInt(cbbPhutRa.getSelectedItem().toString());
-		String phuThu = cbbPhuThu.getSelectedItem().toString();
-		String trangThaiHD = "Đã thanh toán";
+		int optThanhToan = JOptionPane.showConfirmDialog(this, "Bạn có chắn chắn muốn thanh toán không?", "Thông báo", JOptionPane.YES_NO_OPTION );
 		
-		@SuppressWarnings("deprecation")
-		HoaDon hd = new HoaDon(maHD, ngayLap, new Time(gioVao, phutVao, 0), new Time(gioRa, phutRa, 0), phuThu, trangThaiHD, nv, kh, p);
-		daoHD.themHoaDon(hd);
-		daoPhong.capnhatTrangThaiPhong(p.getMaPhong(), "Trống");
+		if(optThanhToan == JOptionPane.YES_OPTION) {
+			String maHD = daoMa.getMaHD();
+			Phong p = daoPhong.getPhongTheoMa(lblMaPhong.getText());
+			KhachHang kh = daoKhachHang.getKHTheoMa(lblMaKH.getText());
+			NhanVien nv = daoNhanVien.getNVTheoMa(sHeaderMaNV);
+			Date ngayLap = dNgayHienTai;
+			//daothemhd--> hd --> 
+			
+			
+			int gioVao = Integer.parseInt(lblGioVao.getText()),
+				phutVao = Integer.parseInt(lblPhutVao.getText());
+			int gioRa = Integer.parseInt(cbbGioRa.getSelectedItem().toString()),
+					phutRa = Integer.parseInt(cbbPhutRa.getSelectedItem().toString());
+			String phuThu = cbbPhuThu.getSelectedItem().toString();
+			String trangThaiHD = "Đã thanh toán";
+			
+			@SuppressWarnings("deprecation")
+			HoaDon hd = new HoaDon(maHD, ngayLap, new Time(gioVao, phutVao, 0), new Time(gioRa, phutRa, 0), phuThu, trangThaiHD, nv, kh, p);
+			daoHD.themHoaDon(hd);
+			daoPhong.capnhatTrangThaiPhong(p.getMaPhong(), "Trống");
+			resetAll();
+		}
+		
 	}
 	
 	
@@ -772,6 +779,9 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		}
 		if(o.equals(btnXoaMH)) {
 			xoaCTDDP();
+		}
+		if(o.equals(btnThanhToan)) {
+			themHD();
 		}
 		
 		
