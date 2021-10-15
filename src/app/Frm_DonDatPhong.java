@@ -30,8 +30,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 	private String sHeaderMaNV, sHeaderTenNV;
 	private Panel pMain;
 	private Date dNgayHienTai;
-	private JLabel lblQLDDP, lblTim, lblTenKH, lblLoaiKH, lblNgayDen, lblSDT, lblGioDen, lblTinhTrangDDP, lblDiaChi, lblChonPhong, lblNgayLap,
-				   lblNgayHienTai, lblBackGround;
+	private JLabel lblQLDDP, lblTim, lblTenKH, lblLoaiKH, lblNgayDen, lblSDT, lblGioDen, lblTinhTrangDDP, lblDiaChi, lblChonPhong, lblBackGround;
 	private JTextField txtTim, txtTenKH, txtSDT, txtGioDen;
 	private JTextArea txtDiaChi;
 	private JButton btnTim, btnThemDDP, btnSuaDDP, btnXoaDDP, btnLamMoiDDP;
@@ -161,9 +160,9 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
 		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
-		datePicker.getJFormattedTextField().setText(".....-.....-......");
+		datePicker.getJFormattedTextField().setText(" ... - ... - .....");
 		
-		datePicker.setBounds(496, 61, 120, 26);
+		datePicker.setBounds(496, 61, 120, 22);
 		datePicker.setTextEditable(true);
 		
 		pMain.add(datePicker);
@@ -177,7 +176,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		//txtSDT
 		txtSDT = new JTextField();
 		txtSDT.setColumns(10);
-		txtSDT.setFont(new Font("SansSerif", Font.BOLD, 15));
+		txtSDT.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtSDT.setBounds(496, 100, 120, 25);
 		pMain.add(txtSDT);
@@ -191,7 +190,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		//txtGioDen
 		txtGioDen = new JTextField();
 		txtGioDen.setColumns(10);
-		txtGioDen.setFont(new Font("SansSerif", Font.BOLD, 15));
+		txtGioDen.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtGioDen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtGioDen.setBounds(755, 62, 74, 25);
 		pMain.add(txtGioDen);
@@ -204,7 +203,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		
 		//txtDiaChi
 		txtDiaChi = new JTextArea();
-		txtDiaChi.setFont(new Font("SansSerif", Font.BOLD, 15));
+		txtDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtDiaChi.setBounds(755, 100, 452, 25);
 		pMain.add(txtDiaChi);
@@ -212,7 +211,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		//lblTinhTrangDDP
 		lblTinhTrangDDP = new JLabel("Tình trạng đơn đặt phòng:");
 		lblTinhTrangDDP.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblTinhTrangDDP.setBounds(867, 65, 189, 19);
+		lblTinhTrangDDP.setBounds(860, 65, 189, 19);
 		pMain.add(lblTinhTrangDDP);
 		
 		//cbbTinhTrangDDP
@@ -220,20 +219,20 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		cbbTinhTrangDDP.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbTinhTrangDDP.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbTinhTrangDDP.setBackground(Color.WHITE);
-		cbbTinhTrangDDP.setBounds(1066, 62, 141, 27);
+		cbbTinhTrangDDP.setBounds(1059, 62, 148, 27);
 		pMain.add(cbbTinhTrangDDP);
 		
 		//lblChonPhong
 		lblChonPhong = new JLabel("Chọn phòng:");
 		lblChonPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblChonPhong.setBounds(47, 155, 98, 19);
+		lblChonPhong.setBounds(47, 145, 98, 19);
 		pMain.add(lblChonPhong);
 		
 		//bangthongtinPhong
 		JScrollPane scrollPaneChonPhong = new JScrollPane();
 		scrollPaneChonPhong.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		scrollPaneChonPhong.setBackground(new Color(164, 44, 167));
-		scrollPaneChonPhong.setBounds(175, 150, 654, 105);
+		scrollPaneChonPhong.setBounds(175, 142, 709, 131);
 		pMain.add(scrollPaneChonPhong);
 		
 		String colPhong[] = {"Mã phòng", "Mã loại phòng", "Loại phòng", "Giá phòng", "Tình trạng phòng"};
@@ -253,9 +252,12 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		
 		tablePhong.setBackground(Color.white);
 		tablePhong.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		tablePhong.setRowHeight(20);
-		tablePhong.setOpaque(false);
+		tablePhong.setRowHeight(30);
+		tablePhong.setShowHorizontalLines(true);
+		tablePhong.setShowGrid(true);
+//		tablePhong.setOpaque(false);
 		tablePhong.setSelectionBackground(new Color(164, 44, 167, 30));
+		tablePhong.setSelectionForeground(new Color(114, 23, 153));
 		scrollPaneChonPhong.setViewportView(tablePhong);
 		
 		//demo data phong
@@ -266,47 +268,12 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		modelPhong.addRow(new Object[] {"123", "123"});
 		modelPhong.addRow(new Object[] {"123", "123", "6"});
 		
-		//lblNgayLap
-		lblNgayLap = new JLabel("Ngày lập:");
-		lblNgayLap.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNgayLap.setBounds(880, 155, 74, 19);
-		pMain.add(lblNgayLap);
-		
 		//ngay thang nam lap DDP
 		now = LocalDate.now();
 		ngay = now.getDayOfMonth();
 		thang = now.getMonthValue();
 		nam = now.getYear();
 		dNow = new Date(nam, thang, ngay);
-		lblNgayHienTai = new JLabel(ngay+" / "+thang+" / "+nam);
-		lblNgayHienTai.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNgayHienTai.setBounds(1015, 155, 98, 19);
-		pMain.add(lblNgayHienTai);
-		
-		JLabel lblNVLap = new JLabel("Nhân viên lập:");
-		lblNVLap.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNVLap.setBounds(880, 185, 107, 19);
-		pMain.add(lblNVLap);
-		
-		JLabel lblMaNVLap = new JLabel("NVXXX");
-		lblMaNVLap.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblMaNVLap.setBounds(1015, 185, 61, 19);
-		pMain.add(lblMaNVLap);
-		
-		JLabel lblTenNVLap = new JLabel("Nguyễn Thanh Toàn");
-		lblTenNVLap.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblTenNVLap.setBounds(1015, 205, 149, 19);
-		pMain.add(lblTenNVLap);
-		
-		JLabel lblSoLuongPhong = new JLabel("Số lượng phòng:");
-		lblSoLuongPhong.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblSoLuongPhong.setBounds(880, 231, 124, 19);
-		pMain.add(lblSoLuongPhong);
-		
-		JLabel lblSoLuong = new JLabel("1");
-		lblSoLuong.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblSoLuong.setBounds(1015, 231, 29, 19);
-		pMain.add(lblSoLuong);
 		
 		//btnthem,sua,xoa,lammoiDDP
 		btnThemDDP = new FixButton("Thêm");
@@ -314,7 +281,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnThemDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemDDP.setBackground(new Color(114, 23, 153));
-		btnThemDDP.setBounds(384, 265, 110, 35);
+		btnThemDDP.setBounds(956, 156, 110, 35);
 		Image imgThemDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconGrayThem.png");
 		Image resizeImgThemDDP = imgThemDDP.getScaledInstance(25, 25, 0);
 		btnThemDDP.setIcon(new ImageIcon(resizeImgThemDDP));
@@ -325,7 +292,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnSuaDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaDDP.setBackground(new Color(114, 23, 153));
-		btnSuaDDP.setBounds(525, 265, 110, 35);
+		btnSuaDDP.setBounds(1097, 156, 110, 35);
 		Image imgSuaDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconTool.png");
 		Image resizeImgSuaDDP = imgSuaDDP.getScaledInstance(25, 25, 0);
 		btnSuaDDP.setIcon(new ImageIcon(resizeImgSuaDDP));
@@ -336,7 +303,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnXoaDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaDDP.setBackground(new Color(114, 23, 153));
-		btnXoaDDP.setBounds(663, 265, 110, 35);
+		btnXoaDDP.setBounds(956, 223, 110, 35);
 		Image imgXoaDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconRemove.png");
 		Image resizeImgXoaDDP = imgXoaDDP.getScaledInstance(25, 25, 0);
 		btnXoaDDP.setIcon(new ImageIcon(resizeImgXoaDDP));
@@ -347,7 +314,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnLamMoiDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoiDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLamMoiDDP.setBackground(new Color(114, 23, 153));
-		btnLamMoiDDP.setBounds(804, 265, 110, 35);
+		btnLamMoiDDP.setBounds(1097, 223, 110, 35);
 		Image imgLamMoiDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconReset.png");
 		Image resizeImgLamMoiDDP = imgLamMoiDDP.getScaledInstance(25, 25, 0);
 		btnLamMoiDDP.setIcon(new ImageIcon(resizeImgLamMoiDDP));
@@ -356,30 +323,35 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		//sapxep
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Sắp xếp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pSapXep.setBackground(new Color(220, 210, 239));
-		pSapXep.setBounds(302, 310, 685, 69);
+		pSapXep.setBackground(new Color(207, 195, 237));
+		pSapXep.setBounds(302, 280, 685, 50);
 		pMain.add(pSapXep);
+		pSapXep.setLayout(null);
 		
 		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[]{"Tăng dần", "Giảm dần"});
+		cbbSapXep.setBounds(60, 14, 102, 28);
 		cbbSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cbbSapXep.setBackground(Color.WHITE);
 		pSapXep.add(cbbSapXep);
 		
 		JRadioButton radTheoMaPhong = new JRadioButton("Theo mã phòng");
+		radTheoMaPhong.setBounds(188, 16, 133, 27);
 		radTheoMaPhong.setSelected(true);
 		radTheoMaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoMaPhong.setBackground(new Color(220, 210, 239));
+		radTheoMaPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoMaPhong);
 		
 		JRadioButton radTheoLoaiPhong = new JRadioButton("Theo loại phòng");
+		radTheoLoaiPhong.setBounds(342, 16, 139, 27);
 		radTheoLoaiPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoLoaiPhong.setBackground(new Color(220, 210, 239));
+		radTheoLoaiPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoLoaiPhong);
 		
 		JRadioButton radTheoGiaPhong = new JRadioButton("Theo giá phòng");
+		radTheoGiaPhong.setBounds(500, 16, 135, 27);
 		radTheoGiaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
-		radTheoGiaPhong.setBackground(new Color(220, 210, 239));
+		radTheoGiaPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoGiaPhong);
 		
 		ButtonGroup bgRad=new ButtonGroup();
@@ -392,7 +364,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		JScrollPane scrollPaneDDP = new JScrollPane();
 		scrollPaneDDP.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		scrollPaneDDP.setBackground(new Color(164, 44, 167));
-		scrollPaneDDP.setBounds(42, 390, 1195, 196);
+		scrollPaneDDP.setBounds(26, 336, 1212, 259);
 		pMain.add(scrollPaneDDP);
 		
 		String colDDP[] = {"Mã đơn đặt phòng", "Mã khách hàng", "Tên khách hàng", "Ngày đến", "Giờ đến", "Mã phòng", "Mã nhân viên lập", "Số lượng", "Ngày lập", "Tình trạng phòng"};
@@ -417,12 +389,17 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		
 		tableDDP.setBackground(Color.white);
 		tableDDP.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		tableDDP.setRowHeight(25);
-		tableDDP.setOpaque(false);
+		tableDDP.setRowHeight(30);
+		tableDDP.setShowHorizontalLines(true);
+		tableDDP.setShowGrid(true);
+//		tableDDP.setOpaque(false);
 		tableDDP.setSelectionBackground(new Color(164, 44, 167, 30));
+		tableDDP.setSelectionForeground(new Color(114, 23, 153));
 		scrollPaneDDP.setViewportView(tableDDP);
 		
 		//demo data DDP
+		modelDDP.addRow(new Object[] {"123","123"});
+		modelDDP.addRow(new Object[] {"123","123"});
 		modelDDP.addRow(new Object[] {"123","123"});
 		modelDDP.addRow(new Object[] {"123","123"});
 		modelDDP.addRow(new Object[] {"123","123"});
