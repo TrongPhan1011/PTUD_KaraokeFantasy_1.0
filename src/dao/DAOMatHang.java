@@ -11,7 +11,9 @@ import entity.LoaiMatHang;
 import entity.MatHang;
 
 public class DAOMatHang {
+	
 	public MatHang getMHTheoMaMH(String ma) {
+		
 		MatHang mh = new MatHang();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
@@ -27,9 +29,6 @@ public class DAOMatHang {
 				mh.setTenMatHang(rs.getNString(3));
 				mh.setSoLuongMatHang(rs.getInt(4));
 				mh.setGiaMatHang(rs.getDouble(5));
-				
-				
-				
 				
 			}
 		} catch (SQLException e) {
@@ -59,8 +58,6 @@ public class DAOMatHang {
 				
 				lsMatHang.add(mh);
 				
-				
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,6 +66,39 @@ public class DAOMatHang {
 		return lsMatHang;
 		
 	}
+	
+	public MatHang getMHTheoTenMHVaLoaiMH(String tenMH, String tenLoai) {
+		MatHang mh = new MatHang();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "SELECT MatHang.*\r\n"
+				+ "FROM  LoaiMatHang INNER JOIN\r\n"
+				+ "         MatHang ON LoaiMatHang.maLoaiMH = MatHang.maLoaiMH\r\n"
+				+ "Where tenMH = N'"+tenMH+"' and tenLoaiMH = N'"+tenLoai+"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				
+				mh.setMaMatHang(rs.getNString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getNString(2)));
+				mh.setTenMatHang(rs.getNString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return mh;
+		
+	}
+	
+	
 	
 	
 }

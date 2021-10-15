@@ -1,6 +1,7 @@
 package app;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -32,7 +33,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private JPanel pContent;
 	private JButton btnDangXuat;
 	private JLabel lblHeaderTen;
-	private JLabel lblHeaderMa;
+	private JLabel lblSubMa;
 	private Frm_KhachHang Frm_KhachHang;
 	private JButton btnItemNhanVien;
 	private JButton btnItemQLBH;
@@ -49,6 +50,8 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private int ngay;
 	private int thang;
 	private int nam;
+	private JLabel lblHeaderMaNV;
+	private JButton btnHeaderInfo;
 
 	
 	public static void main(String[] args) {
@@ -113,14 +116,14 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		lblHeaderTen = new JLabel("Tên Nhân Viên");
 		lblHeaderTen.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblHeaderTen.setForeground(Color.WHITE);
-		lblHeaderTen.setBounds(908, 11, 135, 20);
+		lblHeaderTen.setBounds(873, 11, 170, 20);
 		panel.add(lblHeaderTen);
 		
-		lblHeaderMa = new JLabel("Mã: QL1234 ");
-		lblHeaderMa.setForeground(Color.WHITE);
-		lblHeaderMa.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblHeaderMa.setBounds(908, 42, 135, 20);
-		panel.add(lblHeaderMa);
+		lblSubMa = new JLabel("Mã nhân viên:");
+		lblSubMa.setForeground(Color.WHITE);
+		lblSubMa.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblSubMa.setBounds(873, 41, 110, 20);
+		panel.add(lblSubMa);
 		
 		btnDangXuat = new FixButton("Đăng Xuất");
 		btnDangXuat.setForeground(Color.WHITE);
@@ -129,18 +132,20 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		btnDangXuat.setBackground(new Color(0xE91940));
 		panel.add(btnDangXuat);
 		
-		JPanel pQL = new JPanel();
-		pQL.setBackground(Color.LIGHT_GRAY);
-		pQL.setBorder(new LineBorder(new Color(255, 255, 255), 5, true));
-		pQL.setBounds(1053, 11, 55, 51);
-		panel.add(pQL);
-		pQL.setLayout(null);
+		lblHeaderMaNV = new JLabel("NV002");
+		lblHeaderMaNV.setForeground(Color.WHITE);
+		lblHeaderMaNV.setFont(new Font("SansSerif", Font.ITALIC, 15));
+		lblHeaderMaNV.setBounds(983, 41, 60, 20);
+		panel.add(lblHeaderMaNV);
 		
-		JLabel lblQL = new JLabel("QL");
-		lblQL.setBounds(14, 9, 37, 35);
-		lblQL.setFont(new Font("SansSerif", Font.BOLD, 20));
-		pQL.add(lblQL);
+		btnHeaderInfo = new JButton("QL");
+		btnHeaderInfo.setForeground(Color.WHITE);
+		btnHeaderInfo.setFont(new Font("SansSerif", Font.BOLD, 20));
+		btnHeaderInfo.setBounds(1053, 11, 60, 56);
+		btnHeaderInfo.setBackground(new Color(57, 210, 247));
+//		btnHeaderInfo.setBorder(new LineBorder(Color.white,10));
 		
+		panel.add(btnHeaderInfo);
 		
 		
 		JPanel pMenu = new JPanel();
@@ -151,7 +156,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		int x = 160;    // vi tri chieu ngang cua item
 		
-		if(lblHeaderMa.toString().contains("QL")) {
+		if(btnHeaderInfo.getText().contains("QL")) {
 			btnItemNhanVien = new JButton("Quản lý nhân viên");
 			btnItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemNhanVien.setBackground(new Color(255, 240, 245));
@@ -162,8 +167,8 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			x = x + 142; //  chuyen vi tri sang mot doan 
 		}
 		
-		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
-			if(lblHeaderMa.toString().contains("TN"))
+		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("TN")) {
+			if(lblSubMa.toString().contains("TN"))
 				x += 255;
 			btnItemQLBH = new JButton("Quản lý bán hàng");
 			btnItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
@@ -179,7 +184,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		}
 		
-		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
+		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("TN")) {
 			btnItemDDP = new JButton("Quản lý đơn đặt phòng");
 			btnItemDDP.setLayout(null);
 			btnItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
@@ -191,12 +196,12 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 
 			
 			x = x + 142;
-			if(lblHeaderMa.toString().contains("TN"))
+			if(lblSubMa.toString().contains("TN"))
 				x += 19;
 		}
-		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("PV")) {
+		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("PV")) {
 			x = x  + 29;
-			if(lblHeaderMa.toString().contains("PV"))
+			if(lblSubMa.toString().contains("PV"))
 				x += 275;
 			btnItemPhong = new JButton("Quản lý phòng và mặt hàng");
 			btnItemPhong.setLayout(null);
@@ -210,7 +215,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			x = x + 142;
 		}
 		
-		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("PV")) {
+		if(btnHeaderInfo.getText().contains("")|| btnHeaderInfo.getText().contains("PV")) {
 			x += 70;
 			
 			btnItemKH = new JButton("Quản lý khách Hàng");
@@ -227,7 +232,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			
 			
 		}
-		if(lblHeaderMa.toString().contains("QL")|| lblHeaderMa.toString().contains("TN")) {
+		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("TN")) {
 			x += 10;
 			btnItemTK = new JButton("Quản lý thống kê");
 			btnItemTK.setLayout(null);
@@ -278,7 +283,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			pContent.removeAll();
 			btnItemNhanVien.setBackground(new Color(192,255,255)); //new Color(233,136,236)
 			btnItemNhanVien.setBorder(BorderFactory.createLineBorder(Color.white));
-			frm_NhanVien = new Frm_NhanVien("QL","Phan Huu Trong", dNow);
+			frm_NhanVien = new Frm_NhanVien("QL",lblHeaderMaNV.getText(), dNow);
 			pContent.add(frm_NhanVien.getPanel());
 
 		
@@ -289,7 +294,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemKH.setBackground(new Color(192,255,255));
 		btnItemKH.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_KhachHang = new Frm_KhachHang("QL","Phan Huu Trong",dNow);
+		Frm_KhachHang = new Frm_KhachHang("QL",lblHeaderMaNV.getText(),dNow);
 		pContent.add(Frm_KhachHang.getFrmKH());
 	
 	}
@@ -299,7 +304,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemQLBH.setBackground(new Color(192,255,255));
 		btnItemQLBH.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_QLBH = new Frm_QLBH(this,"QL","Phan Huu Trong", dNow);
+		Frm_QLBH = new Frm_QLBH(this,"QL",lblHeaderMaNV.getText(), dNow);
 		pContent.add(Frm_QLBH.getFrmQLBH());
 	
 	}
@@ -309,7 +314,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemDDP.setBackground(new Color(192,255,255));
 		btnItemDDP.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_DDP = new Frm_DonDatPhong("QL","Phan Huu Trong", dNow);
+		Frm_DDP = new Frm_DonDatPhong("QL",lblHeaderMaNV.getText(), dNow);
 		pContent.add(Frm_DDP.getFrmDDP());
 	
 	}
@@ -320,7 +325,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemPhong.setBackground(new Color(192,255,255));
 		btnItemPhong.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_Phong = new Frm_PhongMatHang("QL","Phan Huu Trong",dNow);
+		Frm_Phong = new Frm_PhongMatHang("QL",lblHeaderMaNV.getText(),dNow);
 		pContent.add(Frm_Phong.getFrmPhong());
 	
 	}
@@ -331,7 +336,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemTK.setBackground(new Color(192,255,255));
 		btnItemTK.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_ThongKe = new Frm_ThongKe("QL","Phan Huu Trong",dNow);
+		Frm_ThongKe = new Frm_ThongKe("QL",lblHeaderMaNV.getText(),dNow);
 		pContent.add(Frm_ThongKe.getFrmThongKe());
 	
 	}

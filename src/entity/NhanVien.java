@@ -19,7 +19,16 @@ public class NhanVien implements Serializable {
 	private String cccd;
 	private double luong;
 	private int caLamViec;
+	private String trangThaiLamViec;
 	
+	public String getTrangThaiLamViec() {
+		return trangThaiLamViec;
+	}
+
+	public void setTrangThaiLamViec(String trangThaiLamViec) {
+		this.trangThaiLamViec = trangThaiLamViec;
+	}
+
 	private TaiKhoan taiKhoan;
 
 	public String getMaNhanVien() {
@@ -110,8 +119,10 @@ public class NhanVien implements Serializable {
 		this.taiKhoan = taiKhoan;
 	}
 
+
+
 	public NhanVien(String maNhanVien, String tenNhanVien, String chucVu, String gioiTinh, Date ngaySinh, String diaChi,
-			String sdt, String cccd, double luong, int caLamViec, TaiKhoan taiKhoan) {
+			String sdt, String cccd, double luong, int caLamViec, String trangThaiLamViec, TaiKhoan taiKhoan) {
 		super();
 		this.maNhanVien = maNhanVien;
 		this.tenNhanVien = tenNhanVien;
@@ -123,6 +134,7 @@ public class NhanVien implements Serializable {
 		this.cccd = cccd;
 		this.luong = luong;
 		this.caLamViec = caLamViec;
+		this.trangThaiLamViec = trangThaiLamViec;
 		this.taiKhoan = taiKhoan;
 	}
 

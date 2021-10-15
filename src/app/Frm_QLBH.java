@@ -39,17 +39,22 @@ import javax.swing.table.JTableHeader;
 import connection.ConnectDB;
 import dao.DAOCTDDP;
 import dao.DAODonDatPhong;
+import dao.DAOHoaDon;
 import dao.DAOKhachHang;
 import dao.DAOLoaiMH;
 import dao.DAOLoaiPhong;
 import dao.DAOMatHang;
+import dao.DAONhanVien;
+import dao.DAOPhatSinhMa;
 import dao.DAOPhong;
 import entity.CTDDP;
 import entity.DonDatPhong;
+import entity.HoaDon;
 import entity.KhachHang;
 import entity.LoaiMatHang;
 import entity.LoaiPhong;
 import entity.MatHang;
+import entity.NhanVien;
 import entity.Phong;
 
 public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,ItemListener {
@@ -78,7 +83,6 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	private JButton btnXoaMH;
 	private JButton btnLamMoiMH;
 	private JButton btnThanhToan;
-	private JButton btnSuaHD;
 	private JButton btnLamMoiHD;
 	private DAOCTDDP daoCTDDP;
 	private JPanel pPhong;
@@ -91,6 +95,17 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	private JLabel lblTenKH;
 	private JLabel lblGioVao;
 	private JLabel lblPhutVao;
+	private JLabel lblThanhTien;
+	private JLabel lblPhuThu;
+	private JLabel lblThoiGian;
+	private JLabel lblGiaPhong;
+	private JComboBox<String> cbbPhutRa;
+	private JComboBox<String> cbbGioRa;
+	private JComboBox<String> cbbPhuThu;
+	private JLabel lblNhanVienLap;
+	private DAOHoaDon daoHD;
+	private DAOPhatSinhMa daoMa;
+	private DAONhanVien daoNhanVien;
 	
 	public Panel getFrmQLBH() {
 		return this.pMain;
@@ -118,6 +133,10 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		daoDDP = new DAODonDatPhong();
 		daoPhong = new DAOPhong();
 		daoKhachHang =  new DAOKhachHang();
+		daoHD = new DAOHoaDon();
+		daoNhanVien = new DAONhanVien();
+		daoMa = new DAOPhatSinhMa();
+		
 		
 		
 //Main UI
@@ -169,14 +188,14 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnDSHD.setForeground(Color.WHITE);
 		btnDSHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnDSHD.setBackground(new Color(114, 23, 153));
-		btnDSHD.setBounds(1024, 13, 232, 33);
+		btnDSHD.setBounds(1015, 13, 232, 33);
 		
 		Image imgListHD = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconList.png");
 		Image resizeImgListHD = imgListHD.getScaledInstance(25, 25, 0);
 		btnDSHD.setIcon(new ImageIcon(resizeImgListHD));
 		
 		pMain.add(btnDSHD);
-		btnDSHD.addActionListener(this);
+	
 		
 		JLabel lblHeaderPhong = new JLabel("Phòng");
 		lblHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 20));
@@ -195,147 +214,100 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		
-		scrollPane.setBounds(24, 78, 1232, 108);
+		scrollPane.setBounds(24, 78, 1223, 96);
 		pMain.add(scrollPane);
 		
 		JLabel lblSubPhong = new JLabel("Phòng : ");
 		lblSubPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubPhong.setBounds(78, 197, 56, 26);
+		lblSubPhong.setBounds(315, 185, 56, 26);
 		pMain.add(lblSubPhong);
 		
 		lblMaPhong = new JLabel("");
 		lblMaPhong.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblMaPhong.setBounds(133, 197, 71, 26);
+		lblMaPhong.setBounds(370, 185, 71, 26);
 		pMain.add(lblMaPhong);
 		
 		JLabel lblSubTenKH = new JLabel("Khách hàng: ");
 		lblSubTenKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubTenKH.setBounds(246, 197, 90, 26);
+		lblSubTenKH.setBounds(504, 185, 90, 26);
 		pMain.add(lblSubTenKH);
 		
 		lblMaKH = new JLabel("");
 		lblMaKH.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblMaKH.setBounds(330, 197, 71, 26);
+		lblMaKH.setBounds(604, 185, 71, 26);
 		pMain.add(lblMaKH);
 		
 		lblTenKH = new JLabel("");
 		lblTenKH.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblTenKH.setBounds(374, 197, 201, 26);
+		lblTenKH.setBounds(648, 185, 201, 26);
 		pMain.add(lblTenKH);
 		
 		
 		JLabel lblSubGioVao = new JLabel("Giờ vào: ");
 		lblSubGioVao.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubGioVao.setBounds(607, 197, 61, 26);
+		lblSubGioVao.setBounds(887, 185, 61, 26);
 		pMain.add(lblSubGioVao);
 		
 		lblGioVao = new JLabel("");
 		lblGioVao.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblGioVao.setBounds(668, 197, 27, 26);
+		lblGioVao.setBounds(948, 185, 27, 26);
 		pMain.add(lblGioVao);
 		
 		lblPhutVao = new JLabel("");
 		lblPhutVao.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPhutVao.setBounds(705, 197, 27, 26);
+		lblPhutVao.setBounds(985, 185, 27, 26);
 		pMain.add(lblPhutVao);
 		
-		JLabel lblSubGioRa = new JLabel("Giờ ra: ");
-		lblSubGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubGioRa.setBounds(774, 197, 61, 26);
-		pMain.add(lblSubGioRa);
-		
-		JComboBox<String> cbbGioRa = new JComboBox<String>();
-		cbbGioRa.setBackground(Color.WHITE);
-		cbbGioRa.setBounds(821, 201, 56, 22);
-		cbbGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbGioRa.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		
-		for(int i=0 ; i <24;i++ ) {
-			cbbGioRa.addItem(""+i);
-		}
-		pMain.add(cbbGioRa);
-		
-		JLabel blbSubAfterGioRa = new JLabel(":");
-		blbSubAfterGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		blbSubAfterGioRa.setBounds(879, 205, 6, 14);
-		pMain.add(blbSubAfterGioRa);
-		
-		JComboBox<String> cbbPhutRa = new JComboBox<String>();
-		cbbPhutRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbPhutRa.setBackground(Color.WHITE);
-		cbbPhutRa.setBounds(886, 201, 60, 22);
-		cbbPhutRa.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		
-		for(int i =0; i<60; i++) {
-			cbbPhutRa.addItem(""+i);
-		}
-		pMain.add(cbbPhutRa);
-		
-		JLabel lblSubPhuThu = new JLabel("Phụ thu: ");
-		lblSubPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubPhuThu.setBounds(986, 197, 61, 26);
-		pMain.add(lblSubPhuThu);
-		
-		JComboBox<String> cbbPhuThu = new JComboBox<String>();
-		cbbPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbPhuThu.setBackground(Color.WHITE);
-		cbbPhuThu.setBounds(1050, 201, 90, 22);
-		cbbPhuThu.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 	
-		String sPhuThu [] = {"Không","Ngày lễ","Cuối tuần"};
-		for(int i =0; i< sPhuThu.length;i++) {
-			cbbPhuThu.addItem(sPhuThu[i]);
-		}
-		pMain.add(cbbPhuThu);
 		
 		JPanel pDichVu = new JPanel();
 		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Dịch vụ ", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 		pDichVu.setBackground(new Color(238,239,243,90));
-		pDichVu.setBounds(24, 235, 281, 322);
+		pDichVu.setBounds(24, 217, 281, 305);
 		pMain.add(pDichVu);
 		pDichVu.setLayout(null);
 		
 		JLabel lblSubLMH = new JLabel("Loại mặt hàng: ");
 		lblSubLMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubLMH.setBounds(10, 38, 102, 26);
+		lblSubLMH.setBounds(10, 27, 102, 26);
 		pDichVu.add(lblSubLMH);
 		
 		cbbLoaiMH = new JComboBox<String>();
 		cbbLoaiMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbLoaiMH.setBackground(Color.WHITE);
-		cbbLoaiMH.setBounds(112, 36, 159, 30);
+		cbbLoaiMH.setBounds(112, 25, 159, 30);
 		cbbLoaiMH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		pDichVu.add(cbbLoaiMH);
 		
 		JLabel lblSubTenMH = new JLabel("Tên mặt hàng: ");
 		lblSubTenMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubTenMH.setBounds(10, 90, 102, 26);
+		lblSubTenMH.setBounds(10, 68, 102, 26);
 		pDichVu.add(lblSubTenMH);
 		
 		cbbTenMH = new JComboBox<String>();
 		cbbTenMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbTenMH.setBackground(Color.WHITE);
-		cbbTenMH.setBounds(112, 88, 159, 30);
+		cbbTenMH.setBounds(112, 66, 159, 30);
 		cbbTenMH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		pDichVu.add(cbbTenMH);
 		
 		JLabel lblSoluongMH = new JLabel("Số lượng:");
 		lblSoluongMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSoluongMH.setBounds(10, 142, 84, 26);
+		lblSoluongMH.setBounds(10, 106, 84, 26);
 		pDichVu.add(lblSoluongMH);
 		
 		txtSoLuong = new JTextField();
 		txtSoLuong.setBackground(new Color(255, 255, 255));
 		txtSoLuong.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		txtSoLuong.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));;
-		txtSoLuong.setBounds(112, 141, 159, 30);
+		txtSoLuong.setBounds(112, 105, 159, 30);
 		pDichVu.add(txtSoLuong);
 		txtSoLuong.setColumns(10);
 		
 		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
 		rdbtnGiamSL.setBackground(new Color(228,210,239));
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		rdbtnGiamSL.setBounds(72, 179, 147, 35);
+		rdbtnGiamSL.setBounds(69, 147, 147, 35);
 		pDichVu.add(rdbtnGiamSL);
 		
 		btnThemMH = new FixButton("Thêm mặt hàng");
@@ -343,7 +315,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnThemMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		 //new Color(57, 210, 247)
 		btnThemMH.setBackground(new Color(57, 210, 247));
-		btnThemMH.setBounds(58, 221, 176, 33);
+		btnThemMH.setBounds(55, 189, 176, 33);
 		
 		Image imgThemMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
 		Image resizeImgThemMH = imgThemMH.getScaledInstance(25, 25, 0);
@@ -356,7 +328,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		
 		btnXoaMH.setBackground(new Color(114, 23, 153));
-		btnXoaMH.setBounds(10, 274, 114, 33);
+		btnXoaMH.setBounds(10, 244, 114, 33);
 		
 		Image imgXoaMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconRemove.png");
 		Image resizeImgXoaMH = imgXoaMH.getScaledInstance(25, 25, 0);
@@ -367,7 +339,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnLamMoiMH.setForeground(Color.WHITE);
 		btnLamMoiMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoiMH.setBackground(new Color(114, 23, 153));
-		btnLamMoiMH.setBounds(134, 274, 137, 33);
+		btnLamMoiMH.setBounds(134, 244, 137, 33);
 		
 		Image imgLamMoiMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
 		Image resizeImgLamMoiMH = imgLamMoiMH.getScaledInstance(25, 25, 0);
@@ -419,7 +391,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 
 		
 		JScrollPane spMatHang = new JScrollPane(tbMatHang);
-		spMatHang.setBounds(315, 245, 697, 266);
+		spMatHang.setBounds(315, 217, 697, 305);
 		spMatHang.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		spMatHang.setBackground(new Color(164, 44, 167));
 		pMain.add(spMatHang);
@@ -428,123 +400,90 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 		JLabel lblSubGiaPhong = new JLabel("Giá phòng: ");
 		lblSubGiaPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubGiaPhong.setBounds(390, 522, 77, 26);
+		lblSubGiaPhong.setBounds(395, 533, 77, 26);
 		
 		pMain.add(lblSubGiaPhong);
 		
-		JLabel lblGiaPhong = new JLabel("100 000 vnđ");
+		lblGiaPhong = new JLabel("100 000 vnđ");
 		lblGiaPhong.setForeground(Color.RED);
 		lblGiaPhong.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblGiaPhong.setBounds(466, 522, 109, 26);
+		lblGiaPhong.setBounds(471, 533, 109, 26);
 		pMain.add(lblGiaPhong);
 		
-		JLabel lblThoiGian = new JLabel("2h : 100 000 vnđ");
+		lblThoiGian = new JLabel("2h : 100 000 vnđ");
 		lblThoiGian.setForeground(Color.RED);
 		lblThoiGian.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblThoiGian.setBounds(661, 522, 152, 26);
+		lblThoiGian.setBounds(666, 533, 152, 26);
 		pMain.add(lblThoiGian);
 		
 		JLabel lblSubThoiGian = new JLabel("Thời gian: ");
 		lblSubThoiGian.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubThoiGian.setBounds(585, 522, 77, 26);
+		lblSubThoiGian.setBounds(590, 533, 77, 26);
 		pMain.add(lblSubThoiGian);
 		
 		JLabel lblpSubPhuThu = new JLabel("Phụ thu: ");
 		lblpSubPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblpSubPhuThu.setBounds(831, 522, 61, 26);
+		lblpSubPhuThu.setBounds(836, 533, 61, 26);
 		pMain.add(lblpSubPhuThu);
 		
-		JLabel lblPhuThu = new JLabel("50 000 vnđ");
+		lblPhuThu = new JLabel("50 000 vnđ");
 		lblPhuThu.setForeground(Color.RED);
 		lblPhuThu.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPhuThu.setBounds(904, 522, 90, 26);
+		lblPhuThu.setBounds(909, 533, 90, 26);
 		pMain.add(lblPhuThu);
 		
 		JLabel lblSubThanhTien = new JLabel("Thành tiền: ");
 		lblSubThanhTien.setFont(new Font("SansSerif", Font.PLAIN, 17));
-		lblSubThanhTien.setBounds(804, 559, 90, 26);
+		lblSubThanhTien.setBounds(739, 570, 90, 26);
 		pMain.add(lblSubThanhTien);
 		
-		JLabel lblThanhTien = new JLabel("50 000 vnđ");
+		lblThanhTien = new JLabel("50 000 vnđ");
 		lblThanhTien.setForeground(Color.RED);
-		lblThanhTien.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 17));
-		lblThanhTien.setBounds(904, 559, 90, 26);
+		lblThanhTien.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 20));
+		lblThanhTien.setBounds(854, 569, 158, 26);
 		pMain.add(lblThanhTien);
 		
 		JPanel pLine = new JPanel();
 		pLine.setBackground(Color.BLACK);
-		pLine.setBounds(729, 555, 276, 2);
+		pLine.setBounds(736, 560, 276, 2);
 		pMain.add(pLine);
 		
 		JPanel pThanhToan = new JPanel();
 		pThanhToan.setBackground(new Color(238,239,243,90));
 		pThanhToan.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Thanh toán", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pThanhToan.setBounds(1024, 238, 232, 319);
+		pThanhToan.setBounds(1024, 217, 223, 305);
 		pMain.add(pThanhToan);
 		pThanhToan.setLayout(null);
 		
-		JLabel lblSubNhanVien = new JLabel("Nhân viên lập hóa đơn :");
+		JLabel lblSubNhanVien = new JLabel("Nhân viên lập HĐ:");
 		lblSubNhanVien.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		lblSubNhanVien.setBounds(10, 21, 161, 26);
 		pThanhToan.add(lblSubNhanVien);
 		
-		JLabel lblPhanHuTrng = new JLabel("QL001");
-		lblPhanHuTrng.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPhanHuTrng.setBounds(163, 21, 59, 26);
-		pThanhToan.add(lblPhanHuTrng);
-		
-		JLabel lblSubTTHD = new JLabel("Trạng thái hóa đơn:");
-		lblSubTTHD.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubTTHD.setBounds(10, 51, 131, 26);
-		pThanhToan.add(lblSubTTHD);
-		
-		
-		
-		JRadioButton rdbtnChoThanhToan = new JRadioButton("Chờ thanh toán");
-		rdbtnChoThanhToan.setSelected(true);
-		rdbtnChoThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnChoThanhToan.setBackground(new Color(220,210,239));
-		rdbtnChoThanhToan.setBounds(37, 77, 153, 33);
-		pThanhToan.add(rdbtnChoThanhToan);
-		
-		JRadioButton rdbtnDaThanhToan = new JRadioButton("Đã thanh toán");
-		rdbtnDaThanhToan.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnDaThanhToan.setBackground(new Color(228,210,239));
-		rdbtnDaThanhToan.setBounds(38, 113, 152, 33);
-		pThanhToan.add(rdbtnDaThanhToan);
+		lblNhanVienLap = new JLabel(sHeaderMaNV);
+		lblNhanVienLap.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lblNhanVienLap.setBounds(145, 21, 68, 26);
+		pThanhToan.add(lblNhanVienLap);
 		
 		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnChoThanhToan);
-		bg.add(rdbtnDaThanhToan);
+		
 		
 		btnThanhToan = new FixButton("Thanh toán");
 		btnThanhToan.setForeground(Color.black);
 		btnThanhToan.setFont(new Font("SansSerif", Font.BOLD, 20));
 		btnThanhToan.setBackground(new Color(57, 210, 247));   //new Color(114, 23, 153)   new Color(57, 210, 247)
-		btnThanhToan.setBounds(27, 166, 176, 53);
+		btnThanhToan.setBounds(24, 179, 176, 53);
 		pThanhToan.add(btnThanhToan);
 		
 		Image imgThanhToan = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
 		Image resizeImgThanhToan = imgThanhToan.getScaledInstance(30, 30, 0);
 		btnThanhToan.setIcon(new ImageIcon(resizeImgThanhToan));
 		
-		 btnSuaHD = new FixButton("Sửa hóa đơn");
-		btnSuaHD.setForeground(Color.WHITE);
-		btnSuaHD.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnSuaHD.setBackground(new Color(114, 23, 153));
-		btnSuaHD.setBounds(37, 237, 153, 33);
-		
-		Image imgSuaTT = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconTool.png");
-		Image resizeImgSuaTT = imgSuaTT.getScaledInstance(25, 25, 0);
-		btnSuaHD.setIcon(new ImageIcon(resizeImgSuaTT));
-		
-		pThanhToan.add(btnSuaHD);
-		
 		btnLamMoiHD = new FixButton("Làm mới");
 		btnLamMoiHD.setForeground(Color.WHITE);
 		btnLamMoiHD.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoiHD.setBackground(new Color(114, 23, 153));
-		btnLamMoiHD.setBounds(37, 275, 151, 33);
+		btnLamMoiHD.setBounds(34, 243, 151, 33);
 		
 		Image imgLamMoiHD = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
 		Image resizeImgLamMoiHD = imgLamMoiHD.getScaledInstance(25, 25, 0);
@@ -552,6 +491,42 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 		
 		pThanhToan.add(btnLamMoiHD);
+		
+		JLabel lblSubPhuThu = new JLabel("Phụ thu: ");
+		lblSubPhuThu.setBounds(10, 105, 61, 26);
+		pThanhToan.add(lblSubPhuThu);
+		lblSubPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		
+		cbbPhuThu = new JComboBox<String>();
+		cbbPhuThu.setBounds(74, 102, 126, 29);
+		pThanhToan.add(cbbPhuThu);
+		cbbPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbPhuThu.setBackground(Color.WHITE);
+		cbbPhuThu.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		
+		JLabel lblSubGioRa = new JLabel("Giờ ra: ");
+		lblSubGioRa.setBounds(10, 64, 61, 26);
+		pThanhToan.add(lblSubGioRa);
+		lblSubGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		
+		 cbbGioRa = new JComboBox<String>();
+		cbbGioRa.setBounds(74, 58, 56, 29);
+		pThanhToan.add(cbbGioRa);
+		cbbGioRa.setBackground(Color.WHITE);
+		cbbGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbGioRa.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		
+		JLabel blbSubAfterGioRa = new JLabel(":");
+		blbSubAfterGioRa.setBounds(132, 67, 6, 14);
+		pThanhToan.add(blbSubAfterGioRa);
+		blbSubAfterGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		
+		cbbPhutRa = new JComboBox<String>();
+		cbbPhutRa.setBounds(139, 58, 60, 29);
+		pThanhToan.add(cbbPhutRa);
+		cbbPhutRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbPhutRa.setBackground(Color.WHITE);
+		cbbPhutRa.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon("data\\img\\background.png"));
@@ -564,20 +539,35 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 		JLabel blbSubAfterGioRa_1 = new JLabel(":");
 		blbSubAfterGioRa_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		blbSubAfterGioRa_1.setBounds(691, 203, 12, 14);
+		blbSubAfterGioRa_1.setBounds(971, 191, 12, 14);
 		pMain.add(blbSubAfterGioRa_1);
 		
 		pMain.add(lblBackground);
 		
+//		Load cbb gio phut ra 
+		for(int i=0 ; i <24;i++ ) {
+			cbbGioRa.addItem(""+i);
+		}
+		
+		for(int i =0; i<60; i++) {
+			cbbPhutRa.addItem(""+i);
+		}
+	
+		String sPhuThu [] = {"Không","Ngày lễ","Cuối tuần"};
+		for(int i =0; i< sPhuThu.length;i++) {
+			cbbPhuThu.addItem(sPhuThu[i]);
+		}
+		
+//		mouse click for table
 	
 		
-		//Load tên loại mặt hàng
+//		Load tên loại mặt hàng
 		ArrayList<LoaiMatHang> lsLoaiMH = daoLoaiMH.getAllLoaiMatHang();
 		for(LoaiMatHang lmh : lsLoaiMH) {
 			cbbLoaiMH.addItem(lmh.getTenLoaiMatHang());
 		}
 		
-		// Load ten mat hang mac dinh :
+//		 Load ten mat hang mac dinh :
 		String tenMH = (String) cbbLoaiMH.getSelectedItem();
 		String maLoaiMatHang = daoLoaiMH.getMaLoaiMHTheoTen(tenMH);
 		ArrayList<MatHang> lsMH = daoMatHang.getMatHangTheoMaLoai(maLoaiMatHang);
@@ -585,20 +575,31 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		for(MatHang mh : lsMH) {
 			cbbTenMH.addItem(mh.getTenMatHang());
 		}
+		
 //		Load Phong dang hoat dong
 		loadPhong();
 		
 		
-		//action 
+//		action 
 		cbbLoaiMH.addItemListener(this);
 		cbbTenMH.addItemListener(this);
+		
+		tbMatHang.addMouseListener(this);
+		
+		
+		btnDSHD.addActionListener(this);
 		btnLamMoiHD.addActionListener(this);
+		btnThemMH.addActionListener(this);
+		btnLamMoiMH.addActionListener(this);
+		btnXoaMH.addActionListener(this);
 		
 	
 		
 		
 	}
+//	end main
 	
+//	Phòng
 	public void loadPhong() {
 
 	
@@ -649,6 +650,8 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		loadTable(ddp);
 	}
 	
+//	Table
+	
 	public void loadTable(DonDatPhong ddp) {
 		clearTable();
 		ArrayList<CTDDP> lsCTDDP = daoCTDDP.getCTDDPTheoMaDDP(ddp.getMaDDP());
@@ -668,7 +671,88 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		}
 	}
 	
-
+// 	XỬ LÝ MẶT HÀNG : mã đơn đặt phòng, maMH, số lượng
+//	Them
+	public void themMHVaoCTDDP() {
+		DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(lblMaPhong.getText());
+		
+		String tenMH = cbbTenMH.getSelectedItem().toString();
+		String loaiMH = cbbLoaiMH.getSelectedItem().toString();
+		MatHang mh = daoMatHang.getMHTheoTenMHVaLoaiMH(tenMH, loaiMH);
+		
+		int soLuongMH = Integer.parseInt(txtSoLuong.getText());
+		CTDDP ctddp = new CTDDP(ddp, soLuongMH, mh);
+		daoCTDDP.themCTDDP(ctddp);
+		loadTable(ddp);
+		resetDichVu();
+	}
+//	Xoa
+	public void xoaCTDDP() {
+		DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(lblMaPhong.getText());
+		
+		String tenMH = cbbTenMH.getSelectedItem().toString();
+		String loaiMH = cbbLoaiMH.getSelectedItem().toString();
+		MatHang mh = daoMatHang.getMHTheoTenMHVaLoaiMH(tenMH, loaiMH);
+		daoCTDDP.xoaCTDDP(ddp.getMaDDP(),mh.getMaMatHang());
+		loadTable(ddp);
+		resetDichVu();
+	}
+//	Thanh toán
+//	themHD
+	public void themHD() {
+		String maHD = daoMa.getMaHD();
+		Phong p = daoPhong.getPhongTheoMa(lblMaPhong.getText());
+		KhachHang kh = daoKhachHang.getKHTheoMa(lblMaKH.getText());
+		NhanVien nv = daoNhanVien.getNVTheoMa(sHeaderMaNV);
+		Date ngayLap = dNgayHienTai;
+		int gioVao = Integer.parseInt(lblGioVao.getText()),
+			phutVao = Integer.parseInt(lblPhutVao.getText());
+		int gioRa = Integer.parseInt(cbbGioRa.getSelectedItem().toString()),
+				phutRa = Integer.parseInt(cbbPhutRa.getSelectedItem().toString());
+		String phuThu = cbbPhuThu.getSelectedItem().toString();
+		String trangThaiHD = "Đã thanh toán";
+		
+		@SuppressWarnings("deprecation")
+		HoaDon hd = new HoaDon(maHD, ngayLap, new Time(gioVao, phutVao, 0), new Time(gioRa, phutRa, 0), phuThu, trangThaiHD, nv, kh, p);
+		daoHD.themHoaDon(hd);
+		daoPhong.capnhatTrangThaiPhong(p.getMaPhong(), "Trống");
+	}
+	
+	
+	
+	
+	
+//	Làm mới 
+	public void resetDichVu() {
+		cbbLoaiMH.setSelectedIndex(0);
+		cbbTenMH.setSelectedIndex(0);
+		txtSoLuong.setText("");
+	}
+	
+	public void resetAll() {
+		resetDichVu();
+		txtTim.setText("");
+		pPhong.removeAll();
+		loadPhong();
+		lblMaPhong.setText("");
+		lblMaKH.setText("");
+		lblTenKH.setText("");
+		lblGioVao.setText("");
+		lblPhutVao.setText("");
+		clearTable();
+		lblGiaPhong.setText("");
+		lblPhuThu.setText("");
+		lblThoiGian.setText("");
+		lblThanhTien.setText("");
+		cbbGioRa.setSelectedIndex(0);
+		cbbPhutRa.setSelectedIndex(0);
+		cbbPhuThu.setSelectedIndex(0);
+		
+		
+	}
+	
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -677,15 +761,25 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 			frm_DanhSachHoaDon.setVisible(true);
 			frm.setVisible(false);
 		}
-		if(o.equals(btnLamMoiHD)) {
-			lblMaPhong.setText("");
-			txtTim.setText("");
-			txtSoLuong.setText("");
-			
+		if(o.equals(btnLamMoiMH)) {
+			resetDichVu();
 		}
+		if(o.equals(btnLamMoiHD)) {
+			resetAll();
+		}
+		if(o.equals(btnThemMH)) {
+			themMHVaoCTDDP();
+		}
+		if(o.equals(btnXoaMH)) {
+			xoaCTDDP();
+		}
+		
 		
 	}
 
+	
+	
+	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		
@@ -702,8 +796,14 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		Object o = e.getSource();
+		if(o.equals(tbMatHang)) {
+			
+		int row = tbMatHang.getSelectedRow();
+		cbbTenMH.setSelectedItem(modelMatHang.getValueAt(row,0).toString());
+		cbbLoaiMH.setSelectedItem(modelMatHang.getValueAt(row,1).toString());
+		txtSoLuong.setText(modelMatHang.getValueAt(row,2).toString());
+		}
 	}
 
 	@Override
