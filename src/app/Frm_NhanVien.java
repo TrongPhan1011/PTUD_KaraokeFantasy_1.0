@@ -73,7 +73,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		
 	//txtTim
 		txtTim = new JTextField();
-		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtTim.setColumns(10);
 		txtTim.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		txtTim.setBounds(474, 12, 281, 33);
@@ -118,62 +118,66 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		//hoten
 		JLabel lblHoTen = new JLabel("Họ và tên:");
 		lblHoTen.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblHoTen.setBounds(165, 65, 72, 19);
+		lblHoTen.setBounds(165, 65, 90, 19);
 		pMain.add(lblHoTen);
 		txtHoTen = new JTextField();
+		txtHoTen.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtHoTen.setColumns(10);
 		txtHoTen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtHoTen.setBounds(258, 64, 189, 25);
+		txtHoTen.setBounds(265, 60, 189, 28);
 		pMain.add(txtHoTen);
 		
 		//sdt
 		JLabel lblSDT = new JLabel("SĐT:");
 		lblSDT.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblSDT.setBounds(165, 107, 46, 19);
+		lblSDT.setBounds(165, 103, 46, 19);
 		pMain.add(lblSDT);
 		txtSDT = new JTextField();
+		txtSDT.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtSDT.setColumns(10);
 		txtSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtSDT.setBounds(258, 103, 189, 25);
+		txtSDT.setBounds(265, 98, 189, 28);
 		pMain.add(txtSDT);
 		
 		//diachi
 		JLabel lblDiaChi = new JLabel("Địa chỉ:");
 		lblDiaChi.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblDiaChi.setBounds(165, 142, 72, 20);
+		lblDiaChi.setBounds(165, 140, 72, 20);
 		pMain.add(lblDiaChi);
 		JTextArea txtDiaChi = new JTextArea();
+		txtDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtDiaChi.setBounds(258, 142, 189, 37);
+		txtDiaChi.setBounds(265, 137, 189, 37);
 		pMain.add(txtDiaChi);
 		
 		//chucvu
 		JLabel lblChucVu = new JLabel("Chức vụ:");
 		lblChucVu.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblChucVu.setBounds(512, 65, 124, 19);
+		lblChucVu.setBounds(537, 65, 98, 19);
 		pMain.add(lblChucVu);
 		JComboBox<Object> cbbChucVu = new JComboBox<Object>(new Object[] {"Quản lý", "Phục vụ", "Thu ngân"});
 		cbbChucVu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbChucVu.setBackground(Color.WHITE);
 		cbbChucVu.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbChucVu.setBounds(657, 61, 124, 25);
+		cbbChucVu.setBounds(657, 60, 124, 25);
 		pMain.add(cbbChucVu);
 		
 		//cccc
 		JLabel lblCccd = new JLabel("CCCD:");
 		lblCccd.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCccd.setBounds(512, 103, 65, 19);
+		lblCccd.setBounds(537, 103, 72, 19);
 		pMain.add(lblCccd);
 		txtCccd = new JTextField();
+		txtCccd.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtCccd.setColumns(10);
 		txtCccd.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtCccd.setBounds(657, 98, 124, 25);
+		txtCccd.setBounds(657, 98, 124, 28);
 		pMain.add(txtCccd);
 		
 		//gioitinh
 		JLabel lblGioiTinh = new JLabel("Giới tính:");
 		lblGioiTinh.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblGioiTinh.setBounds(512, 143, 72, 14);
+		lblGioiTinh.setBounds(537, 140, 88, 14);
 		pMain.add(lblGioiTinh);
 		JComboBox<Object> cbbGioiTinh = new JComboBox<Object>(new Object[] {"Nam", "Nữ"});
 		cbbGioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -185,7 +189,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		//ngaysinh
 		JLabel lblNgaySinh = new JLabel("Ngày sinh:");
 		lblNgaySinh.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNgaySinh.setBounds(859, 65, 75, 18);
+		lblNgaySinh.setBounds(859, 65, 90, 18);
 		pMain.add(lblNgaySinh);
 		
 		SqlDateModel modelNgaySinh=new SqlDateModel();
@@ -227,7 +231,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
 		datePicker.getJFormattedTextField().setText(" ... - ... - .....");
 		
-		datePicker.setBounds(964, 62, 120, 22);
+		datePicker.setBounds(964, 60, 120, 22);
 		datePicker.setTextEditable(true);
 		
 		pMain.add(datePicker);
@@ -260,13 +264,13 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		//calamviec
 		JLabel lblCaLamViec = new JLabel("Ca làm việc:");
 		lblCaLamViec.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCaLamViec.setBounds(859, 105, 90, 20);
+		lblCaLamViec.setBounds(859, 103, 90, 20);
 		pMain.add(lblCaLamViec);
 		JComboBox<Object> cbbCaLamViec = new JComboBox<Object>(new Object[] {"Ca 1", "Ca 2", "Ca 3"});
 		cbbCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbCaLamViec.setBackground(Color.WHITE);
 		cbbCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbCaLamViec.setBounds(964, 102, 120, 25);
+		cbbCaLamViec.setBounds(964, 100, 120, 25);
 		pMain.add(cbbCaLamViec);
 		
 		//btnthem,sua,xoa,lammoiNV

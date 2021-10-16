@@ -68,7 +68,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		
 		//txtTim
 		txtTim = new JTextField();
-		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtTim.setColumns(10);
 		txtTim.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		txtTim.setBounds(474, 12, 281, 33);
@@ -95,7 +95,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		//lblTenKH
 		lblTenKH = new JLabel("Tên khách hàng:");
 		lblTenKH.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblTenKH.setBounds(47, 65, 118, 19);
+		lblTenKH.setBounds(47, 65, 138, 19);
 		pMain.add(lblTenKH);
 		
 		//txtTenKH
@@ -103,13 +103,13 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		txtTenKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtTenKH.setColumns(10);
 		txtTenKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		txtTenKH.setBounds(175, 62, 189, 25);
+		txtTenKH.setBounds(190, 58, 175, 28);
 		pMain.add(txtTenKH);
 		
 		//lblLoaiKH
 		lblLoaiKH = new JLabel("Loại khách hàng:");
 		lblLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblLoaiKH.setBounds(47, 105, 124, 19);
+		lblLoaiKH.setBounds(47, 105, 138, 19);
 		pMain.add(lblLoaiKH);
 		
 		//cbbLoaiKH
@@ -117,7 +117,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		cbbLoaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbLoaiKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbLoaiKH.setBackground(Color.WHITE);
-		cbbLoaiKH.setBounds(175, 100, 189, 27);
+		cbbLoaiKH.setBounds(190, 98, 175, 27);
 		pMain.add(cbbLoaiKH);
 		
 		//lblNgayDen
@@ -162,7 +162,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
 		datePicker.getJFormattedTextField().setText(" ... - ... - .....");
 		
-		datePicker.setBounds(496, 61, 120, 22);
+		datePicker.setBounds(496, 62, 120, 22);
 		datePicker.setTextEditable(true);
 		
 		pMain.add(datePicker);
@@ -178,7 +178,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		txtSDT.setColumns(10);
 		txtSDT.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtSDT.setBounds(496, 100, 120, 25);
+		txtSDT.setBounds(496, 96, 120, 28);
 		pMain.add(txtSDT);
 		
 		//lblGioDen
@@ -192,7 +192,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		txtGioDen.setColumns(10);
 		txtGioDen.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtGioDen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtGioDen.setBounds(755, 62, 74, 25);
+		txtGioDen.setBounds(755, 58, 74, 28);
 		pMain.add(txtGioDen);
 		
 		//lblDiaChi
@@ -205,7 +205,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		txtDiaChi = new JTextArea();
 		txtDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtDiaChi.setBounds(755, 100, 452, 25);
+		txtDiaChi.setBounds(755, 96, 452, 28);
 		pMain.add(txtDiaChi);
 		
 		//lblTinhTrangDDP
@@ -219,7 +219,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		cbbTinhTrangDDP.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbTinhTrangDDP.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		cbbTinhTrangDDP.setBackground(Color.WHITE);
-		cbbTinhTrangDDP.setBounds(1059, 62, 148, 27);
+		cbbTinhTrangDDP.setBounds(1059, 60, 148, 27);
 		pMain.add(cbbTinhTrangDDP);
 		
 		//lblChonPhong
@@ -281,7 +281,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnThemDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnThemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnThemDDP.setBackground(new Color(114, 23, 153));
-		btnThemDDP.setBounds(956, 156, 110, 35);
+		btnThemDDP.setBounds(956, 160, 110, 35);
 		Image imgThemDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconGrayThem.png");
 		Image resizeImgThemDDP = imgThemDDP.getScaledInstance(25, 25, 0);
 		btnThemDDP.setIcon(new ImageIcon(resizeImgThemDDP));
@@ -292,7 +292,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnSuaDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnSuaDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnSuaDDP.setBackground(new Color(114, 23, 153));
-		btnSuaDDP.setBounds(1097, 156, 110, 35);
+		btnSuaDDP.setBounds(1097, 160, 110, 35);
 		Image imgSuaDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconTool.png");
 		Image resizeImgSuaDDP = imgSuaDDP.getScaledInstance(25, 25, 0);
 		btnSuaDDP.setIcon(new ImageIcon(resizeImgSuaDDP));
@@ -303,7 +303,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnXoaDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXoaDDP.setBackground(new Color(114, 23, 153));
-		btnXoaDDP.setBounds(956, 223, 110, 35);
+		btnXoaDDP.setBounds(956, 218, 110, 35);
 		Image imgXoaDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconRemove.png");
 		Image resizeImgXoaDDP = imgXoaDDP.getScaledInstance(25, 25, 0);
 		btnXoaDDP.setIcon(new ImageIcon(resizeImgXoaDDP));
@@ -314,7 +314,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnLamMoiDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnLamMoiDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLamMoiDDP.setBackground(new Color(114, 23, 153));
-		btnLamMoiDDP.setBounds(1097, 223, 110, 35);
+		btnLamMoiDDP.setBounds(1097, 218, 110, 35);
 		Image imgLamMoiDDP = Toolkit.getDefaultToolkit().getImage("data\\img\\iconReset.png");
 		Image resizeImgLamMoiDDP = imgLamMoiDDP.getScaledInstance(25, 25, 0);
 		btnLamMoiDDP.setIcon(new ImageIcon(resizeImgLamMoiDDP));
