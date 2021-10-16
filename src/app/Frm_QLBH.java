@@ -16,8 +16,8 @@ import java.awt.event.MouseListener;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -48,6 +48,7 @@ import dao.DAOMatHang;
 import dao.DAONhanVien;
 import dao.DAOPhatSinhMa;
 import dao.DAOPhong;
+import dao.Regex;
 import entity.CTDDP;
 import entity.DonDatPhong;
 import entity.HoaDon;
@@ -107,6 +108,10 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	private DAOHoaDon daoHD;
 	private DAOPhatSinhMa daoMa;
 	private DAONhanVien daoNhanVien;
+	private JRadioButton rdbtnGiamSL;
+	private DecimalFormat df;
+	private DecimalFormat dfTable;
+	private Regex regex;
 	
 	public Panel getFrmQLBH() {
 		return this.pMain;
@@ -137,7 +142,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		daoHD = new DAOHoaDon();
 		daoNhanVien = new DAONhanVien();
 		daoMa = new DAOPhatSinhMa();
-		
+		regex = new Regex();
 		
 		
 //Main UI
@@ -305,7 +310,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		pDichVu.add(txtSoLuong);
 		txtSoLuong.setColumns(10);
 		
-		JRadioButton rdbtnGiamSL = new JRadioButton("Giảm số lượng");
+		rdbtnGiamSL = new JRadioButton("Giảm số lượng");
 		rdbtnGiamSL.setBackground(new Color(228,210,239));
 		rdbtnGiamSL.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		rdbtnGiamSL.setBounds(69, 147, 147, 35);
@@ -373,53 +378,33 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		tbMatHang.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
 		tbMatHang.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
 		
-		
-		
-//		tbMatHang.setOpaque(false);
-		
-//		demo dữ liệu:
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-//		modelMatHang.addRow(new Object[] {"123","123"});
-		
-
-		
 		JScrollPane spMatHang = new JScrollPane(tbMatHang);
 		spMatHang.setBounds(315, 217, 697, 305);
 		spMatHang.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		spMatHang.setBackground(new Color(164, 44, 167));
 		pMain.add(spMatHang);
 		
-
-		
 		JLabel lblSubGiaPhong = new JLabel("Giá phòng: ");
 		lblSubGiaPhong.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubGiaPhong.setBounds(395, 533, 77, 26);
+		lblSubGiaPhong.setBounds(325, 533, 77, 26);
 		
 		pMain.add(lblSubGiaPhong);
 		
-		lblGiaPhong = new JLabel("100 000 vnđ");
+		lblGiaPhong = new JLabel("");
 		lblGiaPhong.setForeground(Color.RED);
 		lblGiaPhong.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblGiaPhong.setBounds(471, 533, 109, 26);
+		lblGiaPhong.setBounds(401, 533, 109, 26);
 		pMain.add(lblGiaPhong);
 		
-		lblThoiGian = new JLabel("2h : 100 000 vnđ");
+		lblThoiGian = new JLabel("");
 		lblThoiGian.setForeground(Color.RED);
 		lblThoiGian.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblThoiGian.setBounds(666, 533, 152, 26);
+		lblThoiGian.setBounds(604, 533, 214, 26);
 		pMain.add(lblThoiGian);
 		
 		JLabel lblSubThoiGian = new JLabel("Thời gian: ");
 		lblSubThoiGian.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubThoiGian.setBounds(590, 533, 77, 26);
+		lblSubThoiGian.setBounds(532, 533, 77, 26);
 		pMain.add(lblSubThoiGian);
 		
 		JLabel lblpSubPhuThu = new JLabel("Phụ thu: ");
@@ -427,7 +412,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		lblpSubPhuThu.setBounds(836, 533, 61, 26);
 		pMain.add(lblpSubPhuThu);
 		
-		lblPhuThu = new JLabel("50 000 vnđ");
+		lblPhuThu = new JLabel("");
 		lblPhuThu.setForeground(Color.RED);
 		lblPhuThu.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
 		lblPhuThu.setBounds(909, 533, 90, 26);
@@ -438,10 +423,10 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		lblSubThanhTien.setBounds(739, 570, 90, 26);
 		pMain.add(lblSubThanhTien);
 		
-		lblThanhTien = new JLabel("50 000 vnđ");
+		lblThanhTien = new JLabel("");
 		lblThanhTien.setForeground(Color.RED);
 		lblThanhTien.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 20));
-		lblThanhTien.setBounds(854, 569, 158, 26);
+		lblThanhTien.setBounds(825, 569, 187, 26);
 		pMain.add(lblThanhTien);
 		
 		JPanel pLine = new JPanel();
@@ -494,36 +479,36 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		pThanhToan.add(btnLamMoiHD);
 		
 		JLabel lblSubPhuThu = new JLabel("Phụ thu: ");
-		lblSubPhuThu.setBounds(10, 105, 61, 26);
+		lblSubPhuThu.setBounds(10, 61, 61, 26);
 		pThanhToan.add(lblSubPhuThu);
 		lblSubPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		
 		cbbPhuThu = new JComboBox<String>();
-		cbbPhuThu.setBounds(74, 102, 126, 29);
+		cbbPhuThu.setBounds(74, 58, 126, 29);
 		pThanhToan.add(cbbPhuThu);
 		cbbPhuThu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbPhuThu.setBackground(Color.WHITE);
 		cbbPhuThu.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		
 		JLabel lblSubGioRa = new JLabel("Giờ ra: ");
-		lblSubGioRa.setBounds(10, 64, 61, 26);
+		lblSubGioRa.setBounds(10, 104, 61, 26);
 		pThanhToan.add(lblSubGioRa);
 		lblSubGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		
 		 cbbGioRa = new JComboBox<String>();
-		cbbGioRa.setBounds(74, 58, 56, 29);
+		cbbGioRa.setBounds(74, 98, 56, 29);
 		pThanhToan.add(cbbGioRa);
 		cbbGioRa.setBackground(Color.WHITE);
 		cbbGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbGioRa.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		
 		JLabel blbSubAfterGioRa = new JLabel(":");
-		blbSubAfterGioRa.setBounds(132, 67, 6, 14);
+		blbSubAfterGioRa.setBounds(132, 107, 6, 14);
 		pThanhToan.add(blbSubAfterGioRa);
 		blbSubAfterGioRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		
 		cbbPhutRa = new JComboBox<String>();
-		cbbPhutRa.setBounds(139, 58, 60, 29);
+		cbbPhutRa.setBounds(139, 98, 60, 29);
 		pThanhToan.add(cbbPhutRa);
 		cbbPhutRa.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbPhutRa.setBackground(Color.WHITE);
@@ -554,7 +539,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 			cbbPhutRa.addItem(""+i);
 		}
 	
-		String sPhuThu [] = {"Không","Ngày lễ","Cuối tuần"};
+		String sPhuThu [] = {"Không","Buổi tối","Ngày lễ","Cuối tuần"};
 		for(int i =0; i< sPhuThu.length;i++) {
 			cbbPhuThu.addItem(sPhuThu[i]);
 		}
@@ -579,11 +564,17 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		
 //		Load Phong dang hoat dong
 		loadPhong();
-		
+
+//		Định dạng tiền: 
+		dfTable = new DecimalFormat("###,###");
+		df = new DecimalFormat("###,### VNĐ");
 		
 //		action 
 		cbbLoaiMH.addItemListener(this);
 		cbbTenMH.addItemListener(this);
+		cbbGioRa.addItemListener(this);
+		cbbPhutRa.addItemListener(this);
+		cbbPhuThu.addItemListener(this);
 		
 		tbMatHang.addMouseListener(this);
 		
@@ -594,6 +585,11 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		btnLamMoiMH.addActionListener(this);
 		btnXoaMH.addActionListener(this);
 		btnThanhToan.addActionListener(this);
+		rdbtnGiamSL.addActionListener(this);
+		btnTim.addActionListener(this);
+		
+		
+		
 	}
 //	end main
 	
@@ -614,6 +610,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 					// TODO Auto-generated method stub
 					Object o = e.getSource();
 					if(o.equals(btnPhong)) {
+						resetAll();
 						loadInfo(p);
 					}
 					
@@ -658,7 +655,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 			LoaiMatHang loaiMH = daoLoaiMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
 			double tongTien = mh.getGiaMatHang() * ctddp.getSoLuongMH();
 			modelMatHang.addRow(new Object[] {
-					mh.getTenMatHang(),loaiMH.getTenLoaiMatHang(),ctddp.getSoLuongMH(),mh.getGiaMatHang(),tongTien
+					mh.getTenMatHang(),loaiMH.getTenLoaiMatHang(),ctddp.getSoLuongMH(),dfTable.format(Math.round( mh.getGiaMatHang())),dfTable.format(Math.round(tongTien))
 			});
 		}
 	}
@@ -669,21 +666,147 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		}
 	}
 	
+	
+	
+	public double tinhTienThue(double giaPhong) {
+		int gioVao = Integer.parseInt(lblGioVao.getText()),
+				phutVao = Integer.parseInt(lblPhutVao.getText());
+			int gioRa = Integer.parseInt(cbbGioRa.getSelectedItem().toString()),
+				phutRa = Integer.parseInt(cbbPhutRa.getSelectedItem().toString());
+			
+			int tongThoiGian = (gioRa*60 + phutRa) - (gioVao*60 + phutVao);
+			double tongTienThuePhong = 0;
+			if(tongThoiGian > 0) {
+				if(tongThoiGian <= 60) {
+					tongTienThuePhong = giaPhong;
+					return tongTienThuePhong;
+				}
+				else {
+					tongTienThuePhong = (tongThoiGian * giaPhong)/60;
+					return tongTienThuePhong;
+				}
+			}
+			
+			 return -1;
+	}
+	
+	public double tongThanhTien(double tienThuePhong) {
+		double tong = tienThuePhong;
+		
+		for(int i=0;i<tbMatHang.getRowCount();i++) {
+			tong  += Double.parseDouble(modelMatHang.getValueAt(i, 4).toString());
+		}
+		
+		return tong;
+	}
+
+//	Tính thành tiền 
+	public void loadThanhTien() {
+		if(!lblMaPhong.getText().toString().equalsIgnoreCase("")) {
+			Phong p = daoPhong.getPhongTheoMa(lblMaPhong.getText());
+			double giaPhong =p.getGiaPhong();
+			String phuThu = cbbPhuThu.getSelectedItem().toString();
+			if(phuThu.equalsIgnoreCase("Buổi tối")) {
+				giaPhong = p.getGiaPhong() + 20000;
+			}
+			if(phuThu.equalsIgnoreCase("Ngày lễ")) {
+				giaPhong = p.getGiaPhong() + 50000;
+			}
+			if(phuThu.equalsIgnoreCase("Cuối tuần")) {
+				giaPhong = p.getGiaPhong() + 30000;
+			}
+			lblPhuThu.setText(phuThu);
+			
+			lblGiaPhong.setText(df.format(giaPhong));
+			
+			double tongTienThue = tinhTienThue(giaPhong);
+			
+			if(tongTienThue > 0) {
+				int tongGioThue = (int) ((tongTienThue)/giaPhong);
+				int tongPhutThue = (int) (((tongTienThue*60)/giaPhong) % 60);
+				lblThoiGian.setText(tongGioThue+"h : "+tongPhutThue +"'  "+ df.format(tongTienThue));
+				
+				lblThanhTien.setText(df.format(tongTienThue));
+			}
+			else 
+				JOptionPane.showMessageDialog(this, "Thời gian ra không hợp lệ!\nThời gian ra phải lớn hơn thời gian vào");
+		}
+		else JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng để thay đổi thời gian và phụ thu phù hợp!");
+	}
+	
 // 	XỬ LÝ MẶT HÀNG : mã đơn đặt phòng, maMH, số lượng
+	public boolean kiemTraMatHangTrongBang(CTDDP ctddp) {
+		if(timRow() != -1) {
+			daoCTDDP.suaSoluongMH(ctddp.getDonDatPhong().getMaDDP(), ctddp.getMatHang().getMaMatHang(), getSoLuongMH());
+			return false;
+		}
+		else return true;
+		
+	}
+	
+	public int getSoLuongMH() {
+		int soLuong = 0;
+		if(timRow() != -1) {
+			soLuong = Integer.parseInt(modelMatHang.getValueAt(timRow(), 2).toString()) + Integer.parseInt(txtSoLuong.getText());
+			return soLuong;
+		}
+		else return Integer.parseInt(txtSoLuong.getText()); 
+	}
+	
+	public int timRow() {		// tìm row trong bảng so sánh với cbb
+		
+		for(int i =0; i< tbMatHang.getRowCount(); i++) {
+			if(modelMatHang.getValueAt(i, 0).toString().equalsIgnoreCase(cbbTenMH.getSelectedItem().toString())&&modelMatHang.getValueAt(i, 1).toString().equalsIgnoreCase(cbbLoaiMH.getSelectedItem().toString()))
+				return i;
+		}
+		return -1;
+	}
+// Giam so luong
+	public int giamSL() {
+		int soLuong = 0;
+		soLuong = Integer.parseInt(modelMatHang.getValueAt(timRow(), 2).toString()) - Integer.parseInt(txtSoLuong.getText());
+		return soLuong;
+		
+	}
+	public void kiemTraGiamSL(CTDDP ctddp) {
+		
+		
+		if(timRow() != -1) {
+			int row = giamSL();
+			if(row > 0) {
+				daoCTDDP.suaSoluongMH(ctddp.getDonDatPhong().getMaDDP(), ctddp.getMatHang().getMaMatHang(), row);
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Số lượng cần giảm đã lớn hơn số lượng hiện có trong đơn đặt phòng!\nVui lòng nhập lại số lượng");
+				txtSoLuong.selectAll();
+				txtSoLuong.requestFocus();
+			}
+		}
+		else JOptionPane.showMessageDialog(this, "Mặt hàng cần giảm số lượng không đúng!\nVui lòng chọn lại");
+	}
+	
+	
 //	Them
 	public void themMHVaoCTDDP() {
-		DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(lblMaPhong.getText());
-		
-		String tenMH = cbbTenMH.getSelectedItem().toString();
-		String loaiMH = cbbLoaiMH.getSelectedItem().toString();
-		MatHang mh = daoMatHang.getMHTheoTenMHVaLoaiMH(tenMH, loaiMH);
-		
-		int soLuongMH = Integer.parseInt(txtSoLuong.getText());
-		CTDDP ctddp = new CTDDP(ddp, soLuongMH, mh);
-		daoCTDDP.themCTDDP(ctddp);
-		loadTable(ddp);
-		resetDichVu();
-	}
+			if(lblMaPhong.getText() != "") {
+				if(regex.regexSoLuong(txtSoLuong)) {
+					DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(lblMaPhong.getText());
+					
+					String tenMH = cbbTenMH.getSelectedItem().toString();
+					String loaiMH = cbbLoaiMH.getSelectedItem().toString();
+					MatHang mh = daoMatHang.getMHTheoTenMHVaLoaiMH(tenMH, loaiMH);
+					int soLuongMH = Integer.parseInt(txtSoLuong.getText());
+					CTDDP ctddp = new CTDDP(ddp, soLuongMH, mh);
+					if(rdbtnGiamSL.isSelected()) {
+						kiemTraGiamSL(ctddp);
+					}
+					else if(kiemTraMatHangTrongBang(ctddp))
+							daoCTDDP.themCTDDP(ctddp);
+					loadTable(ddp);
+				}
+			}
+			else JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng sau đó nhập số lượng trước khi thêm mặt hàng!");
+		}
 //	Xoa
 	public void xoaCTDDP() {
 		DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(lblMaPhong.getText());
@@ -701,33 +824,45 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		int optThanhToan = JOptionPane.showConfirmDialog(this, "Bạn có chắn chắn muốn thanh toán không?", "Thông báo", JOptionPane.YES_NO_OPTION );
 		
 		if(optThanhToan == JOptionPane.YES_OPTION) {
-			String maHD = daoMa.getMaHD();
-			Phong p = daoPhong.getPhongTheoMa(lblMaPhong.getText());
-			KhachHang kh = daoKhachHang.getKHTheoMa(lblMaKH.getText());
-			NhanVien nv = daoNhanVien.getNVTheoMa(sHeaderMaNV);
-			Date ngayLap = dNgayHienTai;
-			//daothemhd--> hd --> 
+			if(lblMaPhong.getText().toString() !="") {
+				String maHD = daoMa.getMaHD();
+				Phong p = daoPhong.getPhongTheoMa(lblMaPhong.getText());
+				KhachHang kh = daoKhachHang.getKHTheoMa(lblMaKH.getText());
+				NhanVien nv = daoNhanVien.getNVTheoMa(sHeaderMaNV);
+				Date ngayLap = dNgayHienTai;
+	
+				int gioVao = Integer.parseInt(lblGioVao.getText()),
+					phutVao = Integer.parseInt(lblPhutVao.getText());
+				int gioRa = Integer.parseInt(cbbGioRa.getSelectedItem().toString()),
+						phutRa = Integer.parseInt(cbbPhutRa.getSelectedItem().toString());
+				String phuThu = cbbPhuThu.getSelectedItem().toString();
+				String trangThaiHD = "Đã thanh toán";
+				
+				@SuppressWarnings("deprecation")
+				HoaDon hd = new HoaDon(maHD, ngayLap, new Time(gioVao, phutVao, 0), new Time(gioRa, phutRa, 0), phuThu, trangThaiHD, nv, kh, p);
+				daoHD.themHoaDon(hd);
+				daoPhong.capnhatTrangThaiPhong(p.getMaPhong(), "Trống");
+				resetAll();
 			
-			
-			int gioVao = Integer.parseInt(lblGioVao.getText()),
-				phutVao = Integer.parseInt(lblPhutVao.getText());
-			int gioRa = Integer.parseInt(cbbGioRa.getSelectedItem().toString()),
-					phutRa = Integer.parseInt(cbbPhutRa.getSelectedItem().toString());
-			String phuThu = cbbPhuThu.getSelectedItem().toString();
-			String trangThaiHD = "Đã thanh toán";
-			
-			@SuppressWarnings("deprecation")
-			HoaDon hd = new HoaDon(maHD, ngayLap, new Time(gioVao, phutVao, 0), new Time(gioRa, phutRa, 0), phuThu, trangThaiHD, nv, kh, p);
-			daoHD.themHoaDon(hd);
-			daoPhong.capnhatTrangThaiPhong(p.getMaPhong(), "Trống");
-			resetAll();
+			}
+			else JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng trước khi thanh toán!");
 		}
 		
 	}
 	
+//	tim kiem
+	public void timKiem() {
+		if(regex.regexTimKiemMaPhong(txtTim)) {
+			Phong p1 = daoPhong.getPhongDangHoatDongTheoMaP(txtTim.getText().toString());
+			if(p1!=null)
+				loadInfo(p1);
+			else 
+				JOptionPane.showMessageDialog(this, "Không tìm thấy phòng đang hoạt động nào như yêu cầu!");
+		}
+	}
 	
 	
-	
+
 	
 //	Làm mới 
 	public void resetDichVu() {
@@ -774,6 +909,9 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		if(o.equals(btnLamMoiHD)) {
 			resetAll();
 		}
+		if(rdbtnGiamSL.isSelected()) {
+			btnThemMH.setText("Giảm mặt hàng");
+		} else btnThemMH.setText("Thêm mặt hàng");
 		if(o.equals(btnThemMH)) {
 			themMHVaoCTDDP();
 		}
@@ -782,6 +920,10 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		}
 		if(o.equals(btnThanhToan)) {
 			themHD();
+		}
+		if(o.equals(btnTim)) {
+			timKiem();
+		
 		}
 		
 		
@@ -792,8 +934,8 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		
-		if(e.getItem() == cbbLoaiMH.getSelectedItem()) {
+		Object o = e.getItem();
+		if(o == cbbLoaiMH.getSelectedItem()) {
 			String tenMH = (String) cbbLoaiMH.getSelectedItem();
 			String maLoaiMatHang = daoLoaiMH.getMaLoaiMHTheoTen(tenMH);
 			ArrayList<MatHang> lsMH = daoMatHang.getMatHangTheoMaLoai(maLoaiMatHang);
@@ -802,6 +944,11 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 				cbbTenMH.addItem(mh.getTenMatHang());
 			}
 		}
+		if(o == cbbGioRa.getSelectedItem()|| o== cbbPhutRa.getSelectedItem() || o == cbbPhuThu.getSelectedItem()) {
+			if(!cbbGioRa.getSelectedItem().toString().equalsIgnoreCase("0")||!cbbPhutRa.getSelectedItem().toString().equalsIgnoreCase("0"))
+				loadThanhTien();
+		}
+		
 	}
 
 	@Override

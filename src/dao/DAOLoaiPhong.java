@@ -31,4 +31,27 @@ public class DAOLoaiPhong {
 		return lp;
 		
 	}
+	
+	public LoaiPhong getLoaiPhongTheoTenLoai(String ten) {
+		LoaiPhong lp = new LoaiPhong();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from LoaiPhong where tenLoaiPhong = N'"+ten +"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				
+				 lp.setMaLoaiPhong(rs.getNString(1));
+				 lp.setTenLoaiPhong(rs.getNString(2));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lp;
+		
+	}
 }

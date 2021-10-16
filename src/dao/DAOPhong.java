@@ -97,4 +97,64 @@ public class DAOPhong {
 		
 		return lsPhong;
 	}
+	public Phong getPhongDangHoatDongTheoMaP(String ma) {
+			
+			
+		Phong p = null;
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql ="  SELECT Phong.*\r\n"
+				+ "	FROM  DonDatPhong INNER JOIN\r\n"
+				+ "				 Phong ON DonDatPhong.maPhong = Phong.maPhong\r\n"
+				+ "	WHERE tinhTrangPhong = N'Đang hoạt động' and TrangThaiDDP = N'Đã xác nhận' and Phong.maPhong = N'"+ma+"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				 p = new Phong();
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return p;
+		}
+	public ArrayList<Phong> getPhongDangHoatDongTheoMaLoai(String ma) {
+		
+		
+		ArrayList< Phong> lsPhong = new ArrayList<Phong>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "SELECT Phong.*\r\n"
+				+ "FROM  DonDatPhong INNER JOIN\r\n"
+				+ "         Phong ON DonDatPhong.maPhong = Phong.maPhong\r\n"
+				+ "WHERE tinhTrangPhong = N'Đang hoạt động' and TrangThaiDDP = N'Đã xác nhận' and maLoaiPhong = '"+ma+"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				Phong p = new Phong();
+				
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+				
+				lsPhong.add(p);
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lsPhong;
+	}
+
 }

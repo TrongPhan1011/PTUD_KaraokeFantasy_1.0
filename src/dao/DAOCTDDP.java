@@ -68,6 +68,30 @@ public class DAOCTDDP {
 		return n>0;
 	}
 	
+	public boolean suaSoluongMH(String maDDP,String maMH,int soLuong) {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement stmt = null;
+		int n=0;
+		try {
+			stmt = con.prepareStatement("update CTDDP set soLuong = "+soLuong+" where maDDP =? and maMH = ?");
+			stmt.setString(1, maDDP);
+			stmt.setString(2, maMH);
+			n = stmt.executeUpdate();
+			} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+		return n>0;
+	}
+	
 	public	CTDDP getCTDDPTheoMa(String maDPP,String maMH) {
 		CTDDP ctddp = new CTDDP();
 		ConnectDB.getinstance();
