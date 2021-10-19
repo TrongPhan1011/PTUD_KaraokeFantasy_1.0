@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -28,9 +30,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import connection.ConnectDB;
+import dao.DAOKhachHang;
 import dao.DAOLoaiKH;
+import entity.KhachHang;
 import entity.LoaiKH;
 import entity.LoaiMatHang;
+import entity.MatHang;
 
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -60,7 +65,9 @@ public class Frm_KhachHang extends JPanel {
 	private JTextField textFieldPoint;
 	private JTable tableKH;
 	private DAOLoaiKH daoLoaiKH;
-
+	private DAOKhachHang daoKhachHang;
+	private DefaultTableModel modelKhachHang;
+	private JComboBox<String> LoaiKH;
 
 
 	public Panel getFrmKH() {
@@ -80,6 +87,7 @@ public class Frm_KhachHang extends JPanel {
 		}
 		//khai bao dao
 		daoLoaiKH = new DAOLoaiKH();
+		daoKhachHang = new DAOKhachHang();
 		
 		
 		//Giao dien
@@ -167,18 +175,18 @@ public class Frm_KhachHang extends JPanel {
 		lblLoaiKH.setBounds(473, 65, 124, 19);
 		pMain.add(lblLoaiKH);
 		
-		JComboBox <String> loaiKH = new JComboBox<String>();
-		loaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		loaiKH.setBounds(610, 60, 170, 27);
-		loaiKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		JComboBox <String> cbbloaiKH = new JComboBox<String>();
+		cbbloaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbloaiKH.setBounds(610, 60, 170, 27);
+		cbbloaiKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
 		//loaiKH.setForeground(new Color(255, 255, 255));
-		loaiKH.setBackground(new Color(255, 255, 255));
+		cbbloaiKH.setBackground(new Color(255, 255, 255));
 		/*
 		 * String cbbLoaiKH [] = {"Thường", "Thành viên", "VIP"}; for(int i = 0;i <
 		 * cbbLoaiKH.length; i++) { loaiKH.addItem(cbbLoaiKH[i]); }
 		 */
 
-		pMain.add(loaiKH);
+		pMain.add(cbbloaiKH);
 		
 		
 		JLabel lblCccd = new JLabel("CCCD:");
@@ -319,7 +327,7 @@ public class Frm_KhachHang extends JPanel {
 		pMain.add(scrollPaneKH);
 		
 		String col [] = {"Mã KH", "Họ và tên KH", "Loại KH", "Giới tính","Ngày sinh","Địa chỉ", "SĐT", "CCCD","Ngày đăng ký","Điểm tích lũy"};
-		DefaultTableModel modelKhachHang = new DefaultTableModel(col,0);
+		modelKhachHang = new DefaultTableModel(col,0);
 		tableKH = new JTable(modelKhachHang);
 		
 		
@@ -347,17 +355,15 @@ public class Frm_KhachHang extends JPanel {
 		scrollPaneKH.setViewportView(tableKH);
 		
 //		demo dữ liệu:
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		modelKhachHang.addRow(new Object[] {"123","123"});
-		
+		/*
+		 * modelKhachHang.addRow(new Object[] {"123","123"}); modelKhachHang.addRow(new
+		 * Object[] {"123","123"}); modelKhachHang.addRow(new Object[] {"123","123"});
+		 * modelKhachHang.addRow(new Object[] {"123","123"}); modelKhachHang.addRow(new
+		 * Object[] {"123","123"}); modelKhachHang.addRow(new Object[] {"123","123"});
+		 * modelKhachHang.addRow(new Object[] {"123","123"}); modelKhachHang.addRow(new
+		 * Object[] {"123","123"}); modelKhachHang.addRow(new Object[] {"123","123"});
+		 * modelKhachHang.addRow(new Object[] {"123","123"});
+		 */
 		
 		JTextArea textAreaDiaChi = new JTextArea();
 		textAreaDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -455,13 +461,32 @@ public class Frm_KhachHang extends JPanel {
 		lblBackground.setIcon(new ImageIcon(resizeBG));
 		pMain.add(lblBackground);
 
-//		test
+
+//		testl
 		//Load tên loại KH
 		ArrayList<LoaiKH> lsLoaiKH = daoLoaiKH.getAllLoaiKH();
-		for(LoaiKH lmh : lsLoaiKH) {
-			loaiKH.addItem(lmh.getTenLoaiKH());
+		for(LoaiKH lkh : lsLoaiKH) {
+			cbbloaiKH.addItem(lkh.getTenLoaiKH());
 		}
-		
-		
+		//load danh sach khach hang
+
+		loadDanhSachKH();
 	}
+
+//end gd
+
+	
+		public void loadDanhSachKH() {
+
+
+		SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
+		ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();
+		for(KhachHang kh : lsKH) {
+			LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(kh.getLoaiKH().getMaLoaiKH());
+			modelKhachHang.addRow(new Object[] {
+				kh.getMaKhangHang(), kh.getTenKH(),loaiKH.getTenLoaiKH() , kh.getGioiTinh(), dfDate.format(kh.getNgaySinh()), kh.getDiaChi(), kh.getSdt(), kh.getCccd(), dfDate.format(kh.getNgayDangKy()).toString(), kh.getDiemTichLuy()
+			});
+		}
+	}
+		
 }
