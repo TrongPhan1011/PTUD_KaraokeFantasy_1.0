@@ -29,7 +29,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Frm_MatHang extends JPanel {
+public class FrmMatHang extends JPanel {
 
 	/**
 	 * 
@@ -60,7 +60,7 @@ public class Frm_MatHang extends JPanel {
 	public Panel getFrmPhong() {
 		return this.pMain;
 	}
-	public Frm_MatHang(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
+	public FrmMatHang(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
 		this.dNgayHienTai = dNgayHienTai;

@@ -25,26 +25,25 @@ import javax.swing.border.LineBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
+public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 
 
 	private static final long serialVersionUID = 1L;
-	private Frm_NhanVien frm_NhanVien;
+	private FrmNhanVien frmNhanVien;
 	private JPanel pContent;
 	private JButton btnDangXuat;
 	private JLabel lblHeaderTen;
 	private JLabel lblSubMa;
-	private Frm_KhachHang Frm_KhachHang;
+	private FrmKhachHang frmKhachHang;
 	private JButton btnItemNhanVien;
 	private JButton btnItemQLBH;
 	private JButton btnItemDDP;
-	private JButton btnItemPhong;
+	private JButton btnItemMatHang;
 	private JButton btnItemKH;
 	private JButton btnItemTK;
-	private Frm_QLBH Frm_QLBH;
-	private Frm_DonDatPhong Frm_DDP;
-	private Frm_MatHang Frm_Phong;
-	private Frm_ThongKe Frm_ThongKe;
+	private FrmThanhToan frmQLBH;
+	private FrmDonDatPhong frmDDP;
+	private FrmThongKe frmThongKe;
 	private Date dNow;
 	private LocalDate now;
 	private int ngay;
@@ -52,6 +51,9 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private int nam;
 	private JLabel lblHeaderMaNV;
 	private JButton btnHeaderInfo;
+	private JButton btnItemPhong;
+	private FrmMatHang frmMatHang;
+	private FrmPhong frmPhong;
 
 	
 	public static void main(String[] args) {
@@ -59,7 +61,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(new FlatLightLaf());
-					Frm_QuanLy frame = new Frm_QuanLy();
+					FrmQuanLy frame = new FrmQuanLy();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,7 +72,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 
 	
 	@SuppressWarnings("deprecation")
-	public Frm_QuanLy() {
+	public FrmQuanLy() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Quản lý nhân viên");
 //		setExtendedState(MAXIMIZED_BOTH);
@@ -154,94 +156,121 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		getContentPane().add(pMenu);
 		pMenu.setLayout(null);
 		
-		int x = 160;    // vi tri chieu ngang cua item
+		int x = 119;    // vi tri chieu ngang cua item
 		
+		btnItemNhanVien = new JButton("Quản lý nhân viên");
 		if(btnHeaderInfo.getText().contains("QL")) {
-			btnItemNhanVien = new JButton("Quản lý nhân viên");
+			
 			btnItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemNhanVien.setBackground(new Color(255, 240, 245));
 			btnItemNhanVien.setBounds(x, 0, 132, 31);
 			btnItemNhanVien.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemNhanVien);
-			btnItemNhanVien.addActionListener(this);
+		
+			
 			x = x + 142; //  chuyen vi tri sang mot doan 
 		}
 		
+		btnItemDDP = new JButton("Quản lý đơn đặt phòng");
 		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("TN")) {
-			if(lblSubMa.toString().contains("TN"))
-				x += 255;
-			btnItemQLBH = new JButton("Quản lý bán hàng");
-			btnItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			btnItemQLBH.setBackground(new Color(255, 240, 245));
-			btnItemQLBH.setBounds(x, 0, 132, 31);
-			btnItemQLBH.setFont(new Font("SansSerif", Font.BOLD, 13));
-			pMenu.add(btnItemQLBH);
-			btnItemQLBH.addActionListener(this);
 			
+			if(btnHeaderInfo.getText().contains("TN")){
+				x+= 225;
+			}
 			
-			x = x + 142;
-			
-		
-		}
-		
-		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("TN")) {
-			btnItemDDP = new JButton("Quản lý đơn đặt phòng");
 			btnItemDDP.setLayout(null);
 			btnItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemDDP.setBackground(new Color(255, 240, 245));
-			btnItemDDP.setBounds(x, 0, 161, 31);
+			btnItemDDP.setBounds(x, 0, 161, 31);   //261
 			btnItemDDP.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemDDP);
-			btnItemDDP.addActionListener(this);
+			
 
 			
 			x = x + 142;
-			if(lblSubMa.toString().contains("TN"))
-				x += 19;
+			if( btnHeaderInfo.getText().contains("TN"))
+				x -= 255;
 		}
+		
+		btnItemQLBH = new JButton("Quản lý thanh toán");
+		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("TN")) {
+			x+= 29;
+			if(btnHeaderInfo.getText().contains("TN"))
+				x += 255;
+			
+			btnItemQLBH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemQLBH.setBackground(new Color(255, 240, 245));
+			btnItemQLBH.setBounds(x, 0, 132, 31);   //432
+			btnItemQLBH.setFont(new Font("SansSerif", Font.BOLD, 13));
+			pMenu.add(btnItemQLBH);
+		
+			
+			x = x + 142;
+			
+		
+		}
+		
+
+		btnItemMatHang = new JButton("Quản lý mặt hàng");
 		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("PV")) {
-			x = x  + 29;
-			if(lblSubMa.toString().contains("PV"))
-				x += 275;
-			btnItemPhong = new JButton("Quản lý mặt hàng");
-			btnItemPhong.setLayout(null);
-			btnItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-			btnItemPhong.setBackground(new Color(255, 240, 245));
-			btnItemPhong.setBounds(x, 0, 202, 31);   // 692
-			btnItemPhong.setFont(new Font("SansSerif", Font.BOLD, 13));
-			pMenu.add(btnItemPhong);
-			btnItemPhong.addActionListener(this);
+			
+			if(btnHeaderInfo.getText().contains("PV"))
+				x += 305;
+			
+			btnItemMatHang.setLayout(null);
+			btnItemMatHang.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemMatHang.setBackground(new Color(255, 240, 245));
+			btnItemMatHang.setBounds(x, 0, 149, 31);   // 574
+			btnItemMatHang.setFont(new Font("SansSerif", Font.BOLD, 13));
+			pMenu.add(btnItemMatHang);
+			
 			
 			x = x + 142;
 		}
 		
-		if(btnHeaderInfo.getText().contains("")|| btnHeaderInfo.getText().contains("PV")) {
-			x += 70;
+		btnItemPhong = new JButton("Quản lý phòng");
+		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("PV")) {
+			x+= 17;
 			
-			btnItemKH = new JButton("Quản lý khách Hàng");
+			btnItemPhong.setFont(new Font("SansSerif", Font.BOLD, 13));
+			btnItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+			btnItemPhong.setBackground(new Color(255, 240, 245));
+			btnItemPhong.setBounds(x, 0, 132, 31); // 733
+			pMenu.add(btnItemPhong);
+			x = x + 142;
+		
+		}
+		
+		btnItemKH = new JButton("Quản lý khách Hàng");
+		if(btnHeaderInfo.getText().contains("")|| btnHeaderInfo.getText().contains("PV")) {
+			
+			
 			btnItemKH.setLayout(null);
 			btnItemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemKH.setBackground(new Color(255, 240, 245));
-			btnItemKH.setBounds(x, 0, 142, 31);  // 904
+			btnItemKH.setBounds(x, 0, 142, 31);  // 875
 			btnItemKH.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemKH);
-			btnItemKH.addActionListener(this);
+			
 			
 			
 			x += 142;
 			
 			
 		}
+		
+		btnItemTK = new JButton("Quản lý thống kê");
 		if(btnHeaderInfo.getText().contains("QL")|| btnHeaderInfo.getText().contains("TN")) {
 			x += 10;
-			btnItemTK = new JButton("Quản lý thống kê");
+			
 			btnItemTK.setLayout(null);
 			btnItemTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemTK.setBackground(new Color(255, 240, 245));
 			btnItemTK.setBounds(x, 0, 132, 31); // 1056
 			btnItemTK.setFont(new Font("SansSerif", Font.BOLD, 13));
 			pMenu.add(btnItemTK);
-			btnItemTK.addActionListener(this);
+			
+		
 			
 			
 		
@@ -252,7 +281,19 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		getContentPane().add(pContent);
 		pContent.setLayout(null);
 		
+		// Load frm mac dinh 
+		if(btnHeaderInfo.getText().contains("QL")){
+			loadFrmNhanVien();
+		}
+		
 		btnDangXuat.addActionListener(this);
+		btnItemNhanVien.addActionListener(this);
+		btnItemDDP.addActionListener(this);
+		btnItemQLBH.addActionListener(this);
+		btnItemMatHang.addActionListener(this);
+		btnItemPhong.addActionListener(this);
+		btnItemKH.addActionListener(this);
+		btnItemTK.addActionListener(this);
 	}
 	
 	// reset màu menu
@@ -265,6 +306,9 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		btnItemDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnItemDDP.setBackground(new Color(255, 240, 245));
+		
+		btnItemMatHang.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnItemMatHang.setBackground(new Color(255, 240, 245));
 		
 		btnItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnItemPhong.setBackground(new Color(255, 240, 245));
@@ -283,8 +327,8 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			pContent.removeAll();
 			btnItemNhanVien.setBackground(new Color(192,255,255)); //new Color(233,136,236)
 			btnItemNhanVien.setBorder(BorderFactory.createLineBorder(Color.white));
-			frm_NhanVien = new Frm_NhanVien("QL",lblHeaderMaNV.getText(), dNow);
-			pContent.add(frm_NhanVien.getPanel());
+			frmNhanVien = new FrmNhanVien("QL",lblHeaderMaNV.getText(), dNow);
+			pContent.add(frmNhanVien.getPanel());
 
 		
 	}
@@ -294,8 +338,8 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemKH.setBackground(new Color(192,255,255));
 		btnItemKH.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_KhachHang = new Frm_KhachHang("QL",lblHeaderMaNV.getText(),dNow);
-		pContent.add(Frm_KhachHang.getFrmKH());
+		frmKhachHang = new FrmKhachHang("QL",lblHeaderMaNV.getText(),dNow);
+		pContent.add(frmKhachHang.getFrmKH());
 	
 	}
 	public void loadFrmQLBH() {
@@ -304,8 +348,8 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemQLBH.setBackground(new Color(192,255,255));
 		btnItemQLBH.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_QLBH = new Frm_QLBH(this,"QL",lblHeaderMaNV.getText(), dNow);
-		pContent.add(Frm_QLBH.getFrmQLBH());
+		frmQLBH = new FrmThanhToan(this,"QL",lblHeaderMaNV.getText(), dNow);
+		pContent.add(frmQLBH.getFrmQLBH());
 	
 	}
 	public void loadFrmDDP() {
@@ -314,19 +358,29 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemDDP.setBackground(new Color(192,255,255));
 		btnItemDDP.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_DDP = new Frm_DonDatPhong("QL",lblHeaderMaNV.getText(), dNow);
-		pContent.add(Frm_DDP.getFrmDDP());
+		frmDDP = new FrmDonDatPhong("QL",lblHeaderMaNV.getText(), dNow);
+		pContent.add(frmDDP.getFrmDDP());
 	
 	}
 	
+	public void loadFrmMatHang() {
+		setTitle("Quản lý mặt hàng");
+		resetColorMenu();
+		pContent.removeAll();
+		btnItemMatHang.setBackground(new Color(192,255,255));
+		btnItemMatHang.setBorder(BorderFactory.createLineBorder(Color.white));
+		frmMatHang = new FrmMatHang("QL",lblHeaderMaNV.getText(),dNow);
+		pContent.add(frmMatHang.getFrmPhong());
+	
+	}
 	public void loadFrmPhong() {
-		setTitle("Quản lý phòng và mặt hàng");
+		setTitle("Quản lý phòng");
 		resetColorMenu();
 		pContent.removeAll();
 		btnItemPhong.setBackground(new Color(192,255,255));
 		btnItemPhong.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_Phong = new Frm_MatHang("QL",lblHeaderMaNV.getText(),dNow);
-		pContent.add(Frm_Phong.getFrmPhong());
+		frmPhong = new FrmPhong("QL",lblHeaderMaNV.getText(),dNow);
+		pContent.add(frmPhong.getFrmPhong());
 	
 	}
 	
@@ -336,15 +390,15 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemTK.setBackground(new Color(192,255,255));
 		btnItemTK.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_ThongKe = new Frm_ThongKe("QL",lblHeaderMaNV.getText(),dNow);
-		pContent.add(Frm_ThongKe.getFrmThongKe());
+		frmThongKe = new FrmThongKe("QL",lblHeaderMaNV.getText(),dNow);
+		pContent.add(frmThongKe.getFrmThongKe());
 	
 	}
 	
 	public void dangXuat() {
 		int optDangXuat = JOptionPane.showConfirmDialog(this, "Bạn có chắn chắn muốn đăng xuất không?", "Thông báo", JOptionPane.YES_NO_OPTION );
 		if(optDangXuat == JOptionPane.YES_OPTION) {
-			Frm_DangNhap frame = new Frm_DangNhap();
+			FrmDangNhap frame = new FrmDangNhap();
 			frame.setVisible(true);
 			this.setVisible(false);
 			
@@ -371,12 +425,17 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		if(o.equals(btnItemDDP)) {
 			loadFrmDDP();
 		}
+		if(o.equals(btnItemMatHang)) {
+			loadFrmMatHang();
+		}
 		if(o.equals(btnItemPhong)) {
 			loadFrmPhong();
 		}
+		
 		if(o.equals(btnItemTK)) {
 			loadFrmThongKe();
 		}
+		
 		
 		
 	}

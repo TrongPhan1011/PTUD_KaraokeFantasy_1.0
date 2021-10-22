@@ -42,7 +42,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
-public class Frm_KhachHang extends JPanel {
+public class FrmKhachHang extends JPanel {
 	
 	
 	/**
@@ -73,7 +73,7 @@ public class Frm_KhachHang extends JPanel {
 	public Panel getFrmKH() {
 		return this.pMain;
 	}
-	public Frm_KhachHang(String sHeaderTenNV, String sHeaderMaNV,Date dNgayHienTai) {
+	public FrmKhachHang(String sHeaderTenNV, String sHeaderMaNV,Date dNgayHienTai) {
 
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;

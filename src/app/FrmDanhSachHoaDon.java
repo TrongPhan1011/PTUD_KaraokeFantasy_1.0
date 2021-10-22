@@ -29,7 +29,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
+public class FrmDanhSachHoaDon extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnQuayLai;
@@ -53,7 +53,7 @@ public class Frm_DanhSachHoaDon extends JFrame implements ActionListener {
 //		});
 //	}
 
-	public Frm_DanhSachHoaDon(JFrame frm) {
+	public FrmDanhSachHoaDon(JFrame frm) {
 		this.frm = frm;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);

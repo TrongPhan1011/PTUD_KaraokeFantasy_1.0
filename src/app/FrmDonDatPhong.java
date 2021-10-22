@@ -21,7 +21,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.SqlDateModel;
 import javax.swing.border.TitledBorder;
 
-public class Frm_DonDatPhong extends JPanel implements ActionListener {
+public class FrmDonDatPhong extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 	public Panel getFrmDDP() {
 		return this.pMain;
 	}
-	public Frm_DonDatPhong(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
+	public FrmDonDatPhong(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;

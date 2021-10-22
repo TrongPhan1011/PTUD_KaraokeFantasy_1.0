@@ -59,7 +59,7 @@ import entity.MatHang;
 import entity.NhanVien;
 import entity.Phong;
 
-public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,ItemListener {
+public class FrmThanhToan extends JPanel implements ActionListener, MouseListener,ItemListener {
 
 	/**
 	 * 
@@ -117,7 +117,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		return this.pMain;
 	}
 	
-	public Frm_QLBH(JFrame frm,String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai)  {
+	public FrmThanhToan(JFrame frm,String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai)  {
 		
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
@@ -899,7 +899,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if(o.equals(btnDSHD)) {
-			Frm_DanhSachHoaDon frm_DanhSachHoaDon = new Frm_DanhSachHoaDon(frm);
+			FrmDanhSachHoaDon frm_DanhSachHoaDon = new FrmDanhSachHoaDon(frm);
 			frm_DanhSachHoaDon.setVisible(true);
 			frm.setVisible(false);
 		}

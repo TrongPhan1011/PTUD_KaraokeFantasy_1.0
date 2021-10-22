@@ -30,7 +30,7 @@ import com.mindfusion.drawing.Colors;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EmptyBorder;
 
-public class Frm_NhanVien extends JPanel implements ActionListener {
+public class FrmNhanVien extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class Frm_NhanVien extends JPanel implements ActionListener {
 		return pMain;
 	}
 	
-	public  Frm_NhanVien(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
+	public  FrmNhanVien(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 		
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;

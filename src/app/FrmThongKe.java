@@ -33,7 +33,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
 
 
-public class Frm_ThongKe extends JPanel {
+public class FrmThongKe extends JPanel {
 
 	/**
 	 * 
@@ -57,7 +57,7 @@ public class Frm_ThongKe extends JPanel {
 	public Panel getFrmThongKe() {
 		return this.pMain;
 	}
-	public Frm_ThongKe(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
+	public FrmThongKe(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
 		this.dNgayHienTai = dNgayHienTai;

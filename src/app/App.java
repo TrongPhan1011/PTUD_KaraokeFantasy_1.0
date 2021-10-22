@@ -8,7 +8,7 @@ public class App {
 			public void run() {
 				try {
 					
-					Frm_DangNhap frame = new Frm_DangNhap();
+					FrmDangNhap frame = new FrmDangNhap();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
