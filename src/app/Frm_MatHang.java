@@ -57,7 +57,7 @@ public class Frm_MatHang extends JPanel {
 	private JTextField txtTim;
 	
 	
-	public Panel getFrmPhong() {
+	public Panel getFrmMatHang() {
 		return this.pMain;
 	}
 	public Frm_MatHang(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {

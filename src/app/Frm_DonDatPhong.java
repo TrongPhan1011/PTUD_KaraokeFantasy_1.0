@@ -232,7 +232,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		JScrollPane scrollPaneChonPhong = new JScrollPane();
 		scrollPaneChonPhong.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		scrollPaneChonPhong.setBackground(new Color(164, 44, 167));
-		scrollPaneChonPhong.setBounds(175, 142, 709, 131);
+		scrollPaneChonPhong.setBounds(190, 142, 709, 131);
 		pMain.add(scrollPaneChonPhong);
 		
 		String colPhong[] = {"Mã phòng", "Mã loại phòng", "Loại phòng", "Giá phòng", "Tình trạng phòng"};
@@ -298,7 +298,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		btnSuaDDP.setIcon(new ImageIcon(resizeImgSuaDDP));
 		pMain.add(btnSuaDDP);
 		
-		btnXoaDDP = new FixButton("Xóa");
+		btnXoaDDP = new FixButton("Hủy");
 		btnXoaDDP.setForeground(Color.white);
 		btnXoaDDP.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnXoaDDP.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
@@ -367,7 +367,7 @@ public class Frm_DonDatPhong extends JPanel implements ActionListener {
 		scrollPaneDDP.setBounds(26, 336, 1212, 259);
 		pMain.add(scrollPaneDDP);
 		
-		String colDDP[] = {"Mã đơn đặt phòng", "Mã khách hàng", "Tên khách hàng", "Ngày đến", "Giờ đến", "Mã phòng", "Mã nhân viên lập", "Số lượng", "Ngày lập", "Tình trạng phòng"};
+		String colDDP[] = {"Mã DDP", "Mã KH", "Tên KH", "Ngày đến", "Giờ đến", "Mã phòng", "Mã NV lập", "Số lượng", "Ngày lập", "Tình trạng phòng"};
 		DefaultTableModel modelDDP=new DefaultTableModel(colDDP, 0);
 		
 		JTable tableDDP=new JTable(modelDDP);
