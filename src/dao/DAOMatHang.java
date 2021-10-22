@@ -11,6 +11,28 @@ import entity.LoaiMatHang;
 import entity.MatHang;
 
 public class DAOMatHang {
+//	public ArrayList<MatHang> getAllTableMatHang() {
+//		ArrayList<MatHang> dsMH = new ArrayList<MatHang>();
+//		try {
+//			ConnectDB.getinstance();
+//			Connection con = ConnectDB.getConnection();
+//			String sql = "select * from MatHang";
+//			java.sql.Statement stm = con.createStatement();
+//			ResultSet rs = stm.executeQuery(sql);
+//			while (rs.next()) {
+//				String maMH = rs.getString(1);
+//				String LoaiMH = rs.getString(2);
+//				String tenMH = rs.getString(3);
+//				int soluong = rs.getInt(4);
+//				double giaMH = rs.getDouble(5);
+//				MatHang mh = new MatHang(maMH, tenMH, soluong, giaMH, null);
+//				dsMH.add(mh);
+//			}
+//		} catch (Exception e) {
+//			e.getStackTrace();
+//		}
+//		return dsMH;
+//	}
 	
 	public MatHang getMHTheoMaMH(String ma) {
 		

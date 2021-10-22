@@ -29,11 +29,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
 
 
-public class Frm_ThongKe extends JPanel {
+public class Frm_ThongKe extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -226,7 +227,7 @@ public class Frm_ThongKe extends JPanel {
 		cbbNamTh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNamTh.setBackground(Color.white);
 		cbbNamTh.setBounds(140, 202, 180, 36);
-		for(int i = 2004; i > 1900; i--) {
+		for(int i = 2021; i > 2015; i--) {
 			cbbNamTh.addItem(""+i);
 		}
 		pThongKe.add(cbbNamTh);
@@ -240,7 +241,7 @@ public class Frm_ThongKe extends JPanel {
 		cbbNam.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbNam.setBackground(Color.white);
 		cbbNam.setBounds(140, 302, 180, 35);
-		for(int i = 2004; i > 1900; i--) {
+		for(int i = 2021; i > 2015; i--) {
 			cbbNam.addItem(""+i);
 		}
 		pThongKe.add(cbbNam);
@@ -354,5 +355,10 @@ public class Frm_ThongKe extends JPanel {
 		JPanel panel1 = new JPanel();
 		panel1.setBounds(461, 189, 793, 359);
 		pMain.add(panel1);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

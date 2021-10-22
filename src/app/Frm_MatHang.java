@@ -7,6 +7,8 @@ import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Date;
 
 import javax.swing.JPanel;
@@ -29,7 +31,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Frm_MatHang extends JPanel {
+public class Frm_MatHang extends JPanel implements ActionListener, MouseListener {
 
 	/**
 	 * 
@@ -55,6 +57,10 @@ public class Frm_MatHang extends JPanel {
 	private JComboBox<String> cbbLoaiP;
 	private FixButton btnTim;
 	private JTextField txtTim;
+	private FixButton btnThemKH;
+	private FixButton btnSuaKH;
+	private FixButton btnXoaKH;
+	private FixButton btnReset;
 	
 	
 	public Panel getFrmPhong() {
@@ -198,7 +204,7 @@ public class Frm_MatHang extends JPanel {
 		//Buttons//////
 		////////////////
 		/////
-		FixButton btnThemKH = new FixButton("Thêm");
+		btnThemKH = new FixButton("Thêm");
 		btnThemKH.setForeground(Color.WHITE);
 		btnThemKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 //		btnThemKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
@@ -209,7 +215,7 @@ public class Frm_MatHang extends JPanel {
 		btnThemKH.setIcon(new ImageIcon(resizeImgThemKH));
 		pMain.add(btnThemKH);
 		
-		FixButton btnSuaKH = new FixButton("Sửa");
+		btnSuaKH = new FixButton("Sửa");
 		btnSuaKH.setForeground(Color.WHITE);
 		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 //		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
@@ -220,7 +226,7 @@ public class Frm_MatHang extends JPanel {
 		btnSuaKH.setIcon(new ImageIcon(resizeImgSuaKH));
 		pMain.add(btnSuaKH);
 		
-		FixButton btnXoaKH = new FixButton("Xóa");
+		btnXoaKH = new FixButton("Xóa");
 		btnXoaKH.setForeground(Color.WHITE);
 		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
 //		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
@@ -231,7 +237,7 @@ public class Frm_MatHang extends JPanel {
 		btnXoaKH.setIcon(new ImageIcon(resizeImgXoaKH));
 		pMain.add(btnXoaKH);
 		
-		FixButton btnReset = new FixButton("Làm mới");
+		btnReset = new FixButton("Làm mới");
 		btnReset.setForeground(Color.WHITE);
 		btnReset.setFont(new Font("SansSerif", Font.BOLD, 14));
 //		btnReset.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
@@ -305,21 +311,7 @@ public class Frm_MatHang extends JPanel {
 		tableMH.setRowHeight(30);
 		
 		tableMH.setOpaque(false);
-		
-//		demo dữ liệu:
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		modelMatHang.addRow(new Object[] {"123","123"});
-		
-
-		
+	
 		JScrollPane spMatHang = new JScrollPane(tableMH);
 		spMatHang.setBounds(37, 249, 1194, 346);
 		spMatHang.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
@@ -327,18 +319,11 @@ public class Frm_MatHang extends JPanel {
 		pMain.add(spMatHang);
 		//
 		//////////////////////////////////////
-		
-//		demo dữ liệu:
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
-//		modelPhong.addRow(new Object[] {"123","123"});
+		btnThemKH.addActionListener(null);
+		btnXoaKH.addActionListener(null);
+		btnTim.addActionListener(null);
+		btnSuaKH.addActionListener(null);
+		btnReset.addActionListener(null);
 		////
 		JLabel lblBackGround=new JLabel("");
 		lblBackGround.setIcon(new ImageIcon("data\\img\\background.png"));
@@ -347,5 +332,37 @@ public class Frm_MatHang extends JPanel {
 		Image resizeBG = imgBackGround.getScaledInstance(lblBackGround.getWidth(), lblBackGround.getHeight(), 0);
 		lblBackGround.setIcon(new ImageIcon(resizeBG));
 		pMain.add(lblBackGround);
+		//////////////////////////////////////////////////////////////////////////
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
