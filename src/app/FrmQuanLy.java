@@ -25,6 +25,10 @@ import javax.swing.border.LineBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
+
+
+import connection.ConnectDB;
+
 public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 
 
@@ -44,6 +48,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 	private FrmThanhToan frmQLBH;
 	private FrmDonDatPhong frmDDP;
 	private FrmThongKe frmThongKe;
+
 	private Date dNow;
 	private LocalDate now;
 	private int ngay;
@@ -72,7 +77,9 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 
 	
 	@SuppressWarnings("deprecation")
+
 	public FrmQuanLy() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Quản lý nhân viên");
 //		setExtendedState(MAXIMIZED_BOTH);
@@ -329,6 +336,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 			btnItemNhanVien.setBorder(BorderFactory.createLineBorder(Color.white));
 			frmNhanVien = new FrmNhanVien("QL",lblHeaderMaNV.getText(), dNow);
 			pContent.add(frmNhanVien.getPanel());
+		
 
 		
 	}
@@ -341,9 +349,10 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		frmKhachHang = new FrmKhachHang("QL",lblHeaderMaNV.getText(),dNow);
 		pContent.add(frmKhachHang.getFrmKH());
 	
+	
 	}
 	public void loadFrmQLBH() {
-		setTitle("Quản lý hóa đơn");
+		setTitle("Quản lý thanh toán");
 		resetColorMenu();
 		pContent.removeAll();
 		btnItemQLBH.setBackground(new Color(192,255,255));
@@ -358,8 +367,12 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemDDP.setBackground(new Color(192,255,255));
 		btnItemDDP.setBorder(BorderFactory.createLineBorder(Color.white));
+
 		frmDDP = new FrmDonDatPhong("QL",lblHeaderMaNV.getText(), dNow);
 		pContent.add(frmDDP.getFrmDDP());
+
+		
+
 	
 	}
 	
@@ -370,7 +383,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		btnItemMatHang.setBackground(new Color(192,255,255));
 		btnItemMatHang.setBorder(BorderFactory.createLineBorder(Color.white));
 		frmMatHang = new FrmMatHang("QL",lblHeaderMaNV.getText(),dNow);
-		pContent.add(frmMatHang.getFrmPhong());
+		pContent.add(frmMatHang.getFrmMatHang());
 	
 	}
 	public void loadFrmPhong() {
@@ -381,6 +394,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		btnItemPhong.setBorder(BorderFactory.createLineBorder(Color.white));
 		frmPhong = new FrmPhong("QL",lblHeaderMaNV.getText(),dNow);
 		pContent.add(frmPhong.getFrmPhong());
+		
 	
 	}
 	
@@ -392,6 +406,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		btnItemTK.setBorder(BorderFactory.createLineBorder(Color.white));
 		frmThongKe = new FrmThongKe("QL",lblHeaderMaNV.getText(),dNow);
 		pContent.add(frmThongKe.getFrmThongKe());
+		
 	
 	}
 	
@@ -429,7 +444,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 			loadFrmMatHang();
 		}
 		if(o.equals(btnItemPhong)) {
-			loadFrmPhong();
+			loadFrmMatHang();
 		}
 		
 		if(o.equals(btnItemTK)) {

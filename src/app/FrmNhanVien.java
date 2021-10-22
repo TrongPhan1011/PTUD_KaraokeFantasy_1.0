@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,6 +28,10 @@ import org.jdatepicker.impl.SqlDateModel;
 
 import com.mindfusion.drawing.Colors;
 
+import connection.ConnectDB;
+import dao.*;
+import entity.*;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EmptyBorder;
 
@@ -36,11 +41,17 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JButton btnTim, btnThemNV, btnSuaNV, btnXoaNV, btnLamMoiNV;
+	private JButton btnTim, btnThemNV, btnSuaNV, btnHuy, btnLamMoiNV;
 	private Panel pMain;
 	private String sHeaderTenNV, sHeaderMaNV;
 	private Date dNgayHienTai;
 	private JTextField txtTim, txtHoTen, txtSDT, txtCccd;
+	private JTextArea txtDiaChi;
+	private JComboBox<Object> cbbChucVu;
+	private JTable tableNV;
+	private DefaultTableModel modelNV;
+	private DAONhanVien daoNhanVien; 
+	private DAOPhatSinhMa daoPhatSinhMa;
 	
 	public Panel getPanel() {
 		return pMain;
@@ -52,6 +63,18 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		this.sHeaderTenNV = sHeaderTenNV;
 		this.dNgayHienTai = dNgayHienTai;
 		
+	//connect db
+		try {
+			ConnectDB.getinstance().connect();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+	//DAO
+		daoNhanVien=new DAONhanVien();
+		daoPhatSinhMa=new DAOPhatSinhMa();
+		
+	//frameNV
 		setLayout(null);
 		pMain = new Panel();
 		pMain.setBackground(Color.WHITE);
@@ -144,7 +167,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblDiaChi.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblDiaChi.setBounds(165, 140, 72, 20);
 		pMain.add(lblDiaChi);
-		JTextArea txtDiaChi = new JTextArea();
+		txtDiaChi = new JTextArea();
 		txtDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		txtDiaChi.setBounds(265, 137, 189, 37);
@@ -155,7 +178,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblChucVu.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblChucVu.setBounds(537, 65, 98, 19);
 		pMain.add(lblChucVu);
-		JComboBox<Object> cbbChucVu = new JComboBox<Object>(new Object[] {"Quản lý", "Phục vụ", "Thu ngân"});
+		cbbChucVu = new JComboBox<Object>(new Object[] {"Quản lý", "Phục vụ", "Thu ngân"});
 		cbbChucVu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbChucVu.setBackground(Color.WHITE);
 		cbbChucVu.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
@@ -266,7 +289,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblCaLamViec.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblCaLamViec.setBounds(859, 103, 90, 20);
 		pMain.add(lblCaLamViec);
-		JComboBox<Object> cbbCaLamViec = new JComboBox<Object>(new Object[] {"Ca 1", "Ca 2", "Ca 3"});
+		JComboBox<Object> cbbCaLamViec = new JComboBox<Object>(new Object[] {"1", "2", "3"});
 		cbbCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbCaLamViec.setBackground(Color.WHITE);
 		cbbCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
@@ -296,16 +319,16 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		btnSuaNV.setIcon(new ImageIcon(resizeImgSuaNV));
 		pMain.add(btnSuaNV);
 		
-		btnXoaNV = new FixButton("Xóa");
-		btnXoaNV.setForeground(Color.WHITE);
-		btnXoaNV.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnXoaNV.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnXoaNV.setBackground(new Color(114, 23, 153));
-		btnXoaNV.setBounds(653, 190, 110, 35);
+		btnHuy = new FixButton("Hủy");
+		btnHuy.setForeground(Color.WHITE);
+		btnHuy.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnHuy.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnHuy.setBackground(new Color(114, 23, 153));
+		btnHuy.setBounds(653, 190, 110, 35);
 		Image imgXoaNV = Toolkit.getDefaultToolkit().getImage("data\\img\\iconRemove.png");
 		Image resizeImgXoaNV = imgXoaNV.getScaledInstance(25, 25, 0);
-		btnXoaNV.setIcon(new ImageIcon(resizeImgXoaNV));
-		pMain.add(btnXoaNV);
+		btnHuy.setIcon(new ImageIcon(resizeImgXoaNV));
+		pMain.add(btnHuy);
 		
 		btnLamMoiNV = new FixButton("Làm mới");
 		btnLamMoiNV.setForeground(Color.WHITE);
@@ -365,10 +388,10 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		scrollPaneNV.setBounds(21, 290, 1223, 305);
 		pMain.add(scrollPaneNV);
 		
-		String col[] = {"Mã NV", "Họ và tên nhân viên", "Chức vụ", "Giới tính", "Ngày sinh", "Địa chỉ", "SĐT", "CCCD", "Ca làm việc", "Lương"};
-		DefaultTableModel modelNV = new DefaultTableModel(col, 0);
+		String col[] = {"Mã NV", "Họ và tên nhân viên", "Chức vụ", "Giới tính", "Ngày sinh", "Địa chỉ", "SĐT", "CCCD", "Lương", "Ca làm việc", "Trạng thái làm việc"};
+		modelNV = new DefaultTableModel(col, 0);
 		
-		JTable tableNV = new JTable(modelNV);
+		tableNV = new JTable(modelNV);
 		tableNV.setShowHorizontalLines(true); 
 		tableNV.setShowGrid(true);
 		tableNV.setBackground(Color.white);
@@ -382,34 +405,35 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		tbHeader.setForeground(Color.white);
 		tbHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
 		
-		tableNV.getColumnModel().getColumn(0).setPreferredWidth(30);
-		tableNV.getColumnModel().getColumn(1).setPreferredWidth(110);
-		tableNV.getColumnModel().getColumn(2).setPreferredWidth(50);
-		tableNV.getColumnModel().getColumn(3).setPreferredWidth(20);
-		tableNV.getColumnModel().getColumn(4).setPreferredWidth(60);
-		tableNV.getColumnModel().getColumn(8).setPreferredWidth(30);
-		tableNV.getColumnModel().getColumn(9).setPreferredWidth(50);
-//		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
-//		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
-//		tableNV.getColumnModel().getColumn(0).setPreferredWidth(55);
+		tableNV.getColumnModel().getColumn(0).setPreferredWidth(15); //maNV
+		tableNV.getColumnModel().getColumn(1).setPreferredWidth(110);//tenNV
+		tableNV.getColumnModel().getColumn(2).setPreferredWidth(25); //chucvu
+		tableNV.getColumnModel().getColumn(3).setPreferredWidth(10); //gioitinh
+		tableNV.getColumnModel().getColumn(4).setPreferredWidth(20); //ngaysinh
+		tableNV.getColumnModel().getColumn(5).setPreferredWidth(60); //diachi
+		tableNV.getColumnModel().getColumn(6).setPreferredWidth(30); //sdt
+		tableNV.getColumnModel().getColumn(7).setPreferredWidth(35); //cccd
+		tableNV.getColumnModel().getColumn(8).setPreferredWidth(20); //luong
+		tableNV.getColumnModel().getColumn(9).setPreferredWidth(10); //calamviec
+		//tableNV.getColumnModel().getColumn(10).setPreferredWidth(40);//trangthailamviec
 		
 		//tableNV.setOpaque(false);
 		scrollPaneNV.setViewportView(tableNV);
 		
 		//demo data nv
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
-		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"0","1","","","","","","","","","Đang làm việc"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
+//		modelNV.addRow(new Object[] {"123","123"});
 		
 		
-		//background
+		//background 
 		JLabel lblBackGround=new JLabel("");
 		lblBackGround.setIcon(new ImageIcon("data\\img\\background.png"));
 		lblBackGround.setBounds(0, 0, 1281, 606);
@@ -418,15 +442,56 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblBackGround.setIcon(new ImageIcon(resizeBG));
 		pMain.add(lblBackGround);
 		
+		
+		loadDanhSachNV(); //load data NV
+		
 	}
 
+	//load dsNV
+	private void loadDanhSachNV()  {
+		SimpleDateFormat dfDate=new SimpleDateFormat("dd/MM/yyyy");
+		ArrayList<NhanVien> lstNV = daoNhanVien.getDanhSachNV();
+		for(NhanVien nv : lstNV) {
+			modelNV.addRow(new Object[] {
+					nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getChucVu(), nv.getGioiTinh(), 
+					dfDate.format(nv.getNgaySinh()), nv.getDiaChi(), nv.getSdt(), nv.getCccd(), 
+					nv.getLuong(), nv.getCaLamViec(), nv.getTrangThaiLamViec()
+			});
+		}
+	}
+	
+	//xoa trang textfield va textarea
+	private void xoaTrang() {
+		txtHoTen.setText("");
+		txtSDT.setText("");
+		txtDiaChi.setText("");
+		txtCccd.setText("");
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		Object  object = e.getSource();
-//		if(object.equals(btnNewButton_1)) {
-//			System.exit(0);
-//		}
+		Object  o = e.getSource();
 		
+		//btnThemNV
+		if(o.equals(btnThemNV)) {
+			
+		}
+		
+		//btnHuy
+		if(o.equals(btnHuy)) {
+			int click = tableNV.getSelectedRow();
+			int cancel = JOptionPane.showConfirmDialog(null, "Bạn muốn hủy tài khoản nhân viên này?", "Thông báo", JOptionPane.YES_NO_OPTION);
+			if(cancel == JOptionPane.YES_OPTION) {
+				try {
+					modelNV.removeRow(click);
+					JOptionPane.showMessageDialog(null, "Đã hủy tài khoản!");
+				}catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Hủy tài khoản thất bại!");
+				}
+				
+			}
+		}
 	}
 
 }
