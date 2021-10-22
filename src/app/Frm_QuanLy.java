@@ -43,7 +43,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 	private JButton btnItemTK;
 	private Frm_QLBH Frm_QLBH;
 	private Frm_DonDatPhong Frm_DDP;
-	private Frm_PhongMatHang Frm_Phong;
+	private Frm_MatHang Frm_Phong;
 	private Frm_ThongKe Frm_ThongKe;
 	private Date dNow;
 	private LocalDate now;
@@ -203,7 +203,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 			x = x  + 29;
 			if(lblSubMa.toString().contains("PV"))
 				x += 275;
-			btnItemPhong = new JButton("Quản lý phòng và mặt hàng");
+			btnItemPhong = new JButton("Quản lý mặt hàng");
 			btnItemPhong.setLayout(null);
 			btnItemPhong.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 			btnItemPhong.setBackground(new Color(255, 240, 245));
@@ -325,7 +325,7 @@ public class Frm_QuanLy extends JFrame implements ActionListener,MouseListener{
 		pContent.removeAll();
 		btnItemPhong.setBackground(new Color(192,255,255));
 		btnItemPhong.setBorder(BorderFactory.createLineBorder(Color.white));
-		Frm_Phong = new Frm_PhongMatHang("QL",lblHeaderMaNV.getText(),dNow);
+		Frm_Phong = new Frm_MatHang("QL",lblHeaderMaNV.getText(),dNow);
 		pContent.add(Frm_Phong.getFrmPhong());
 	
 	}
