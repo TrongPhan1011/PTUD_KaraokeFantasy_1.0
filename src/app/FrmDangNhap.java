@@ -23,7 +23,7 @@ import javax.swing.border.LineBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-public class Frm_DangNhap extends JFrame implements ActionListener {
+public class FrmDangNhap extends JFrame implements ActionListener {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(new FlatLightLaf());
-					Frm_DangNhap frame = new Frm_DangNhap();
+					FrmDangNhap frame = new FrmDangNhap();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 		});
 	}
 
-	public Frm_DangNhap() {
+	public FrmDangNhap() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Đăng nhập Karaoke Fantasy");
 		setSize(500,500);
@@ -154,7 +154,7 @@ public class Frm_DangNhap extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 		if(o.equals(btnDangNhap)) {	
-			Frm_QuanLy frmNhanVien = new Frm_QuanLy();
+			FrmQuanLy frmNhanVien = new FrmQuanLy();
 			frmNhanVien.setVisible(true);
 			this.setVisible(false);
 			

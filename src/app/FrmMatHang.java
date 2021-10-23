@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -18,58 +19,48 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import connection.ConnectDB;
+import dao.DAOLoaiMH;
+import dao.DAOMatHang;
+import entity.LoaiMatHang;
+import entity.MatHang;
 
-import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import java.awt.Rectangle;
-import java.awt.Component;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Frm_MatHang extends JPanel implements ActionListener, MouseListener {
+
+public class FrmMatHang extends JPanel implements ActionListener, MouseListener {
+
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String sHeaderMaNV;
-	private String sHeaderTenNV;
 	private Panel pMain;
-	private Date dNgayHienTai;
-	private JTextField textFieldTK;
-	private JTextField textField;
-	private JLabel lblGiaBan;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField txtSoLuong;
 	private JTextField txtTenMH;
 	private JTextField txtDonGia;
 	private JTable tableMH;
 	private DefaultTableModel modelMatHang;
-	private DefaultTableModel modelPhong;
-	private JPanel pSX;
-	private Box b;
-	private JComboBox<String> cbbLoaiP;
 	private FixButton btnTim;
 	private JTextField txtTim;
 	private FixButton btnThemKH;
 	private FixButton btnSuaKH;
 	private FixButton btnXoaKH;
 	private FixButton btnReset;
+	private DAOMatHang daoMH;
+	private DAOLoaiMH daoLMH;
 	
 	
 	public Panel getFrmMatHang() {
 		return this.pMain;
 	}
-	public Frm_MatHang(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
-		this.sHeaderMaNV = sHeaderMaNV;
-		this.sHeaderTenNV = sHeaderTenNV;
-		this.dNgayHienTai = dNgayHienTai;
+	public FrmMatHang(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 		
 		setLayout(null);
 		pMain = new Panel();
@@ -78,6 +69,13 @@ public class Frm_MatHang extends JPanel implements ActionListener, MouseListener
 		add(pMain);
 		pMain.setLayout(null);
 		
+		daoMH = new DAOMatHang();
+		daoLMH = new DAOLoaiMH();
+		try {
+			ConnectDB.getinstance().connect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//lblQLNV
 				JLabel lblQLNV = new JLabel("Quản lý mặt hàng");
 				lblQLNV.setFont(new Font("SansSerif", Font.BOLD, 22));
@@ -136,7 +134,7 @@ public class Frm_MatHang extends JPanel implements ActionListener, MouseListener
 		////////////////
 		//QLBH//////
 		////////////////
-		JPanel pDichVu = new JPanel();
+//		JPanel pDichVu = new JPanel();
 //		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Quản lý bán hàng ", TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
 //		pDichVu.setBackground(new Color(238,239,243,90));
 //		pDichVu.setBounds(37, 54, 1194, 99);
@@ -195,9 +193,10 @@ public class Frm_MatHang extends JPanel implements ActionListener, MouseListener
 		cbbLoaiMH.setBackground(Color.WHITE);
 		cbbLoaiMH.setBounds(766, 97, 310, 30);
 		pMain.add(cbbLoaiMH);
-		String cbbLoaiMH1 [] = {"Đồ ăn", "Đồ uống", "Khác"};
-		for(int i = 0;i < cbbLoaiMH1.length; i++) {
-			cbbLoaiMH.addItem(cbbLoaiMH1[i]);
+//		String cbbLoaiMH1 [] = {"Đồ ăn", "Đồ uống", "Khác"};
+		ArrayList<LoaiMatHang> loaiMH = daoLMH.getAllLoaiMatHang();
+		for(LoaiMatHang lmh : loaiMH) {
+			cbbLoaiMH.addItem(lmh.getTenLoaiMatHang());
 		}
 		/////
 		////////////////
@@ -265,22 +264,22 @@ public class Frm_MatHang extends JPanel implements ActionListener, MouseListener
 		cbbSapXep.setBackground(Color.WHITE);
 		pSapXep.add(cbbSapXep);
 		
-		JRadioButton radTheoMaPhong = new JRadioButton("Theo mã phòng");
+		JRadioButton radTheoMaPhong = new JRadioButton("Theo tên mặt hàng");
 		radTheoMaPhong.setBounds(188, 16, 133, 27);
 		radTheoMaPhong.setSelected(true);
-		radTheoMaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
+		radTheoMaPhong.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		radTheoMaPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoMaPhong);
 		
-		JRadioButton radTheoLoaiPhong = new JRadioButton("Theo loại phòng");
+		JRadioButton radTheoLoaiPhong = new JRadioButton("Theo loại mặt hàng");
 		radTheoLoaiPhong.setBounds(342, 16, 139, 27);
 		radTheoLoaiPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
 		radTheoLoaiPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoLoaiPhong);
 		
-		JRadioButton radTheoGiaPhong = new JRadioButton("Theo giá phòng");
+		JRadioButton radTheoGiaPhong = new JRadioButton("Theo giá ");
 		radTheoGiaPhong.setBounds(500, 16, 135, 27);
-		radTheoGiaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
+		radTheoGiaPhong.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		radTheoGiaPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoGiaPhong);
 		
@@ -293,7 +292,7 @@ public class Frm_MatHang extends JPanel implements ActionListener, MouseListener
 //		pMain.add(pSX);
 		/////
 		// Table down
-		String mh [] = {"Mã MH","Tên mặt hàng", "Loại MH", "Số lượng", "Giá gốc","Giá bán"};
+		String mh [] = {"Mã MH","Tên mặt hàng", "Loại MH", "Số lượng", "Giá bán"};
 		modelMatHang = new DefaultTableModel(mh,0);
 		
 		tableMH = new JTable(modelMatHang);
@@ -333,7 +332,14 @@ public class Frm_MatHang extends JPanel implements ActionListener, MouseListener
 		lblBackGround.setIcon(new ImageIcon(resizeBG));
 		pMain.add(lblBackGround);
 		//////////////////////////////////////////////////////////////////////////
-		
+		loadTableMH();
+	}
+	public void loadTableMH() {
+		ArrayList<MatHang> lsMH = daoMH.getDSMatHang();
+		for(MatHang mh : lsMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(),mh.getGiaMatHang() } );
+		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

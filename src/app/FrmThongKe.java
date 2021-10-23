@@ -34,7 +34,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
 
 
-public class Frm_ThongKe extends JPanel implements ActionListener{
+
+
+public class FrmThongKe extends JPanel{
 
 	/**
 	 * 
@@ -53,12 +55,13 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 	private int thang;
 	private int nam;
 	private Date dNow;
+	private SpringLayout springLayout;
 	
 	
 	public Panel getFrmThongKe() {
 		return this.pMain;
 	}
-	public Frm_ThongKe(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
+	public FrmThongKe(String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai) {
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
 		this.dNgayHienTai = dNgayHienTai;
@@ -180,14 +183,15 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 			}
 			
 		});
-		SpringLayout springLayout = (SpringLayout) datePicker.getLayout();
-		springLayout.putConstraint(SpringLayout.SOUTH, datePicker.getJFormattedTextField(), 0, SpringLayout.SOUTH, datePicker);
+		springLayout.putConstraint(SpringLayout.NORTH, datePicker.getJFormattedTextField(), 0, SpringLayout.NORTH, datePicker);
+		springLayout.putConstraint(SpringLayout.WEST, datePicker.getJFormattedTextField(), 10, SpringLayout.WEST, datePicker);
+		springLayout = (SpringLayout) datePicker.getLayout();
 		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 //		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
 		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
 		datePicker.getJFormattedTextField().setText("dd-mm-yyyy");
 		
-		datePicker.setBounds(140, 62, 150, 23);
+		datePicker.setBounds(140, 60, 180, 21);
 		datePicker.setTextEditable(true);
 		
 		pThongKe.add(datePicker);
@@ -205,17 +209,17 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 		////////////////////////////////////////////////
 		////////////////////////////////////////////////
 		JLabel lblChonThang = new JLabel("Chọn tháng: ");
-		lblChonThang.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblChonThang.setFont(new Font("SansSerif", Font.BOLD, 20));
 		lblChonThang.setBounds(55, 144, 100, 38);
 		pThongKe.add(lblChonThang);
 		
 		JLabel lblChonNamTh = new JLabel("Chọn năm: ");
-		lblChonNamTh.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblChonNamTh.setFont(new Font("SansSerif", Font.BOLD, 20));
 		lblChonNamTh.setBounds(55, 202, 100, 36);
 		pThongKe.add(lblChonNamTh);
 		
 		JComboBox<String> cbbThang = new JComboBox<String>();
-		cbbThang.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbThang.setFont(new Font("SansSerif", Font.BOLD, 20));
 		cbbThang.setBackground(Color.white);
 		cbbThang.setBounds(140, 144, 180, 38);
 		for(int i = 1; i <= 12;i++) {
@@ -224,23 +228,23 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 		pThongKe.add(cbbThang);
 		
 		JComboBox<String> cbbNamTh = new JComboBox<String>();
-		cbbNamTh.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbNamTh.setFont(new Font("SansSerif", Font.BOLD, 20));
 		cbbNamTh.setBackground(Color.white);
-		cbbNamTh.setBounds(140, 202, 180, 36);
+		cbbNamTh.setBounds(140, 202, 180, 38);
 		for(int i = 2021; i > 2015; i--) {
 			cbbNamTh.addItem(""+i);
 		}
 		pThongKe.add(cbbNamTh);
 		
 		JLabel lblChonNam = new JLabel("Chọn năm: ");
-		lblChonNam.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblChonNam.setFont(new Font("SansSerif", Font.BOLD, 20));
 		lblChonNam.setBounds(55, 302, 100, 35);
 		pThongKe.add(lblChonNam);
 		
 		JComboBox<String> cbbNam = new JComboBox<String>();
-		cbbNam.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbNam.setFont(new Font("SansSerif", Font.BOLD, 20));
 		cbbNam.setBackground(Color.white);
-		cbbNam.setBounds(140, 302, 180, 35);
+		cbbNam.setBounds(140, 302, 180, 38);
 		for(int i = 2021; i > 2015; i--) {
 			cbbNam.addItem(""+i);
 		}
@@ -266,7 +270,7 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 		
 		JLabel lblTDT= new JLabel("  Tổng doanh thu ");
 		lblTDT.setFont(new Font("SansSerif", Font.ITALIC, 15));
-		lblTDT.setForeground(Color.pink);
+		lblTDT.setForeground(new Color(148, 0, 211));
 		lblTDT.setBounds(28, 62, 160, 17);
 		pTongDoanhThu.add(lblTDT);
 		
@@ -291,7 +295,7 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 		
 		JLabel lblSoKH= new JLabel("   Số khách hàng ");
 		lblSoKH.setFont(new Font("SansSerif", Font.ITALIC, 15));
-		lblSoKH.setForeground(Color.pink);
+		lblSoKH.setForeground(new Color(153, 50, 204));
 		lblSoKH.setBounds(20, 62, 140, 17);
 		pSoKhachHang.add(lblSoKH);
 		
@@ -312,7 +316,7 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 		
 		JLabel lblSoMH= new JLabel("   Số mặt hàng ");
 		lblSoMH.setFont(new Font("SansSerif", Font.ITALIC, 15));
-		lblSoMH.setForeground(Color.pink);
+		lblSoMH.setForeground(new Color(153, 50, 204));
 		lblSoMH.setBounds(28, 62, 140, 17);
 		pSoMatHang.add(lblSoMH);
 		
@@ -333,7 +337,7 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 		
 		JLabel lblTGSD= new JLabel("Thời gian hoạt động phòng ");
 		lblTGSD.setFont(new Font("SansSerif", Font.ITALIC, 15));
-		lblTGSD.setForeground(Color.pink);
+		lblTGSD.setForeground(new Color(153, 50, 204));
 		lblTGSD.setBounds(8, 62, 200, 17);
 		pTgPhongSD.add(lblTGSD);
 		
@@ -356,9 +360,10 @@ public class Frm_ThongKe extends JPanel implements ActionListener{
 		panel1.setBounds(461, 189, 793, 359);
 		pMain.add(panel1);
 	}
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 }
+
+
