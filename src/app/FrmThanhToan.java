@@ -19,7 +19,6 @@ import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -153,7 +152,7 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		add(pMain);
 		pMain.setLayout(null);
 		
-		JLabel lbbTitle = new JLabel("Quản lý bán hàng");
+		JLabel lbbTitle = new JLabel("Quản lý thanh toán");
 		lbbTitle.setFont(new Font("SansSerif", Font.BOLD, 22));
 		lbbTitle.setBounds(24, 10, 268, 33);
 		pMain.add(lbbTitle);
@@ -203,10 +202,10 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		pMain.add(btnDSHD);
 	
 		
-		JLabel lblHeaderPhong = new JLabel("Phòng");
-		lblHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 20));
+		JLabel lblHeaderPhong = new JLabel("Phòng đang hát");
+		lblHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 18));
 	
-		lblHeaderPhong.setBounds(575, 51, 71, 26);
+		lblHeaderPhong.setBounds(551, 47, 162, 26);
 		pMain.add(lblHeaderPhong);
 		
 		pPhong = new JPanel();
@@ -220,7 +219,7 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		
-		scrollPane.setBounds(24, 78, 1223, 96);
+		scrollPane.setBounds(24, 72, 1223, 102);
 		pMain.add(scrollPane);
 		
 		JLabel lblSubPhong = new JLabel("Phòng : ");
@@ -451,7 +450,6 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		lblNhanVienLap.setBounds(145, 21, 68, 26);
 		pThanhToan.add(lblNhanVienLap);
 		
-		ButtonGroup bg = new ButtonGroup();
 		
 		
 		btnThanhToan = new FixButton("Thanh toán");
@@ -632,6 +630,7 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void loadInfo(Phong p) {
 		lblMaPhong.setText(p.getMaPhong());
 		DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(p.getMaPhong());

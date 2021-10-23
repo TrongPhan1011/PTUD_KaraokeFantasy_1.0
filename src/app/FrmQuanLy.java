@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import javax.swing.text.Document;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
@@ -444,7 +446,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 			loadFrmMatHang();
 		}
 		if(o.equals(btnItemPhong)) {
-			loadFrmMatHang();
+			loadFrmPhong();
 		}
 		
 		if(o.equals(btnItemTK)) {
@@ -481,6 +483,15 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		
+		
+		
+
+		
+		
+		
+		
+		
 		
 		
 	}

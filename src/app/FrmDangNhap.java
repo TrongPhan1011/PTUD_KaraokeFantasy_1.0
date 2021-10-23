@@ -1,24 +1,21 @@
 package app;
 
 
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.time.LocalDate;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -66,28 +63,28 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 		JLabel lblTaiKhoan = new JLabel("Tài khoản:");
 		lblTaiKhoan.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblTaiKhoan.setForeground(new Color(255, 255, 255));
-		lblTaiKhoan.setBounds(75, 188, 112, 20);
+		lblTaiKhoan.setBounds(61, 194, 112, 20);
 		getContentPane().add(lblTaiKhoan);
 		
 		txtTaiKhoan = new JTextField();
 		txtTaiKhoan.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		txtTaiKhoan.setBorder(BorderFactory.createLineBorder(new Color(217,132,219)));
 
-		txtTaiKhoan.setBounds(197, 183, 208, 33);
+		txtTaiKhoan.setBounds(166, 188, 246, 33);
 		getContentPane().add(txtTaiKhoan);
 		txtTaiKhoan.setColumns(10);
 		
 		JLabel lblMatKhau = new JLabel("Mật khẩu:");
 		lblMatKhau.setForeground(Color.WHITE);
 		lblMatKhau.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblMatKhau.setBounds(75, 245, 112, 20);
+		lblMatKhau.setBounds(61, 251, 112, 20);
 		getContentPane().add(lblMatKhau);
 		
 		txtMatKhau = new JTextField();
 		txtMatKhau.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBorder(BorderFactory.createLineBorder(new Color(217,132,219)));
-		txtMatKhau.setBounds(197, 240, 208, 33);
+		txtMatKhau.setBounds(166, 245, 246, 33);
 		getContentPane().add(txtMatKhau);
 		
 		JLabel lblNewLabel = new JLabel("Đăng nhập");
@@ -102,7 +99,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 		btnDangNhap.setBackground(new Color(164, 44,167));
 		btnDangNhap.setBorder(new LineBorder(Color.WHITE, 2, true));
 		btnDangNhap.setForeground(Color.WHITE);
-		btnDangNhap.setBounds(170, 323, 156, 33);
+		btnDangNhap.setBounds(166, 324, 176, 33);
 		getContentPane().add(btnDangNhap);
 		
 		btnThoat = new JButton("Thoát");
@@ -110,7 +107,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 		btnThoat.setFont(new Font("SansSerif", Font.BOLD, 15));
 		btnThoat.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		btnThoat.setBackground(new Color(164, 44, 167));
-		btnThoat.setBounds(170, 367, 156, 33);
+		btnThoat.setBounds(166, 368, 176, 33);
 		getContentPane().add(btnThoat);
 		
 		JLabel lblNhac1 = new JLabel("");
