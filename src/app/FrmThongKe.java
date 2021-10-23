@@ -132,16 +132,16 @@ public class FrmThongKe extends JPanel{
 		pThongKe.add(rdbtnTKNam);
 		pThongKe.add(rdbtnTKT);
 		
-		rdbtnTKNg.setBounds(30, 16, 260, 30);
-		rdbtnTKNg.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		rdbtnTKNg.setBounds(30, 11, 260, 30);
+		rdbtnTKNg.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		rdbtnTKT.setBounds(30, 97, 260, 29);
-		rdbtnTKT.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		rdbtnTKT.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		rdbtnTKNam.setBounds(30, 244, 260, 45);
-		rdbtnTKNam.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		rdbtnTKNam.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		
 		JLabel lblChonNgay = new JLabel("Chọn ngày: ");
-		lblChonNgay.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblChonNgay.setBounds(55, 52, 100, 36);
+		lblChonNgay.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblChonNgay.setBounds(55, 49, 100, 36);
 		pThongKe.add(lblChonNgay);
 		
 //		JLabel lblNgaySinh = new JLabel("Ngày sinh:");
@@ -183,15 +183,12 @@ public class FrmThongKe extends JPanel{
 			}
 			
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, datePicker.getJFormattedTextField(), 0, SpringLayout.NORTH, datePicker);
-		springLayout.putConstraint(SpringLayout.WEST, datePicker.getJFormattedTextField(), 10, SpringLayout.WEST, datePicker);
-		springLayout = (SpringLayout) datePicker.getLayout();
 		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 //		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
 		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
 		datePicker.getJFormattedTextField().setText("dd-mm-yyyy");
 		
-		datePicker.setBounds(140, 60, 180, 21);
+		datePicker.setBounds(150, 56, 180, 22);
 		datePicker.setTextEditable(true);
 		
 		pThongKe.add(datePicker);
@@ -209,43 +206,43 @@ public class FrmThongKe extends JPanel{
 		////////////////////////////////////////////////
 		////////////////////////////////////////////////
 		JLabel lblChonThang = new JLabel("Chọn tháng: ");
-		lblChonThang.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblChonThang.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		lblChonThang.setBounds(55, 144, 100, 38);
 		pThongKe.add(lblChonThang);
 		
 		JLabel lblChonNamTh = new JLabel("Chọn năm: ");
-		lblChonNamTh.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblChonNamTh.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		lblChonNamTh.setBounds(55, 202, 100, 36);
 		pThongKe.add(lblChonNamTh);
 		
 		JComboBox<String> cbbThang = new JComboBox<String>();
-		cbbThang.setFont(new Font("SansSerif", Font.BOLD, 20));
+		cbbThang.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		cbbThang.setBackground(Color.white);
-		cbbThang.setBounds(140, 144, 180, 38);
+		cbbThang.setBounds(150, 144, 180, 38);
 		for(int i = 1; i <= 12;i++) {
 			cbbThang.addItem(""+i);
 		}
 		pThongKe.add(cbbThang);
 		
 		JComboBox<String> cbbNamTh = new JComboBox<String>();
-		cbbNamTh.setFont(new Font("SansSerif", Font.BOLD, 20));
+		cbbNamTh.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		cbbNamTh.setBackground(Color.white);
-		cbbNamTh.setBounds(140, 202, 180, 38);
-		for(int i = 2021; i > 2015; i--) {
+		cbbNamTh.setBounds(150, 202, 180, 38);
+		for(int i = 2021; i > 2014; i--) {
 			cbbNamTh.addItem(""+i);
 		}
 		pThongKe.add(cbbNamTh);
 		
 		JLabel lblChonNam = new JLabel("Chọn năm: ");
-		lblChonNam.setFont(new Font("SansSerif", Font.BOLD, 20));
+		lblChonNam.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		lblChonNam.setBounds(55, 302, 100, 35);
 		pThongKe.add(lblChonNam);
 		
 		JComboBox<String> cbbNam = new JComboBox<String>();
-		cbbNam.setFont(new Font("SansSerif", Font.BOLD, 20));
+		cbbNam.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		cbbNam.setBackground(Color.white);
-		cbbNam.setBounds(140, 302, 180, 38);
-		for(int i = 2021; i > 2015; i--) {
+		cbbNam.setBounds(150, 302, 180, 38);
+		for(int i = 2021; i > 2014; i--) {
 			cbbNam.addItem(""+i);
 		}
 		pThongKe.add(cbbNam);

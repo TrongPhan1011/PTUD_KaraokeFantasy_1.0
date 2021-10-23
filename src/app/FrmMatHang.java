@@ -258,28 +258,28 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		pSapXep.setLayout(null);
 		
 		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[]{"Tăng dần", "Giảm dần"});
-		cbbSapXep.setBounds(60, 14, 102, 28);
-		cbbSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cbbSapXep.setBounds(23, 14, 115, 28);
+		cbbSapXep.setFont(new Font("SansSerif", Font.BOLD, 15));
 		cbbSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cbbSapXep.setBackground(Color.WHITE);
 		pSapXep.add(cbbSapXep);
 		
 		JRadioButton radTheoMaPhong = new JRadioButton("Theo tên mặt hàng");
-		radTheoMaPhong.setBounds(188, 16, 133, 27);
+		radTheoMaPhong.setBounds(150, 16, 170, 27);
 		radTheoMaPhong.setSelected(true);
-		radTheoMaPhong.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		radTheoMaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
 		radTheoMaPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoMaPhong);
 		
 		JRadioButton radTheoLoaiPhong = new JRadioButton("Theo loại mặt hàng");
-		radTheoLoaiPhong.setBounds(342, 16, 139, 27);
+		radTheoLoaiPhong.setBounds(342, 16, 170, 27);
 		radTheoLoaiPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
 		radTheoLoaiPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoLoaiPhong);
 		
 		JRadioButton radTheoGiaPhong = new JRadioButton("Theo giá ");
-		radTheoGiaPhong.setBounds(500, 16, 135, 27);
-		radTheoGiaPhong.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		radTheoGiaPhong.setBounds(520, 15, 135, 27);
+		radTheoGiaPhong.setFont(new Font("SansSerif", Font.BOLD, 14));
 		radTheoGiaPhong.setBackground(new Color(207, 195, 237));
 		pSapXep.add(radTheoGiaPhong);
 		
@@ -300,6 +300,9 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		tableMH.setShowGrid(false);
 		tableMH.setBackground(Color.WHITE);
 		tableMH.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		tableMH.setSelectionBackground(new Color(164, 44, 167, 30));
+		tableMH.setSelectionForeground(new Color(114, 23, 153));
+		tableMH.setRowHeight(30);
 		
 		JTableHeader tbHeader = tableMH.getTableHeader();
 		tbHeader.setBackground(new Color(164, 44, 167));
