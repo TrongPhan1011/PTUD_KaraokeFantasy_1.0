@@ -1,16 +1,29 @@
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import connection.ConnectDB;
 import entity.*;
 
-public class DAONhanVien {
+public class DAONhanVien implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<NhanVien> dsNV;
+	
+	public DAONhanVien() {
+		dsNV=new ArrayList<NhanVien>();
+	}
+
 	public NhanVien getNVTheoMa(String ma) { 
 		NhanVien nv = new NhanVien();
 		ConnectDB.getinstance();
@@ -34,8 +47,6 @@ public class DAONhanVien {
 				nv.setCaLamViec(rs.getInt(11));
 				nv.setTrangThaiLamViec(rs.getString(12));
 				
-				
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,17 +54,19 @@ public class DAONhanVien {
 		return nv;
 	}
 	 
-	//danhsachNV
+	//Load danh sach NV
 	public ArrayList<NhanVien> getDanhSachNV() {
-		ArrayList<NhanVien> lstNV=new ArrayList<NhanVien>();
+		ArrayList<NhanVien> lstNV=new ArrayList<>();
+//		ArrayList<TaiKhoan> lstTK=new ArrayList<>();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-//		String sql = "select * from NhanVien where trangThaiLamViec = N'Đang làm việc'";
 		try {
-			PreparedStatement ps = con.prepareStatement("select maNhanVien, tenNhanVien, chucVu, gioiTinh, ngaySinh, diaChi, sdt, cccd, luong, caLamViec, trangThaiLamViec from [dbo].[NhanVien] where trangThaiLamViec = N'Đang làm việc'");
+			PreparedStatement ps = con.prepareStatement("select maNhanVien, tenNhanVien, chucVu, gioiTinh, ngaySinh, diaChi, sdt, cccd, luong, caLamViec from [dbo].[NhanVien]\r\n"
+														+ "where trangThaiLamViec = N'Đang làm việc'");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				NhanVien nv=new NhanVien();
+				TaiKhoan tk=new TaiKhoan();
 				nv.setMaNhanVien(rs.getString(1));
 				nv.setTenNhanVien(rs.getString(2));
 				nv.setChucVu(rs.getString(3));
@@ -64,9 +77,6 @@ public class DAONhanVien {
 				nv.setCccd(rs.getString(8));
 				nv.setLuong(rs.getDouble(9));
 				nv.setCaLamViec(rs.getInt(10));
-				nv.setTrangThaiLamViec(rs.getString(11));
-				//nv.setTaiKhoan((TaiKhoan) rs.getObject(12));
-			
 				lstNV.add(nv);
 			}
 		} catch (SQLException e) {
@@ -75,7 +85,12 @@ public class DAONhanVien {
 		return lstNV;
 	}
 	
-	//themNV
-	
+	//Tim NV
+	public NhanVien timNV(String maNV) {
+		NhanVien nv=new NhanVien(maNV);
+		if(dsNV.contains(nv))
+			return dsNV.get(dsNV.indexOf(nv));
+		return null;
+	}
 	
 }

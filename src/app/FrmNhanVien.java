@@ -1,41 +1,38 @@
 package app;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.ColorChooserUI;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.DimensionUIResource;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardDownRightHandler;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.SqlDateModel;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
 
 import com.mindfusion.drawing.Colors;
+import com.toedter.calendar.JDateChooser;
+
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.Date;
 
 import connection.ConnectDB;
 import dao.*;
 import entity.*;
 
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EmptyBorder;
-
-public class FrmNhanVien extends JPanel implements ActionListener {
+public class FrmNhanVien extends JFrame implements ActionListener, MouseListener {
 
 	/**
 	 * 
@@ -47,11 +44,16 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 	private Date dNgayHienTai;
 	private JTextField txtTim, txtHoTen, txtSDT, txtCccd;
 	private JTextArea txtDiaChi;
-	private JComboBox<Object> cbbChucVu;
+	private JComboBox<Object> cbbChucVu, cbbGioiTinh, cbbCaLamViec, cbbSapXep;
 	private JTable tableNV;
 	private DefaultTableModel modelNV;
+	private SimpleDateFormat dfNgaySinh=new SimpleDateFormat("dd/MM/yyyy");
+	private DecimalFormat dfLuong=new DecimalFormat("###,###");
+	private JDateChooser dateChooserNgaySinh;
+	
 	private DAONhanVien daoNhanVien; 
 	private DAOPhatSinhMa daoPhatSinhMa;
+	private DAOTaiKhoan daoTaiKhoan;
 	
 	public Panel getPanel() {
 		return pMain;
@@ -73,13 +75,14 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 	//DAO
 		daoNhanVien=new DAONhanVien();
 		daoPhatSinhMa=new DAOPhatSinhMa();
+		daoTaiKhoan=new DAOTaiKhoan();
 		
 	//frameNV
-		setLayout(null);
+		getContentPane().setLayout(null);
 		pMain = new Panel();
 		pMain.setBackground(Color.WHITE);
 		pMain.setBounds(0, 0, 1281, 606);
-		add(pMain);
+		getContentPane().add(pMain);
 		pMain.setLayout(null);
 		
 	//lblQLNV
@@ -91,31 +94,43 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 	//lblTim
 		JLabel lblTim = new JLabel("Tìm kiếm:");
 		lblTim.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lblTim.setBounds(374, 13, 90, 35);
+		lblTim.setBounds(310, 13, 90, 35);
 		pMain.add(lblTim);
 		
 	//txtTim
 		txtTim = new JTextField();
-		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		txtTim.setColumns(10);
+		txtTim.setText("Tìm nhân viên theo mã nhân viên, tên nhân viên, sđt, chức vụ, ca làm việc.");
+		txtTim.setFont(new Font("SansSerif", Font.ITALIC, 15));
+		txtTim.setForeground(Colors.LightGray);
 		txtTim.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		txtTim.setBounds(474, 12, 281, 33);
+		txtTim.setBounds(400, 12, 526, 33);
+		txtTim.addFocusListener(new FocusAdapter() {	//place holder
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtTim.getText().equals("Tìm nhân viên theo mã nhân viên, tên nhân viên, sđt, chức vụ, ca làm việc.")) {
+					txtTim.setText("");
+					txtTim.setFont(new Font("SansSerif", Font.PLAIN, 15));
+					txtTim.setForeground(Color.BLACK);
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(txtTim.getText().equals("")) {
+					txtTim.setFont(new Font("SansSerif", Font.ITALIC, 15));
+					txtTim.setText("Tìm nhân viên theo mã nhân viên, tên nhân viên, sđt, chức vụ, ca làm việc.");
+					txtTim.setForeground(Colors.LightGray);
+				}
+			}
+		});
 		pMain.add(txtTim);
 		
 	//btnTim
 		btnTim = new FixButton("Tìm");
-		btnTim.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		btnTim.setForeground(Color.WHITE);
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnTim.setBackground(new Color(114, 23, 153));
-		btnTim.setBounds(786, 11, 98, 33);
+		btnTim.setBounds(942, 11, 98, 33);
 		Image imgTim = Toolkit.getDefaultToolkit().getImage("data\\img\\iconKinhLup.png");
 		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
@@ -182,7 +197,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		cbbChucVu.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbChucVu.setBackground(Color.WHITE);
 		cbbChucVu.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbChucVu.setBounds(657, 60, 124, 25);
+		cbbChucVu.setBounds(637, 60, 124, 25);
 		pMain.add(cbbChucVu);
 		
 		//cccc
@@ -194,7 +209,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		txtCccd.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		txtCccd.setColumns(10);
 		txtCccd.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		txtCccd.setBounds(657, 98, 124, 28);
+		txtCccd.setBounds(637, 98, 124, 28);
 		pMain.add(txtCccd);
 		
 		//gioitinh
@@ -202,98 +217,82 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblGioiTinh.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblGioiTinh.setBounds(537, 140, 88, 14);
 		pMain.add(lblGioiTinh);
-		JComboBox<Object> cbbGioiTinh = new JComboBox<Object>(new Object[] {"Nam", "Nữ"});
+		cbbGioiTinh = new JComboBox<Object>(new Object[] {"Nam", "Nữ"});
 		cbbGioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbGioiTinh.setBackground(Color.WHITE);
 		cbbGioiTinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbGioiTinh.setBounds(657, 137, 124, 25);
+		cbbGioiTinh.setBounds(637, 137, 124, 25);
 		pMain.add(cbbGioiTinh);
 		
 		//ngaysinh
 		JLabel lblNgaySinh = new JLabel("Ngày sinh:");
 		lblNgaySinh.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNgaySinh.setBounds(859, 65, 90, 18);
+		lblNgaySinh.setBounds(837, 63, 90, 18);
 		pMain.add(lblNgaySinh);
 		
-		SqlDateModel modelNgaySinh=new SqlDateModel();
-		modelNgaySinh.setSelected(true);
-		//modelNgaySinh.setDate(2000, 0, 1); //month= 0+1 = 1
-		Properties p=new Properties();
-		p.put("text.day", "Day");
-		p.put("text.month", "Month");
-		p.put("text.year", "Year");
-		JDatePanelImpl panel=new JDatePanelImpl(modelNgaySinh, p);
-		JDatePickerImpl datePicker=new JDatePickerImpl(panel, new AbstractFormatter() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Object stringToValue(String text) throws ParseException {
-//				text=new String("Chọn ngày");
-//				return text;
-				return "";
-			}
-
-			@Override
-			public String valueToString(Object value) throws ParseException {
-				if(value != null) {
-					Calendar cal = (Calendar) value;
-					SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy");
-					String strDate = format.format(cal.getTime());
-					return strDate;
-				}
-				return "";
-			}
-			
-		});
-		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
-		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
-		datePicker.getJFormattedTextField().setText(" ... - ... - .....");
-		
-		datePicker.setBounds(964, 60, 120, 22);
-		datePicker.setTextEditable(true);
-		
-		pMain.add(datePicker);
-		
-
-//		ftfNgaySinh.setBounds(964, 62, 100, 25);
-//		ftfNgaySinh.setEditable(false);
-//		pMain.add(ftfNgaySinh);
-//		
-		JButton btnLich=new JButton();
-		btnLich.setBackground(Color.WHITE);
-		btnLich.setBorder(new LineBorder(new Color(255, 255, 255), 5, true));
-		btnLich.setIcon(new ImageIcon("data/img/lich1.png"));
-		btnLich.setBounds(1072, 62, 26, 25);
-//		btnLich.setPreferredSize(new Dimension(26, 25));
-//		pMain.add(btnLich);
-		
-		//datePicker.add(btnLich);
-		
-//		btnLich.addActionListener(new ActionListener() {
+//		JDatePicker
+//		SqlDateModel modelNgaySinh=new SqlDateModel();
+//		modelNgaySinh.setSelected(true);
+//		//modelNgaySinh.setDate(2000, 0, 1); //month= 0+1 = 1
+//		Properties p=new Properties();
+//		p.put("text.day", "Day");
+//		p.put("text.month", "Month");
+//		p.put("text.year", "Year");
+//		JDatePanelImpl panel=new JDatePanelImpl(modelNgaySinh, p);
+//		JDatePickerImpl datePicker=new JDatePickerImpl(panel, new AbstractFormatter() {
+//
+//			/**
+//			 * 
+//			 */
+//			private static final long serialVersionUID = 1L;
 //
 //			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				
+//			public Object stringToValue(String text) throws ParseException {
+//				return "";
+//			}
+//
+//			@Override
+//			public String valueToString(Object value) throws ParseException {
+//				if(value != null) {
+//					Calendar cal = (Calendar) value;
+//					SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy");
+//					String strDate = format.format(cal.getTime());
+//					return strDate;
+//				}
+//				return "";
 //			}
 //			
-//		});	
+//		});
+//		datePicker.getJFormattedTextField().setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+//		datePicker.getJFormattedTextField().setBackground(Color.WHITE);
+//		datePicker.getJFormattedTextField().setFont(new Font("SansSerif", Font.PLAIN, 15));
+//		datePicker.getJFormattedTextField().setText(" ... - ... - .....");
+//		
+//		datePicker.setBounds(964, 60, 120, 22);
+//		datePicker.setTextEditable(true);
+//		
+//		pMain.add(datePicker);
+		
+		//JDateChooser
+		dateChooserNgaySinh = new JDateChooser();
+		dateChooserNgaySinh.setDateFormatString("dd/MM/yyyy");
+		dateChooserNgaySinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		dateChooserNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		dateChooserNgaySinh.getCalendarButton().setPreferredSize(new Dimension(30, 24));
+		dateChooserNgaySinh.getCalendarButton().setBackground(new Color(102, 0, 153));
+		dateChooserNgaySinh.setBounds(942, 58, 122, 25);
+		pMain.add(dateChooserNgaySinh);
 		
 		//calamviec
 		JLabel lblCaLamViec = new JLabel("Ca làm việc:");
 		lblCaLamViec.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCaLamViec.setBounds(859, 103, 90, 20);
+		lblCaLamViec.setBounds(837, 101, 90, 20);
 		pMain.add(lblCaLamViec);
-		JComboBox<Object> cbbCaLamViec = new JComboBox<Object>(new Object[] {"1", "2", "3"});
+		cbbCaLamViec = new JComboBox<Object>(new Object[] {"1", "2", "3"});
 		cbbCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbCaLamViec.setBackground(Color.WHITE);
 		cbbCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		cbbCaLamViec.setBounds(964, 100, 120, 25);
+		cbbCaLamViec.setBounds(942, 98, 122, 25);
 		pMain.add(cbbCaLamViec);
 		
 		//btnthem,sua,xoa,lammoiNV
@@ -349,7 +348,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		pMain.add(pSapXep);
 		pSapXep.setLayout(null);
 		
-		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[] {"Tăng dần", "Giảm dần"});
+		cbbSapXep = new JComboBox<Object>(new Object[] {"Tăng dần", "Giảm dần"});
 		cbbSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbSapXep.setBackground(Color.WHITE);
 		cbbSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
@@ -388,7 +387,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		scrollPaneNV.setBounds(21, 290, 1223, 305);
 		pMain.add(scrollPaneNV);
 		
-		String col[] = {"Mã NV", "Họ và tên nhân viên", "Chức vụ", "Giới tính", "Ngày sinh", "Địa chỉ", "SĐT", "CCCD", "Lương", "Ca làm việc", "Trạng thái làm việc"};
+		String col[] = {"Mã NV", "Họ và tên nhân viên", "Chức vụ", "Giới tính", "Ngày sinh", "Địa chỉ", "SĐT", "CCCD", "Lương", "Ca làm việc", "Mật khẩu"};
 		modelNV = new DefaultTableModel(col, 0);
 		
 		tableNV = new JTable(modelNV);
@@ -417,21 +416,18 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		tableNV.getColumnModel().getColumn(9).setPreferredWidth(10); //calamviec
 		//tableNV.getColumnModel().getColumn(10).setPreferredWidth(40);//trangthailamviec
 		
+		DefaultTableCellRenderer rightRenderer=new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+		tableNV.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+		tableNV.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
+		tableNV.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
+		
 		//tableNV.setOpaque(false);
 		scrollPaneNV.setViewportView(tableNV);
 		
 		//demo data nv
 //		modelNV.addRow(new Object[] {"0","1","","","","","","","","","Đang làm việc"});
 //		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-//		modelNV.addRow(new Object[] {"123","123"});
-		
 		
 		//background 
 		JLabel lblBackGround=new JLabel("");
@@ -445,19 +441,45 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		
 		loadDanhSachNV(); //load data NV
 		
+		//các định dạng
+		//dfLuong=new DecimalFormat("###.###");        		//định dạng tiền
+		//dfNgaySinh=new SimpleDateFormat("dd/MM/yyyy");	//định dạng ngày, tháng, năm
+		
+		//su kien
+		btnTim.addActionListener(this);
 	}
-
+	
+//	private void clearTable() {
+//		while(tableNV.getRowCount() > 0){
+//			modelNV.removeRow(0);
+//		}
+//	}
+	
+	//xoa het data trong table
+	private void removeDanhSachNV(DefaultTableModel defaultTableModel) {
+		DefaultTableModel dtm = (DefaultTableModel) tableNV.getModel();
+		dtm.getDataVector().removeAllElements();
+	}
+	
+	
 	//load dsNV
 	private void loadDanhSachNV()  {
-		SimpleDateFormat dfDate=new SimpleDateFormat("dd/MM/yyyy");
+		//clearTable();
+		removeDanhSachNV(modelNV);
 		ArrayList<NhanVien> lstNV = daoNhanVien.getDanhSachNV();
 		for(NhanVien nv : lstNV) {
+			TaiKhoan tk = daoTaiKhoan.getMatKhauTheoMaNV(nv.getMaNhanVien());
 			modelNV.addRow(new Object[] {
 					nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getChucVu(), nv.getGioiTinh(), 
-					dfDate.format(nv.getNgaySinh()), nv.getDiaChi(), nv.getSdt(), nv.getCccd(), 
-					nv.getLuong(), nv.getCaLamViec(), nv.getTrangThaiLamViec()
+					dfNgaySinh.format(nv.getNgaySinh()), nv.getDiaChi(), nv.getSdt(), nv.getCccd(), 
+					dfLuong.format(Math.round(nv.getLuong())), nv.getCaLamViec(), tk.getMatKhau()
 			});
 		}
+	}
+	
+	//load dsMK trong TK
+	private void loadMK(TaiKhoan tk) {
+		TaiKhoan tk1 = daoTaiKhoan.getMatKhauTheoMaNV(tk.getMatKhau());
 	}
 	
 	//xoa trang textfield va textarea
@@ -471,6 +493,49 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object  o = e.getSource();
+		String ma = daoPhatSinhMa.getMaNV();
+		String ten = txtHoTen.getText();
+		String sdt = txtSDT.getText();
+		String diaChi = txtDiaChi.getText();
+		String chucVu = cbbChucVu.getSelectedItem().toString();
+		String cccd = txtCccd.getText();
+		String gioiTinh = cbbGioiTinh.getSelectedItem().toString();
+		String ngaySinh = dateChooserNgaySinh.getDateFormatString();
+		int caLamViec = Integer.parseInt((String) cbbCaLamViec.getSelectedItem());
+		//NhanVien nv=new NhanVien(null, ten, chucVu, gioiTinh, ngaySinh, diaChi, sdt, cccd, 200000, cbbCaLamViec, "Đang làm việc", null);
+		NhanVien nv=new NhanVien();
+		
+		//btnTimNV
+		if(o.equals(btnTim)) {
+			String tim = txtTim.getText();
+			if(tim != null && tim.trim().length()>0) {
+				try {
+					nv = daoNhanVien.timNV(tim);
+					if(tim != null) {
+						daoNhanVien.timNV(tim);
+						modelNV.setRowCount(0); //hien thi 1 dong dau tien
+						modelNV.addRow(new Object[] {
+								nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getChucVu(), nv.getGioiTinh(), 
+								dfNgaySinh.format(nv.getNgaySinh()), nv.getDiaChi(), nv.getSdt(), nv.getCccd(), 
+								dfLuong.format(Math.round(nv.getLuong())), nv.getCaLamViec(), nv.getTrangThaiLamViec()
+						});
+					}else {
+						JOptionPane.showMessageDialog(null, "Không tìm thấy nhân viên!");
+						txtTim.selectAll();
+						txtTim.requestFocus();
+						return;
+					}
+				}catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Dữ liệu không hợp lệ!");
+					txtTim.selectAll();
+					txtTim.requestFocus();
+				}
+			}else {
+//				removeDanhSachNV(modelNV);
+//				loadDanhSachNV();
+				JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cần tìm!");
+			}
+		}
 		
 		//btnThemNV
 		if(o.equals(btnThemNV)) {
@@ -494,4 +559,37 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		}
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Object  o = e.getSource();
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	
 }
