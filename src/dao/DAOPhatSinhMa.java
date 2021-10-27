@@ -8,6 +8,7 @@ import java.sql.Statement;
 import connection.ConnectDB;
 
 public class DAOPhatSinhMa {
+	//maHD
 	public String getMaHD() {
 		String maHD="";
 		try {
@@ -26,6 +27,7 @@ public class DAOPhatSinhMa {
 		}
 		return maHD;
 	}
+<<<<<<< HEAD
 	public String getMaKH() {
 		String maKH="";
 		try {
@@ -43,5 +45,21 @@ public class DAOPhatSinhMa {
 			e.printStackTrace();
 		}
 		return maKH;
+=======
+	
+	//maNV
+	public String getMaNV() {
+		String maNV="";
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select CONCAT('NV', RIGHT(CONCAT('000',ISNULL(right(max(maNV),3),0) + 1),3)) from [dbo].[NhanVien] where maNhanVien = 'NV%'";
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return maNV;
+>>>>>>> 49e2fcde783a86612fe3b2f0c95a80c6ee0d83c1
 	}
 }

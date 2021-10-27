@@ -20,6 +20,7 @@ public class NhanVien implements Serializable {
 	private double luong;
 	private int caLamViec;
 	private String trangThaiLamViec;
+	private TaiKhoan taiKhoan;
 	
 	public String getTrangThaiLamViec() {
 		return trangThaiLamViec;
@@ -28,8 +29,6 @@ public class NhanVien implements Serializable {
 	public void setTrangThaiLamViec(String trangThaiLamViec) {
 		this.trangThaiLamViec = trangThaiLamViec;
 	}
-
-	private TaiKhoan taiKhoan;
 
 	public String getMaNhanVien() {
 		return maNhanVien;

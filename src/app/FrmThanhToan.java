@@ -19,7 +19,6 @@ import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -59,7 +58,7 @@ import entity.MatHang;
 import entity.NhanVien;
 import entity.Phong;
 
-public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,ItemListener {
+public class FrmThanhToan extends JPanel implements ActionListener, MouseListener,ItemListener {
 
 	/**
 	 * 
@@ -117,7 +116,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		return this.pMain;
 	}
 	
-	public Frm_QLBH(JFrame frm,String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai)  {
+	public FrmThanhToan(JFrame frm,String sHeaderTenNV, String sHeaderMaNV, Date dNgayHienTai)  {
 		
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;
@@ -153,7 +152,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		add(pMain);
 		pMain.setLayout(null);
 		
-		JLabel lbbTitle = new JLabel("Quản lý bán hàng");
+		JLabel lbbTitle = new JLabel("Quản lý thanh toán");
 		lbbTitle.setFont(new Font("SansSerif", Font.BOLD, 22));
 		lbbTitle.setBounds(24, 10, 268, 33);
 		pMain.add(lbbTitle);
@@ -203,10 +202,10 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		pMain.add(btnDSHD);
 	
 		
-		JLabel lblHeaderPhong = new JLabel("Phòng");
-		lblHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 20));
+		JLabel lblHeaderPhong = new JLabel("Phòng đang hát");
+		lblHeaderPhong.setFont(new Font("SansSerif", Font.BOLD, 18));
 	
-		lblHeaderPhong.setBounds(575, 51, 71, 26);
+		lblHeaderPhong.setBounds(551, 47, 162, 26);
 		pMain.add(lblHeaderPhong);
 		
 		pPhong = new JPanel();
@@ -220,7 +219,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		pPhong.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		
-		scrollPane.setBounds(24, 78, 1223, 96);
+		scrollPane.setBounds(24, 72, 1223, 102);
 		pMain.add(scrollPane);
 		
 		JLabel lblSubPhong = new JLabel("Phòng : ");
@@ -451,7 +450,6 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		lblNhanVienLap.setBounds(145, 21, 68, 26);
 		pThanhToan.add(lblNhanVienLap);
 		
-		ButtonGroup bg = new ButtonGroup();
 		
 		
 		btnThanhToan = new FixButton("Thanh toán");
@@ -632,6 +630,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void loadInfo(Phong p) {
 		lblMaPhong.setText(p.getMaPhong());
 		DonDatPhong ddp = daoDDP.getDDPTheoMaPhong(p.getMaPhong());
@@ -899,7 +898,7 @@ public class Frm_QLBH extends JPanel implements ActionListener, MouseListener,It
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if(o.equals(btnDSHD)) {
-			Frm_DanhSachHoaDon frm_DanhSachHoaDon = new Frm_DanhSachHoaDon(frm);
+			FrmDanhSachHoaDon frm_DanhSachHoaDon = new FrmDanhSachHoaDon(frm);
 			frm_DanhSachHoaDon.setVisible(true);
 			frm.setVisible(false);
 		}
