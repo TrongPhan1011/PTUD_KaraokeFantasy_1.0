@@ -46,16 +46,12 @@ import dao.DAOPhatSinhMa;
 import entity.KhachHang;
 import entity.LoaiKH;
 
-<<<<<<< HEAD:src/app/Frm_KhachHang.java
-public class Frm_KhachHang extends JPanel implements ActionListener, MouseListener,ItemListener {
-=======
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
-
-public class FrmKhachHang extends JPanel {
->>>>>>> 49e2fcde783a86612fe3b2f0c95a80c6ee0d83c1:src/app/FrmKhachHang.java
+ 
+public class FrmKhachHang extends JPanel implements ActionListener, MouseListener,ItemListener {
 	
 	
 	/**
@@ -94,11 +90,7 @@ public class FrmKhachHang extends JPanel {
 	public Panel getFrmKH()  {
 		return this.pMain;
 	}
-<<<<<<< HEAD:src/app/Frm_KhachHang.java
-	public Frm_KhachHang(String sHeaderTenNV, String sHeaderMaNV,Date dNgayHienTai)  {
-=======
 	public FrmKhachHang(String sHeaderTenNV, String sHeaderMaNV,Date dNgayHienTai) {
->>>>>>> 49e2fcde783a86612fe3b2f0c95a80c6ee0d83c1:src/app/FrmKhachHang.java
 
 		this.sHeaderMaNV = sHeaderMaNV;
 		this.sHeaderTenNV = sHeaderTenNV;

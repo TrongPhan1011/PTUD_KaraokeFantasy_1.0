@@ -66,8 +66,8 @@ public class NhanVien implements Serializable {
 		return ngaySinh;
 	}
 
-	public void setNgaySinh(Date ngaySinh) {
-		this.ngaySinh = ngaySinh;
+	public void setNgaySinh(Date date) {
+		this.ngaySinh = date;
 	}
 
 	public String getDiaChi() {

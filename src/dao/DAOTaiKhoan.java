@@ -21,6 +21,7 @@ public class DAOTaiKhoan implements Serializable {
 		dsTK=new ArrayList<TaiKhoan>();
 	}
 
+	//Load ds TK
 	public ArrayList<TaiKhoan> getDanhSachTK(){
 		ArrayList<TaiKhoan> lstTK=new ArrayList<TaiKhoan>();
 		ConnectDB.getinstance();
@@ -40,11 +41,12 @@ public class DAOTaiKhoan implements Serializable {
 		return lstTK;
 	}
 	
-	public TaiKhoan getMatKhauTheoMaNV(String maNV) {
+	//Load ds matkhau
+	public TaiKhoan getMatKhauTheoMaNV(String ma) {
 		TaiKhoan tk=new TaiKhoan();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from TaiKhoan where maTK = '"+maNV+"'"; 
+		String sql = "select * from TaiKhoan where maTK = '"+ma+"'"; 
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -57,4 +59,28 @@ public class DAOTaiKhoan implements Serializable {
 		}
 		return tk;
 	}
+	
+	//Load 1 mk
+//	public TaiKhoan getMKtheoMa(String ma) {
+//		
+//	}
+	
+	//taoTK khi themNV
+	public boolean createTK(TaiKhoan tk) throws SQLException {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "insert into TaiKhoan values (?,?)";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, tk.getMaTK());
+			ps.setString(2, tk.getMatKhau());
+			
+			return ps.executeUpdate() > 0;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		con.close();
+		return false;
+	}
+	
 }
