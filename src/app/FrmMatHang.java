@@ -22,12 +22,14 @@ import javax.swing.table.JTableHeader;
 import connection.ConnectDB;
 import dao.DAOLoaiMH;
 import dao.DAOMatHang;
+import dao.DAOPhatSinhMa;
 import entity.LoaiMatHang;
 import entity.MatHang;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -55,7 +57,8 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 	private FixButton btnReset;
 	private DAOMatHang daoMH;
 	private DAOLoaiMH daoLMH;
-	
+	private JComboBox<String> cbbLoaiMH;
+	private DAOPhatSinhMa daoPhatSinhMa;
 	
 	public Panel getFrmMatHang() {
 		return this.pMain;
@@ -71,6 +74,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		
 		daoMH = new DAOMatHang();
 		daoLMH = new DAOLoaiMH();
+		daoPhatSinhMa = new DAOPhatSinhMa();
 		try {
 			ConnectDB.getinstance().connect();
 		} catch (Exception e) {
@@ -188,7 +192,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		lblSubLMH.setBounds(654, 99, 102, 26);
 		pMain.add(lblSubLMH);
 		
-		JComboBox<String> cbbLoaiMH = new JComboBox<String>();
+		cbbLoaiMH = new JComboBox<String>();
 		cbbLoaiMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbLoaiMH.setBackground(Color.WHITE);
 		cbbLoaiMH.setBounds(766, 97, 310, 30);
@@ -321,11 +325,12 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		pMain.add(spMatHang);
 		//
 		//////////////////////////////////////
-		btnThemKH.addActionListener(null);
-		btnXoaKH.addActionListener(null);
-		btnTim.addActionListener(null);
-		btnSuaKH.addActionListener(null);
-		btnReset.addActionListener(null);
+		btnThemKH.addActionListener(this);
+		btnXoaKH.addActionListener(this);
+		btnTim.addActionListener(this);
+		btnSuaKH.addActionListener(this);
+		btnReset.addActionListener(this);
+		tableMH.addMouseListener(this);
 		////
 		JLabel lblBackGround=new JLabel("");
 		lblBackGround.setIcon(new ImageIcon("data\\img\\background.png"));
@@ -345,8 +350,66 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		}
 	}
 	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object o = e.getSource();
+		if(o.equals(btnReset)) {
+			txtTenMH.setText("");
+			txtDonGia.setText("");
+			txtSoLuong.setText("");
+			txtTenMH.requestFocus();
+		}else if(o.equals(btnThemKH)) {
+			String maMH = daoPhatSinhMa.getMaMH();
+			String tenMH = txtTenMH.getText();
+			String loaiMH = cbbLoaiMH.getSelectedItem().toString();
+			int soluong = Integer.parseInt(txtSoLuong.getText());
+			double dongia = Double.parseDouble(txtDonGia.getText());
+			MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(loaiMH));
+			if (daoMH.ThemMH(mh)) {
+				modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getLoaiMatHang(), mh.getTenMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang()});
+			}
+		}else if(o.equals(btnXoaKH)) {
+			if (tableMH.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Vui lòng chọn mặt hàng cần xóa");
+			}else {
+				int r = tableMH.getSelectedRow();
+				if(r > 0) {
+					int del = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa? ", "Thông báo", JOptionPane.YES_NO_OPTION);
+					String maMH = modelMatHang.getValueAt(r, 0).toString();
+					if(del == JOptionPane.YES_OPTION) {
+						if(daoMH.XoaMH(maMH))
+							modelMatHang.removeRow(r);
+					}
+				}
+			}
+		}else if (o.equals(btnSuaKH)) {
+			String maMH = daoPhatSinhMa.getMaMH();
+			String tenMH = txtTenMH.getText();
+			String loaiMH = cbbLoaiMH.getSelectedItem().toString();
+			int soluong = Integer.parseInt(txtSoLuong.getText());
+			double dongia = Double.parseDouble(txtDonGia.getText());
+			MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(loaiMH));
+			if(daoMH.updateMH(mh)) {
+				clearTable();
+				loadTableMH();
+			}else 
+				JOptionPane.showMessageDialog(this, "Mã mặt hàng không tồn tại.");
+		}
+		
+	}
+	private void clearTable() {
+		while(tableMH.getRowCount() > 0) {
+			modelMatHang.removeRow(0);
+		}
+	}
+	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int row = tableMH.getSelectedRow();
+		if(row != -1) {
+			txtTenMH.setText(tableMH.getValueAt(row, 0).toString());
+			cbbLoaiMH.setSelectedItem(tableMH.getValueAt(row, 1));
+			txtDonGia.setText(tableMH.getValueAt(row, 2).toString());
+			txtSoLuong.setText(tableMH.getValueAt(row, 3).toString());
+		}
 		
 	}
 	@Override
@@ -369,9 +432,5 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

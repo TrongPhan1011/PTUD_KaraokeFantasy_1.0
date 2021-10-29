@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -120,8 +121,69 @@ public class DAOMatHang {
 		return mh;
 		
 	}
-	
-	
-	
+	public boolean ThemMH(MatHang mh) {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "insert into " +"MatHang values(?,?,?,?,?)";
+		PreparedStatement stm = null;
+		int n = 0;
+		try {
+			stm = con.prepareStatement(sql);
+			stm.setString(1, mh.getMaMatHang());
+			stm.setString(2, mh.getLoaiMatHang().getTenLoaiMatHang());
+			stm.setString(3, mh.getTenMatHang());
+			stm.setInt(4, mh.getSoLuongMatHang());
+			stm.setDouble(5, mh.getGiaMatHang());
+			n= stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				stm.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return n>0;
+	}
+	public boolean XoaMH(String maMH) {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "delete from MatHang where maMH = ?";
+		PreparedStatement stm = null;
+		int n = 0;
+		try {
+			stm = con.prepareStatement(sql);
+			stm.setString(1, maMH);
+			n = stm.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return n>0;
+	}
+	public boolean updateMH(MatHang mh) {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "update MatHang set tenMH =?, maLoaiMH = ? , soLuongMH = ?, giaMH = ? where maMH = ?";
+		PreparedStatement stm = null;
+		int n = 0;
+		try {
+			stm = con.prepareStatement(sql);
+			stm.setString(1, mh.getTenMatHang());
+			stm.setString(2, mh.getLoaiMatHang().getTenLoaiMatHang());
+			stm.setInt(3, mh.getSoLuongMatHang());
+			stm.setDouble(4, mh.getGiaMatHang());
+			n= stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				stm.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return n>0;
+	}
 	
 }
