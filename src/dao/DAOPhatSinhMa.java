@@ -27,21 +27,42 @@ public class DAOPhatSinhMa {
 		}
 		return maHD;
 	}
-	
+	public String getMaKH() {
+		String maKH="";
+		try {
+			ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select CONCAT('KH', RIGHT(CONCAT('000',ISNULL(right(max(maKhachHang),3),0) + 1),3)) from [dbo].[KhachHang] where maKhachHang like 'KH%'";
+		Statement stm = con.createStatement();
+		ResultSet rs = stm.executeQuery(sql);
+		while(rs.next())
+		{
+			maKH = rs.getString(1);
+		}
+		} catch (SQLException e) {
+			// TODO: handle 
+			e.printStackTrace();
+		}
+		return maKH;
+	}
 	//maNV
 	public String getMaNV() {
 		String maNV="";
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select CONCAT('NV', RIGHT(CONCAT('000',ISNULL(right(max(maNV),3),0) + 1),3)) from [dbo].[NhanVien] where maNhanVien = 'NV%'";
+		String sql = "select CONCAT('NV', RIGHT(CONCAT('000',ISNULL(right(max(maNhanVien),3),0) + 1),3)) from [dbo].[NhanVien] where maNhanVien like 'NV%'";
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				maNV = rs.getString(1);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return maNV;
 	}
+<<<<<<< HEAD
 	//maMH
 	public String getMaMH() {
 		String maMH="";
@@ -56,4 +77,12 @@ public class DAOPhatSinhMa {
 		}
 		return maMH;
 	}
+=======
+	
+	//matkhau
+//	public String getMatKhau() {
+//		String mk="";
+//		ConnectDB.getinstance()
+//	}
+>>>>>>> a777871aa6c31692ca35d6790ab878fead609d4d
 }

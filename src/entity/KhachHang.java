@@ -18,6 +18,9 @@ public class KhachHang implements Serializable {
 	private String gioiTinh;
 	private int diemTichLuy;
 	private Date ngayDangKy;
+	private LoaiKH loaiKH;
+	
+	
 	
 	
 	public String getDiaChi() {
@@ -27,7 +30,6 @@ public class KhachHang implements Serializable {
 		this.diaChi = diaChi;
 	}
 
-	private LoaiKH loaiKH;
 	//Get Set
 	public String getMaKhangHang() {
 		return maKhangHang;
@@ -109,6 +111,10 @@ public class KhachHang implements Serializable {
 	}
 	
 	
+	public KhachHang(String maKH, String tenKH2, String diaChi2, String sdt2, String cccd2, Date ngaySinh2,
+			String gioiTinh2, int diemTichLuy2, Date ngayDangKy2, KhachHang tenLoaiKH) {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
 		return "KhachHang [maKhangHang=" + maKhangHang + ", tenKH=" + tenKH + ", diaChi=" + diaChi + ", sdt=" + sdt
