@@ -652,7 +652,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 			int caLamViec = Integer.parseInt((String) cbbCaLamViec.getSelectedItem());
 			
 			TaiKhoan tk=new TaiKhoan(phatSinhMaNV);
-			String matKhau = ""+phatSinhMaNV +sdt;
+			String matKhau = phatSinhMaNV.concat(sdt); //String matKhau = ""+phatSinhMaNV +sdt;
 			
 			if(age>=18) {
 			if(regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexDiaChi(txtDiaChi) && regex.regexCCCD(txtCccd)) {
@@ -821,23 +821,14 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 					cbbCaLamViec.setSelectedItem(nv.getCaLamViec()+"");
 					break;
 				}
-				if(trangThai.equals(nv.getTrangThaiLamViec().trim() == "Đã nghỉ việc")) {
-					lblNVDaNghiViec.setText("ĐÃ NGHỈ VIỆC."+"");
-					lblNVDaNghiViec.setVisible(true);
-					break;
+				if(trangThai.equals("Đã nghỉ việc")) {
+					lblNVDaNghiViec.setText("ĐÃ NGHỈ VIỆC.");
+				}
+				if(trangThai.equals("Đang làm việc")) {
+					lblNVDaNghiViec.setText("");
 				}
 			}
 		}
-//		NhanVien nv = daoNhanVien.getNVDaNghiViecTheoMa(txtTim.getText());
-//			if(nv != null) {
-//				lblNVDaNghiViec.setText("ĐÃ NGHỈ VIỆC."); //ko hien dc
-////				JOptionPane.showMessageDialog(this, "Nhân viên này đã nghỉ việc.");
-//			}
-		
-//		if(trangThai == "Đã nghỉ việc") {
-//			lblNVDaNghiViec.setText("ĐÃ NGHỈ VIỆC.");
-//		}
-		
 	}
 	
 	@Override
