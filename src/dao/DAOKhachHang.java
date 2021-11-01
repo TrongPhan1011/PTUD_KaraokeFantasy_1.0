@@ -119,7 +119,7 @@ public boolean themDanhSachKH(KhachHang kh) {
 	Connection con = ConnectDB.getConnection();
 	PreparedStatement stmt = null;
 	int n=0;
-	try { //oh no 
+	try { 
 		stmt = con.prepareStatement("insert into KhachHang values (?,?,?,?,?,?,?,?,?,?)");
 		stmt.setString(1, kh.getMaKhangHang());
 		stmt.setString(2, kh.getLoaiKH().getMaLoaiKH());
@@ -142,6 +142,41 @@ public boolean themDanhSachKH(KhachHang kh) {
 		} catch (SQLException e2) {
 			// TODO: handle exception
 			e2.printStackTrace();
+		}
+		
+	}
+	return n>0;
+}
+
+public boolean suaThongTinKhachHang(KhachHang kh) {
+	
+	ConnectDB.getinstance();
+	Connection con = ConnectDB.getConnection();
+	PreparedStatement stmt = null;
+	int n=0;
+	try { 
+		stmt = con.prepareStatement("update KhachHang set maLoaiKH=?, tenKH=?, sdt=?, cccd=?, diaChi=?, ngaySinh=?, gioiTinh=?, diemTichLuy=?, ngayDangKy=? where maKhachHang=? ");
+		stmt.setString(1, kh.getLoaiKH().getMaLoaiKH());
+		stmt.setString(2, kh.getTenKH());
+		stmt.setString(3, kh.getSdt());
+		stmt.setString(4, kh.getCccd());
+		stmt.setString(5, kh.getDiaChi());
+		stmt.setDate(6, kh.getNgaySinh());
+		stmt.setString(7, kh.getGioiTinh());
+		stmt.setInt(8, kh.getDiemTichLuy());
+		stmt.setDate(9, kh.getNgayDangKy());
+		stmt.setString(10, kh.getMaKhangHang());
+		
+		n = stmt.executeUpdate();
+		} catch (SQLException e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	} finally {
+		try {
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 	}

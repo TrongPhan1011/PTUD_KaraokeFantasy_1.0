@@ -84,12 +84,6 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	private DefaultTableModel modelKhachHang;
 	private JComboBox<String> cbbloaiKH;
 	private JComboBox<String> cbbgioiTinh;
-	private JComboBox<String> cbbNgayDangKy;
-	private JComboBox<String> cbbThangDangKy;
-	private JComboBox<String> cbbNamDangKy;
-	private JComboBox<String> cbbNgaySinh;
-	private JComboBox<String> cbbThangSinh;
-	private JComboBox<String> cbbNamSinh;
 	private JDateChooser dateChooserNgaySinh;
 	private JDateChooser dateChooserNgayDangKy;
 	private SimpleDateFormat dfNgaySinh=new SimpleDateFormat("dd/MM/yyyy");
@@ -227,12 +221,8 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		cbbloaiKH.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cbbloaiKH.setBounds(610, 60, 170, 27);
 		cbbloaiKH.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		//loaiKH.setForeground(new Color(255, 255, 255));
 		cbbloaiKH.setBackground(new Color(255, 255, 255));
-		/*
-		 * String cbbLoaiKH [] = {"Thường", "Thành viên", "VIP"}; for(int i = 0;i <
-		 * cbbLoaiKH.length; i++) { loaiKH.addItem(cbbLoaiKH[i]); }
-		 */
+
 
 		pMain.add(cbbloaiKH);
 		
@@ -300,27 +290,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		dateChooserNgaySinh.setBounds(945, 61, 191, 28);
 		pMain.add(dateChooserNgaySinh);
 		
-		/*
-		 * cbbNgaySinh = new JComboBox<String>(); cbbNgaySinh.setFont(new
-		 * Font("SansSerif", Font.PLAIN, 15)); cbbNgaySinh.setBackground(Color.white);
-		 * cbbNgaySinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		 * cbbNgaySinh.setBounds(945, 61, 56, 26); for(int i = 1;i <=31; i++) {
-		 * cbbNgaySinh.addItem(""+i); } pMain.add(cbbNgaySinh);
-		 * 
-		 * cbbThangSinh = new JComboBox<String>(); cbbThangSinh.setFont(new
-		 * Font("SansSerif", Font.PLAIN, 15)); cbbThangSinh.setBackground(Color.white);
-		 * cbbThangSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		 * cbbThangSinh.setBounds(1009, 61, 56, 26); for(int i = 1; i <= 12;i++) {
-		 * cbbThangSinh.addItem(""+i); } pMain.add(cbbThangSinh);
-		 */
-		
-		/*
-		 * cbbNamSinh = new JComboBox<String>(); cbbNamSinh.setFont(new
-		 * Font("SansSerif", Font.PLAIN, 15)); cbbNamSinh.setBackground(Color.white);
-		 * cbbNamSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		 * cbbNamSinh.setBounds(1075, 61, 72, 27); for(int i = 2004; i > 1900; i--) {
-		 * cbbNamSinh.addItem(""+i); } pMain.add(cbbNamSinh);
-		 */
+
 
 		btnThemKH = new FixButton("Thêm");
 		btnThemKH.setForeground(Color.WHITE);
@@ -419,16 +389,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		tableKH.setSelectionBackground(new Color(164, 44, 167,30));
 		scrollPaneKH.setViewportView(tableKH);
 		
-//		demo dữ liệu:
-		/*
-		 * modelKhachHang.addRow(new Object[] {"123","123"}); modelKhachHang.addRow(new
-		 * Object[] {"123","123"}); modelKhachHang.addRow(new Object[] {"123","123"});
-		 * modelKhachHang.addRow(new Object[] {"123","123"}); modelKhachHang.addRow(new
-		 * Object[] {"123","123"}); modelKhachHang.addRow(new Object[] {"123","123"});
-		 * modelKhachHang.addRow(new Object[] {"123","123"}); modelKhachHang.addRow(new
-		 * Object[] {"123","123"}); modelKhachHang.addRow(new Object[] {"123","123"});
-		 * modelKhachHang.addRow(new Object[] {"123","123"});
-		 */
+
 		
 		textAreaDiaChi = new JTextArea();
 		textAreaDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -447,27 +408,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		dateChooserNgayDangKy.setBounds(945, 102, 191, 28);
 		pMain.add(dateChooserNgayDangKy);
 		
-		/*
-		 * cbbNgayDangKy = new JComboBox<String>(); cbbNgayDangKy.setFont(new
-		 * Font("SansSerif", Font.PLAIN, 15)); cbbNgayDangKy.setBackground(Color.WHITE);
-		 * cbbNgayDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		 * cbbNgayDangKy.setBounds(945, 102, 56, 27); for(int i = 1; i <= 31; i++ ) {
-		 * cbbNgayDangKy.addItem(""+i); } pMain.add(cbbNgayDangKy);
-		 * 
-		 * cbbThangDangKy = new JComboBox<String>(); cbbThangDangKy.setFont(new
-		 * Font("SansSerif", Font.PLAIN, 15));
-		 * cbbThangDangKy.setBackground(Color.WHITE); cbbThangDangKy.setBorder(new
-		 * LineBorder(new Color(114, 23 ,153), 1, true)); cbbThangDangKy.setBounds(1009,
-		 * 102, 56, 27); for(int i =1; i <=12; i++) { cbbThangDangKy.addItem(""+i); }
-		 * pMain.add(cbbThangDangKy);
-		 * 
-		 * cbbNamDangKy = new JComboBox<String>(); cbbNamDangKy.setFont(new
-		 * Font("SansSerif", Font.PLAIN, 15)); cbbNamDangKy.setBackground(Color.WHITE);
-		 * cbbNamDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true)); int
-		 * namHienTai = dNgayHienTai.getYear(); int namBatDau = namHienTai + 100;
-		 * for(int i = namHienTai; i <= namBatDau; i++) { cbbNamDangKy.addItem(""+i); }
-		 * cbbNamDangKy.setBounds(1075, 101, 72, 27); pMain.add(cbbNamDangKy);
-		 */
+		
 		
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBackground(new Color(238,239,243,90));
@@ -534,6 +475,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		loadDanhSachKH();
 		
 		btnThemKH.addActionListener(this);
+		btnSuaKH.addActionListener(this);
 		tableKH.addMouseListener(this);
 		btnReset.addActionListener(this);
 	}
@@ -543,7 +485,6 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		// Load danh sach tu du lieu
 		public void loadDanhSachKH() {
 			clearTable();
-			//SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
 			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();
 			for(KhachHang kh : lsKH) {
 				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(kh.getLoaiKH().getMaLoaiKH());
@@ -570,13 +511,11 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 				String tenKH = txtHoTen.getText().toString();
 				String sdt = txtSDT.getText().toString();
 				String diaChi = textAreaDiaChi.getText().toString();
-				//String  = cbbloaiKH.getSelectedItem().toString();
 				String cccd = txtCccd.getText().toString();
 				String gioiTinh = cbbgioiTinh.getSelectedItem().toString();
 				LoaiKH loaiKH = new LoaiKH( daoLoaiKH.getMaLoaiKHTheoTen(cbbloaiKH.getSelectedItem().toString()));
 				
-				//đấy, mỗi lân lỗi về mấy cái này ko biêt debug thì cứ console nó ra mà coi
-				//lỗi ko phải ở chỗ này với cái nút thêm, mỗi lần thêm nó lại xuất thông báo đó là sai 
+
 				int ngaySinh = dateChooserNgaySinh.getDate().getDate(); 
 				int thangSinh = dateChooserNgaySinh.getDate().getMonth();
 				int namSinh = dateChooserNgaySinh.getDate().getYear();
@@ -604,7 +543,28 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		}
 		//Nút sửa
 		public void suaThongTin() {
-			
+			if(regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexCCCD(txtCccd) && regex.regexDiaChi(textAreaDiaChi)) {
+				int row = tableKH.getSelectedRow();
+				String maKH = modelKhachHang.getValueAt(row, 0).toString();
+				String tenKH = txtHoTen.getText().toString();
+				String sdt = txtSDT.getText().toString();
+				String diaChi = textAreaDiaChi.getText().toString();
+				String cccd = txtCccd.getText().toString();
+				String gioiTinh = cbbgioiTinh.getSelectedItem().toString();
+				LoaiKH loaiKH = new LoaiKH( daoLoaiKH.getMaLoaiKHTheoTen(cbbloaiKH.getSelectedItem().toString()));
+				int ngaySinh = dateChooserNgaySinh.getDate().getDate(); 
+				int thangSinh = dateChooserNgaySinh.getDate().getMonth();
+				int namSinh = dateChooserNgaySinh.getDate().getYear();			
+				int ngayDangKy = dateChooserNgayDangKy.getDate().getDate(); 
+				int thangDangKy = dateChooserNgayDangKy.getDate().getMonth();
+				int namDangKy = dateChooserNgayDangKy.getDate().getYear();
+				int diemTichLuy = Integer.parseInt(txtPoint.getText().toString());
+				
+				KhachHang kh= new KhachHang(maKH, tenKH, diaChi, sdt, cccd, new Date(namSinh, thangSinh, ngaySinh), gioiTinh, diemTichLuy, new Date(ngayDangKy, thangDangKy, namDangKy), loaiKH);
+				daoKhachHang.suaThongTinKhachHang(kh);
+				loadDanhSachKH();
+				resetAll();
+			}
 		}
 		//Làm mới
 		public void resetAll() {
@@ -613,14 +573,8 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			txtSDT.setText("");
 			txtCccd.setText("");
 			textAreaDiaChi.setText("");
-			cbbloaiKH.setSelectedIndex(0);
-			cbbgioiTinh.setSelectedIndex(0);
-			cbbNgaySinh.setSelectedIndex(0);
-			cbbThangSinh.setSelectedIndex(0);
-			cbbNamSinh.setSelectedIndex(0);
-			cbbNgayDangKy.setSelectedIndex(0);
-			cbbThangDangKy.setSelectedIndex(0);
-			cbbNamDangKy.setSelectedIndex(0);
+			dateChooserNgaySinh.setDate(new Date(0));
+			dateChooserNgayDangKy.setDate(new Date(0));
 			txtPoint.setText("");
 		}
 		//Tìm kiếm
@@ -638,9 +592,6 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			// TODO Auto-generated method stub
 			Object o = e.getSource();
 			if(o.equals(tableKH)) {
-			
-			//JTextField tam = new JTextField();
-			//KhachHang kh = daoKhachHang.getKHTheoMa(tam);
 			int row = tableKH.getSelectedRow();
 			txtHoTen.setText(modelKhachHang.getValueAt(row, 1).toString());
 			cbbloaiKH.setSelectedItem(modelKhachHang.getValueAt(row, 2).toString());
@@ -649,19 +600,17 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			textAreaDiaChi.setText(modelKhachHang.getValueAt(row, 5).toString());
 			cbbgioiTinh.setSelectedItem(modelKhachHang.getValueAt(row, 3).toString());
 			txtPoint.setText(modelKhachHang.getValueAt(row, 9).toString());
-			String ngaySinh = modelKhachHang.getValueAt(row, 4).toString();
+			String ngaySinh = modelKhachHang.getValueAt(row, 4).toString();	
 			String ngayDangKy = modelKhachHang.getValueAt(row, 8).toString();
-			/*
-			 * DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); try { java.util.Date d =
-			 * df.parse(ngaySinh); java.util.Date d1 = df.parse(ngayDangKy);
-			 * cbbNgaySinh.setSelectedItem(d.getDate()+"");
-			 * cbbThangSinh.setSelectedItem(d.getMonth()+1 +"");
-			 * cbbNamSinh.setSelectedItem(d.getYear()+1900 +"");
-			 * cbbNgayDangKy.setSelectedItem(d1.getDate()+"");
-			 * cbbThangDangKy.setSelectedItem(d1.getMonth()+1 +"");
-			 * cbbNamDangKy.setSelectedItem(d1.getYear()+ 1900+""); } catch (ParseException
-			 * e1) { e1.printStackTrace(); }
-			 */	
+			
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); try {
+			java.util.Date d =df.parse(ngaySinh); 
+			java.util.Date d1 = df.parse(ngayDangKy);
+			dateChooserNgaySinh.setDate(d);
+			dateChooserNgayDangKy.setDate(d1);
+					 } catch (ParseException
+			  e1) { e1.printStackTrace(); }
+			 	
 			
 			
 			
@@ -695,11 +644,12 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			if(o.equals(btnThemKH)) {
 				themKHVaoDanhSach();
 			}
+			if(o.equals(btnSuaKH)) {
+				suaThongTin();
+			}
 			if(o.equals(btnReset)) {
-				//resetAll();
-				System.out.println(dateChooserNgaySinh.getDate().getDate());
-				System.out.println(dateChooserNgaySinh.getDate().getMonth()+1);
-				System.out.println(dateChooserNgaySinh.getDate().getYear()+1900);
+				resetAll();
+				
 				
 			}
 			
