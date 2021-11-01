@@ -30,6 +30,7 @@ import com.toedter.calendar.JDateChooser;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 
 import connection.ConnectDB;
 import dao.*;
@@ -600,9 +601,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 					loadNV(nv1);
 				}
 				else if(nv2 != null) {
-//					lblNVDaNghiViec.setText("ĐÃ NGHỈ VIỆC."); //ko hien dc
 					loadNVDaNghiViec(nv2);
-//					JOptionPane.showMessageDialog(this, "Nhân viên này đã nghỉ việc.");
 				}
 			}
 		}catch(Exception ex) {
@@ -722,35 +721,19 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 	}
 	
 	//huyTaiKhoanNV_chuyen trangThaiLamViec dang lam viec thanh da nghi viec
-	private void cancelNV() {
+	private boolean cancelNV() {
 		int row = tableNV.getSelectedRow();
 		if(row>=0) {
 			int cancel = JOptionPane.showConfirmDialog(null, "Bạn muốn hủy tài khoản nhân viên này?", "Thông báo", JOptionPane.YES_NO_OPTION);
 			if(cancel == JOptionPane.YES_OPTION) {
 				Connection con = new ConnectDB().getConnection();
 				NhanVien nv=new NhanVien();
-				TaiKhoan tk=new TaiKhoan(nv.getMaNhanVien());
-				nv.setMaNhanVien(nv.getMaNhanVien());
-				nv.setTaiKhoan(nv.getTaiKhoan());
-				nv.setTenNhanVien(nv.getTenNhanVien());
-				nv.setChucVu(nv.getChucVu());
-				nv.setGioiTinh(nv.getGioiTinh());
-				nv.setNgaySinh(nv.getNgaySinh()); 
-				nv.setDiaChi(nv.getDiaChi());
-				nv.setSdt(nv.getSdt());
-				nv.setCccd(nv.getCccd());
-				nv.setLuong(200000);
-				nv.setCaLamViec(nv.getCaLamViec());
-				nv.setTrangThaiLamViec("Đã nghỉ việc");
+				String maNV = (String) tableNV.getValueAt(row, 0);
 				try {
-//					String ma = tableNV.getSelectedColumn(1);
-					modelNV.setRowCount(0);
+					modelNV.removeRow(row);
 					removeDanhSachNV(modelNV);
+					new DAONhanVien().huyNV(maNV);
 					loadDanhSachNV(nv);
-					new DAONhanVien().huyNV();
-					
-					modelNV.removeRow(tableNV.getSelectedRow());
-					
 					JOptionPane.showMessageDialog(null, "Đã hủy tài khoản!", "Thông báo", JOptionPane.OK_OPTION);
 				}catch (Exception e1) {
 					e1.printStackTrace();
@@ -760,6 +743,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		}else {
 			JOptionPane.showMessageDialog(null, "Bạn chưa chọn thông tin tài khoản nhân viên cần hủy!", "Thông báo", JOptionPane.ERROR_MESSAGE);
 		}
+		return false;
 	}
 	
 	@Override

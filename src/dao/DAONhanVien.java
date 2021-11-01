@@ -193,34 +193,13 @@ public class DAONhanVien implements Serializable{
 	}
 	
 	//huyNV, chuyen trangThaiLamViec
-	public boolean huyNV() throws SQLException {
+	public boolean huyNV(String ma) throws SQLException {
 		NhanVien nv=new NhanVien();
-//		ConnectDB.getinstance();
-//		Connection con = ConnectDB.getConnection();
 		
 		Connection con= ConnectDB.getConnection();
-		String sql = "update NhanVien set trangThaiLamViec = ?";
-//		String sql = "update NhanVien set trangThaiLamViec = N'Đã nghỉ việc'";
+		String sql = "update NhanVien set trangThaiLamViec = N'Đã nghỉ việc' where maNhanVien = '"+ma+"'";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-//			ResultSet rs = ps.executeQuery();
-//			while(rs.next()) {
-//				nv.setMaNhanVien(rs.getString(1));
-//			}
-			
-//			ps.setString(1, nv.getMaNhanVien());
-//			ps.setObject(2, nv.getTaiKhoan());
-////			ps.setString(2, nv.getTaiKhoan().getMaTK());
-//			ps.setString(3, nv.getTenNhanVien());
-//			ps.setString(4, nv.getChucVu());
-//			ps.setString(5, nv.getGioiTinh());
-//			ps.setDate(6, nv.getNgaySinh());
-//			ps.setString(7, nv.getDiaChi());
-//			ps.setString(8, nv.getSdt());
-//			ps.setString(9, nv.getCccd());
-//			ps.setDouble(10, nv.getLuong());
-//			ps.setInt(11, nv.getCaLamViec());
-			ps.setString(12, nv.getTrangThaiLamViec());
 			
 			return ps.executeUpdate() > 0;
 		} catch (Exception e) {
