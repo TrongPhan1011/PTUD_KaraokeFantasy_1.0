@@ -1,6 +1,7 @@
 package app;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Panel;
@@ -39,10 +40,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import com.toedter.calendar.JDateChooser;
+
 import connection.ConnectDB;
 import dao.DAOKhachHang;
 import dao.DAOLoaiKH;
 import dao.DAOPhatSinhMa;
+import dao.Regex;
 import entity.KhachHang;
 import entity.LoaiKH;
 
@@ -62,16 +66,16 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	private String sHeaderTenNV;
 	private Date dNgayHienTai;
 	private Panel pMain;
-	private JTextField textFieldTK;
+	private JTextField txtTK;
 	private JButton btnTim;
 	private JButton btnThemKH;
 	private JButton btnSuaKH;
 	private JButton btnXoaKH;
 	private JButton btnReset;
-	private JTextField textFieldHoTen;
-	private JTextField textFieldSDT;
-	private JTextField textFieldCccd;
-	private JTextField textFieldPoint;
+	private JTextField txtHoTen;
+	private JTextField txtSDT;
+	private JTextField txtCccd;
+	private JTextField txtPoint;
 	private JTextArea textAreaDiaChi;
 	private JTable tableKH;
 	private DAOLoaiKH daoLoaiKH;
@@ -86,6 +90,11 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	private JComboBox<String> cbbNgaySinh;
 	private JComboBox<String> cbbThangSinh;
 	private JComboBox<String> cbbNamSinh;
+	private JDateChooser dateChooserNgaySinh;
+	private JDateChooser dateChooserNgayDangKy;
+	private SimpleDateFormat dfNgaySinh=new SimpleDateFormat("dd/MM/yyyy");
+	private SimpleDateFormat dfNgayDangKy=new SimpleDateFormat("dd/MM/yyyy");
+	private Regex regex;
 	
 	public Panel getFrmKH()  {
 		return this.pMain;
@@ -106,6 +115,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		daoLoaiKH = new DAOLoaiKH();
 		daoKhachHang = new DAOKhachHang();
 		daoMaKH = new DAOPhatSinhMa();
+		regex = new Regex();
 		
 		
 		//Giao dien
@@ -128,32 +138,32 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		lblTimKiem.setBounds(374, 6, 90, 35);
 		pMain.add(lblTimKiem);
 		
-		textFieldTK = new JTextField();
-		textFieldTK.addFocusListener(new FocusAdapter() {
+		txtTK = new JTextField();
+		txtTK.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(textFieldTK.getText().equals("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng")) {
-					textFieldTK.setText("");
-					textFieldTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
-					textFieldTK.setForeground(Color.BLACK);
+				if(txtTK.getText().equals("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng")) {
+					txtTK.setText("");
+					txtTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
+					txtTK.setForeground(Color.BLACK);
 				}
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(textFieldTK.getText().equals("")) {
-					textFieldTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
-					textFieldTK.setText("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng");
-					textFieldTK.setForeground(Color.lightGray);
+				if(txtTK.getText().equals("")) {
+					txtTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
+					txtTK.setText("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng");
+					txtTK.setForeground(Color.lightGray);
 				}
 			}
 		});
-		textFieldTK.setText("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng");
-		textFieldTK.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldTK.setForeground(Color.LIGHT_GRAY);
-		textFieldTK.setBounds(474, 5, 281, 33);
-		textFieldTK.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		pMain.add(textFieldTK);
-		textFieldTK.setColumns(10);
+		txtTK.setText("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng");
+		txtTK.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtTK.setForeground(Color.LIGHT_GRAY);
+		txtTK.setBounds(474, 5, 281, 33);
+		txtTK.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
+		pMain.add(txtTK);
+		txtTK.setColumns(10);
 		
 		btnTim = new FixButton("Tìm");
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -179,29 +189,29 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		lblHoTen.setBounds(146, 65, 90, 19);
 		pMain.add(lblHoTen);
 		
-		textFieldHoTen = new JTextField();
-		textFieldHoTen.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtHoTen = new JTextField();
+		txtHoTen.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-		textFieldHoTen.setBounds(230, 62, 189, 28);
-		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		textFieldHoTen.setBounds(239, 62, 189, 28);
-		textFieldHoTen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		pMain.add(textFieldHoTen);
-		textFieldHoTen.setColumns(10);
+		txtHoTen.setBounds(230, 62, 189, 28);
+		txtHoTen.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
+		txtHoTen.setBounds(239, 62, 189, 28);
+		txtHoTen.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		pMain.add(txtHoTen);
+		txtHoTen.setColumns(10);
 		
 		JLabel lblSDT = new JLabel("SĐT:");
 		lblSDT.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblSDT.setBounds(146, 106, 46, 14);
 		pMain.add(lblSDT);
 		
-		textFieldSDT = new JTextField();
-		textFieldSDT.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldSDT.setBounds(239, 100, 189, 28);
-		textFieldSDT.setBorder(new LineBorder(new Color(114, 23 ,153),2 , true));
-		textFieldSDT.setBounds(239, 101, 189, 28);
-		textFieldSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		pMain.add(textFieldSDT);
-		textFieldSDT.setColumns(10);
+		txtSDT = new JTextField();
+		txtSDT.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtSDT.setBounds(239, 100, 189, 28);
+		txtSDT.setBorder(new LineBorder(new Color(114, 23 ,153),2 , true));
+		txtSDT.setBounds(239, 101, 189, 28);
+		txtSDT.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		pMain.add(txtSDT);
+		txtSDT.setColumns(10);
 		
 		JLabel lblAddress = new JLabel("Địa chỉ:");
 		lblAddress.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -232,13 +242,13 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		lblCccd.setBounds(473, 108, 65, 14);
 		pMain.add(lblCccd);
 		
-		textFieldCccd = new JTextField();
-		textFieldCccd.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldCccd.setBounds(610, 100, 170, 27);
+		txtCccd = new JTextField();
+		txtCccd.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtCccd.setBounds(610, 100, 170, 27);
 		
-		pMain.add(textFieldCccd);
-		textFieldCccd.setColumns(10);
-		textFieldCccd.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		pMain.add(txtCccd);
+		txtCccd.setColumns(10);
+		txtCccd.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		
 		JLabel lblGioiTinh = new JLabel("Giới tính:");
 		lblGioiTinh.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -272,44 +282,45 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		pMain.add(lblDiem);
 		
 		
-		textFieldPoint = new JTextField();
-		textFieldPoint.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textFieldPoint.setBounds(945, 145, 202, 28);
-		textFieldPoint.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		textFieldPoint.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		pMain.add(textFieldPoint);
-		textFieldPoint.setColumns(10);
+		txtPoint = new JTextField();
+		txtPoint.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtPoint.setBounds(945, 145, 191, 28);
+		txtPoint.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
+		txtPoint.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		pMain.add(txtPoint);
+		txtPoint.setColumns(10);
 		
 		
-		cbbNgaySinh = new JComboBox<String>();
-		cbbNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbNgaySinh.setBackground(Color.white);
-		cbbNgaySinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbNgaySinh.setBounds(945, 61, 56, 26);
-		for(int i = 1;i <=31; i++) {
-			cbbNgaySinh.addItem(""+i);
-		}
-		pMain.add(cbbNgaySinh);
+		dateChooserNgaySinh = new JDateChooser();
+		dateChooserNgaySinh.setDateFormatString("dd/MM/yyyy");
+		dateChooserNgaySinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		dateChooserNgaySinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		dateChooserNgaySinh.getCalendarButton().setPreferredSize(new Dimension(30, 24));
+		dateChooserNgaySinh.getCalendarButton().setBackground(new Color(102, 0, 153));
+		dateChooserNgaySinh.setBounds(945, 61, 191, 28);
+		pMain.add(dateChooserNgaySinh);
 		
-		cbbThangSinh = new JComboBox<String>();
-		cbbThangSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbThangSinh.setBackground(Color.white);
-		cbbThangSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbThangSinh.setBounds(1009, 61, 56, 26);
-		for(int i = 1; i <= 12;i++) {
-			cbbThangSinh.addItem(""+i);
-		}
-		pMain.add(cbbThangSinh);
+		/*
+		 * cbbNgaySinh = new JComboBox<String>(); cbbNgaySinh.setFont(new
+		 * Font("SansSerif", Font.PLAIN, 15)); cbbNgaySinh.setBackground(Color.white);
+		 * cbbNgaySinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		 * cbbNgaySinh.setBounds(945, 61, 56, 26); for(int i = 1;i <=31; i++) {
+		 * cbbNgaySinh.addItem(""+i); } pMain.add(cbbNgaySinh);
+		 * 
+		 * cbbThangSinh = new JComboBox<String>(); cbbThangSinh.setFont(new
+		 * Font("SansSerif", Font.PLAIN, 15)); cbbThangSinh.setBackground(Color.white);
+		 * cbbThangSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		 * cbbThangSinh.setBounds(1009, 61, 56, 26); for(int i = 1; i <= 12;i++) {
+		 * cbbThangSinh.addItem(""+i); } pMain.add(cbbThangSinh);
+		 */
 		
-		cbbNamSinh = new JComboBox<String>();
-		cbbNamSinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbNamSinh.setBackground(Color.white);
-		cbbNamSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbNamSinh.setBounds(1075, 61, 72, 27);
-		for(int i = 2004; i > 1900; i--) {
-			cbbNamSinh.addItem(""+i);
-		}
-		pMain.add(cbbNamSinh);
+		/*
+		 * cbbNamSinh = new JComboBox<String>(); cbbNamSinh.setFont(new
+		 * Font("SansSerif", Font.PLAIN, 15)); cbbNamSinh.setBackground(Color.white);
+		 * cbbNamSinh.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		 * cbbNamSinh.setBounds(1075, 61, 72, 27); for(int i = 2004; i > 1900; i--) {
+		 * cbbNamSinh.addItem(""+i); } pMain.add(cbbNamSinh);
+		 */
 
 		btnThemKH = new FixButton("Thêm");
 		btnThemKH.setForeground(Color.WHITE);
@@ -376,16 +387,17 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		tbHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
 		
 		
-		tableKH.getColumnModel().getColumn(0).setPreferredWidth(25);
-		tableKH.getColumnModel().getColumn(1).setPreferredWidth(96);
-		
-		tableKH.getColumnModel().getColumn(3).setPreferredWidth(30);
-		tableKH.getColumnModel().getColumn(4).setPreferredWidth(35);
-		tableKH.getColumnModel().getColumn(5).setPreferredWidth(240);
-		tableKH.getColumnModel().getColumn(6).setPreferredWidth(45);
-		tableKH.getColumnModel().getColumn(7).setPreferredWidth(60);
-		tableKH.getColumnModel().getColumn(8).setPreferredWidth(65);
-		tableKH.getColumnModel().getColumn(9).setPreferredWidth(65);
+		tableKH.getColumnModel().getColumn(0).setPreferredWidth(80);
+		tableKH.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tableKH.getColumnModel().getColumn(2).setPreferredWidth(130);
+		tableKH.getColumnModel().getColumn(3).setPreferredWidth(80);
+		tableKH.getColumnModel().getColumn(4).setPreferredWidth(80);
+		tableKH.getColumnModel().getColumn(5).setPreferredWidth(400);
+		tableKH.getColumnModel().getColumn(6).setPreferredWidth(80);
+		tableKH.getColumnModel().getColumn(7).setPreferredWidth(100);
+		tableKH.getColumnModel().getColumn(8).setPreferredWidth(100);
+		tableKH.getColumnModel().getColumn(9).setPreferredWidth(100);
+		tableKH.setAutoResizeMode(tableKH.AUTO_RESIZE_OFF);
 		
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
@@ -426,37 +438,36 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		textAreaDiaChi.setBounds(239, 140, 189, 51);
 		pMain.add(textAreaDiaChi);
 		
-		cbbNgayDangKy = new JComboBox<String>();
-		cbbNgayDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbNgayDangKy.setBackground(Color.WHITE);
-		cbbNgayDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbNgayDangKy.setBounds(945, 102, 56, 27);
-		for(int i = 1; i <= 31; i++ ) {
-			cbbNgayDangKy.addItem(""+i);
-		}
-		pMain.add(cbbNgayDangKy);
+		dateChooserNgayDangKy = new JDateChooser();
+		dateChooserNgayDangKy.setDateFormatString("dd/MM/yyyy");
+		dateChooserNgayDangKy.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		dateChooserNgayDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		dateChooserNgayDangKy.getCalendarButton().setPreferredSize(new Dimension(30, 24));
+		dateChooserNgayDangKy.getCalendarButton().setBackground(new Color(102, 0, 153));
+		dateChooserNgayDangKy.setBounds(945, 102, 191, 28);
+		pMain.add(dateChooserNgayDangKy);
 		
-		cbbThangDangKy = new JComboBox<String>();
-		cbbThangDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbThangDangKy.setBackground(Color.WHITE);
-		cbbThangDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		cbbThangDangKy.setBounds(1009, 102, 56, 27);
-		for(int i =1; i <=12; i++) {
-			cbbThangDangKy.addItem(""+i);
-		}
-		pMain.add(cbbThangDangKy);
-		
-		cbbNamDangKy = new JComboBox<String>();
-		cbbNamDangKy.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cbbNamDangKy.setBackground(Color.WHITE);
-		cbbNamDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
-		int namHienTai = dNgayHienTai.getYear();
-		int namBatDau = namHienTai + 100;
-		for(int i = namHienTai; i <= namBatDau; i++) {
-			cbbNamDangKy.addItem(""+i);
-		}
-		cbbNamDangKy.setBounds(1075, 101, 72, 27);
-		pMain.add(cbbNamDangKy);
+		/*
+		 * cbbNgayDangKy = new JComboBox<String>(); cbbNgayDangKy.setFont(new
+		 * Font("SansSerif", Font.PLAIN, 15)); cbbNgayDangKy.setBackground(Color.WHITE);
+		 * cbbNgayDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true));
+		 * cbbNgayDangKy.setBounds(945, 102, 56, 27); for(int i = 1; i <= 31; i++ ) {
+		 * cbbNgayDangKy.addItem(""+i); } pMain.add(cbbNgayDangKy);
+		 * 
+		 * cbbThangDangKy = new JComboBox<String>(); cbbThangDangKy.setFont(new
+		 * Font("SansSerif", Font.PLAIN, 15));
+		 * cbbThangDangKy.setBackground(Color.WHITE); cbbThangDangKy.setBorder(new
+		 * LineBorder(new Color(114, 23 ,153), 1, true)); cbbThangDangKy.setBounds(1009,
+		 * 102, 56, 27); for(int i =1; i <=12; i++) { cbbThangDangKy.addItem(""+i); }
+		 * pMain.add(cbbThangDangKy);
+		 * 
+		 * cbbNamDangKy = new JComboBox<String>(); cbbNamDangKy.setFont(new
+		 * Font("SansSerif", Font.PLAIN, 15)); cbbNamDangKy.setBackground(Color.WHITE);
+		 * cbbNamDangKy.setBorder(new LineBorder(new Color(114, 23 ,153), 1, true)); int
+		 * namHienTai = dNgayHienTai.getYear(); int namBatDau = namHienTai + 100;
+		 * for(int i = namHienTai; i <= namBatDau; i++) { cbbNamDangKy.addItem(""+i); }
+		 * cbbNamDangKy.setBounds(1075, 101, 72, 27); pMain.add(cbbNamDangKy);
+		 */
 		
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBackground(new Color(238,239,243,90));
@@ -532,12 +543,12 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		// Load danh sach tu du lieu
 		public void loadDanhSachKH() {
 			clearTable();
-			SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
+			//SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
 			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();
 			for(KhachHang kh : lsKH) {
 				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(kh.getLoaiKH().getMaLoaiKH());
 				modelKhachHang.addRow(new Object[] {
-				kh.getMaKhangHang(), kh.getTenKH(),loaiKH.getTenLoaiKH() , kh.getGioiTinh(), dfDate.format(kh.getNgaySinh()), kh.getDiaChi(), kh.getSdt(), kh.getCccd(), dfDate.format(kh.getNgayDangKy()).toString(), kh.getDiemTichLuy()
+				kh.getMaKhangHang(), kh.getTenKH(),loaiKH.getTenLoaiKH() , kh.getGioiTinh(), dfNgaySinh.format(kh.getNgaySinh()), kh.getDiaChi(), kh.getSdt(), kh.getCccd(), dfNgayDangKy.format(kh.getNgayDangKy()), kh.getDiemTichLuy()
 			});
 		}
 	}
@@ -551,34 +562,45 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		
 		//Nut them
 		public void themKHVaoDanhSach() {
-			if(textFieldHoTen.getText()!= "") {
+//			try {
+			if(regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexCCCD(txtCccd) && regex.regexDiaChi(textAreaDiaChi)) {
 				
 				
 				String maKH = daoMaKH.getMaKH();
-				String tenKH = textFieldHoTen.getText().toString();
-				String sdt = textFieldSDT.getText().toString();
+				String tenKH = txtHoTen.getText().toString();
+				String sdt = txtSDT.getText().toString();
 				String diaChi = textAreaDiaChi.getText().toString();
 				//String  = cbbloaiKH.getSelectedItem().toString();
-				String cccd = textFieldCccd.getText().toString();
+				String cccd = txtCccd.getText().toString();
 				String gioiTinh = cbbgioiTinh.getSelectedItem().toString();
 				LoaiKH loaiKH = new LoaiKH( daoLoaiKH.getMaLoaiKHTheoTen(cbbloaiKH.getSelectedItem().toString()));
-				int ngaySinh = Integer.parseInt(cbbNgaySinh.getSelectedItem().toString());
-				int thangSinh = Integer.parseInt(cbbThangSinh.getSelectedItem().toString());
-				int namSinh = Integer.parseInt(cbbNamSinh.getSelectedItem().toString());
-				int ngayDangKy = Integer.parseInt(cbbNgayDangKy.getSelectedItem().toString());
-				int thangDangKy = Integer.parseInt(cbbThangDangKy.getSelectedItem().toString());
-				int namDangKy = Integer.parseInt(cbbNamDangKy.getSelectedItem().toString());
-				int diemTichLuy = Integer.parseInt(textFieldPoint.getText().toString());
+				
+				//đấy, mỗi lân lỗi về mấy cái này ko biêt debug thì cứ console nó ra mà coi
+				//lỗi ko phải ở chỗ này với cái nút thêm, mỗi lần thêm nó lại xuất thông báo đó là sai 
+				int ngaySinh = dateChooserNgaySinh.getDate().getDate(); 
+				int thangSinh = dateChooserNgaySinh.getDate().getMonth();
+				int namSinh = dateChooserNgaySinh.getDate().getYear();
+				
+				int ngayDangKy = dateChooserNgayDangKy.getDate().getDate(); 
+				int thangDangKy = dateChooserNgayDangKy.getDate().getMonth();
+				int namDangKy = dateChooserNgayDangKy.getDate().getYear();
+				int diemTichLuy = Integer.parseInt(txtPoint.getText().toString());
+				
 				
 				
 				@SuppressWarnings("deprecation")
-				KhachHang kh= new KhachHang(maKH, tenKH, diaChi, sdt, cccd, new Date(ngaySinh, thangSinh, namSinh), gioiTinh, diemTichLuy, new Date(ngayDangKy, thangDangKy, namDangKy), loaiKH);
+				KhachHang kh= new KhachHang(maKH, tenKH, diaChi, sdt, cccd, new Date(namSinh, thangSinh, ngaySinh), gioiTinh, diemTichLuy, new Date(ngayDangKy, thangDangKy, namDangKy), loaiKH);
 				daoKhachHang.themDanhSachKH(kh);
+				//tableKH.getRowCount()
 				loadDanhSachKH();
 				resetAll();
+				JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
 			}
-			else
-				JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra họ tên!");
+//		}
+//			catch (Exception e) {
+//			JOptionPane.showMessageDialog(this, "Chưa cập nhập thông tin đầy đủ!");
+//		}
+				
 		}
 		//Nút sửa
 		public void suaThongTin() {
@@ -586,9 +608,10 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		}
 		//Làm mới
 		public void resetAll() {
-			textFieldHoTen.setText("");
-			textFieldSDT.setText("");
-			textFieldCccd.setText("");
+			txtTK.setText("");
+			txtHoTen.setText("");
+			txtSDT.setText("");
+			txtCccd.setText("");
 			textAreaDiaChi.setText("");
 			cbbloaiKH.setSelectedIndex(0);
 			cbbgioiTinh.setSelectedIndex(0);
@@ -598,7 +621,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			cbbNgayDangKy.setSelectedIndex(0);
 			cbbThangDangKy.setSelectedIndex(0);
 			cbbNamDangKy.setSelectedIndex(0);
-			textFieldPoint.setText("");
+			txtPoint.setText("");
 		}
 		//Tìm kiếm
 		
@@ -619,28 +642,26 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			//JTextField tam = new JTextField();
 			//KhachHang kh = daoKhachHang.getKHTheoMa(tam);
 			int row = tableKH.getSelectedRow();
-			textFieldHoTen.setText(modelKhachHang.getValueAt(row, 1).toString());
+			txtHoTen.setText(modelKhachHang.getValueAt(row, 1).toString());
 			cbbloaiKH.setSelectedItem(modelKhachHang.getValueAt(row, 2).toString());
-			textFieldSDT.setText(modelKhachHang.getValueAt(row, 6).toString());
-			textFieldCccd.setText(modelKhachHang.getValueAt(row, 7).toString());
+			txtSDT.setText(modelKhachHang.getValueAt(row, 6).toString());
+			txtCccd.setText(modelKhachHang.getValueAt(row, 7).toString());
 			textAreaDiaChi.setText(modelKhachHang.getValueAt(row, 5).toString());
 			cbbgioiTinh.setSelectedItem(modelKhachHang.getValueAt(row, 3).toString());
-			textFieldPoint.setText(modelKhachHang.getValueAt(row, 9).toString());
+			txtPoint.setText(modelKhachHang.getValueAt(row, 9).toString());
 			String ngaySinh = modelKhachHang.getValueAt(row, 4).toString();
 			String ngayDangKy = modelKhachHang.getValueAt(row, 8).toString();
-			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-			try {
-				java.util.Date d =  df.parse(ngaySinh);
-				java.util.Date d1 =  df.parse(ngayDangKy);
-				cbbNgaySinh.setSelectedItem(d.getDate()+"");
-				cbbThangSinh.setSelectedItem(d.getMonth()+1 +"");
-				cbbNamSinh.setSelectedItem(d.getYear()+1900 +"");
-				cbbNgayDangKy.setSelectedItem(d1.getDate()+"");
-				cbbThangDangKy.setSelectedItem(d1.getMonth()+1 +"");
-				cbbNamDangKy.setSelectedItem(d1.getYear()+ 1900+"");
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
+			/*
+			 * DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); try { java.util.Date d =
+			 * df.parse(ngaySinh); java.util.Date d1 = df.parse(ngayDangKy);
+			 * cbbNgaySinh.setSelectedItem(d.getDate()+"");
+			 * cbbThangSinh.setSelectedItem(d.getMonth()+1 +"");
+			 * cbbNamSinh.setSelectedItem(d.getYear()+1900 +"");
+			 * cbbNgayDangKy.setSelectedItem(d1.getDate()+"");
+			 * cbbThangDangKy.setSelectedItem(d1.getMonth()+1 +"");
+			 * cbbNamDangKy.setSelectedItem(d1.getYear()+ 1900+""); } catch (ParseException
+			 * e1) { e1.printStackTrace(); }
+			 */	
 			
 			
 			
@@ -675,7 +696,11 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 				themKHVaoDanhSach();
 			}
 			if(o.equals(btnReset)) {
-				resetAll();
+				//resetAll();
+				System.out.println(dateChooserNgaySinh.getDate().getDate());
+				System.out.println(dateChooserNgaySinh.getDate().getMonth()+1);
+				System.out.println(dateChooserNgaySinh.getDate().getYear()+1900);
+				
 			}
 			
 		}
