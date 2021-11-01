@@ -253,7 +253,10 @@ public class FrmThongKe extends JPanel{
 		btnTK.setFont(new Font("SansSerif", Font.BOLD, 25));
 //		btnTK.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnTK.setBackground(new Color(114, 23, 153));
-		btnTK.setBounds(102, 372, 157, 74);
+		btnTK.setBounds(102, 372, 175, 74);
+		Image imgLamMoiKH = Toolkit.getDefaultToolkit().getImage("data\\img\\iconThongKe.png");
+		Image resizeImgLamMoiKH = imgLamMoiKH.getScaledInstance(25, 25, 0);
+		btnTK.setIcon(new ImageIcon(resizeImgLamMoiKH));
 		pThongKe.add(btnTK);
 		
 		/////////////////////////////////
