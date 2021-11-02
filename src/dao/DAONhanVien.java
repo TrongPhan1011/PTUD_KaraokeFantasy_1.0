@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JLabel;
+import javax.swing.table.TableColumn;
 
 import connection.ConnectDB;
 import entity.*;
@@ -27,8 +28,38 @@ public class DAONhanVien implements Serializable{
 	public DAONhanVien() {
 		dsNV=new ArrayList<NhanVien>();
 	}
+	
+	//Load tat ca sd NV
+	public ArrayList<NhanVien> getAllDanhSachNV() {
+		ArrayList<NhanVien> lstNV=new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from [dbo].[NhanVien]");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				NhanVien nv=new NhanVien();
+				nv.setMaNhanVien(rs.getString(1));
+				nv.setTaiKhoan(new TaiKhoan(rs.getString(2)));
+				nv.setTenNhanVien(rs.getString(3));
+				nv.setChucVu(rs.getString(4));
+				nv.setGioiTinh(rs.getString(5));
+				nv.setNgaySinh(rs.getDate(6));
+				nv.setDiaChi(rs.getString(7));
+				nv.setSdt(rs.getString(8));
+				nv.setCccd(rs.getString(9));
+				nv.setLuong(rs.getDouble(10));
+				nv.setCaLamViec(rs.getInt(11));
+				nv.setTrangThaiLamViec(rs.getString(12));
+				lstNV.add(nv);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstNV;
+	}
 
-	//Load ds NV
+	//Load ds NV dang lam viec
 	public ArrayList<NhanVien> getDanhSachNV() {
 		ArrayList<NhanVien> lstNV=new ArrayList<>();
 		ConnectDB.getinstance();
@@ -135,10 +166,8 @@ public class DAONhanVien implements Serializable{
 	
 	//them NV
 	public boolean themNV(NhanVien nv) throws SQLException {
-//		String maNV = daoPhatSinhMa.getMaNV();// lỗi
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		int n=0;
 		String sql = "insert into NhanVien values (?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -157,6 +186,23 @@ public class DAONhanVien implements Serializable{
 			
 			return ps.executeUpdate() > 0;
 		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		con.close();
+		return false;
+	}
+	
+	//huyNV, chuyen trangThaiLamViec
+	public boolean huyNV(String ma) throws SQLException {
+		NhanVien nv=new NhanVien();
+		
+		Connection con= ConnectDB.getConnection();
+		String sql = "update NhanVien set trangThaiLamViec = N'Đã nghỉ việc' where maNhanVien = '"+ma+"'";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			return ps.executeUpdate() > 0;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		con.close();
