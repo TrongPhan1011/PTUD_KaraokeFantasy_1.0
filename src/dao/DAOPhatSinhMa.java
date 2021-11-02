@@ -62,27 +62,28 @@ public class DAOPhatSinhMa {
 		}
 		return maNV;
 	}
-<<<<<<< HEAD
+
 	//maMH
 	public String getMaMH() {
 		String maMH="";
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select CONCAT('NV', RIGHT(CONCAT('000',ISNULL(right(max(maMH),3),0) + 1),3)) from [dbo].[MatHang] where maMH = 'MH%'";
+		String sql = "select CONCAT('MH', RIGHT(CONCAT('000',ISNULL(right(max(maMH),3),0) + 1),3)) from [dbo].[MatHang] where maMH like  'MH%'";
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				maMH = rs.getString(1);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return maMH;
 	}
-=======
 	
 	//matkhau
 //	public String getMatKhau() {
 //		String mk="";
 //		ConnectDB.getinstance()
 //	}
->>>>>>> a777871aa6c31692ca35d6790ab878fead609d4d
 }

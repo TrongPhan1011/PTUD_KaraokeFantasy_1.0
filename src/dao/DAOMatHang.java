@@ -124,13 +124,13 @@ public class DAOMatHang {
 	public boolean ThemMH(MatHang mh) {
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "insert into " +"MatHang values(?,?,?,?,?)";
+		String sql = "insert into MatHang values (?,?,?,?,?)";
 		PreparedStatement stm = null;
 		int n = 0;
 		try {
 			stm = con.prepareStatement(sql);
 			stm.setString(1, mh.getMaMatHang());
-			stm.setString(2, mh.getLoaiMatHang().getTenLoaiMatHang());
+			stm.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
 			stm.setString(3, mh.getTenMatHang());
 			stm.setInt(4, mh.getSoLuongMatHang());
 			stm.setDouble(5, mh.getGiaMatHang());
@@ -164,15 +164,16 @@ public class DAOMatHang {
 	public boolean updateMH(MatHang mh) {
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "update MatHang set tenMH =?, maLoaiMH = ? , soLuongMH = ?, giaMH = ? where maMH = ?";
+		String sql = "update MatHang set tenMH = ?, maLoaiMH = ?, soLuongMH = ?, giaMH = ? where maMH = ?";
 		PreparedStatement stm = null;
 		int n = 0;
 		try {
 			stm = con.prepareStatement(sql);
 			stm.setString(1, mh.getTenMatHang());
-			stm.setString(2, mh.getLoaiMatHang().getTenLoaiMatHang());
+			stm.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
 			stm.setInt(3, mh.getSoLuongMatHang());
 			stm.setDouble(4, mh.getGiaMatHang());
+			stm.setString(5, mh.getMaMatHang());
 			n= stm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
