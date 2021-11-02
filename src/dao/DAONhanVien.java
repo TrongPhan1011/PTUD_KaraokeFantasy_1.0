@@ -194,9 +194,7 @@ public class DAONhanVien implements Serializable{
 	
 	//huyNV, chuyen trangThaiLamViec
 	public boolean huyNV(String ma) throws SQLException {
-		NhanVien nv=new NhanVien();
-		
-		Connection con= ConnectDB.getConnection();
+		Connection con = ConnectDB.getConnection();
 		String sql = "update NhanVien set trangThaiLamViec = N'Đã nghỉ việc' where maNhanVien = '"+ma+"'";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -207,6 +205,30 @@ public class DAONhanVien implements Serializable{
 		}
 		con.close();
 		return false;
+	}
+	
+	//capnhat-sua NV
+	public boolean capNhatNV(NhanVien nv, String ma) throws SQLException {
+		Connection con = ConnectDB.getConnection();
+		String sql = "update NhanVien set tenNhanVien = ?, chucVu = ?, gioiTinh = ?, ngaySinh = ?, diaChi = ?, sdt = ?, cccd = ?, caLamViec = ? where maNhanVien = '"+ma+"'";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, nv.getTenNhanVien());
+			ps.setString(2, nv.getChucVu());
+			ps.setString(3, nv.getGioiTinh());
+			ps.setDate(4, nv.getNgaySinh());
+			ps.setString(5, nv.getDiaChi());
+			ps.setString(6, nv.getSdt());
+			ps.setString(7, nv.getCccd());
+			ps.setInt(8, nv.getCaLamViec());
+			
+			return ps.executeUpdate() > 0;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		con.close();
+		return false;
+		
 	}
 	
 }

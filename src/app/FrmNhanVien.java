@@ -529,7 +529,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 	
 	//xoa trang textfield va textarea
 		private void xoaTrang() {
-			txtTim.setText("");
+			txtTim.setText("Tìm nhân viên theo mã nhân viên, tên nhân viên, sđt, chức vụ, ca làm việc.");
 			txtHoTen.setText("");
 			txtSDT.setText("");
 			txtDiaChi.setText("");
@@ -716,7 +716,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		
 		
 		}catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Chưa nhập thông tin đầy đủ!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ!", "Thông báo", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
@@ -735,15 +735,53 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 					new DAONhanVien().huyNV(maNV);
 					loadDanhSachNV(nv);
 					JOptionPane.showMessageDialog(null, "Đã hủy tài khoản!", "Thông báo", JOptionPane.OK_OPTION);
-				}catch (Exception e1) {
+				}catch (SQLException e1) {
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Hủy tài khoản thất bại!", "Thông báo", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}else {
-			JOptionPane.showMessageDialog(null, "Bạn chưa chọn thông tin tài khoản nhân viên cần hủy!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Vui lòng chọn thông tin tài khoản nhân viên cần hủy!", "Thông báo", JOptionPane.WARNING_MESSAGE);
 		}
 		return false;
+	}
+
+	//suaNV
+	private void updateNV() {
+		int row = tableNV.getSelectedRow();
+		if(row>=0) {
+			int update = JOptionPane.showConfirmDialog(this, "Bạn muốn sửa thông tin nhân viên này?", "Thông báo", JOptionPane.YES_NO_OPTION);
+			if(update == JOptionPane.YES_OPTION) {
+				NhanVien nv=new NhanVien();
+				String maNV = (String) tableNV.getValueAt(row, 0);
+				java.util.Date date = dateChooserNgaySinh.getDate();
+				Date date1=new Date(date.getYear(), date.getMonth(), date.getDate());
+				int caLamViec = Integer.parseInt((String) cbbCaLamViec.getSelectedItem());
+				try {
+					if(regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexDiaChi(txtDiaChi) && regex.regexCCCD(txtCccd)) {
+						nv.setTenNhanVien(txtHoTen.getText());
+						nv.setChucVu((String) cbbChucVu.getSelectedItem());
+						nv.setGioiTinh((String) cbbGioiTinh.getSelectedItem());
+						nv.setNgaySinh(date1);
+						nv.setDiaChi(txtDiaChi.getText());
+						nv.setSdt(txtSDT.getText());
+						nv.setCccd(txtCccd.getText());
+						nv.setCaLamViec(caLamViec);
+						
+						new DAONhanVien().capNhatNV(nv, maNV);
+						removeDanhSachNV(modelNV);
+						loadDanhSachNV(nv);
+					
+						JOptionPane.showMessageDialog(this, "Thông tin nhân viên đã được sửa!", "Thông báo", JOptionPane.OK_OPTION);
+					}
+				}catch (SQLException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Chỉnh sửa thông tin thất bại!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Vui lòng chọn thông tin nhân viên cần sửa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	@Override
@@ -767,7 +805,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		
 		//sửa NV
 		if(o.equals(btnSuaNV)) {
-			
+			updateNV();
 		}
 		
 		//hủy
@@ -784,7 +822,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		
 		
 	}
-///////////
+	///////////
 	//chon row NV
 	@SuppressWarnings("unlikely-arg-type")
 	private void choose1NV() {
