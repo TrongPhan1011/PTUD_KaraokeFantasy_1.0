@@ -15,11 +15,6 @@ public class DAOTaiKhoan implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<TaiKhoan> dsTK;
-	
-	public DAOTaiKhoan() {
-		dsTK=new ArrayList<TaiKhoan>();
-	}
 
 	//Load ds TK
 	public ArrayList<TaiKhoan> getDanhSachTK(){
@@ -59,11 +54,6 @@ public class DAOTaiKhoan implements Serializable {
 		}
 		return tk;
 	}
-	
-	//Load 1 mk
-//	public TaiKhoan getMKtheoMa(String ma) {
-//		
-//	}
 	
 	//taoTK khi themNV
 	public boolean createTK(TaiKhoan tk) throws SQLException {
