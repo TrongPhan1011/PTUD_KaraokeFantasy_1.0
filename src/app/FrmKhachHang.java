@@ -14,6 +14,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.*;
 import java.sql.SQLException;
@@ -40,15 +41,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import com.mindfusion.drawing.Colors;
 import com.toedter.calendar.JDateChooser;
 
 import connection.ConnectDB;
 import dao.DAOKhachHang;
 import dao.DAOLoaiKH;
+import dao.DAONhanVien;
 import dao.DAOPhatSinhMa;
 import dao.Regex;
 import entity.KhachHang;
 import entity.LoaiKH;
+import entity.NhanVien;
 
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -88,6 +92,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	private JDateChooser dateChooserNgayDangKy;
 	private SimpleDateFormat dfNgaySinh=new SimpleDateFormat("dd/MM/yyyy");
 	private SimpleDateFormat dfNgayDangKy=new SimpleDateFormat("dd/MM/yyyy");
+	private JRadioButton rdoAll = new JRadioButton("Tất cả");
 	private Regex regex;
 	
 	public Panel getFrmKH()  {
@@ -127,16 +132,23 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		pMain.add(lblQuanLyKH);
 		
 
-		JLabel lblTimKiem = new JLabel("Tìm Kiếm:");
-		lblTimKiem.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lblTimKiem.setBounds(374, 6, 90, 35);
-		pMain.add(lblTimKiem);
+		//lblTim
+		JLabel lblTim = new JLabel("Tìm kiếm:");
+		lblTim.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lblTim.setBounds(310, 13, 90, 35);
+		pMain.add(lblTim);
 		
+	//txtTim
 		txtTK = new JTextField();
-		txtTK.addFocusListener(new FocusAdapter() {
+		txtTK.setText("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.");
+		txtTK.setFont(new Font("SansSerif", Font.ITALIC, 15));
+		txtTK.setForeground(Colors.LightGray);
+		txtTK.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
+		txtTK.setBounds(400, 12, 526, 33);
+		txtTK.addFocusListener(new FocusAdapter() {	//place holder
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtTK.getText().equals("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng")) {
+				if(txtTK.getText().equals("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.")) {
 					txtTK.setText("");
 					txtTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
 					txtTK.setForeground(Color.BLACK);
@@ -145,27 +157,22 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(txtTK.getText().equals("")) {
-					txtTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
-					txtTK.setText("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng");
-					txtTK.setForeground(Color.lightGray);
+					txtTK.setFont(new Font("SansSerif", Font.ITALIC, 15));
+					txtTK.setText("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.");
+					txtTK.setForeground(Colors.LightGray);
 				}
 			}
 		});
-		txtTK.setText("Tìm khách hàng theo tên hoặc số điện thoại hoặc loại khách hàng");
-		txtTK.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtTK.setForeground(Color.LIGHT_GRAY);
-		txtTK.setBounds(474, 5, 281, 33);
-		txtTK.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
 		pMain.add(txtTK);
-		txtTK.setColumns(10);
 		
+	//btnTim
 		btnTim = new FixButton("Tìm");
+		btnTim.setForeground(Color.WHITE);
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
-		btnTim.setBounds(786, 4, 98, 33);
-		btnTim.setBackground(new Color(114, 23 ,153));
-		//btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		//btnTim.setForeground(Color.WHITE);
-		Image imgTim = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconKinhLup.png");
+		btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
+		btnTim.setBackground(new Color(114, 23, 153));
+		btnTim.setBounds(942, 11, 98, 33);
+		Image imgTim = Toolkit.getDefaultToolkit().getImage("data\\img\\iconKinhLup.png");
 		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
 		pMain.add(btnTim);
@@ -413,7 +420,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		JPanel pSapXep = new JPanel();
 		pSapXep.setBackground(new Color(238,239,243,90));
 		pSapXep.setBorder(new TitledBorder(new LineBorder(new Color(114, 23, 153), 1, true), "S\u1EAFp x\u1EBFp", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pSapXep.setBounds(239, 248, 816, 51);
+		pSapXep.setBounds(239, 248, 897, 51);
 		pMain.add(pSapXep);
 		//pSapXep.setLayout(null);
 		
@@ -427,33 +434,43 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			cbbSort.addItem(cbSort[i]);
 		}
 		pSapXep.setLayout(null);
-		cbbSort.setBounds(43, 14, 136, 28);
+		cbbSort.setBounds(26, 14, 136, 28);
 		pSapXep.add(cbbSort);
 		
-		JRadioButton rdbtnTheoMaKH = new JRadioButton("Theo mã khách hàng");
-		rdbtnTheoMaKH.setSelected(true);
-		rdbtnTheoMaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoMaKH.setBackground(new Color(220,210,239));
-		rdbtnTheoMaKH.setBounds(211, 15, 167, 27);
-		pSapXep.add(rdbtnTheoMaKH);
 		
-		JRadioButton rdbtnTheoTenKH = new JRadioButton("Theo tên khách hàng");
-		rdbtnTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoTenKH.setBackground(new Color(220,210,239));
-		rdbtnTheoTenKH.setBounds(420, 15, 171, 27);
-		pSapXep.add(rdbtnTheoTenKH);
+
+		rdoAll.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdoAll.setBackground(new Color(220,210,239));
+		rdoAll.setBounds(185, 15, 109, 27);
+		pSapXep.add(rdoAll);
 		
-		JRadioButton rdbtnTheoLoaiKH = new JRadioButton("Theo loại khách hàng");
-		rdbtnTheoLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdbtnTheoLoaiKH.setBackground(new Color(220,210,239));
-		rdbtnTheoLoaiKH.setBounds(616, 15, 171, 27);
-		pSapXep.add(rdbtnTheoLoaiKH);
+		JRadioButton rdoTheoMaKH = new JRadioButton("Theo mã khách hàng");
+		//rdoTheoMaKH.setSelected(true);
+		rdoTheoMaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdoTheoMaKH.setBackground(new Color(220,210,239));
+		rdoTheoMaKH.setBounds(309, 15, 167, 27);
+		pSapXep.add(rdoTheoMaKH);
+		
+		JRadioButton rdoTheoTenKH = new JRadioButton("Theo tên khách hàng");
+		rdoTheoTenKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdoTheoTenKH.setBackground(new Color(220,210,239));
+		rdoTheoTenKH.setBounds(491, 15, 171, 27);
+		pSapXep.add(rdoTheoTenKH);
+		
+		JRadioButton rdoTheoLoaiKH = new JRadioButton("Theo loại khách hàng");
+		rdoTheoLoaiKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdoTheoLoaiKH.setBackground(new Color(220,210,239));
+		rdoTheoLoaiKH.setBounds(682, 15, 171, 27);
+		pSapXep.add(rdoTheoLoaiKH);
 		
 		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnTheoMaKH);
-		bg.add(rdbtnTheoTenKH);
-		bg.add(rdbtnTheoLoaiKH);
-		rdbtnTheoMaKH.setSelected(true);
+		bg.add(rdoTheoMaKH);
+		bg.add(rdoTheoTenKH);
+		bg.add(rdoTheoLoaiKH);
+		bg.add(rdoAll);
+		//rdoTheoMaKH.setSelected(true);
+		
+
 		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon("data\\img\\background.png"));
@@ -470,14 +487,15 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		for(LoaiKH lkh : lsLoaiKH) {
 			cbbloaiKH.addItem(lkh.getTenLoaiKH());
 		}
-		
-		//load danh sach khach hang
-		loadDanhSachKH();
-		
+				
 		btnThemKH.addActionListener(this);
+		btnXoaKH.addActionListener(this);
 		btnSuaKH.addActionListener(this);
 		tableKH.addMouseListener(this);
 		btnReset.addActionListener(this);
+		rdoAll.addActionListener(this);
+		btnTim.addActionListener(this);
+		
 	}
 
 //end main
@@ -493,6 +511,16 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			});
 		}
 	}
+		//load thong tin 1 nguoi
+		public void loadThongTin(KhachHang kh) {
+			//clearTable();
+			//KhachHang kh = daoKhachHang.getDanhSachKH();
+			LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(kh.getLoaiKH().getMaLoaiKH());
+			//modelKhachHang.setRowCount(0);
+			modelKhachHang.addRow(new Object[] {
+			kh.getMaKhangHang(), kh.getTenKH(),loaiKH.getTenLoaiKH() , kh.getGioiTinh(), dfNgaySinh.format(kh.getNgaySinh()), kh.getDiaChi(), kh.getSdt(), kh.getCccd(), dfNgayDangKy.format(kh.getNgayDangKy()), kh.getDiemTichLuy()
+		});
+		}
 		
 		//Lam moi danh sach
 		public void clearTable() {
@@ -531,7 +559,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 				KhachHang kh= new KhachHang(maKH, tenKH, diaChi, sdt, cccd, new Date(namSinh, thangSinh, ngaySinh), gioiTinh, diemTichLuy, new Date(ngayDangKy, thangDangKy, namDangKy), loaiKH);
 				daoKhachHang.themDanhSachKH(kh);
 				//tableKH.getRowCount()
-				loadDanhSachKH();
+				loadThongTin(kh);
 				resetAll();
 				JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
 			}
@@ -578,7 +606,43 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			txtPoint.setText("");
 		}
 		//Tìm kiếm
+		private void findKH() {
+			KhachHang kh = daoKhachHang.getKHTheoMa(txtTK.getText());
+			try {
+			if(regex.regexTimKiemMaKH(txtTK)&& txtTK.getText()!=null && txtTK.getText().trim().length()>0) { // tìm theo maKH
+					if(kh != null) {
+						clearTable();
+						loadThongTin(kh);
+					}
+				}
+			}catch(Exception ex) {
+				JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng theo yêu cầu!", "Thông báo", JOptionPane.OK_OPTION);
+			}
+		}
 		
+		//Xoa khach hang
+		private boolean cancelKH() {
+			int row = tableKH.getSelectedRow();
+			if(row>=0) {
+				int cancel = JOptionPane.showConfirmDialog(null, "Bạn muốn xóa khách hàng này?", "Thông báo", JOptionPane.YES_NO_OPTION);
+				if(cancel == JOptionPane.YES_OPTION) {
+					String maKH = tableKH.getValueAt(row, 0).toString();
+					try {
+						modelKhachHang.removeRow(row);
+						clearTable();
+						daoKhachHang.huyKH(maKH);
+						loadDanhSachKH();
+						JOptionPane.showMessageDialog(null, "Đã xóa khách hàng!", "Thông báo", JOptionPane.OK_OPTION);
+					}catch (Exception e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "xóa khách hàng thất bại!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Bạn chưa chọn thông tin khách hàng cần hủy!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			}
+			return false;
+		}
 		
 		@Override
 		public void itemStateChanged(ItemEvent e) {
@@ -610,10 +674,6 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			dateChooserNgayDangKy.setDate(d1);
 					 } catch (ParseException
 			  e1) { e1.printStackTrace(); }
-			 	
-			
-			
-			
 			}
 			
 		}
@@ -648,12 +708,17 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 				suaThongTin();
 			}
 			if(o.equals(btnReset)) {
-				resetAll();
-				
-				
+				resetAll();	
+			}
+			if(o.equals(btnXoaKH)) {
+				cancelKH();
+			}
+			if(o.equals(rdoAll)) {
+				loadDanhSachKH();
+			}
+			if(o.equals(btnTim)) {
+				findKH();
 			}
 			
 		}
-
-		
 }

@@ -15,6 +15,7 @@ import entity.LoaiKH;
 import entity.LoaiMatHang;
 import entity.LoaiPhong;
 import entity.MatHang;
+import entity.NhanVien;
 import entity.Phong;
 
 public class DAOKhachHang {
@@ -85,7 +86,7 @@ public ArrayList<KhachHang> getDanhSachKH() {
 		ArrayList<KhachHang> lsKH = new ArrayList<KhachHang>();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select *from KhachHang";
+		String sql = "select *from KhachHang where not maLoaiKH = N'LKH004'";
 		
 		try {
 			Statement stm = con.createStatement();
@@ -183,5 +184,20 @@ public boolean suaThongTinKhachHang(KhachHang kh) {
 	return n>0;
 }
 
+public boolean huyKH(String ma) throws SQLException {
+	KhachHang kh = new KhachHang();
+	
+	Connection con= ConnectDB.getConnection();
+	String sql = "update KhachHang set maLoaiKH = N'LKH004' where maKhachHang = '"+ma+"'";
+	try {
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		return ps.executeUpdate() > 0;
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	con.close();
+	return false;
+}
 
 }

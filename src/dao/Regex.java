@@ -103,6 +103,18 @@ public class Regex {
 		return true;
 	}
 	
+	public boolean regexTimKiemMaKH(JTextField txtTim) {
+		String input = txtTim.getText();
+		String regexMaKH = "^(KH[0-9]{3})$";
+		if(!input.matches(regexMaKH)) {
+			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã Khách hàng. Ví dụ: KH001\n");
+			txtTim.requestFocus();
+			txtTim.selectAll();
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean regexNVTren18(JDateChooser dateChooser) {
 		LocalDate dNow = LocalDate.now();
 		int nam = dNow.getYear();
