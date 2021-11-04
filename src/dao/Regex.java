@@ -133,11 +133,26 @@ public class Regex {
 	}
 	
 	public boolean regexTimKiemChucVu(JTextField txtTim) {
-		String input = txtTim.getText();
-		String regex = "^[ A-Za-zA-ZPpHhỤụCcVvTtUuNnGgÂâQqẢảLlÝý]*+$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(input);
-		if (!matcher.find()) {
+		String input = txtTim.getText().toLowerCase().trim();
+//		String regex = "^[(quản lý)|(thu ngân)|(phục vụ)]$";
+//		String regexQL = "^[ A-Za-zA-ZQqẢảNnLlÝý]*+$";	//chạy đc
+		String regexQL = "^[quản lý]*+$";   			//chạy đc
+		Pattern patternQL = Pattern.compile(regexQL);
+		Matcher matcherQL = patternQL.matcher(input);
+		
+//		String regexTN = "^[ A-Za-zA-ZÂâGgHhNnTtUu]*+$";
+		String regexTN = "^[thu ngân]*+$";
+//		String regexTN = "aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz0123456789_]+$";
+		Pattern patternTN = Pattern.compile(regexTN);
+		Matcher matcherTN = patternTN.matcher(input);
+		
+//		String regexPV = "^[ A-Za-zA-ZPpHhỤụCcVv]*+$";
+		String regexPV = "^[phục vụ]*+$";
+//		String regexPV = "aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz0123456789_]+$";
+		Pattern patternPV = Pattern.compile(regexPV);
+		Matcher matcherPV = patternPV.matcher(input);
+		if (!matcherQL.find() && !matcherTN.find() && !matcherPV.find()) {
+//		if (!matcherQL.find()) {
 //			JOptionPane.showMessageDialog(null, "Chức vụ không hợp lệ!\nTìm theo chức vụ: phục vụ, thu ngân, quản lý", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTim.requestFocus();
 			txtTim.selectAll();
