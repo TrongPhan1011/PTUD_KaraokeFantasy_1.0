@@ -62,10 +62,6 @@ public class DAOPhatSinhMa {
 		}
 		return maNV;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f5fbc4c6a10b7c772520b00942d9cf3e71badcf
 	//maMH
 	public String getMaMH() {
 		String maMH="";
@@ -84,12 +80,11 @@ public class DAOPhatSinhMa {
 		return maMH;
 	}
 	
-<<<<<<< HEAD
+
 	//matkhau
 //	public String getMatKhau() {
 //		String mk="";
 //		ConnectDB.getinstance()
 //	}
-=======
->>>>>>> 9f5fbc4c6a10b7c772520b00942d9cf3e71badcf
+
 }
