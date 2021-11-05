@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
+
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -52,13 +53,15 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 	private FixButton btnTim;
 	private JTextField txtTim;
 	private FixButton btnThemKH;
-	private FixButton btnSuaKH;
-	private FixButton btnXoaKH;
+	private FixButton btnSuaMH;
+	private FixButton btnXoaMH;
 	private FixButton btnReset;
 	private DAOMatHang daoMH;
 	private DAOLoaiMH daoLMH;
 	private JComboBox<String> cbbLoaiMH;
 	private DAOPhatSinhMa daoPhatSinhMa;
+	private JComboBox<Object> cbbSapXep;
+	private ArrayList<LoaiMatHang> loaiMH;
 	
 	public Panel getFrmMatHang() {
 		return this.pMain;
@@ -138,19 +141,11 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		////////////////
 		//QLBH//////
 		////////////////
-//		JPanel pDichVu = new JPanel();
-//		pDichVu.setBorder(new TitledBorder(new LineBorder(new Color(114, 23 ,153), 1, true), "Quản lý bán hàng ", TitledBorder.LEFT, TitledBorder.TOP, null, Color.BLACK));
-//		pDichVu.setBackground(new Color(238,239,243,90));
-//		pDichVu.setBounds(37, 54, 1194, 99);
-//		pMain.add(pDichVu);
-//		pDichVu.setLayout(null);
 		
-		//---
-		
-		JLabel lblSubTenMH = new JLabel("Tên mặt hàng: ");
-		lblSubTenMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		lblSubTenMH.setBounds(217, 59, 102, 26);
-		pMain.add(lblSubTenMH);
+		JLabel lblTenMH = new JLabel("Tên mặt hàng: ");
+		lblTenMH.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		lblTenMH.setBounds(217, 59, 102, 26);
+		pMain.add(lblTenMH);
 		
 		txtTenMH = new JTextField();
 		txtTenMH.setBackground(new Color(255, 255, 255));
@@ -198,10 +193,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		cbbLoaiMH.setBounds(766, 97, 310, 30);
 		pMain.add(cbbLoaiMH);
 //		String cbbLoaiMH1 [] = {"Đồ ăn", "Đồ uống", "Khác"};
-		ArrayList<LoaiMatHang> loaiMH = daoLMH.getAllLoaiMatHang();
-		for(LoaiMatHang lmh : loaiMH) {
-			cbbLoaiMH.addItem(lmh.getTenLoaiMatHang());
-		}
+		
 		/////
 		////////////////
 		//Buttons//////
@@ -218,27 +210,27 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		btnThemKH.setIcon(new ImageIcon(resizeImgThemKH));
 		pMain.add(btnThemKH);
 		
-		btnSuaKH = new FixButton("Sửa");
-		btnSuaKH.setForeground(Color.WHITE);
-		btnSuaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnSuaMH = new FixButton("Sửa");
+		btnSuaMH.setForeground(Color.WHITE);
+		btnSuaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 //		btnSuaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnSuaKH.setBackground(new Color(114, 43, 153));
-		btnSuaKH.setBounds(537, 150, 118, 35);
+		btnSuaMH.setBackground(new Color(114, 43, 153));
+		btnSuaMH.setBounds(537, 150, 118, 35);
 		Image imgSuaKH = Toolkit.getDefaultToolkit().getImage("data\\img\\iconTool.png");
 		Image resizeImgSuaKH = imgSuaKH.getScaledInstance(25, 25, 0);
-		btnSuaKH.setIcon(new ImageIcon(resizeImgSuaKH));
-		pMain.add(btnSuaKH);
+		btnSuaMH.setIcon(new ImageIcon(resizeImgSuaKH));
+		pMain.add(btnSuaMH);
 		
-		btnXoaKH = new FixButton("Xóa");
-		btnXoaKH.setForeground(Color.WHITE);
-		btnXoaKH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnXoaMH = new FixButton("Xóa");
+		btnXoaMH.setForeground(Color.WHITE);
+		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 //		btnXoaKH.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
-		btnXoaKH.setBackground(new Color(114, 43, 153));
-		btnXoaKH.setBounds(702, 150, 125, 35);
+		btnXoaMH.setBackground(new Color(114, 43, 153));
+		btnXoaMH.setBounds(702, 150, 125, 35);
 		Image imgXoaKH = Toolkit.getDefaultToolkit().getImage("data\\img\\iconRemove.png");
 		Image resizeImgXoaKH = imgXoaKH.getScaledInstance(25, 25, 0);
-		btnXoaKH.setIcon(new ImageIcon(resizeImgXoaKH));
-		pMain.add(btnXoaKH);
+		btnXoaMH.setIcon(new ImageIcon(resizeImgXoaKH));
+		pMain.add(btnXoaMH);
 		
 		btnReset = new FixButton("Làm mới");
 		btnReset.setForeground(Color.WHITE);
@@ -261,7 +253,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		pMain.add(pSapXep);
 		pSapXep.setLayout(null);
 		
-		JComboBox<Object> cbbSapXep = new JComboBox<Object>(new Object[]{"Tăng dần", "Giảm dần"});
+		cbbSapXep = new JComboBox<Object>(new Object[]{"Tăng dần", "Giảm dần"});
 		cbbSapXep.setBounds(23, 14, 115, 28);
 		cbbSapXep.setFont(new Font("SansSerif", Font.BOLD, 15));
 		cbbSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
@@ -300,7 +292,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		modelMatHang = new DefaultTableModel(mh,0);
 		
 		tableMH = new JTable(modelMatHang);
-		tableMH.setShowHorizontalLines(false);
+	
 		tableMH.setShowGrid(false);
 		tableMH.setBackground(Color.WHITE);
 		tableMH.setFont(new Font("SansSerif", Font.PLAIN, 13));
@@ -316,21 +308,13 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		tableMH.setSelectionBackground(new Color(164, 44, 167,30));
 		tableMH.setRowHeight(30);
 		
-		tableMH.setOpaque(false);
 	
 		JScrollPane spMatHang = new JScrollPane(tableMH);
 		spMatHang.setBounds(37, 249, 1194, 346);
 		spMatHang.setBorder(new LineBorder(new Color(164, 44, 167), 1, true));
 		spMatHang.setBackground(new Color(164, 44, 167));
 		pMain.add(spMatHang);
-		//
-		//////////////////////////////////////
-		btnThemKH.addActionListener(this);
-		btnXoaKH.addActionListener(this);
-		btnTim.addActionListener(this);
-		btnSuaKH.addActionListener(this);
-		btnReset.addActionListener(this);
-		tableMH.addMouseListener(this);
+	
 		////
 		JLabel lblBackGround=new JLabel("");
 		lblBackGround.setIcon(new ImageIcon("data\\img\\background.png"));
@@ -339,9 +323,25 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		Image resizeBG = imgBackGround.getScaledInstance(lblBackGround.getWidth(), lblBackGround.getHeight(), 0);
 		lblBackGround.setIcon(new ImageIcon(resizeBG));
 		pMain.add(lblBackGround);
+		
+
+			//
+		loaiMH = daoLMH.getAllLoaiMatHang();
+		for(LoaiMatHang lmh : loaiMH) {
+			cbbLoaiMH.addItem(lmh.getTenLoaiMatHang());
+		}
+		//////////////////////////////////////
+		btnThemKH.addActionListener(this);
+		btnXoaMH.addActionListener(this);
+		btnTim.addActionListener(this);
+		btnSuaMH.addActionListener(this);
+		btnReset.addActionListener(this);
+		tableMH.addMouseListener(this);
 		//////////////////////////////////////////////////////////////////////////
 		loadTableMH();
 	}
+	
+	
 	public void loadTableMH() {
 		ArrayList<MatHang> lsMH = daoMH.getDSMatHang();
 		for(MatHang mh : lsMH) {
@@ -353,63 +353,90 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if(o.equals(btnReset)) {
-			txtTenMH.setText("");
-			txtDonGia.setText("");
-			txtSoLuong.setText("");
-			txtTenMH.requestFocus();
+			LamMoi();
 		}else if(o.equals(btnThemKH)) {
-			String maMH = daoPhatSinhMa.getMaMH();
-			String tenMH = txtTenMH.getText();
-			String loaiMH = cbbLoaiMH.getSelectedItem().toString();
-			int soluong = Integer.parseInt(txtSoLuong.getText());
-			double dongia = Double.parseDouble(txtDonGia.getText());
-			MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(loaiMH));
-			if (daoMH.ThemMH(mh)) {
-				modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getLoaiMatHang(), mh.getTenMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang()});
-			}
-		}else if(o.equals(btnXoaKH)) {
-			if (tableMH.getSelectedRow() == -1) {
-				JOptionPane.showMessageDialog(this, "Vui lòng chọn mặt hàng cần xóa");
-			}else {
-				int r = tableMH.getSelectedRow();
-				if(r > 0) {
-					int del = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa? ", "Thông báo", JOptionPane.YES_NO_OPTION);
-					String maMH = modelMatHang.getValueAt(r, 0).toString();
-					if(del == JOptionPane.YES_OPTION) {
-						if(daoMH.XoaMH(maMH))
-							modelMatHang.removeRow(r);
-					}
-				}
-			}
-		}else if (o.equals(btnSuaKH)) {
-			String maMH = daoPhatSinhMa.getMaMH();
-			String tenMH = txtTenMH.getText();
-			String loaiMH = cbbLoaiMH.getSelectedItem().toString();
-			int soluong = Integer.parseInt(txtSoLuong.getText());
-			double dongia = Double.parseDouble(txtDonGia.getText());
-			MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(loaiMH));
-			if(daoMH.updateMH(mh)) {
-				clearTable();
-				loadTableMH();
-			}else 
-				JOptionPane.showMessageDialog(this, "Mã mặt hàng không tồn tại.");
+			ThemMH();
+		}else if(o.equals(btnXoaMH)) {
+			XoaMH();
+		}else if (o.equals(btnSuaMH)) {
+			SuaMH();
 		}
 		
+	}
+	public void XoaMH() {
+		if (tableMH.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Vui lòng chọn mặt hàng cần xóa");
+		}else {
+			int r = tableMH.getSelectedRow();
+			if(r > 0) {
+			int del = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa? ", "Thông báo", JOptionPane.YES_NO_OPTION);
+			String maMH = modelMatHang.getValueAt(r, 0).toString();
+			if(del == JOptionPane.YES_OPTION) {
+				if(daoMH.XoaMH(maMH))
+				modelMatHang.removeRow(r);
+				}
+			}
+		}
+	}
+	public void ThemMH() {
+		String maMH = daoPhatSinhMa.getMaMH();
+		String tenMH = txtTenMH.getText();
+		String loaiMH = cbbLoaiMH.getSelectedItem().toString();
+		String maLMH = daoLMH.getMaLoaiMHTheoTen(loaiMH);
+		int soluong = Integer.parseInt(txtSoLuong.getText());
+		double dongia = Double.parseDouble(txtDonGia.getText());
+		MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(maLMH));
+		try {
+			daoMH.ThemMH(mh);
+		}catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Thêm mặt hàng thất bại!");
+		}
+		LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
+		modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(),mh.getGiaMatHang() } );
+		JOptionPane.showMessageDialog(this, "Thêm mặt hàng thành công!");
+	}
+	public void SuaMH() {
+		String maMH = daoPhatSinhMa.getMaMH();
+		String tenMH = txtTenMH.getText();
+		String loaiMH = cbbLoaiMH.getSelectedItem().toString();
+		String maLMH = daoLMH.getMaLoaiMHTheoTen(loaiMH);
+		int soluong = Integer.parseInt(txtSoLuong.getText());
+		double dongia = Double.parseDouble(txtDonGia.getText());
+		MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(maLMH));  
+		try {
+			daoMH.updateMH(mh);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Mã mặt hàng không tồn tại.");
+		}	
+		clearTable();
+		loadTableMH();
+		JOptionPane.showMessageDialog(this, "Cập nhật mặt hàng thành công! ");
 	}
 	private void clearTable() {
 		while(tableMH.getRowCount() > 0) {
 			modelMatHang.removeRow(0);
 		}
 	}
+	private void LamMoi() {
+		txtTenMH.setText("");
+			txtDonGia.setText("");
+			txtSoLuong.setText("");
+			txtTenMH.requestFocus();
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int row = tableMH.getSelectedRow();
-		if(row != -1) {
-			txtTenMH.setText(tableMH.getValueAt(row, 0).toString());
-			cbbLoaiMH.setSelectedItem(tableMH.getValueAt(row, 1));
-			txtDonGia.setText(tableMH.getValueAt(row, 2).toString());
-			txtSoLuong.setText(tableMH.getValueAt(row, 3).toString());
+		Object o = e.getSource();
+		if(o.equals(tableMH)) {
+			int row = tableMH.getSelectedRow();	
+			txtTenMH.setText(modelMatHang.getValueAt(row, 1).toString());
+			txtSoLuong.setText(modelMatHang.getValueAt(row, 3).toString());
+			txtDonGia.setText(modelMatHang.getValueAt(row, 4).toString());
+			cbbLoaiMH.setSelectedItem(modelMatHang.getValueAt(row, 2).toString());
+		
 		}
+	
 		
 	}
 	@Override

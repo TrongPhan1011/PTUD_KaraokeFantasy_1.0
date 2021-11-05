@@ -89,29 +89,45 @@ public class DAONhanVien implements Serializable{
 		return lstNV;
 	}
 	
-	//Load 1 NV dang lam viec theo manv
-	public NhanVien getNVTheoMa(String ma) { 
+	//Load 1 NV dang lam viec theo manv, sdt
+	public NhanVien getNV(String info) { 
 		NhanVien nv = new NhanVien();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from [dbo].[NhanVien] where maNhanVien = '"+ma+"'";
+		String sqlMa = "select * from [dbo].[NhanVien] where maNhanVien = '"+info+"'";
+		String sqlSDT = "select * from [dbo].[NhanVien] where sdt = '"+info+"'";
 		try {
 			Statement stm = con.createStatement();
-			ResultSet rs = stm.executeQuery(sql);
-			while(rs.next()) {
-				nv.setMaNhanVien(rs.getString(1));
-				nv.setTaiKhoan(new TaiKhoan(rs.getString(2)));
-				nv.setTenNhanVien(rs.getString(3));
-				nv.setChucVu(rs.getString(4));
-				nv.setGioiTinh(rs.getString(5));
-				nv.setNgaySinh(rs.getDate(6));
-				nv.setDiaChi(rs.getString(7));
-				nv.setSdt(rs.getString(8));
-				nv.setCccd(rs.getString(9));
-				nv.setLuong(rs.getDouble(10));
-				nv.setCaLamViec(rs.getInt(11));
-				nv.setTrangThaiLamViec(rs.getString(12));
-				
+			ResultSet rsMa = stm.executeQuery(sqlMa);
+			while(rsMa.next()) {
+				nv.setMaNhanVien(rsMa.getString(1));
+				nv.setTaiKhoan(new TaiKhoan(rsMa.getString(2)));
+				nv.setTenNhanVien(rsMa.getString(3));
+				nv.setChucVu(rsMa.getString(4));
+				nv.setGioiTinh(rsMa.getString(5));
+				nv.setNgaySinh(rsMa.getDate(6));
+				nv.setDiaChi(rsMa.getString(7));
+				nv.setSdt(rsMa.getString(8));
+				nv.setCccd(rsMa.getString(9));
+				nv.setLuong(rsMa.getDouble(10));
+				nv.setCaLamViec(rsMa.getInt(11));
+				nv.setTrangThaiLamViec(rsMa.getString(12));
+			}
+			
+			ResultSet rsSDT = stm.executeQuery(sqlSDT);
+			while(rsSDT.next()) {
+				nv.setMaNhanVien(rsSDT.getString(1));
+				nv.setTaiKhoan(new TaiKhoan(rsSDT.getString(2)));
+				nv.setTenNhanVien(rsSDT.getString(3));
+				nv.setChucVu(rsSDT.getString(4));
+				nv.setGioiTinh(rsSDT.getString(5));
+				nv.setNgaySinh(rsSDT.getDate(6));
+				nv.setDiaChi(rsSDT.getString(7));
+				nv.setSdt(rsSDT.getString(8));
+				nv.setCccd(rsSDT.getString(9));
+				nv.setLuong(rsSDT.getDouble(10));
+				nv.setCaLamViec(rsSDT.getInt(11));
+				nv.setTrangThaiLamViec(rsSDT.getString(12));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -119,15 +135,101 @@ public class DAONhanVien implements Serializable{
 		return nv;
 	}
 	
-//	public boolean kiemTraTrangThaiLamViec(JLabel lblNVDaNghiViec) {
-//		NhanVien nv=new NhanVien();
-//		ConnectDB.getinstance();
-//		Connection con = ConnectDB.getConnection();
-//		return false;
-//	}
-	
+	//Load 1 NV dang lam viec theo tenNV
+		public ArrayList<NhanVien> getTenNV(String info) { 
+			ArrayList<NhanVien> list = new ArrayList<>();
+			ConnectDB.getinstance();
+			Connection con = ConnectDB.getConnection();
+			String sql = "select * from [dbo].[NhanVien] where tenNhanVien like N'"+info+"'";
+			try {
+				Statement stm = con.createStatement();
+				ResultSet rs = stm.executeQuery(sql);
+				while(rs.next()) {
+					NhanVien nv=new NhanVien();
+					nv.setMaNhanVien(rs.getString(1));
+					nv.setTaiKhoan(new TaiKhoan(rs.getString(2)));
+					nv.setTenNhanVien(rs.getString(3));
+					nv.setChucVu(rs.getString(4));
+					nv.setGioiTinh(rs.getString(5));
+					nv.setNgaySinh(rs.getDate(6));
+					nv.setDiaChi(rs.getString(7));
+					nv.setSdt(rs.getString(8));
+					nv.setCccd(rs.getString(9));
+					nv.setLuong(rs.getDouble(10));
+					nv.setCaLamViec(rs.getInt(11));
+					nv.setTrangThaiLamViec(rs.getString(12));
+					list.add(nv);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
+		}
+		
+		//Load 1 NV dang lam viec theo chucvu
+				public ArrayList<NhanVien> getChucVuNV(String info) { 
+					ArrayList<NhanVien> list = new ArrayList<>();
+					ConnectDB.getinstance();
+					Connection con = ConnectDB.getConnection();
+					String sql = "select * from [dbo].[NhanVien] where chucVu like N'"+info+"'";
+					try {
+						Statement stm = con.createStatement();
+						ResultSet rs = stm.executeQuery(sql);
+						while(rs.next()) {
+							NhanVien nv=new NhanVien();
+							nv.setMaNhanVien(rs.getString(1));
+							nv.setTaiKhoan(new TaiKhoan(rs.getString(2)));
+							nv.setTenNhanVien(rs.getString(3));
+							nv.setChucVu(rs.getString(4));
+							nv.setGioiTinh(rs.getString(5));
+							nv.setNgaySinh(rs.getDate(6));
+							nv.setDiaChi(rs.getString(7));
+							nv.setSdt(rs.getString(8));
+							nv.setCccd(rs.getString(9));
+							nv.setLuong(rs.getDouble(10));
+							nv.setCaLamViec(rs.getInt(11));
+							nv.setTrangThaiLamViec(rs.getString(12));
+							list.add(nv);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return list;
+				}
+		
+				//Load 1 NV dang lam viec theo ca
+				public ArrayList<NhanVien> getCaNV(String info) { 
+					ArrayList<NhanVien> list = new ArrayList<>();
+					ConnectDB.getinstance();
+					Connection con = ConnectDB.getConnection();
+					String sql = "select * from [dbo].[NhanVien] where caLamViec = '"+info+"'";
+					try {
+						Statement stm = con.createStatement();
+						ResultSet rs = stm.executeQuery(sql);
+						while(rs.next()) {
+							NhanVien nv=new NhanVien();
+							nv.setMaNhanVien(rs.getString(1));
+							nv.setTaiKhoan(new TaiKhoan(rs.getString(2)));
+							nv.setTenNhanVien(rs.getString(3));
+							nv.setChucVu(rs.getString(4));
+							nv.setGioiTinh(rs.getString(5));
+							nv.setNgaySinh(rs.getDate(6));
+							nv.setDiaChi(rs.getString(7));
+							nv.setSdt(rs.getString(8));
+							nv.setCccd(rs.getString(9));
+							nv.setLuong(rs.getDouble(10));
+							nv.setCaLamViec(rs.getInt(11));
+							nv.setTrangThaiLamViec(rs.getString(12));
+							list.add(nv);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return list;
+				}
+				
 	//Load 1 NV da nghi viec theo manv
-	public NhanVien getNVDaNghiViecTheoMa(String ma) { 
+	public NhanVien getNVDaNghiViec(String ma) { 
 		NhanVien nv = new NhanVien();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
@@ -156,13 +258,6 @@ public class DAONhanVien implements Serializable{
 		return nv;
 	}
 	
-//	//Tim NV
-//	public NhanVien timNV(String maNV) {
-//		NhanVien nv=new NhanVien(maNV);
-//		if(dsNV.contains(nv))
-//			return dsNV.get(dsNV.indexOf(nv));
-//		return null;
-//	}
 	
 	//them NV
 	public boolean themNV(NhanVien nv) throws SQLException {
@@ -194,9 +289,7 @@ public class DAONhanVien implements Serializable{
 	
 	//huyNV, chuyen trangThaiLamViec
 	public boolean huyNV(String ma) throws SQLException {
-		NhanVien nv=new NhanVien();
-		
-		Connection con= ConnectDB.getConnection();
+		Connection con = ConnectDB.getConnection();
 		String sql = "update NhanVien set trangThaiLamViec = N'Đã nghỉ việc' where maNhanVien = '"+ma+"'";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -207,6 +300,30 @@ public class DAONhanVien implements Serializable{
 		}
 		con.close();
 		return false;
+	}
+	
+	//capnhat-sua NV
+	public boolean capNhatNV(NhanVien nv, String ma) throws SQLException {
+		Connection con = ConnectDB.getConnection();
+		String sql = "update NhanVien set tenNhanVien = ?, chucVu = ?, gioiTinh = ?, ngaySinh = ?, diaChi = ?, sdt = ?, cccd = ?, caLamViec = ? where maNhanVien = '"+ma+"'";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, nv.getTenNhanVien());
+			ps.setString(2, nv.getChucVu());
+			ps.setString(3, nv.getGioiTinh());
+			ps.setDate(4, nv.getNgaySinh());
+			ps.setString(5, nv.getDiaChi());
+			ps.setString(6, nv.getSdt());
+			ps.setString(7, nv.getCccd());
+			ps.setInt(8, nv.getCaLamViec());
+			
+			return ps.executeUpdate() > 0;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		con.close();
+		return false;
+		
 	}
 	
 }

@@ -17,7 +17,7 @@ public class Regex {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if (!matcher.find()) {
-			JOptionPane.showMessageDialog(null, "Địa chỉ không hợp lệ!\nMẫu địa chỉ:56a Cầu Xéo, Tân quí, Tân Phú");
+			JOptionPane.showMessageDialog(null, "Địa chỉ không hợp lệ!\nMẫu địa chỉ:56a Cầu Xéo, Tân quí, Tân Phú", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtDiaChi.requestFocus();
 			txtDiaChi.selectAll();
 			return false;
@@ -31,7 +31,7 @@ public class Regex {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if (!matcher.find()) {
-			JOptionPane.showMessageDialog(null, "Họ tên không hợp lệ!\nMẫu họ tên: Nguyễn Văn A");
+			JOptionPane.showMessageDialog(null, "Họ tên không hợp lệ!\nMẫu họ tên: Nguyễn Văn A", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTen2.requestFocus();
 			txtTen2.selectAll();
 			return false;
@@ -45,7 +45,7 @@ public class Regex {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if(!matcher.find()) {
-			JOptionPane.showMessageDialog(null, "SĐT không hợp lệ!\nSĐT gồm 10 chữ số và bắt đầu bằng số 0");
+//			JOptionPane.showMessageDialog(null, "SĐT không hợp lệ!\nSĐT gồm 10 chữ số và bắt đầu bằng số 0", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtSDT.requestFocus();
 			txtSDT.selectAll();
 			return false;
@@ -59,7 +59,7 @@ public class Regex {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if(!matcher.find()) {
-			JOptionPane.showMessageDialog(null, "CCCD không hợp lệ!\nCCD gồm 12 chữ số");
+//			JOptionPane.showMessageDialog(null, "CCCD không hợp lệ!\nCCD gồm 12 chữ số", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtCCCD.requestFocus();
 			txtCCCD.selectAll();
 			return false;
@@ -71,7 +71,7 @@ public class Regex {
 		String input = txtSoluong.getText();
 		String regex = "^[1-9]+[0-9]*$";
 		if(!input.matches(regex))
-		{	JOptionPane.showMessageDialog(null, "Số lượng không được để trống, không được nhập chữ và phải lớn hơn 0\nVí dụ: 10");
+		{	JOptionPane.showMessageDialog(null, "Số lượng không được để trống, không được nhập chữ và phải lớn hơn 0\nVí dụ: 10", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtSoluong.requestFocus();
 			txtSoluong.selectAll();
 			return false;
@@ -83,7 +83,7 @@ public class Regex {
 		String input = txtTim.getText();
 		String regex = "^(P[0-9]{3})$";
 		if(!input.matches(regex))
-		{	JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã Phòng. Ví dụ: P003\n");
+		{	JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã Phòng. Ví dụ: P003\n", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTim.requestFocus();
 			txtTim.selectAll();
 			return false;
@@ -93,27 +93,42 @@ public class Regex {
 	
 	public boolean regexTimKiemMaNV(JTextField txtTim) {
 		String input = txtTim.getText();
-		String regexMaNV = "^(NV[0-9]{3})$";
+		String regexMaNV = "^(NV[0-9]{2}[1-9]{1})$";
+		Pattern pattern = Pattern.compile(regexMaNV);
+		Matcher matcher = pattern.matcher(input);
 		if(!input.matches(regexMaNV)) {
-			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã nhân viên. Ví dụ: NV001\n");
+//			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã nhân viên. Ví dụ: NV001\n", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTim.requestFocus();
 			txtTim.selectAll();
 			return false;
 		}
 		return true;
 	}
-	
-	public boolean regexTimKiemMaKH(JTextField txtTim) {
-		String input = txtTim.getText();
+	public boolean regexTimKiemMaKH(JTextField txtTK) {
+		String input = txtTK.getText();
 		String regexMaKH = "^(KH[0-9]{3})$";
 		if(!input.matches(regexMaKH)) {
-			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã Khách hàng. Ví dụ: KH001\n");
-			txtTim.requestFocus();
-			txtTim.selectAll();
+			txtTK.requestFocus();
+			txtTK.selectAll();
 			return false;
 		}
 		return true;
 	}
+	public boolean regexTenNV(JTextField txtTen2) {
+		String input = txtTen2.getText();
+		String regex = "^([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(input);
+		if (!matcher.find()) {
+//			JOptionPane.showMessageDialog(null, "Họ tên không hợp lệ!\nMẫu họ tên: Nguyễn Văn A", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			txtTen2.requestFocus();
+			txtTen2.selectAll();
+			return false;
+		} else
+			return true;
+
+	}
+
 	
 	public boolean regexNVTren18(JDateChooser dateChooser) {
 		LocalDate dNow = LocalDate.now();
@@ -122,7 +137,59 @@ public class Regex {
 		int monnth = dateChooser.getDate().getMonth();
 		int year = dateChooser.getDate().getYear();
 		if(day<=0 || day>31 || monnth<=0 || monnth>12 || year<=0 || year>(nam - 18)) {
-			JOptionPane.showMessageDialog(null, "Nhân viên phải trên 18 tuổi!");
+			JOptionPane.showMessageDialog(null, "Nhân viên phải trên 18 tuổi!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean regexTimKiemChucVu(JTextField txtTim) {
+		String input = txtTim.getText();
+		String regex = "^[ A-Za-zA-ZPpHhỤụCcVvTtUuNnGgÂâQqẢảLlÝý]*+$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(input);
+		if (!matcher.find()) {
+//			JOptionPane.showMessageDialog(null, "Chức vụ không hợp lệ!\nTìm theo chức vụ: phục vụ, thu ngân, quản lý", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			txtTim.requestFocus();
+			txtTim.selectAll();
+			return false;
+		} else
+			return true;
+	}
+	
+	public boolean regexTimKiemCa(JTextField txtTim) {
+		String input = txtTim.getText();
+		String regex = "^[1-3]{1}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(input);
+		if (!matcher.find()) {
+//			JOptionPane.showMessageDialog(null, "Ca làm việc không hợp lệ!\nTìm theo ca: 1, 2, 3", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			txtTim.requestFocus();
+			txtTim.selectAll();
+			return false;
+		} else
+			return true;
+	}
+	
+	public boolean regexTimKiemGioiTinh(JTextField txtTim) {
+		String input = txtTim.getText();
+		String regexNam = "^[nam]$";
+		String regexNu = "^[nữ]$";
+		Pattern patternNam = Pattern.compile(regexNam);
+		Matcher matcherNam = patternNam.matcher(input);
+		if (!matcherNam.find()) {
+			JOptionPane.showMessageDialog(null, "Giới tính không hợp lệ!\nTìm giới tính: nam hoặc nữ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			txtTim.requestFocus();
+			txtTim.selectAll();
+			return false;
+		}
+		
+		Pattern patternNu = Pattern.compile(regexNu);
+		Matcher matcherNu = patternNu.matcher(input);
+		if (!matcherNu.find()) {
+			JOptionPane.showMessageDialog(null, "Giới tính không hợp lệ!\nTìm giới tính: nam hoặc nữ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			txtTim.requestFocus();
+			txtTim.selectAll();
 			return false;
 		}
 		return true;
