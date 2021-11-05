@@ -435,7 +435,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		}	
 		clearTable();
 		loadTableMH();
-		JOptionPane.showMessageDialog(this, "Cập nhật mặt hàng thành công! ");
+		JOptionPane.showMessageDialog(this, "Cập  nhật mặt hàng thành công! ");
 	}
 	/**
 	 * Xóa bảng
