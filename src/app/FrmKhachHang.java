@@ -81,7 +81,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	private JTextField txtSDT;
 	private JTextField txtCccd;
 	private JTextField txtPoint;
-	private JTextArea textAreaDiaChi;
+	private JTextField txtDiaChi;
 	private JTable tableKH;
 	private DAOLoaiKH daoLoaiKH;
 	private DAOKhachHang daoKhachHang;
@@ -99,6 +99,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	private JRadioButton rdoTheoTenKH;
 	private JCheckBox chkAll = new JCheckBox("Tất cả");
 	private Regex regex;
+	private KhachHang kh;
 
 	public Panel getFrmKH() {
 		return this.pMain;
@@ -286,6 +287,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		txtPoint.setBorder(new LineBorder(new Color(114, 23, 153), 2, true));
 		txtPoint.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		pMain.add(txtPoint);
+		txtPoint.setEditable(isDisplayable());
 		txtPoint.setColumns(10);
 
 		dateChooserNgaySinh = new JDateChooser();
@@ -390,13 +392,13 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		tableKH.setSelectionBackground(new Color(164, 44, 167, 30));
 		scrollPaneKH.setViewportView(tableKH);
 
-		textAreaDiaChi = new JTextArea();
-		textAreaDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 2, true));
-		textAreaDiaChi.setBounds(342, 145, 189, 51);
-		textAreaDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
-		textAreaDiaChi.setBounds(239, 140, 189, 51);
-		pMain.add(textAreaDiaChi);
+		txtDiaChi = new JTextField();
+		txtDiaChi.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 2, true));
+		txtDiaChi.setBounds(342, 145, 189, 51);
+		txtDiaChi.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
+		txtDiaChi.setBounds(239, 140, 189, 51);
+		pMain.add(txtDiaChi);
 
 		dateChooserNgayDangKy = new JDateChooser();
 		dateChooserNgayDangKy.setDateFormatString("dd/MM/yyyy");
@@ -496,6 +498,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		//chkAll.addActionListener(this);
 		btnTim.addActionListener(this);
 		rdoTheoMaKH.addActionListener(this);
+		rdoTheoTenKH.addActionListener(this);
 
 	}
 
@@ -546,11 +549,11 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		// khách hàng không?", "Thông báo", JOptionPane.YES_NO_OPTION );
 
 		if (regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexCCCD(txtCccd)
-				&& regex.regexDiaChi(textAreaDiaChi)) {
+				&& regex.regexDiaChi(txtDiaChi)) {
 			String maKH = daoMaKH.getMaKH();
 			String tenKH = txtHoTen.getText().toString();
 			String sdt = txtSDT.getText().toString();
-			String diaChi = textAreaDiaChi.getText().toString();
+			String diaChi = txtDiaChi.getText().toString();
 			String cccd = txtCccd.getText().toString();
 			String gioiTinh = cbbgioiTinh.getSelectedItem().toString();
 			LoaiKH loaiKH = new LoaiKH(daoLoaiKH.getMaLoaiKHTheoTen(cbbloaiKH.getSelectedItem().toString()));
@@ -584,12 +587,12 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 					JOptionPane.YES_NO_OPTION);
 			if (update == JOptionPane.YES_OPTION) {
 				if (regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexCCCD(txtCccd)
-						&& regex.regexDiaChi(textAreaDiaChi)) {
+						&& regex.regexDiaChi(txtDiaChi)) {
 					// int row = tableKH.getSelectedRow();
 					String maKH = modelKhachHang.getValueAt(row, 0).toString();
 					String tenKH = txtHoTen.getText().toString();
 					String sdt = txtSDT.getText().toString();
-					String diaChi = textAreaDiaChi.getText().toString();
+					String diaChi = txtDiaChi.getText().toString();
 					String cccd = txtCccd.getText().toString();
 					String gioiTinh = cbbgioiTinh.getSelectedItem().toString();
 					LoaiKH loaiKH = new LoaiKH(daoLoaiKH.getMaLoaiKHTheoTen(cbbloaiKH.getSelectedItem().toString()));
@@ -629,7 +632,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		txtHoTen.setText("");
 		txtSDT.setText("");
 		txtCccd.setText("");
-		textAreaDiaChi.setText("");
+		txtDiaChi.setText("");
 		dateChooserNgaySinh.setDate(new Date(0));
 		dateChooserNgayDangKy.setDate(new Date(0));
 		txtPoint.setText("");
@@ -694,21 +697,45 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		}
 		return false;
 	}
-	//Sap xep theo ma khach hang
+	//Sap xep theo ma khach hang giam dan
 	
-	  public void sort() {
-					//clearTable();
+	  public void sortMaKHGiamDan(KhachHang kh) {
+					clearTable();
 					ArrayList<KhachHang> lsKH = daoKhachHang.sortByMa();
-					for (KhachHang kh : lsKH) {
-						LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(kh.getLoaiKH().getMaLoaiKH());
-						modelKhachHang.addRow(new Object[] { kh.getMaKhangHang(), kh.getTenKH(), loaiKH.getTenLoaiKH(),
-								kh.getGioiTinh(), dfNgaySinh.format(kh.getNgaySinh()), kh.getDiaChi(), kh.getSdt(), kh.getCccd(),
-								dfNgayDangKy.format(kh.getNgayDangKy()), kh.getDiemTichLuy() });
+					for (KhachHang khs : lsKH) {
+						LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+						modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+								khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+								dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
 					}
-				  //loadDanhSachKH();
-
 }
-	 
+	  
+	//Sap xep theo ten khach hang giam dan
+	  public void sortTenKHTangDan(KhachHang kh) {
+			clearTable();
+			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();
+			
+			Collections.sort(lsKH, new Comparator<KhachHang>() {
+				public int compare(KhachHang o1, KhachHang o2) {
+					//String [] k;
+					//String [] s;
+					//s = o1.getTenKH().split("");
+					//k = o2.getTenKH().split("");
+					//int p =(s[s.length-1].length());
+					//int q =(k[k.length-1].length());
+					return o2.getTenKH().compareTo(o1.getTenKH());
+					//return (o1.getTenKH().substring(o1.getTenKH().length() - p, o1.getTenKH().length())).compareToIgnoreCase(o2.getTenKH().substring(o2.getTenKH().length() - q, o2.getTenKH().length()));
+				}
+			});
+			
+			for (KhachHang khs : lsKH) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+}
+
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -728,7 +755,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			cbbloaiKH.setSelectedItem(modelKhachHang.getValueAt(row, 2).toString());
 			txtSDT.setText(modelKhachHang.getValueAt(row, 6).toString());
 			txtCccd.setText(modelKhachHang.getValueAt(row, 7).toString());
-			textAreaDiaChi.setText(modelKhachHang.getValueAt(row, 5).toString());
+			txtDiaChi.setText(modelKhachHang.getValueAt(row, 5).toString());
 			cbbgioiTinh.setSelectedItem(modelKhachHang.getValueAt(row, 3).toString());
 			txtPoint.setText(modelKhachHang.getValueAt(row, 9).toString());
 			String ngaySinh = modelKhachHang.getValueAt(row, 4).toString();
@@ -789,6 +816,12 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		}  
 		if (o.equals(btnTim)) {
 			findKH();
+		}
+		if(cbbSort.getSelectedItem()=="Giảm dần"){
+			if(o.equals(rdoTheoMaKH))
+				sortMaKHGiamDan(kh);
+			if(o.equals(rdoTheoTenKH))
+				sortTenKHTangDan(kh);
 		}
 
 	}

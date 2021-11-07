@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 public class Regex {
-	public boolean regexDiaChi(JTextArea txtDiaChi) {
+	public boolean regexDiaChi(JTextField txtDiaChi) {
 		String input = txtDiaChi.getText();
 		String regex = "^([ A-Za-z0-9,.a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
 		Pattern pattern = Pattern.compile(regex);
