@@ -161,30 +161,42 @@ public class DAOMatHang {
 		}
 		return n>0;
 	}
-	public boolean updateMH(MatHang mh) {
-		ConnectDB.getinstance();
+	public boolean updateMH(MatHang mh, String maMH) {
 		Connection con = ConnectDB.getConnection();
-		String sql = "update MatHang set tenMH = ?, maLoaiMH = ?, soLuongMH = ?, giaMH = ? where maMH = ?";
-		PreparedStatement stm = null;
+		String sql = "update MatHang set tenMH = ?, maLoaiMH = ?, soLuongMH = ?, giaMH = ? where maMH = '"+maMH+"'";
 		int n = 0;
 		try {
-			stm = con.prepareStatement(sql);
-			stm.setString(1, mh.getTenMatHang());
-			stm.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
-			stm.setInt(3, mh.getSoLuongMatHang());
-			stm.setDouble(4, mh.getGiaMatHang());
-			stm.setString(5, mh.getMaMatHang());
-			n= stm.executeUpdate();
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, mh.getTenMatHang());
+			ps.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
+			ps.setInt(3, mh.getSoLuongMatHang());
+			ps.setDouble(4, mh.getGiaMatHang());
+			//stm.setString(5, mh.getMaMatHang());
+			n= ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				stm.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
 		}
 		return n>0;
 	}
-	
+	public ArrayList<MatHang> sort(String col, String ksx) {
+		ArrayList<MatHang> lstMH = new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from MatHang	order by "+col+" "+ksx+"";
+		PreparedStatement stm = null;
+		int n = 0;
+		try {
+			MatHang mh = new MatHang();
+			stm = con.prepareStatement(sql);
+			stm.setString(1, mh.getMaMatHang());
+			stm.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
+			stm.setString(3, mh.getTenMatHang());
+			stm.setInt(4, mh.getSoLuongMatHang());
+			stm.setDouble(5, mh.getGiaMatHang());
+			n= stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lstMH;
+	}
 }
