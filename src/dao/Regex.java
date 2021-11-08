@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 public class Regex {
-	public boolean regexDiaChi(JTextArea txtDiaChi) {
+	public boolean regexDiaChi(JTextField txtDiaChi) {
 		String input = txtDiaChi.getText();
 		String regex = "^([ A-Za-z0-9,.a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
 		Pattern pattern = Pattern.compile(regex);
@@ -104,7 +104,16 @@ public class Regex {
 		}
 		return true;
 	}
-	
+	public boolean regexTimKiemMaKH(JTextField txtTK) {
+		String input = txtTK.getText();
+		String regexMaKH = "^(KH[0-9]{3})$";
+		if(!input.matches(regexMaKH)) {
+			txtTK.requestFocus();
+			txtTK.selectAll();
+			return false;
+		}
+		return true;
+	}
 	public boolean regexTenNV(JTextField txtTen2) {
 		String input = txtTen2.getText();
 		String regex = "^([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
@@ -117,7 +126,9 @@ public class Regex {
 			return false;
 		} else
 			return true;
+
 	}
+
 	
 	public boolean regexNVTren18(JDateChooser dateChooser) {
 		LocalDate dNow = LocalDate.now();

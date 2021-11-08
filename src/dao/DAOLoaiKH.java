@@ -15,7 +15,7 @@ public class DAOLoaiKH {
 		ArrayList<LoaiKH> lsLoaiKH = new ArrayList<LoaiKH>();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from LoaiKH";
+		String sql = "select * from LoaiKH  where not maLoaiKH=N'LKH004'";
 		
 		try {
 			Statement stm = con.createStatement();
