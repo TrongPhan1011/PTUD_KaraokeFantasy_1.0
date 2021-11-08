@@ -42,6 +42,34 @@ public class DAODonDatPhong {
 		return lsDDP;
 	}
 	
+	public ArrayList<DonDatPhong> getDanhSachDDPKhongHuy() {
+		ArrayList<DonDatPhong> lsDDP = new ArrayList<DonDatPhong>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from DonDatPhong where TrangThaiDDP != N'Hủy'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				DonDatPhong ddp = new DonDatPhong();
+				ddp.setMaDDP(rs.getString(1));
+				ddp.setPhong(new Phong(rs.getString(2)));
+				ddp.setKhachHang(new KhachHang(rs.getString(3)));
+				ddp.setNhanVien(new NhanVien(rs.getString(4)));
+				ddp.setNgayLap(rs.getDate(5));
+				ddp.setGioDen(rs.getTime(6));
+				ddp.setNgayDen(rs.getDate(7));
+				ddp.setTrangThaiDDP(rs.getString(8));
+				lsDDP.add(ddp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lsDDP;
+	} 
+	
 	
 	public DonDatPhong getDDPTheoMaPhong(String ma){
 		DonDatPhong ddp = new DonDatPhong();

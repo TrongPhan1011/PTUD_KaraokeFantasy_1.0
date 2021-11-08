@@ -93,7 +93,7 @@ public class Regex {
 	
 	public boolean regexTimKiemMaNV(JTextField txtTim) {
 		String input = txtTim.getText();
-		String regexMaNV = "^(NV[0-9]{2}[1-9]{1})$";
+		String regexMaNV = "^(NV[0-9]{3})$";
 		Pattern pattern = Pattern.compile(regexMaNV);
 		Matcher matcher = pattern.matcher(input);
 		if(!input.matches(regexMaNV)) {
