@@ -144,7 +144,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 
 		// txtTK
 		txtTK = new JTextField();
-		txtTK.setText("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.");
+		txtTK.setText("Tìm khách hàng theo mã, tên, sđt và loại khách hàng.");
 		txtTK.setFont(new Font("SansSerif", Font.ITALIC, 15));
 		txtTK.setForeground(Colors.LightGray);
 		txtTK.setBorder(new LineBorder(new Color(114, 23, 153), 2, true));
@@ -152,7 +152,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		txtTK.addFocusListener(new FocusAdapter() { // place holder
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtTK.getText().equals("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.")) {
+				if (txtTK.getText().equals("Tìm khách hàng theo mã, tên, sđt và loại khách hàng.")) {
 					txtTK.setText("");
 					txtTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
 					txtTK.setForeground(Color.BLACK);
@@ -163,7 +163,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			public void focusLost(FocusEvent e) {
 				if (txtTK.getText().equals("")) {
 					txtTK.setFont(new Font("SansSerif", Font.ITALIC, 15));
-					txtTK.setText("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.");
+					txtTK.setText("Tìm khách hàng theo mã, tên, sđt và loại khách hàng.");
 					txtTK.setForeground(Colors.LightGray);
 				}
 			}
@@ -576,7 +576,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			resetAll();
 			JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
 		}
-
+		
 	}
 
 	// Nút sửa
@@ -588,7 +588,6 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			if (update == JOptionPane.YES_OPTION) {
 				if (regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexCCCD(txtCccd)
 						&& regex.regexDiaChi(txtDiaChi)) {
-					// int row = tableKH.getSelectedRow();
 					String maKH = modelKhachHang.getValueAt(row, 0).toString();
 					String tenKH = txtHoTen.getText().toString();
 					String sdt = txtSDT.getText().toString();

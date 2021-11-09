@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import connection.ConnectDB;
 import entity.HoaDon;
+import entity.KhachHang;
 import entity.LoaiPhong;
 import entity.Phong;
 
@@ -97,6 +98,35 @@ public class DAOPhong {
 		
 		return lsPhong;
 	}
+public ArrayList<Phong> getDanhSachPhong() {
+		
+		
+		ArrayList< Phong> lsPhong = new ArrayList<Phong>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from Phong where not maLoaiPhong = N'LP004' ";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				Phong p = new Phong();
+				
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+				
+				lsPhong.add(p);
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lsPhong;
+	}
+
 	public Phong getPhongDangHoatDongTheoMaP(String ma) {
 			
 			
@@ -156,5 +186,102 @@ public class DAOPhong {
 		
 		return lsPhong;
 	}
+	
+	public boolean themPhong(Phong p) {
+		
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement stmt = null;
+		int n=0;
+		try { 
+			stmt = con.prepareStatement("insert into Phong values (?,?,?,?)");
+			stmt.setString(1, p.getMaPhong());
+			stmt.setString(2, p.getLoaiPhong().getMaLoaiPhong());
+			stmt.setString(3, p.getTinhTrangPhong());
+			stmt.setDouble(4, p.getGiaPhong());
+			
+			n = stmt.executeUpdate();
+			} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+			
+		}
+		return n>0;
+	}
+	
+	public boolean suaThongTinPhong(Phong p) {
+		
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement stmt = null;
+		int n=0;
+		try { 
+			stmt = con.prepareStatement("update Phong set maLoaiPhong=?, tinhTrangPhong = ?, giaPhong=? where maPhong=?");
 
+			stmt.setString(1, p.getLoaiPhong().getMaLoaiPhong());
+			stmt.setString(2, p.getTinhTrangPhong());
+			stmt.setDouble(3, p.getGiaPhong());
+			stmt.setString(4, p.getMaPhong());
+			
+			n = stmt.executeUpdate();
+			} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+			
+		}
+		return n>0;
+	}
+public Phong getGiaPhongTheoMa(String ma) {
+		
+		Phong p = new Phong();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql ="  select * from Phong where maPhong = '"+ma+"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return p;
+	}
+	public boolean huyP(String ma) throws SQLException {
+	//Phong p = new Phong();
+	
+	Connection con= ConnectDB.getConnection();
+	String sql = "update Phong set maLoaiPhong = N'LP004' where maPhong = '"+ma+"'";
+	try {
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		return ps.executeUpdate() > 0;
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	con.close();
+	return false;
+}
 }

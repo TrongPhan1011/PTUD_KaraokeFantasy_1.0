@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -43,7 +44,9 @@ import connection.ConnectDB;
 import dao.DAOLoaiMH;
 import dao.DAOLoaiPhong;
 import dao.DAOMatHang;
+import dao.DAOPhatSinhMa;
 import dao.DAOPhong;
+import dao.Regex;
 import entity.KhachHang;
 import entity.LoaiKH;
 import entity.LoaiMatHang;
@@ -80,7 +83,12 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 	private DefaultTableModel modelPhong;
 	private DAOPhong daoPhong;
 	private DAOLoaiPhong daoLoaiP;
+	private DAOPhatSinhMa daoMa;
 	private DecimalFormat dfGiaP=new DecimalFormat("###,###");
+	private Regex regex;
+
+	private ArrayList<LoaiPhong> loaiP;
+	private ArrayList<Phong> p;
 	
 	
 	public Panel getFrmPhong() {
@@ -91,7 +99,8 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 		//Khai bao dao
 		 daoPhong = new DAOPhong();
 		 daoLoaiP = new DAOLoaiPhong();
-		
+		 daoMa = new DAOPhatSinhMa();
+		 regex = new Regex();
 		//giao dien
 		setLayout(null);
 		pMain = new Panel();
@@ -178,6 +187,7 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 				txtTenP.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 				txtTenP.setBounds(329, 58, 310, 30);
 				pMain.add(txtTenP);
+				txtTenP.setEditable(isDisplayable());
 				txtTenP.setColumns(30);
 				
 				//-----
@@ -217,6 +227,10 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 				cboTinhTrangP.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 				cboTinhTrangP.setBackground(Color.WHITE);
 				cboTinhTrangP.setBounds(766, 97, 310, 30);
+				String cbbTinhTrang[] = { "Đã đặt", "Đang hoạt động", "Trống" };
+				for (int i = 0; i < cbbTinhTrang.length; i++) {
+					cboTinhTrangP.addItem(cbbTinhTrang[i]);
+				}
 				pMain.add(cboTinhTrangP);
 		/////Buttons
 				btnThemP = new FixButton("Thêm");
@@ -268,7 +282,7 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 				
 				cboSapXep = new JComboBox<String>();
 				cboSapXep.setBounds(51, 12, 115, 28);
-				cboSapXep.setFont(new Font("SansSerif", Font.BOLD, 15));
+				cboSapXep.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				cboSapXep.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 				cboSapXep.setBackground(Color.WHITE);
 				String cbSort[] = { "Tăng dần", "Giảm dần" };
@@ -371,8 +385,20 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 				Image resizeBG = imgBackGround.getScaledInstance(lblBackGround.getWidth(), lblBackGround.getHeight(), 0);
 				lblBackGround.setIcon(new ImageIcon(resizeBG));
 				pMain.add(lblBackGround);
-				
+		// load loai Phong
+				loaiP = daoLoaiP.getAllLoaiPhong();
+				for(LoaiPhong lp : loaiP) {
+					cboLoaiP.addItem(lp.getTenLoaiPhong());
+				}
+
+		//
+				tblPhong.addMouseListener(this);
+				btnReset.addActionListener(this);
+				btnThemP.addActionListener(this);
+				btnSuaP.addActionListener(this);
+				btnXoaP.addActionListener(this);
 	}
+	// end giao dien
 	
 	//Lam moi danh sach
 	public void clearTable() {
@@ -384,12 +410,115 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 	//Load danh sach cac phong
 	public void loadDanhSachPhong() {
 		clearTable();
-		ArrayList<Phong> lsP = daoPhong.getPhongDangHoatDong();
+		ArrayList<Phong> lsP = daoPhong.getDanhSachPhong();
 		for (Phong p : lsP) {
 			LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(p.getLoaiPhong().getMaLoaiPhong());
 			modelPhong.addRow(new Object[] {p.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(p.getGiaPhong()), p.getTinhTrangPhong() });
 		}
 	}
+	
+	//load thong tin phong sau khi them
+	public void loadPhongDuocChon(Phong p) {
+		LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(p.getLoaiPhong().getMaLoaiPhong());
+		modelPhong.addRow(new Object[] {p.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(p.getGiaPhong()), p.getTinhTrangPhong() });
+	}
+	
+	//Them phong
+	public void themPhong() {
+		if(regex.regexGiaP(txtGiaPhong)) {
+			float giaP = Float.parseFloat(txtGiaPhong.getText());
+			String maP = daoMa.getMaP();
+			String tinhTrang = cboTinhTrangP.getSelectedItem().toString();
+			LoaiPhong loaiP = new LoaiPhong(daoLoaiP.getMaLoaiPTheoTen(cboLoaiP.getSelectedItem().toString()));
+			
+			Phong p = new Phong(maP, tinhTrang, giaP, loaiP);
+			
+			daoPhong.themPhong(p);
+			clearTable();
+			loadPhongDuocChon(p);
+			JOptionPane.showMessageDialog(this, "Thêm phòng thành công");
+		}
+	}
+	
+	//Sua thong tin phong
+	public void suaThongTin() {
+
+		int row = tblPhong.getSelectedRow();
+		if (row >= 0) {
+			int update = JOptionPane.showConfirmDialog(this, "Bạn muốn sửa thông tin phòng này không?", "Thông báo",
+					JOptionPane.YES_NO_OPTION);
+			if (update == JOptionPane.YES_OPTION) {
+				JTextField txtTam = new JTextField();
+				String maP = modelPhong.getValueAt(row, 0).toString();
+				double gia = Math.round(daoPhong.getPhongTheoMa(maP).getGiaPhong());
+				txtTam.setText(String.valueOf(Math.round(gia)));
+				if (regex.regexGiaP(txtTam)) {
+						try {
+							LoaiPhong loaiP = new LoaiPhong(daoLoaiP.getMaLoaiPTheoTen(cboLoaiP.getSelectedItem().toString()));
+							double giaP = Double.parseDouble(txtGiaPhong.getText().toString());
+							String tinhTrang = cboTinhTrangP.getSelectedItem().toString();
+							Phong p = new Phong(maP, tinhTrang, giaP, loaiP);
+							clearTable();
+						//	System.out.println(giaP);
+							daoPhong.suaThongTinPhong(p);
+							loadPhongDuocChon(p);
+							JOptionPane.showMessageDialog(this, "Thông tin phòng đã được sửa!", "Thông báo",
+									JOptionPane.OK_OPTION);
+						} catch (Exception e) {
+							//e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Quên chỉnh sửa giá phòng!!", "Thông báo",
+									JOptionPane.ERROR_MESSAGE);
+						
+						}
+					 
+					}
+
+				
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Vui lòng chọn thông tin phòng sửa!", "Thông báo",
+					JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	//xoa phong 
+	private boolean xoaPhong() {
+		int row = tblPhong.getSelectedRow();
+		if (row >= 0) {
+			int cancel = JOptionPane.showConfirmDialog(null, "Bạn muốn xóa phòng này?", "Thông báo",
+					JOptionPane.YES_NO_OPTION);
+			if (cancel == JOptionPane.YES_OPTION) {
+				String maP = tblPhong.getValueAt(row, 0).toString();
+				try {
+					modelPhong.removeRow(row);
+					clearTable();
+					daoPhong.huyP(maP);
+					loadDanhSachPhong();
+					JOptionPane.showMessageDialog(null, "Đã xóa phòng!", "Thông báo", JOptionPane.OK_OPTION);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "xóa phòng thất bại!", "Thông báo",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Bạn chưa chọn thông tin phòng cần hủy!", "Thông báo",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return false;
+	}
+	
+	//Làm mới
+	public void resetAll() {
+		txtGiaPhong.setText("");
+		txtTenP.setText("");
+		txtTK.setText("");
+		cboLoaiP.setSelectedIndex(0);
+		cboSapXep.setSelectedIndex(0);
+		cboTinhTrangP.setSelectedIndex(0);
+	}
+	
+	//tìm kiếm phòng
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -397,8 +526,18 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 		
 	}
 	@Override
+	
+	//Hien thi thong tin phong khi chon vao bang
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		Object o = e.getSource();
+		if(o.equals(tblPhong)) {
+			int row = tblPhong.getSelectedRow();
+			txtTenP.setText(modelPhong.getValueAt(row, 0).toString());
+			cboLoaiP.setSelectedItem(modelPhong.getValueAt(row, 1));
+			txtGiaPhong.setText(modelPhong.getValueAt(row, 2).toString());
+			cboTinhTrangP.setSelectedItem(modelPhong.getValueAt(row, 3).toString());
+		}
 		
 	}
 	@Override
@@ -424,6 +563,19 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		Object o = e.getSource();
+		if(o.equals(btnReset)) {
+			resetAll();
+		}
+		if(o.equals(btnThemP)) {
+			themPhong();
+		}
+		if(o.equals(btnSuaP)) {
+			//resetAll();
+			suaThongTin();
+		}
+		if(o.equals(btnXoaP)) {
+			xoaPhong();
+		}
 	}
 }

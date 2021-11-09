@@ -80,6 +80,23 @@ public class DAOPhatSinhMa {
 		return maMH;
 	}
 	
+	//maP
+	public String getMaP() {
+		String maP="";
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select CONCAT('P', RIGHT(CONCAT('000',ISNULL(right(max(maPhong),3),0) + 1),3)) from Phong where maPhong like  'P%'";
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				maP = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return maP;
+	}
 
 	//matkhau
 //	public String getMatKhau() {
