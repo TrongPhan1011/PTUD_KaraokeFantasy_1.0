@@ -27,6 +27,8 @@ public class DAOPhatSinhMa {
 		}
 		return maHD;
 	}
+	
+	//maKH
 	public String getMaKH() {
 		String maKH="";
 		try {
@@ -45,6 +47,7 @@ public class DAOPhatSinhMa {
 		}
 		return maKH;
 	}
+	
 	//maNV
 	public String getMaNV() {
 		String maNV="";
@@ -62,6 +65,7 @@ public class DAOPhatSinhMa {
 		}
 		return maNV;
 	}
+	
 	//maMH
 	public String getMaMH() {
 		String maMH="";
@@ -80,21 +84,35 @@ public class DAOPhatSinhMa {
 		return maMH;
 	}
 	
+<<<<<<< HEAD
 	//maP
 	public String getMaP() {
 		String maP="";
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "select CONCAT('P', RIGHT(CONCAT('000',ISNULL(right(max(maPhong),3),0) + 1),3)) from Phong where maPhong like  'P%'";
+=======
+	//maDDP
+	public String getMaDDP() {
+		String maDDP="";
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select CONCAT('DDP', RIGHT(CONCAT('000',ISNULL(right(max(maDDP),3),0) + 1),3)) from [dbo].[DonDatPhong] where maDDP like 'DDP%'";
+>>>>>>> 80a2766c67de512f70633436ccf64c59ec5dde3e
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			while(rs.next()) {
+<<<<<<< HEAD
 				maP = rs.getString(1);
+=======
+				maDDP = rs.getString(1);
+>>>>>>> 80a2766c67de512f70633436ccf64c59ec5dde3e
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 		return maP;
 	}
 
@@ -104,4 +122,9 @@ public class DAOPhatSinhMa {
 //		ConnectDB.getinstance()
 //	}
 
+=======
+		return maDDP;
+		
+	}
+>>>>>>> 80a2766c67de512f70633436ccf64c59ec5dde3e
 }

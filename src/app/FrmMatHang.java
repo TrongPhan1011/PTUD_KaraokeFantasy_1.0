@@ -13,6 +13,9 @@ import java.awt.event.MouseListener;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -359,9 +362,10 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		ArrayList<MatHang> lsMH = daoMH.getDSMatHang();
 		for(MatHang mh : lsMH) {
 			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
-			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), dfK.format(Math.round(mh.getSoLuongMatHang())),dfVND.format(Math.round(mh.getGiaMatHang())) } );
+			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
 		}
 	}
+	////dfK.format(Math.round(mh.getSoLuongMatHang())),dfVND.format(Math.round(mh.getGiaMatHang()))
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
@@ -375,7 +379,12 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			SuaMH();
 		}else if(o.equals(rdoTatCa)) {
 			loadTableMH();
-		}	
+		}else if (cboSapXep.getSelectedItem() == "Tăng dần") {
+			String a = "asc";
+			if(o.equals(rdoTheoGiaMH)) {
+				
+			} 
+		}
 	}
 	/**
 	 * Xóa mặt hàng khỏi table và SQL
@@ -413,28 +422,30 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			JOptionPane.showMessageDialog(this, "Thêm mặt hàng thất bại!");
 		}
 		LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
-		modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), dfK.format(Math.round(mh.getSoLuongMatHang())),dfVND.format(Math.round(mh.getGiaMatHang())) } );
+		modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
 		JOptionPane.showMessageDialog(this, "Thêm mặt hàng thành công!");
 	}
 	/**
 	 * Sửa thông tin mặt hàng
 	 */
 	public void SuaMH() {
-		String maMH = daoPhatSinhMa.getMaMH();
-		String tenMH = txtTenMH.getText();
-		String loaiMH = cboLoaiMH.getSelectedItem().toString();
-		String maLMH = daoLMH.getMaLoaiMHTheoTen(loaiMH);
-		int soluong = Integer.parseInt(txtSoLuong.getText());
-		double dongia = Double.parseDouble(txtDonGia.getText());
-		MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(maLMH));  
+		int row = tblMH.getSelectedRow();
 		try {
-			daoMH.updateMH(mh);
+			String maMH = (String) tblMH.getValueAt(row, 0);
+			String tenMH = txtTenMH.getText();
+			String loaiMH = cboLoaiMH.getSelectedItem().toString();
+			String maLMH = daoLMH.getMaLoaiMHTheoTen(loaiMH);
+			int soluong = Integer.parseInt(txtSoLuong.getText());
+			double dongia = Double.parseDouble(txtDonGia.getText());
+			MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(maLMH));  
+			daoMH.updateMH(mh, maMH);
+			clearTable();
+			loadTableMH();
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Mã mặt hàng không tồn tại.");
 		}	
-		clearTable();
-		loadTableMH();
+		
 		JOptionPane.showMessageDialog(this, "Cập  nhật mặt hàng thành công! ");
 	}
 	/**
@@ -453,6 +464,36 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			txtDonGia.setText("");
 			txtSoLuong.setText("");
 			txtTenMH.requestFocus();
+	}
+	private void sortTenMHTangDan() {
+		clearTable();
+		ArrayList<MatHang> lstMH = daoMH.getDSMatHang();
+		Collections.sort(lstMH, new Comparator<MatHang>() {
+
+			@Override
+			public int compare(MatHang o1, MatHang o2) {
+				return o1.getTenMatHang().compareTo(o2.getTenMatHang());
+			}
+		});
+		for (MatHang mh : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
+		}
+	}
+	private void sortTenMHGiamDan() {
+		clearTable();
+		ArrayList<MatHang> lstMH = daoMH.getDSMatHang();
+		Collections.sort(lstMH, new Comparator<MatHang>() {
+
+			@Override
+			public int compare(MatHang o1, MatHang o2) {
+				return o2.getTenMatHang().compareTo(o1.getTenMatHang());
+			}
+		});
+		for (MatHang mh : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
+		}
 	}
 	/**
 	 * Sự kiện click chuột

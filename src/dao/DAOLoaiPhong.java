@@ -29,12 +29,12 @@ public class DAOLoaiPhong {
 		}
 		return dsLoaiPhong;
 	}
+	
 	public LoaiPhong getLoaiPhongTheoMa(String ma) {
 		LoaiPhong lp = new LoaiPhong();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from LoaiPhong where maLoaiPhong = N'"+ma +"'";
-		
+		String sql = "select * from LoaiPhong where maLoaiPhong = N'"+ma+"'";
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -47,9 +47,7 @@ public class DAOLoaiPhong {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return lp;
-		
 	}
 	
 	public LoaiPhong getLoaiPhongTheoTenLoai(String ten) {
