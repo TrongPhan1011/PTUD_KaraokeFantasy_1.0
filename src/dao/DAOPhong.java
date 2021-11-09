@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import connection.ConnectDB;
 import entity.HoaDon;
 import entity.KhachHang;
+import entity.LoaiKH;
 import entity.LoaiPhong;
 import entity.Phong;
 
@@ -322,4 +323,75 @@ public Phong getGiaPhongTheoMa(String ma) {
 	con.close();
 	return false;
 }
+	
+	public ArrayList<Phong> getPhongTheoLoai(String maLoaiP) {
+		ArrayList<Phong> lsP=new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from Phong where maLoaiPhong = N'"+maLoaiP+"' ");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Phong p = new Phong();
+				
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+				
+				lsP.add(p);
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lsP;
+	}
+	public ArrayList<Phong> sortTheoGiaPhong(String kieuSort) {
+		ArrayList<Phong> lsP=new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from Phong where not maLoaiPhong = N'LP004' order by giaPhong  "+ kieuSort+" ");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Phong p = new Phong();
+				
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+				
+				lsP.add(p);
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lsP;
+	}
+	
+	public ArrayList<Phong> sortTheoMaPhong() {
+		ArrayList<Phong> lsP=new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from Phong where not maLoaiPhong = N'LP004' order by maPhong desc");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Phong p = new Phong();
+				
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+				
+				lsP.add(p);
+					
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lsP;
+	}
 }

@@ -51,7 +51,9 @@ import entity.KhachHang;
 import entity.LoaiKH;
 import entity.LoaiMatHang;
 import entity.LoaiPhong;
+import entity.NhanVien;
 import entity.Phong;
+import entity.TaiKhoan;
 
 
 public class FrmPhong extends JPanel implements ActionListener, MouseListener, ItemListener  {
@@ -88,7 +90,7 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 	private Regex regex;
 
 	private ArrayList<LoaiPhong> loaiP;
-	private ArrayList<Phong> p;
+	private Phong p;
 	
 	
 	public Panel getFrmPhong() {
@@ -397,6 +399,9 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 				btnThemP.addActionListener(this);
 				btnSuaP.addActionListener(this);
 				btnXoaP.addActionListener(this);
+				rdoTheoGiaP.addActionListener(this);
+				rdoTheoLoaiP.addActionListener(this);
+				rdoTheoMaP.addActionListener(this);
 	}
 	// end giao dien
 	
@@ -518,7 +523,84 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 		cboTinhTrangP.setSelectedIndex(0);
 	}
 	
-	//tìm kiếm phòng
+	//Sap xep theo loai Phong tang dan
+	 public void sortLoaiPhongTangDan(Phong p) {
+		  	clearTable();
+			ArrayList<Phong> lsThuong= daoPhong.getPhongTheoLoai(daoLoaiP.getMaLoaiPTheoTen("Phòng thường"));
+			for (Phong lsp: lsThuong) {
+				LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+				modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+			}
+
+			ArrayList<Phong> lsTrung= daoPhong.getPhongTheoLoai(daoLoaiP.getMaLoaiPTheoTen("Phòng trung"));
+			for (Phong lsp: lsTrung) {
+				LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+				modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+			}
+
+			
+			ArrayList<Phong> lsVip= daoPhong.getPhongTheoLoai(daoLoaiP.getMaLoaiPTheoTen("Phòng VIP"));
+			for (Phong lsp: lsVip) {
+				LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+				modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+			}
+	  }
+	 
+	 //sap xep gia phong tang dan
+		private void sortGiaPhongTangDan(Phong p)  {
+			clearTable();
+			ArrayList<Phong> lsPhong = daoPhong.sortTheoGiaPhong("");
+			for (Phong lsp: lsPhong) {
+				LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+				modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+			}
+		}
+		
+	 //sap xep ma Phong giam dan
+		private void sortMaPhongGiamDan(Phong p) {
+			clearTable();
+			ArrayList<Phong> lsPhong = daoPhong.sortTheoMaPhong();
+			for (Phong lsp: lsPhong) {
+				LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+				modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+			}
+		}
+		
+	//sap xep loai Phong giam dan
+		 public void sortLoaiPhongGiamDan(Phong p) {
+			  	clearTable();
+				ArrayList<Phong> lsVip= daoPhong.getPhongTheoLoai(daoLoaiP.getMaLoaiPTheoTen("Phòng VIP"));
+				for (Phong lsp: lsVip) {
+					LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+					modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+				}
+
+				ArrayList<Phong> lsTrung= daoPhong.getPhongTheoLoai(daoLoaiP.getMaLoaiPTheoTen("Phòng trung"));
+				for (Phong lsp: lsTrung) {
+					LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+					modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+				}
+
+				
+
+				
+				ArrayList<Phong> lsThuong= daoPhong.getPhongTheoLoai(daoLoaiP.getMaLoaiPTheoTen("Phòng thường"));
+				for (Phong lsp: lsThuong) {
+					LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+					modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+				}
+		  }
+		 
+		 //sap xep gia phog giam dan
+		 
+			private void sortGiaPhongGiamDan(Phong p)  {
+				clearTable();
+				ArrayList<Phong> lsPhong = daoPhong.sortTheoGiaPhong("desc");
+				for (Phong lsp: lsPhong) {
+					LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(lsp.getLoaiPhong().getMaLoaiPhong());
+					modelPhong.addRow(new Object[] {lsp.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(lsp.getGiaPhong()), lsp.getTinhTrangPhong() });
+				}
+			}
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -576,6 +658,22 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 		}
 		if(o.equals(btnXoaP)) {
 			xoaPhong();
+		}
+		if(cboSapXep.getSelectedItem()=="Tăng dần") {
+			if(o.equals(rdoTheoMaP))
+				loadDanhSachPhong();
+			if(o.equals(rdoTheoLoaiP))
+				sortLoaiPhongTangDan(p);
+			if(o.equals(rdoTheoGiaP))
+				sortGiaPhongTangDan(p);
+		}
+		if(cboSapXep.getSelectedItem()=="Giảm dần") {
+			if(o.equals(rdoTheoMaP))
+				sortMaPhongGiamDan(p);
+			if(o.equals(rdoTheoLoaiP))
+				sortLoaiPhongGiamDan(p);
+			if(o.equals(rdoTheoGiaP))
+				sortGiaPhongGiamDan(p);
 		}
 	}
 }

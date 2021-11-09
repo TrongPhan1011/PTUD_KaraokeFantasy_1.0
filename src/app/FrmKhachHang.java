@@ -499,7 +499,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		btnTim.addActionListener(this);
 		rdoTheoMaKH.addActionListener(this);
 		rdoTheoTenKH.addActionListener(this);
-
+		rdoTheoLoaiKH.addActionListener(this);
 	}
 
 //end main
@@ -710,20 +710,12 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 }
 	  
 	//Sap xep theo ten khach hang giam dan
-	  public void sortTenKHTangDan(KhachHang kh) {
+	  public void sortTenKHGiamDan(KhachHang kh) {
 			clearTable();
-			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();
-			
+			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();		
 			Collections.sort(lsKH, new Comparator<KhachHang>() {
 				public int compare(KhachHang o1, KhachHang o2) {
-					//String [] k;
-					//String [] s;
-					//s = o1.getTenKH().split("");
-					//k = o2.getTenKH().split("");
-					//int p =(s[s.length-1].length());
-					//int q =(k[k.length-1].length());
 					return o2.getTenKH().compareTo(o1.getTenKH());
-					//return (o1.getTenKH().substring(o1.getTenKH().length() - p, o1.getTenKH().length())).compareToIgnoreCase(o2.getTenKH().substring(o2.getTenKH().length() - q, o2.getTenKH().length()));
 				}
 			});
 			
@@ -734,6 +726,81 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
 			}
 }
+	  //Sap xep theo ten khach hang tang dan
+	  public void sortTenKHTangDan(KhachHang kh) {
+			clearTable();
+			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();		
+			Collections.sort(lsKH, new Comparator<KhachHang>() {
+				public int compare(KhachHang o1, KhachHang o2) {
+					return o1.getTenKH().compareTo(o2.getTenKH());
+				}
+			});
+			
+			for (KhachHang khs : lsKH) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+}
+	  //sap xep loaiKh giam dan
+	  public void sortLoaiKHGiamDan(KhachHang kh) {
+		  	clearTable();
+			ArrayList<KhachHang> lsVip= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên VIP"));
+			for (KhachHang khs : lsVip) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+			ArrayList<KhachHang> lsThanhVien= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên thường"));
+			for (KhachHang khs : lsThanhVien) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+			ArrayList<KhachHang> lsKhachHang= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Khách hàng thường"));
+			for (KhachHang khs : lsKhachHang) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+	  }
+	  
+	  //sap xep loaiKH tang dan
+	  public void sortLoaiKHTangDan(KhachHang kh) {
+		  	clearTable();
+			ArrayList<KhachHang> lsKhachHang= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Khách hàng thường"));
+			for (KhachHang khs : lsKhachHang) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+			ArrayList<KhachHang> lsThanhVien= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên thường"));
+			for (KhachHang khs : lsThanhVien) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+
+			
+			ArrayList<KhachHang> lsVip= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên VIP"));
+			for (KhachHang khs : lsVip) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+	  }
+	
 
 
 	@Override
@@ -816,11 +883,23 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		if (o.equals(btnTim)) {
 			findKH();
 		}
-		if(cbbSort.getSelectedItem()=="Giảm dần"){
-			if(o.equals(rdoTheoMaKH))
-				sortMaKHGiamDan(kh);
+		if(cbbSort.getSelectedItem()=="Tăng dần") {
+			if(o.equals(rdoTheoMaKH)) {
+				loadDanhSachKH();
+			}
 			if(o.equals(rdoTheoTenKH))
 				sortTenKHTangDan(kh);
+			if(o.equals(rdoTheoLoaiKH))
+				sortLoaiKHTangDan(kh);
+		}
+		if(cbbSort.getSelectedItem()=="Giảm dần"){
+			if(o.equals(rdoTheoMaKH)) {
+				sortMaKHGiamDan(kh);
+			}
+			if(o.equals(rdoTheoTenKH))
+				sortTenKHGiamDan(kh);
+			if(o.equals(rdoTheoLoaiKH))
+				sortLoaiKHGiamDan(kh);
 		}
 
 	}

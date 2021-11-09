@@ -83,48 +83,46 @@ public class DAOPhatSinhMa {
 		}
 		return maMH;
 	}
-	
-<<<<<<< HEAD
+
 	//maP
 	public String getMaP() {
 		String maP="";
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "select CONCAT('P', RIGHT(CONCAT('000',ISNULL(right(max(maPhong),3),0) + 1),3)) from Phong where maPhong like  'P%'";
-=======
-	//maDDP
-	public String getMaDDP() {
-		String maDDP="";
-		ConnectDB.getinstance();
-		Connection con = ConnectDB.getConnection();
-		String sql = "select CONCAT('DDP', RIGHT(CONCAT('000',ISNULL(right(max(maDDP),3),0) + 1),3)) from [dbo].[DonDatPhong] where maDDP like 'DDP%'";
->>>>>>> 80a2766c67de512f70633436ccf64c59ec5dde3e
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			while(rs.next()) {
-<<<<<<< HEAD
 				maP = rs.getString(1);
-=======
-				maDDP = rs.getString(1);
->>>>>>> 80a2766c67de512f70633436ccf64c59ec5dde3e
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
 		return maP;
 	}
+	//maDDP
+	/*
+	 * public String getMaDDP() { String maDDP=""; ConnectDB.getinstance();
+	 * Connection con = ConnectDB.getConnection(); String sql =
+	 * "select CONCAT('DDP', RIGHT(CONCAT('000',ISNULL(right(max(maDDP),3),0) + 1),3)) from [dbo].[DonDatPhong] where maDDP like 'DDP%'"
+	 * ;
+	 * 
+	 * try { Statement stm = con.createStatement(); ResultSet rs =
+	 * stm.executeQuery(sql); while(rs.next()) {
+	 * 
+	 * maP = rs.getString(1);
+	 * 
+	 * maDDP = rs.getString(1);
+	 * 
+	 * } } catch (SQLException e) { e.printStackTrace(); } return maP; }
+	 * 
+	 * //matkhau // public String getMatKhau() { // String mk=""; //
+	 * ConnectDB.getinstance() // }
+	 * 
+	 * return maDDP;
+	 * 
+	 * }
+	 */
 
-	//matkhau
-//	public String getMatKhau() {
-//		String mk="";
-//		ConnectDB.getinstance()
-//	}
-
-=======
-		return maDDP;
-		
-	}
->>>>>>> 80a2766c67de512f70633436ccf64c59ec5dde3e
 }

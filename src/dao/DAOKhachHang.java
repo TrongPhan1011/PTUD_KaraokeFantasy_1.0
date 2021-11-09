@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import connection.ConnectDB;
 import entity.KhachHang;
 import entity.LoaiKH;
+import entity.TaiKhoan;
 
 
 public class DAOKhachHang {
@@ -274,7 +275,7 @@ public ArrayList<KhachHang> sortByMa() {
 	ArrayList<KhachHang> lsKH = new ArrayList<KhachHang>();
 	ConnectDB.getinstance();
 	Connection con = ConnectDB.getConnection();
-	String sql = "select *from KhachHang order by maKhachHang desc";
+	String sql = "select *from KhachHang where not maLoaiKH = N'LKH004' order by maKhachHang desc";
 	
 	try {
 		Statement stm = con.createStatement();
@@ -300,6 +301,34 @@ public ArrayList<KhachHang> sortByMa() {
 		e.printStackTrace();
 	}
 	
+	return lsKH;
+}
+public ArrayList<KhachHang> getKHTheoLoai(String loaiKH) {
+	ArrayList<KhachHang> lsKH=new ArrayList<>();
+	ConnectDB.getinstance();
+	Connection con = ConnectDB.getConnection();
+	try {
+		PreparedStatement ps = con.prepareStatement("select * from KhachHang where maLoaiKH = N'"+loaiKH+"' ");
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			KhachHang kh = new KhachHang();
+			
+			kh.setMaKhangHang(rs.getString(1));
+			kh.setLoaiKH(new LoaiKH(rs.getString(2)));
+			kh.setTenKH(rs.getString(3));
+			kh.setSdt(rs.getString(4));
+			kh.setCccd(rs.getString(5));
+			kh.setDiaChi(rs.getString(6));
+			kh.setNgaySinh(rs.getDate(7));
+			kh.setGioiTinh(rs.getString(8));
+			kh.setDiemTichLuy(rs.getInt(9));
+			kh.setNgayDangKy(rs.getDate(10));
+			
+			lsKH.add(kh);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
 	return lsKH;
 }
 
