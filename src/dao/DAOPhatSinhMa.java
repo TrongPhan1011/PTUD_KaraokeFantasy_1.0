@@ -13,41 +13,41 @@ public class DAOPhatSinhMa {
 		String maHD="";
 		try {
 			ConnectDB.getinstance();
-		Connection con = ConnectDB.getConnection();
-		String sql = "select CONCAT('HD', RIGHT(CONCAT('000',ISNULL(right(max(maHD),3),0) + 1),3)) from [dbo].[HoaDon] where maHD like 'HD%'";
-		Statement stm = con.createStatement();
-		ResultSet rs = stm.executeQuery(sql);
-		while(rs.next())
-		{
-			maHD = rs.getString(1);
-		}
+			Connection con = ConnectDB.getConnection();
+			String sql = "select CONCAT('HD', RIGHT(CONCAT('000',ISNULL(right(max(maHD),3),0) + 1),3)) from [dbo].[HoaDon] where maHD like 'HD%'";
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next())
+			{
+				maHD = rs.getString(1);
+			}
 		} catch (SQLException e) {
 			// TODO: handle 
 			e.printStackTrace();
 		}
 		return maHD;
 	}
-	
+
 	//maKH
 	public String getMaKH() {
 		String maKH="";
 		try {
 			ConnectDB.getinstance();
-		Connection con = ConnectDB.getConnection();
-		String sql = "select CONCAT('KH', RIGHT(CONCAT('000',ISNULL(right(max(maKhachHang),3),0) + 1),3)) from [dbo].[KhachHang] where maKhachHang like 'KH%'";
-		Statement stm = con.createStatement();
-		ResultSet rs = stm.executeQuery(sql);
-		while(rs.next())
-		{
-			maKH = rs.getString(1);
-		}
+			Connection con = ConnectDB.getConnection();
+			String sql = "select CONCAT('KH', RIGHT(CONCAT('000',ISNULL(right(max(maKhachHang),3),0) + 1),3)) from [dbo].[KhachHang] where maKhachHang like 'KH%'";
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next())
+			{
+				maKH = rs.getString(1);
+			}
 		} catch (SQLException e) {
 			// TODO: handle 
 			e.printStackTrace();
 		}
 		return maKH;
 	}
-	
+
 	//maNV
 	public String getMaNV() {
 		String maNV="";
@@ -65,7 +65,7 @@ public class DAOPhatSinhMa {
 		}
 		return maNV;
 	}
-	
+
 	//maMH
 	public String getMaMH() {
 		String maMH="";
@@ -101,28 +101,25 @@ public class DAOPhatSinhMa {
 		}
 		return maP;
 	}
+	
 	//maDDP
-	/*
-	 * public String getMaDDP() { String maDDP=""; ConnectDB.getinstance();
-	 * Connection con = ConnectDB.getConnection(); String sql =
-	 * "select CONCAT('DDP', RIGHT(CONCAT('000',ISNULL(right(max(maDDP),3),0) + 1),3)) from [dbo].[DonDatPhong] where maDDP like 'DDP%'"
-	 * ;
-	 * 
-	 * try { Statement stm = con.createStatement(); ResultSet rs =
-	 * stm.executeQuery(sql); while(rs.next()) {
-	 * 
-	 * maP = rs.getString(1);
-	 * 
-	 * maDDP = rs.getString(1);
-	 * 
-	 * } } catch (SQLException e) { e.printStackTrace(); } return maP; }
-	 * 
-	 * //matkhau // public String getMatKhau() { // String mk=""; //
-	 * ConnectDB.getinstance() // }
-	 * 
-	 * return maDDP;
-	 * 
-	 * }
-	 */
+	public String getMaDDP() { 
+		String maDDP=""; 
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection(); String sql = "select CONCAT('DDP', RIGHT(CONCAT('000',ISNULL(right(max(maDDP),3),0) + 1),3)) from [dbo].[DonDatPhong] where maDDP like 'DDP%'";
+		try { 
+			Statement stm = con.createStatement(); 
+			ResultSet rs = stm.executeQuery(sql); 
+			while(rs.next()) {
+				maDDP = rs.getString(1);
+				maDDP = rs.getString(1);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace(); 
+		} 
+		return maDDP; 
+	}
+
 
 }
+

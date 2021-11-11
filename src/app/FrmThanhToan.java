@@ -827,7 +827,7 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 				String maHD = daoMa.getMaHD();
 				Phong p = daoPhong.getPhongTheoMa(lblMaPhong.getText());
 				KhachHang kh = daoKhachHang.getKHTheoMa(lblMaKH.getText());
-				NhanVien nv = daoNhanVien.getNV(sHeaderMaNV);
+				NhanVien nv = daoNhanVien.getMaVaSDTNV(sHeaderMaNV);
 				Date ngayLap = dNgayHienTai;
 	
 				int gioVao = Integer.parseInt(lblGioVao.getText()),

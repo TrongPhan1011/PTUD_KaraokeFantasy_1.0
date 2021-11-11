@@ -26,7 +26,7 @@ public class DAOPhong implements Serializable{
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		try {
-			PreparedStatement ps1 = con.prepareStatement("select * from Phong where tinhTrangPhong = N'Trống'");
+			PreparedStatement ps1 = con.prepareStatement("select * from Phong where tinhTrangPhong != N'Đang hoạt động'");
 			ResultSet rs1 = ps1.executeQuery();
 			while(rs1.next()) {
 				Phong p=new Phong();
@@ -36,22 +36,38 @@ public class DAOPhong implements Serializable{
 				p.setGiaPhong(rs1.getDouble(4));
 				lstP.add(p);
 			}
-			
-			PreparedStatement ps2 = con.prepareStatement("select * from Phong where tinhTrangPhong = N'Đã đặt'");
-			ResultSet rs2 = ps2.executeQuery();
-			while(rs2.next()) {
-				Phong p=new Phong();
-				p.setMaPhong(rs2.getString(1));
-				p.setLoaiPhong(new LoaiPhong(rs2.getString(2)));
-				p.setTinhTrangPhong(rs2.getString(3));
-				p.setGiaPhong(rs2.getDouble(4));
-				lstP.add(p);
-}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstP;
+	}
+	
+	public int countPhongDaDat() {
+		Phong p = new Phong();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select COUNT(*) from Phong where tinhTrangPhong = N'Đã đặt'";
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int countPhongTrong() {
+		Phong p = new Phong();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select COUNT(*) from Phong where tinhTrangPhong = N'Trống'";
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public Phong getPhongTheoMa(String ma) {

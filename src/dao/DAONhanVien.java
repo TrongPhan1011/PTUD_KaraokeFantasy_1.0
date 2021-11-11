@@ -85,7 +85,7 @@ public class DAONhanVien implements Serializable{
 	}
 	
 	//Load 1 NV dang lam viec theo manv, sdt
-	public NhanVien getNV(String info) { 
+	public NhanVien getMaVaSDTNV(String info) { 
 		NhanVien nv = new NhanVien();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();

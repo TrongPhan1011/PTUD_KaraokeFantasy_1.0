@@ -37,6 +37,8 @@ import java.sql.PreparedStatement;
 import connection.ConnectDB;
 import dao.*;
 import entity.*;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class FrmNhanVien extends JFrame implements ActionListener, MouseListener {
 
@@ -213,7 +215,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		pMain.add(lblChucVu);
 		cboChucVu = new JComboBox<Object>(new Object[] {"Quản lý", "Phục vụ", "Thu ngân"});
 		cboChucVu.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cboChucVu.setBackground(Color.WHITE);
+		cboChucVu.setBackground(new Color(235, 235, 235));
 		cboChucVu.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cboChucVu.setBounds(600, 60, 124, 25);
 		pMain.add(cboChucVu);
@@ -237,7 +239,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		pMain.add(lblGioiTinh);
 		cboGioiTinh = new JComboBox<Object>(new Object[] {"Nam", "Nữ"});
 		cboGioiTinh.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cboGioiTinh.setBackground(Color.WHITE);
+		cboGioiTinh.setBackground(new Color(235, 235, 235));
 		cboGioiTinh.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cboGioiTinh.setBounds(600, 137, 124, 25);
 		pMain.add(cboGioiTinh);
@@ -265,7 +267,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		pMain.add(lblCaLamViec);
 		cboCaLamViec = new JComboBox<Object>(new Object[] {"1", "2", "3"});
 		cboCaLamViec.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		cboCaLamViec.setBackground(Color.WHITE);
+		cboCaLamViec.setBackground(new Color(235, 235, 235));
 		cboCaLamViec.setBorder(new LineBorder(new Color(114, 23, 153), 1, true));
 		cboCaLamViec.setBounds(900, 98, 56, 25);
 		pMain.add(cboCaLamViec);
@@ -347,6 +349,15 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		chkTatCa.setFont(new Font("SansSerif", Font.BOLD, 14));
 		chkTatCa.setBackground(new Color(201, 194, 237));
 		chkTatCa.setBounds(195, 16, 113, 25);
+		chkTatCa.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==1)
+					loadDanhSachNV(nv);
+				else
+					removeDanhSachNV(modelNV);
+			}
+		});
 		pSapXep.add(chkTatCa);
 
 		rdoTheoMaNV = new JRadioButton("Theo mã nhân viên");
@@ -369,7 +380,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 
 		bg=new ButtonGroup();
 		bg.add(btnThemNV); bg.add(btnSuaNV); bg.add(btnHuy); bg.add(btnLamMoiNV);
-		bg.add(chkTatCa); bg.add(rdoTheoMaNV); bg.add(rdoTheoTenNV); bg.add(rdoTheoChucVuNV);
+		bg.add(rdoTheoMaNV); bg.add(rdoTheoTenNV); bg.add(rdoTheoChucVuNV);
 
 		//bangthongtinNV
 		JScrollPane scrollPaneNV = new JScrollPane(tblNV, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -578,7 +589,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 	//timNV
 	private void findNV() {
 		String input = txtTim.getText().toLowerCase().trim();
-		NhanVien nv1 = daoNhanVien.getNV(input);
+		NhanVien nv1 = daoNhanVien.getMaVaSDTNV(input);
 		ArrayList<NhanVien> nv2 = daoNhanVien.getTenNV(input);
 		if(!input.equals("") && !input.equals("Tìm nhân viên theo mã nhân viên, tên nhân viên, sđt, chức vụ, ca làm việc.")) {
 			String messTenNV = "\n - Họ tên. Ví dụ: Nguyễn Văn A";
@@ -686,7 +697,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 						nv.setTenNhanVien(hoTen);
 						nv.setChucVu(chucVu);
 						nv.setGioiTinh(gioiTinh);
-						//						nv.setNgaySinh((Date) ngaySinh);
+//						nv.setNgaySinh((Date) ngaySinh);
 						nv.setNgaySinh(date1);
 						nv.setDiaChi(diaChi);
 						nv.setSdt(sdt);
@@ -963,11 +974,6 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 			removeDanhSachNV(modelNV);
 		}
 
-		//checkbox tatca
-		if(o.equals(chkTatCa)) {
-			loadDanhSachNV(nv);
-		}
-
 		//sapxep tang
 		if((cboSapXep.getSelectedItem()=="Tăng dần")) {
 			if(o.equals(rdoTheoMaNV))	
@@ -1053,4 +1059,5 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		// TODO Auto-generated method stub
 
 	}
+
 }

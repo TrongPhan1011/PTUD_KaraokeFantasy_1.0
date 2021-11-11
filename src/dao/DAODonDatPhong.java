@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -101,6 +102,29 @@ public class DAODonDatPhong {
 		}
 		
 		return ddp;
+	}
+	
+	//them ddp
+	public boolean themDDP(DonDatPhong ddp) throws SQLException {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("insert into DonDatPhong values (?,?,?,?,?,?,?,?)");
+			ps.setString(1, ddp.getMaDDP());
+			ps.setString(2, ddp.getPhong().getMaPhong());
+			ps.setString(3, ddp.getKhachHang().getMaKhangHang());
+			ps.setString(4, ddp.getNhanVien().getMaNhanVien());
+			ps.setDate(5, ddp.getNgayLap());
+			ps.setTime(6, ddp.getGioDen());
+			ps.setDate(7, ddp.getNgayDen());
+			ps.setString(8, ddp.getTrangThaiDDP());
+			
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		con.close();
+		return false;
 	}
 	
 }
