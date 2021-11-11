@@ -36,6 +36,7 @@ import entity.MatHang;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -69,10 +70,10 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 	private DAOPhatSinhMa daoPhatSinhMa;
 	private JComboBox<Object> cboSapXep;
 	private ArrayList<LoaiMatHang> loaiMH;
-	private JRadioButton rdoTatCa;
+	private JCheckBox chkTatCa;
 	private JRadioButton rdoTheoGiaMH;
 	private JRadioButton rdoTheoLoaiMH;
-	private JRadioButton rdoTheoMaMH;
+	private JRadioButton rdoTheoTenMH;
 	private DecimalFormat dfK;
 	private DecimalFormat dfVND;
 	
@@ -253,12 +254,12 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		cboSapXep.setBackground(Color.WHITE);
 		pSapXep.add(cboSapXep);
 		
-		rdoTheoMaMH = new JRadioButton("Theo tên mặt hàng");
-		rdoTheoMaMH.setBounds(312, 15, 170, 27);
-		rdoTheoMaMH.setSelected(true);
-		rdoTheoMaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdoTheoMaMH.setBackground(new Color(207, 195, 237));
-		pSapXep.add(rdoTheoMaMH);
+		rdoTheoTenMH = new JRadioButton("Theo tên mặt hàng");
+		rdoTheoTenMH.setBounds(312, 15, 170, 27);
+		rdoTheoTenMH.setSelected(true);
+		rdoTheoTenMH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdoTheoTenMH.setBackground(new Color(207, 195, 237));
+		pSapXep.add(rdoTheoTenMH);
 		
 		rdoTheoLoaiMH = new JRadioButton("Theo loại mặt hàng");
 		rdoTheoLoaiMH.setBounds(518, 15, 170, 27);
@@ -272,17 +273,17 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		rdoTheoGiaMH.setBackground(new Color(207, 195, 237));
 		pSapXep.add(rdoTheoGiaMH);
 		
-		rdoTatCa = new JRadioButton("Tất cả ");
-		rdoTatCa.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdoTatCa.setBackground(new Color(207, 195, 237));
-		rdoTatCa.setBounds(201, 15, 135, 27);
-		pSapXep.add(rdoTatCa);
+		chkTatCa = new JCheckBox("Tất cả ");
+		chkTatCa.setFont(new Font("SansSerif", Font.BOLD, 14));
+		chkTatCa.setBackground(new Color(207, 195, 237));
+		chkTatCa.setBounds(201, 15, 135, 27);
+		pSapXep.add(chkTatCa);
 		
 		ButtonGroup bgRdo=new ButtonGroup();
-		bgRdo.add(rdoTheoMaMH);
+		bgRdo.add(rdoTheoTenMH);
 		bgRdo.add(rdoTheoLoaiMH);
 		bgRdo.add(rdoTheoGiaMH);
-		bgRdo.add(rdoTatCa);
+		bgRdo.add(chkTatCa);
 		bgRdo.clearSelection();
 //Table
 		String mh [] = {"Mã MH","Tên mặt hàng", "Loại MH", "Số lượng", "Giá bán"};
@@ -349,8 +350,12 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		tblMH.addMouseListener(this);
 		rdoTheoGiaMH.addActionListener(this);
 		rdoTheoLoaiMH.addActionListener(this);
-		rdoTheoMaMH.addActionListener(this);
-		rdoTatCa.addActionListener(this);
+		rdoTheoTenMH.addActionListener(this);
+		chkTatCa.addActionListener(this);
+		rdoTheoGiaMH.addActionListener(this);
+		rdoTheoLoaiMH.addActionListener(this);
+		rdoTheoTenMH.addActionListener(this);
+		cboSapXep.addActionListener(this);
 //Dinh dang thap phan, VND
 		dfK = new DecimalFormat("###,###");
 		dfVND = new DecimalFormat("###,### VND");
@@ -377,12 +382,29 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			XoaMH();
 		}else if (o.equals(btnSuaMH)) {
 			SuaMH();
-		}else if(o.equals(rdoTatCa)) {
+		}else if(o.equals(chkTatCa)) {
 			loadTableMH();
 		}else if (cboSapXep.getSelectedItem() == "Tăng dần") {
 			String a = "asc";
 			if(o.equals(rdoTheoGiaMH)) {
-				
+				clearTable();
+				daoMH.sort("giaMH", a);
+			}else if (o.equals(rdoTheoLoaiMH)) {
+				clearTable();
+				daoMH.sort("maLoaiMH", a);
+			}else if (o.equals(rdoTheoTenMH)) {
+				sortTenMHTangDan(); 
+			} 
+		}else if (cboSapXep.getSelectedItem() == "Giảm dần") {
+			String a = "desc";
+			if(o.equals(rdoTheoGiaMH)) {
+				clearTable();
+				daoMH.sort("giaMH", a);
+			}else if (o.equals(rdoTheoLoaiMH)) {
+				clearTable();
+				daoMH.sort("maLoaiMH", a);
+			}else if (o.equals(rdoTheoTenMH)) {
+				sortTenMHGiamDan();
 			} 
 		}
 	}

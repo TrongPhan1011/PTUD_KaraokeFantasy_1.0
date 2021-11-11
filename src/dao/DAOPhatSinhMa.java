@@ -80,10 +80,6 @@ public class DAOPhatSinhMa {
 		return maMH;
 	}
 	
-<<<<<<< HEAD
-
-=======
->>>>>>> 3f5e37422d570ce67acbfc4ce95b2dd2aeeef81a
 
 	//matkhau
 //	public String getMatKhau() {

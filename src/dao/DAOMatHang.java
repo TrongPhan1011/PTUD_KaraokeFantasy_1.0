@@ -183,17 +183,18 @@ public class DAOMatHang {
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "select * from MatHang	order by "+col+" "+ksx+"";
-		PreparedStatement stm = null;
-		int n = 0;
 		try {
+			PreparedStatement stm = con.prepareStatement(sql);
 			MatHang mh = new MatHang();
-			stm = con.prepareStatement(sql);
-			stm.setString(1, mh.getMaMatHang());
-			stm.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
-			stm.setString(3, mh.getTenMatHang());
-			stm.setInt(4, mh.getSoLuongMatHang());
-			stm.setDouble(5, mh.getGiaMatHang());
-			n= stm.executeUpdate();
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				mh.setMaMatHang(rs.getString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getString(2)));
+				mh.setTenMatHang(rs.getString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				lstMH.add(mh);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
