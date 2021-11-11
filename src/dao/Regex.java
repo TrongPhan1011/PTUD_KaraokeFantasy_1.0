@@ -79,6 +79,18 @@ public class Regex {
 		return true;
 	}
 	
+	public boolean regexGiaP(JTextField txtGiaP) {
+		String input = txtGiaP.getText();
+		String regex = "^[1-9]+[0-9]*$";
+		if(!input.matches(regex))
+		{	JOptionPane.showMessageDialog(null, "Giá phòng không được để trống, không được nhập chữ và phải lớn hơn 0\nVí dụ: 10", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			txtGiaP.requestFocus();
+			txtGiaP.selectAll();
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean regexTimKiemMaPhong(JTextField txtTim) {
 		String input = txtTim.getText();
 		String regex = "^(P[0-9]{3})$";
@@ -93,7 +105,7 @@ public class Regex {
 	
 	public boolean regexTimKiemMaNV(JTextField txtTim) {
 		String input = txtTim.getText();
-		String regexMaNV = "^(NV[0-9]{2}[1-9]{1})$";
+		String regexMaNV = "^(NV[0-9]{3})$";
 		Pattern pattern = Pattern.compile(regexMaNV);
 		Matcher matcher = pattern.matcher(input);
 		if(!input.matches(regexMaNV)) {
@@ -209,4 +221,6 @@ public class Regex {
 		}
 		return true;
 	}
+	
+
 }

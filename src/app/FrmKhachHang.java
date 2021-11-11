@@ -144,7 +144,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 
 		// txtTK
 		txtTK = new JTextField();
-		txtTK.setText("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.");
+		txtTK.setText("Tìm khách hàng theo mã, tên, sđt và loại khách hàng.");
 		txtTK.setFont(new Font("SansSerif", Font.ITALIC, 15));
 		txtTK.setForeground(Colors.LightGray);
 		txtTK.setBorder(new LineBorder(new Color(114, 23, 153), 2, true));
@@ -152,7 +152,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		txtTK.addFocusListener(new FocusAdapter() { // place holder
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtTK.getText().equals("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.")) {
+				if (txtTK.getText().equals("Tìm khách hàng theo mã, tên, sđt và loại khách hàng.")) {
 					txtTK.setText("");
 					txtTK.setFont(new Font("SansSerif", Font.PLAIN, 15));
 					txtTK.setForeground(Color.BLACK);
@@ -163,7 +163,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			public void focusLost(FocusEvent e) {
 				if (txtTK.getText().equals("")) {
 					txtTK.setFont(new Font("SansSerif", Font.ITALIC, 15));
-					txtTK.setText("Tìm nhân viên theo mã khách hàng, tên khách hàng, sđt.");
+					txtTK.setText("Tìm khách hàng theo mã, tên, sđt và loại khách hàng.");
 					txtTK.setForeground(Colors.LightGray);
 				}
 			}
@@ -499,7 +499,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		btnTim.addActionListener(this);
 		rdoTheoMaKH.addActionListener(this);
 		rdoTheoTenKH.addActionListener(this);
-
+		rdoTheoLoaiKH.addActionListener(this);
 	}
 
 //end main
@@ -576,7 +576,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			resetAll();
 			JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
 		}
-
+		
 	}
 
 	// Nút sửa
@@ -588,7 +588,6 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			if (update == JOptionPane.YES_OPTION) {
 				if (regex.regexTen(txtHoTen) && regex.regexSDT(txtSDT) && regex.regexCCCD(txtCccd)
 						&& regex.regexDiaChi(txtDiaChi)) {
-					// int row = tableKH.getSelectedRow();
 					String maKH = modelKhachHang.getValueAt(row, 0).toString();
 					String tenKH = txtHoTen.getText().toString();
 					String sdt = txtSDT.getText().toString();
@@ -711,20 +710,12 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 }
 	  
 	//Sap xep theo ten khach hang giam dan
-	  public void sortTenKHTangDan(KhachHang kh) {
+	  public void sortTenKHGiamDan(KhachHang kh) {
 			clearTable();
-			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();
-			
+			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();		
 			Collections.sort(lsKH, new Comparator<KhachHang>() {
 				public int compare(KhachHang o1, KhachHang o2) {
-					//String [] k;
-					//String [] s;
-					//s = o1.getTenKH().split("");
-					//k = o2.getTenKH().split("");
-					//int p =(s[s.length-1].length());
-					//int q =(k[k.length-1].length());
 					return o2.getTenKH().compareTo(o1.getTenKH());
-					//return (o1.getTenKH().substring(o1.getTenKH().length() - p, o1.getTenKH().length())).compareToIgnoreCase(o2.getTenKH().substring(o2.getTenKH().length() - q, o2.getTenKH().length()));
 				}
 			});
 			
@@ -735,6 +726,81 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
 			}
 }
+	  //Sap xep theo ten khach hang tang dan
+	  public void sortTenKHTangDan(KhachHang kh) {
+			clearTable();
+			ArrayList<KhachHang> lsKH = daoKhachHang.getDanhSachKH();		
+			Collections.sort(lsKH, new Comparator<KhachHang>() {
+				public int compare(KhachHang o1, KhachHang o2) {
+					return o1.getTenKH().compareTo(o2.getTenKH());
+				}
+			});
+			
+			for (KhachHang khs : lsKH) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+}
+	  //sap xep loaiKh giam dan
+	  public void sortLoaiKHGiamDan(KhachHang kh) {
+		  	clearTable();
+			ArrayList<KhachHang> lsVip= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên VIP"));
+			for (KhachHang khs : lsVip) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+			ArrayList<KhachHang> lsThanhVien= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên thường"));
+			for (KhachHang khs : lsThanhVien) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+			ArrayList<KhachHang> lsKhachHang= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Khách hàng thường"));
+			for (KhachHang khs : lsKhachHang) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+	  }
+	  
+	  //sap xep loaiKH tang dan
+	  public void sortLoaiKHTangDan(KhachHang kh) {
+		  	clearTable();
+			ArrayList<KhachHang> lsKhachHang= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Khách hàng thường"));
+			for (KhachHang khs : lsKhachHang) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+			ArrayList<KhachHang> lsThanhVien= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên thường"));
+			for (KhachHang khs : lsThanhVien) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+
+
+			
+			ArrayList<KhachHang> lsVip= daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen("Thành viên VIP"));
+			for (KhachHang khs : lsVip) {
+				LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(khs.getLoaiKH().getMaLoaiKH());
+				modelKhachHang.addRow(new Object[] { khs.getMaKhangHang(), khs.getTenKH(), loaiKH.getTenLoaiKH(),
+						khs.getGioiTinh(), dfNgaySinh.format(khs.getNgaySinh()), khs.getDiaChi(), khs.getSdt(), khs.getCccd(),
+						dfNgayDangKy.format(khs.getNgayDangKy()), khs.getDiemTichLuy() });
+			}
+	  }
+	
 
 
 	@Override
@@ -817,11 +883,23 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		if (o.equals(btnTim)) {
 			findKH();
 		}
-		if(cbbSort.getSelectedItem()=="Giảm dần"){
-			if(o.equals(rdoTheoMaKH))
-				sortMaKHGiamDan(kh);
+		if(cbbSort.getSelectedItem()=="Tăng dần") {
+			if(o.equals(rdoTheoMaKH)) {
+				loadDanhSachKH();
+			}
 			if(o.equals(rdoTheoTenKH))
 				sortTenKHTangDan(kh);
+			if(o.equals(rdoTheoLoaiKH))
+				sortLoaiKHTangDan(kh);
+		}
+		if(cbbSort.getSelectedItem()=="Giảm dần"){
+			if(o.equals(rdoTheoMaKH)) {
+				sortMaKHGiamDan(kh);
+			}
+			if(o.equals(rdoTheoTenKH))
+				sortTenKHGiamDan(kh);
+			if(o.equals(rdoTheoLoaiKH))
+				sortLoaiKHGiamDan(kh);
 		}
 
 	}

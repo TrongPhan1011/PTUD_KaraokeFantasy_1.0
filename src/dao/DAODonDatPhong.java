@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,6 +43,34 @@ public class DAODonDatPhong {
 		return lsDDP;
 	}
 	
+	public ArrayList<DonDatPhong> getDanhSachDDPKhongHuy() {
+		ArrayList<DonDatPhong> lsDDP = new ArrayList<DonDatPhong>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from DonDatPhong where TrangThaiDDP != N'Hủy'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				DonDatPhong ddp = new DonDatPhong();
+				ddp.setMaDDP(rs.getString(1));
+				ddp.setPhong(new Phong(rs.getString(2)));
+				ddp.setKhachHang(new KhachHang(rs.getString(3)));
+				ddp.setNhanVien(new NhanVien(rs.getString(4)));
+				ddp.setNgayLap(rs.getDate(5));
+				ddp.setGioDen(rs.getTime(6));
+				ddp.setNgayDen(rs.getDate(7));
+				ddp.setTrangThaiDDP(rs.getString(8));
+				lsDDP.add(ddp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lsDDP;
+	} 
+	
 	
 	public DonDatPhong getDDPTheoMaPhong(String ma){
 		DonDatPhong ddp = new DonDatPhong();
@@ -73,6 +102,29 @@ public class DAODonDatPhong {
 		}
 		
 		return ddp;
+	}
+	
+	//them ddp
+	public boolean themDDP(DonDatPhong ddp) throws SQLException {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("insert into DonDatPhong values (?,?,?,?,?,?,?,?)");
+			ps.setString(1, ddp.getMaDDP());
+			ps.setString(2, ddp.getPhong().getMaPhong());
+			ps.setString(3, ddp.getKhachHang().getMaKhangHang());
+			ps.setString(4, ddp.getNhanVien().getMaNhanVien());
+			ps.setDate(5, ddp.getNgayLap());
+			ps.setTime(6, ddp.getGioDen());
+			ps.setDate(7, ddp.getNgayDen());
+			ps.setString(8, ddp.getTrangThaiDDP());
+			
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		con.close();
+		return false;
 	}
 	
 }
