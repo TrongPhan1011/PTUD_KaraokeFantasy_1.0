@@ -402,6 +402,7 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 				rdoTheoGiaP.addActionListener(this);
 				rdoTheoLoaiP.addActionListener(this);
 				rdoTheoMaP.addActionListener(this);
+				btnTim.addActionListener(this);
 	}
 	// end giao dien
 	
@@ -427,6 +428,7 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 		LoaiPhong loaiP = daoLoaiP.getLoaiPhongTheoMa(p.getLoaiPhong().getMaLoaiPhong());
 		modelPhong.addRow(new Object[] {p.getMaPhong(), loaiP.getTenLoaiPhong(), dfGiaP.format(p.getGiaPhong()), p.getTinhTrangPhong() });
 	}
+	
 	
 	//Them phong
 	public void themPhong() {
@@ -511,6 +513,35 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return false;
+	}
+	
+	//Tìm kiếm phòng
+	private void findPhong() {
+		Phong p = daoPhong.getThongTinPhong(txtTK.getText().toLowerCase().trim());
+		
+		if (!txtTK.getText().equals("") && !txtTK.getText().equals("Tìm theo mã phòng, loại phòng, tình trạng phòng")) {
+			String messTenPhong = "\n - Ví dụ: P001";
+			String messLoaiPhong = "\n - Tìm theo loại phòng: thường, trung, VIP";
+			String messTinhTrang = "\n - Tình trạng: đã đặt, trống, đang sử dụng";
+
+			if (regex.regexTimKiemMaPhong(txtTK)) {
+				try {
+					clearTable();
+					loadPhongDuocChon(p);
+				} catch (Exception e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Không tìm thấy tên phòng cần tìm!", "Thông báo", JOptionPane.OK_OPTION);
+				}
+			}  
+			 else
+				JOptionPane.showMessageDialog(null,
+						"Thông tin tìm kiếm không hợp lệ!\nThông tin có thể tìm kiếm:\n - Mã khách hàng. Ví dụ: KH001"
+								+ messTenPhong + messLoaiPhong + messTinhTrang,
+						"Thông báo", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm!", "Thông báo",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	//Làm mới
@@ -674,6 +705,9 @@ public class FrmPhong extends JPanel implements ActionListener, MouseListener, I
 				sortLoaiPhongGiamDan(p);
 			if(o.equals(rdoTheoGiaP))
 				sortGiaPhongGiamDan(p);
+		}
+		if(o.equals(btnTim)) {
+			findPhong();
 		}
 	}
 }
