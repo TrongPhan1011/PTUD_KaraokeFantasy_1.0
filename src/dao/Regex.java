@@ -141,7 +141,19 @@ public class Regex {
 
 	}
 
-	
+	public boolean regexTenMH(JTextField txtTen2) {
+		String input = txtTen2.getText();
+		String regex = "^([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(input);
+		if (!matcher.find()) {
+			txtTen2.requestFocus();
+			txtTen2.selectAll();
+			return false;
+		} else
+			return true;
+
+	}
 	public boolean regexNVTren18(JDateChooser dateChooser) {
 		LocalDate dNow = LocalDate.now();
 		int nam = dNow.getYear();
@@ -183,7 +195,32 @@ public class Regex {
 		} else
 			return true;
 	}
-	
+	public boolean regexTimKiemLoaiMatHang(JTextField ten) {
+		String in = ten.getText().toLowerCase().trim();
+		
+		String regexDA = "^[đồ ăn]*+$";
+		Pattern patternDA = Pattern.compile(regexDA);
+		Matcher matcherDA = patternDA.matcher(in);
+		
+		String regexDU = "^[đồ uống]*+$";
+		Pattern patternDU = Pattern.compile(regexDU);
+		Matcher matcherDU = patternDU.matcher(in);
+		
+		String regexKhac = "^[khác]*+$";
+		Pattern patternKhac = Pattern.compile(regexKhac);
+		Matcher matcherKhac = patternKhac.matcher(in);
+		
+		String regexStop = "^[ngừng kinh doanh]*+$";
+		Pattern patternStop = Pattern.compile(regexStop);
+		Matcher matcherStop = patternStop.matcher(in);
+		
+		if(!matcherDA.find() && !matcherDU.find() && !matcherKhac.find() && !matcherStop.find() ) {
+			ten.requestFocus();
+			ten.selectAll();
+			return false;
+		}else
+			return true;
+	}
 	public boolean regexTimKiemCa(JTextField txtTim) {
 		String input = txtTim.getText();
 		String regex = "^[1-3]{1}$";

@@ -83,10 +83,6 @@ public class DAOPhatSinhMa {
 		}
 		return maMH;
 	}
-<<<<<<< HEAD
-	
-=======
-
 	//maP
 	public String getMaP() {
 		String maP="";
@@ -122,8 +118,5 @@ public class DAOPhatSinhMa {
 		} 
 		return maDDP; 
 	}
->>>>>>> 713415c3949ab91c0a6b42823ef331cb24fd32d2
-
-
 }
 

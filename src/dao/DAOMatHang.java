@@ -60,13 +60,35 @@ public class DAOMatHang {
 		}
 		return mh;
 	}
-	
+	public MatHang getMHTheoTenMH(String ma) {	
+		MatHang mh = new MatHang();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from MatHang where tenMH = '"+ ma +"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				
+				mh.setMaMatHang(rs.getNString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getNString(2)));
+				mh.setTenMatHang(rs.getNString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mh;
+	}
 	public ArrayList<MatHang> getMatHangTheoMaLoai(String Maloai) {
 		ArrayList< MatHang> lsMatHang = new ArrayList<MatHang>();
 		
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from MatHang where MaLoaiMH = '"+Maloai +"'";
+		String sql = "select * from MatHang where maLoaiMH like N '"+Maloai +"'";
 		
 		try {
 			Statement stm = con.createStatement();
@@ -90,7 +112,35 @@ public class DAOMatHang {
 		return lsMatHang;
 		
 	}
-	
+	public ArrayList<MatHang> getMatHangTheoTenMatHang(String Ten) {
+		ArrayList< MatHang> lsMatHang = new ArrayList<MatHang>();
+		
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from MatHang where tenMH like N '"+Ten +"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				MatHang mh = new MatHang();
+				
+				mh.setMaMatHang(rs.getNString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getNString(2)));
+				mh.setTenMatHang(rs.getNString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				
+				lsMatHang.add(mh);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lsMatHang;
+		
+	}
 	public MatHang getMHTheoTenMHVaLoaiMH(String tenMH, String tenLoai) {
 		MatHang mh = new MatHang();
 		ConnectDB.getinstance();
@@ -178,16 +228,82 @@ public class DAOMatHang {
 		}
 		return n>0;
 	}
-	public ArrayList<MatHang> sort(String col, String ksx) {
+	public ArrayList<MatHang> sortGia(String ksx) {
 		ArrayList<MatHang> lstMH = new ArrayList<>();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from MatHang	order by "+col+" "+ksx+"";
+		String sql = "select * from MatHang	order by giaMH "+ksx+"";
 		try {
 			PreparedStatement stm = con.prepareStatement(sql);
-			MatHang mh = new MatHang();
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
+				MatHang mh = new MatHang();
+				mh.setMaMatHang(rs.getString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getString(2)));
+				mh.setTenMatHang(rs.getString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				lstMH.add(mh);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lstMH;
+	}
+	public ArrayList<MatHang> sortLMH(String ksx) {
+		ArrayList<MatHang> lstMH = new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from MatHang	order by maLoaiMH "+ksx+"";
+		try {
+			PreparedStatement stm = con.prepareStatement(sql);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				MatHang mh = new MatHang();
+				mh.setMaMatHang(rs.getString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getString(2)));
+				mh.setTenMatHang(rs.getString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				lstMH.add(mh);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lstMH;
+	}
+	public ArrayList<MatHang> getTenMH(String tenMH) {
+		ArrayList<MatHang> lstMH = new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from MatHang	where tenMH like N'"+tenMH+"'";
+		try {
+			PreparedStatement stm = con.prepareStatement(sql);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				MatHang mh = new MatHang();
+				mh.setMaMatHang(rs.getString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getString(2)));
+				mh.setTenMatHang(rs.getString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				lstMH.add(mh);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lstMH;
+	}
+	public ArrayList<MatHang> getLMH(String tenLMH) {
+		ArrayList<MatHang> lstMH = new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from MatHang	where maLoaiMH like N'"+tenLMH+"'";
+		try {
+			PreparedStatement stm = con.prepareStatement(sql);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				MatHang mh = new MatHang();
 				mh.setMaMatHang(rs.getString(1));
 				mh.setLoaiMatHang(new LoaiMatHang(rs.getString(2)));
 				mh.setTenMatHang(rs.getString(3));

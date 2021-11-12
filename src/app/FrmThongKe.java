@@ -32,11 +32,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SpringLayout;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 
 
-
-public class FrmThongKe extends JPanel{
+public class FrmThongKe extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -359,6 +364,12 @@ public class FrmThongKe extends JPanel{
 		JPanel panel1 = new JPanel();
 		panel1.setBounds(461, 189, 793, 359);
 		pMain.add(panel1);
+///Jchart
+		
+		
+		
+///ActionListener
+		btnTK.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
