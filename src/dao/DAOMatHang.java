@@ -211,20 +211,28 @@ public class DAOMatHang {
 		}
 		return n>0;
 	}
-	public boolean updateMH(MatHang mh, String maMH) {
+	public boolean updateMH(MatHang mh) {
+		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "update MatHang set tenMH = ?, maLoaiMH = ?, soLuongMH = ?, giaMH = ? where maMH = '"+maMH+"'";
+		String sql = "update MatHang set tenMH = ?, maLoaiMH = ?, soLuongMH = ?, giaMH = ? where maMH = ?";
+		PreparedStatement stm = null;
 		int n = 0;
 		try {
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, mh.getTenMatHang());
-			ps.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
-			ps.setInt(3, mh.getSoLuongMatHang());
-			ps.setDouble(4, mh.getGiaMatHang());
-			//stm.setString(5, mh.getMaMatHang());
-			n= ps.executeUpdate();
+			stm = con.prepareStatement(sql);
+			stm.setString(1, mh.getTenMatHang());
+			stm.setString(2, mh.getLoaiMatHang().getMaLoaiMatHang());
+			stm.setInt(3, mh.getSoLuongMatHang());
+			stm.setDouble(4, mh.getGiaMatHang());
+			stm.setString(5, mh.getMaMatHang());
+			n= stm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				stm.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 		return n>0;
 	}

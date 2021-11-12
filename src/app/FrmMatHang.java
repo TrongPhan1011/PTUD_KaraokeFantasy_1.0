@@ -484,7 +484,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			int soluong = Integer.parseInt(txtSoLuong.getText());
 			double dongia = Double.parseDouble(txtDonGia.getText());
 			MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(maLMH));  
-			daoMH.updateMH(mh, maMH);
+			daoMH.updateMH(mh);
 			clearTable();
 			loadTableMH();
 		} catch (Exception e) {

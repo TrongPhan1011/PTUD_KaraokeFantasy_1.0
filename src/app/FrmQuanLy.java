@@ -29,11 +29,14 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 
 import connection.ConnectDB;
+import entity.NhanVien;
+import entity.TaiKhoan;
 
 public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 
 
 	private static final long serialVersionUID = 1L;
+	private NhanVien headerNV;
 	private FrmNhanVien frmNhanVien;
 	private JPanel pContent;
 	private JButton btnDangXuat;
@@ -67,7 +70,8 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(new FlatLightLaf());
-					FrmQuanLy frame = new FrmQuanLy();
+
+					FrmQuanLy frame = new FrmQuanLy(new NhanVien("NV002","Trần Thanh Thiện","Quản lý","Nam",new Date(2001, 1, 1),"à","ádf","adf",50,1,"dà", new TaiKhoan()));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,7 +83,9 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 	
 	@SuppressWarnings("deprecation")
 
-	public FrmQuanLy() {
+	public FrmQuanLy(NhanVien nv) {
+		
+		this.headerNV = nv;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Quản lý nhân viên");
@@ -88,6 +94,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		setResizable(false);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1281, 78);
@@ -107,7 +114,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		thang = now.getMonthValue();
 		nam = now.getYear();
 		
-		dNow = new Date(nam,thang,ngay);
+		dNow = new Date(nam-1900,thang-1,ngay);
 		
 		
 		JLabel lblHeaderDate = new JLabel("Hiện tại:");
@@ -123,7 +130,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		panel.add(lblNgayHienTai);
 		
 		
-		lblHeaderTen = new JLabel("Tên Nhân Viên");
+		lblHeaderTen = new JLabel(headerNV.getTenNhanVien());
 		lblHeaderTen.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblHeaderTen.setForeground(Color.WHITE);
 		lblHeaderTen.setBounds(873, 11, 170, 20);
@@ -142,13 +149,19 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		btnDangXuat.setBackground(new Color(0xE91940));
 		panel.add(btnDangXuat);
 		
-		lblHeaderMaNV = new JLabel("NV002");
+		lblHeaderMaNV = new JLabel(headerNV.getMaNhanVien());
 		lblHeaderMaNV.setForeground(Color.WHITE);
 		lblHeaderMaNV.setFont(new Font("SansSerif", Font.ITALIC, 15));
 		lblHeaderMaNV.setBounds(983, 41, 60, 20);
 		panel.add(lblHeaderMaNV);
 		
-		btnHeaderInfo = new JButton("QL");
+		btnHeaderInfo = new JButton();
+		if(nv.getChucVu().equalsIgnoreCase("Phục vụ"))
+			btnHeaderInfo.setText("PV");
+		else if(nv.getChucVu().equalsIgnoreCase("Quản lý"))
+			btnHeaderInfo.setText("QL");
+		else btnHeaderInfo.setText("TN");
+		
 		btnHeaderInfo.setForeground(Color.WHITE);
 		btnHeaderInfo.setFont(new Font("SansSerif", Font.BOLD, 20));
 		btnHeaderInfo.setBounds(1053, 11, 60, 56);
@@ -304,6 +317,9 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		btnItemTK.addActionListener(this);
 	}
 	
+
+
+
 	// reset màu menu
 	public void resetColorMenu() {
 		btnItemNhanVien.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));

@@ -15,6 +15,7 @@ public class HoaDon implements Serializable {
 	private Time gioRa;
 	private String phuThu;
 	private String trangThaiHD;
+	private double giamGia;
 	
 	private NhanVien nhanVien;
 	private KhachHang khachHang;
@@ -73,10 +74,14 @@ public class HoaDon implements Serializable {
 	public void setPhong(Phong phong) {
 		this.phong = phong;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	
+	public double getGiamGia() {
+		return giamGia;
 	}
-	public HoaDon(String maHoaDon, Date ngayLap, Time gioVao, Time gioRa, String phuThu, String trangThaiHD,
+	public void setGiamGia(double giamGia) {
+		this.giamGia = giamGia;
+	}
+	public HoaDon(String maHoaDon, Date ngayLap, Time gioVao, Time gioRa, String phuThu, String trangThaiHD,double giamGia,
 			NhanVien nhanVien, KhachHang khachHang, Phong phong) {
 		super();
 		this.maHoaDon = maHoaDon;
@@ -88,6 +93,7 @@ public class HoaDon implements Serializable {
 		this.nhanVien = nhanVien;
 		this.khachHang = khachHang;
 		this.phong = phong;
+		this.giamGia = giamGia;
 	}
 	public HoaDon(String maHoaDon) {
 		super();

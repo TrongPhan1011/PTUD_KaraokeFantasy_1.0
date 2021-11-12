@@ -1,5 +1,9 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +14,8 @@ import java.util.ArrayList;
 import connection.ConnectDB;
 import entity.TaiKhoan;
 
+	
+				
 public class DAOTaiKhoan implements Serializable {
 	/**
 	 * 
@@ -34,6 +40,31 @@ public class DAOTaiKhoan implements Serializable {
 			e.printStackTrace();
 		}
 		return lstTK;
+	}
+
+
+
+	public TaiKhoan getTaiKhoanTheoMa(String maTK) { 
+		TaiKhoan tk = new TaiKhoan();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from TaiKhoan where maTK = '"+maTK+"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				tk.setMaTK(rs.getString(1));
+				tk.setMatKhau(rs.getString(2));
+				
+			}
+		}
+		catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return tk;
+		
 	}
 	
 	//Load ds matkhau
@@ -73,4 +104,30 @@ public class DAOTaiKhoan implements Serializable {
 		return false;
 	}
 	
+	public boolean suaTK(TaiKhoan tk) {
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement stmt = null;
+		int n=0;
+		try {
+			stmt = con.prepareStatement("update TaiKhoan set matKhau = ? where maTK = ?");
+			stmt.setString(2, tk.getMaTK());
+			stmt.setString(1, tk.getMatKhau());
+			n = stmt.executeUpdate();
+			} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+		return n>0;
+	}
+	
+	
 }
+
