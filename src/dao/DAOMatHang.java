@@ -186,5 +186,26 @@ public class DAOMatHang {
 		}
 		return n>0;
 	}
-	
+	public ArrayList<MatHang> sort(String col, String ksx) {
+		ArrayList<MatHang> lstMH = new ArrayList<>();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from MatHang	order by "+col+" "+ksx+"";
+		try {
+			PreparedStatement stm = con.prepareStatement(sql);
+			MatHang mh = new MatHang();
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				mh.setMaMatHang(rs.getString(1));
+				mh.setLoaiMatHang(new LoaiMatHang(rs.getString(2)));
+				mh.setTenMatHang(rs.getString(3));
+				mh.setSoLuongMatHang(rs.getInt(4));
+				mh.setGiaMatHang(rs.getDouble(5));
+				lstMH.add(mh);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lstMH;
+	}
 }

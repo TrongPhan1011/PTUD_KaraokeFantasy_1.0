@@ -14,7 +14,7 @@ public class DAOLoaiPhong {
 		ArrayList<LoaiPhong> dsLoaiPhong = new ArrayList<LoaiPhong>();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from LoaiPhong";
+		String sql = "select * from LoaiPhong where not maLoaiPhong = N'LP004'";
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -29,12 +29,12 @@ public class DAOLoaiPhong {
 		}
 		return dsLoaiPhong;
 	}
+	
 	public LoaiPhong getLoaiPhongTheoMa(String ma) {
 		LoaiPhong lp = new LoaiPhong();
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from LoaiPhong where maLoaiPhong = N'"+ma +"'";
-		
+		String sql = "select * from LoaiPhong where maLoaiPhong = N'"+ma+"'";
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -47,9 +47,7 @@ public class DAOLoaiPhong {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return lp;
-		
 	}
 	
 	public LoaiPhong getLoaiPhongTheoTenLoai(String ten) {
@@ -72,6 +70,28 @@ public class DAOLoaiPhong {
 		}
 		
 		return lp;
+		
+	}
+	
+	public String getMaLoaiPTheoTen(String tenP) {
+		String maLoai ="";
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select maLoaiPhong from LoaiPhong where tenLoaiPhong = N'"+tenP +"'";
+		
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				
+				maLoai = rs.getString(1);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return maLoai;
 		
 	}
 }

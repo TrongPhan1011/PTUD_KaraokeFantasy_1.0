@@ -968,8 +968,7 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 				JOptionPane.showMessageDialog(this,"Khách hàng đã được nâng lên thành khách hàng VIP");
 			}
 			kh.setDiemTichLuy(diemTichLuy);
-			
-			
+
 			
 		}
 		return kh;
