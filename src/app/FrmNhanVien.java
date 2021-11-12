@@ -282,7 +282,7 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 		lblNVDaNghiViec = new JLabel();
 		lblNVDaNghiViec.setForeground(Color.RED);
 		lblNVDaNghiViec.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblNVDaNghiViec.setBounds(825, 140, 227, 20);
+		lblNVDaNghiViec.setBounds(790, 140, 227, 20);
 		pMain.add(lblNVDaNghiViec);
 
 		//btnthem,sua,xoa,lammoiNV
@@ -649,24 +649,12 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 			String chucVu = cboChucVu.getSelectedItem().toString();
 			String cccd = txtCccd.getText();
 			String gioiTinh = cboGioiTinh.getSelectedItem().toString();
-			//
-			//			int day = dateChooserNgaySinh.getDate().getDay()+24;  //vì ko +24 bên sql sẽ tự -24 @.@
-			//			int month = dateChooserNgaySinh.getDate().getMonth();
-			//			int year = dateChooserNgaySinh.getDate().getYear();
-			//			int age = nam - year;
-			//			java.util.Date ngaySinh = new Date(year, month, day);
 
 			java.util.Date date = chooserNgaySinh.getDate();
-			//			System.out.println(date.getDate());
-			//			System.out.println(date.getMonth());
-			//			System.out.println(date.getYear());
 
 			Date date1=new Date(date.getYear(), date.getMonth(), date.getDate());
-			//			System.out.println("======");
-			//			System.out.println(date1.getDate());
-			//			System.out.println(date1.getMonth());
-			//			System.out.println(date1.getYear());
 
+			
 			int age = nam - date1.getYear();
 			//			int age = now.getYear() - date1.getYear();
 			//			int age = dNow.getYear() - date1.getYear();
@@ -712,7 +700,8 @@ public class FrmNhanVien extends JFrame implements ActionListener, MouseListener
 							JOptionPane.showMessageDialog(this, "Thêm nhân viên thất bại!", "Thông báo", JOptionPane.ERROR_MESSAGE);
 						}
 
-						//them vao table
+						
+						//them vao table  
 						xoaTrang();
 						modelNV.addRow(new Object[] {
 								phatSinhMaNV, hoTen, chucVu, gioiTinh, 

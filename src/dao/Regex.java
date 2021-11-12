@@ -131,7 +131,7 @@ public class Regex {
 		}
 		return true;
 	}
-<<<<<<< HEAD
+
 	public boolean regexTimKiemMaLoaiKH(JTextField txtTK) {
 		DAOLoaiKH daoLKH = new DAOLoaiKH();
 		String input = daoLKH.getMaLoaiKHTheoTen(txtTK.getText().toString()) ;
@@ -146,9 +146,6 @@ public class Regex {
 		return true;
 	}
 
-=======
-	
->>>>>>> 238c4e89834feb61e89950b5ef9d37ea6785938e
 	public boolean regexTenNV(JTextField txtTen2) {
 		String input = txtTen2.getText();
 		String regex = "^([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
