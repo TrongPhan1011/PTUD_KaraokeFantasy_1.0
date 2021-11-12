@@ -549,6 +549,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
 		}
 	}
+	
 	private void sortLMHTangDan(MatHang mh){
 		clearTable();
 		ArrayList<MatHang> lstMH = daoMH.sortLMH("ASC");
@@ -557,6 +558,10 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
 		}
 	}
+	/**
+	 *	
+	 * @param mh
+	 */
 	private void sortGiaTangDan(MatHang mh){
 		clearTable();
 		ArrayList<MatHang> lstMH = daoMH.sortGia("ASC");
@@ -594,6 +599,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		}else
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
 	}
+	
 	public void loadTenMH(ArrayList<MatHang> mh1) {
 		clearTable();
 		ArrayList<MatHang> lsMH = daoMH.getTenMH(txtTim.getText());
@@ -602,6 +608,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
 		}
 	}
+	
 	public void loadLoaiMH(ArrayList<MatHang> mh1) {
 		clearTable();
 		String maLoai = daoLMH.getMaLoaiMHTheoTen(txtTim.getText());
@@ -611,6 +618,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
 		}
 	}
+	
 	/**
 	 * Sự kiện click chuột
 	 */

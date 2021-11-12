@@ -100,6 +100,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	private JCheckBox chkAll = new JCheckBox("Tất cả");
 	private Regex regex;
 	private KhachHang kh;
+	private ButtonGroup bg;
 
 	public Panel getFrmKH() {
 		return this.pMain;
@@ -467,11 +468,11 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 		rdoTheoLoaiKH.setBounds(682, 15, 171, 27);
 		pSapXep.add(rdoTheoLoaiKH);
 
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		bg.add(rdoTheoMaKH);
 		bg.add(rdoTheoTenKH);
 		bg.add(rdoTheoLoaiKH);
-
+		bg.clearSelection();
 		// rdoTheoMaKH.setSelected(true);
 
 		JLabel lblBackground = new JLabel("");
@@ -519,15 +520,26 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 	// load thong tin 1 nguoi
 	public void loadThongTin(KhachHang kh) {
 		LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(kh.getLoaiKH().getMaLoaiKH());
+		modelKhachHang.setRowCount(0);
 		modelKhachHang.addRow(new Object[] { kh.getMaKhangHang(), kh.getTenKH(), loaiKH.getTenLoaiKH(),
 				kh.getGioiTinh(), dfNgaySinh.format(kh.getNgaySinh()), kh.getDiaChi(), kh.getSdt(), kh.getCccd(),
 				dfNgayDangKy.format(kh.getNgayDangKy()), kh.getDiemTichLuy() });
 	}
 
 	// load theo ten kh
-	private void loadDanhSachTenKH(KhachHang kh) {
-		clearTable();
+	private void loadDanhSachTenKH(ArrayList<KhachHang> kh1) {
+		//clearTable();
 		ArrayList<KhachHang> lstName = daoKhachHang.getTenKH(txtTK.getText());
+		for (KhachHang lskh : lstName) {
+			LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(lskh.getLoaiKH().getMaLoaiKH());
+			modelKhachHang.addRow(new Object[] { lskh.getMaKhangHang(), lskh.getTenKH(), loaiKH.getTenLoaiKH(),
+					lskh.getGioiTinh(), dfNgaySinh.format(lskh.getNgaySinh()), lskh.getDiaChi(), lskh.getSdt(),
+					lskh.getCccd(), dfNgayDangKy.format(lskh.getNgayDangKy()), lskh.getDiemTichLuy() });
+		}
+	}
+	private void loadDanhSachTenKHTheoLoai(ArrayList<KhachHang> kh2) {
+		//clearTable();
+		ArrayList<KhachHang> lstName = daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen(txtTK.getText().toString()));
 		for (KhachHang lskh : lstName) {
 			LoaiKH loaiKH = daoLoaiKH.getLoaiKHTheoMaLoai(lskh.getLoaiKH().getMaLoaiKH());
 			modelKhachHang.addRow(new Object[] { lskh.getMaKhangHang(), lskh.getTenKH(), loaiKH.getTenLoaiKH(),
@@ -576,6 +588,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			resetAll();
 			JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
 		}
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
 		
 	}
 
@@ -609,7 +622,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 						daoKhachHang.suaThongTinKhachHang(kh);
 						loadDanhSachKH();
 						resetAll();
-						JOptionPane.showMessageDialog(this, "Thông tin nhân viên đã được sửa!", "Thông báo",
+						JOptionPane.showMessageDialog(this, "Thông tin khách hàng đã được sửa!", "Thông báo",
 								JOptionPane.OK_OPTION);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -620,7 +633,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Vui lòng chọn thông tin nhân viên cần sửa!", "Thông báo",
+			JOptionPane.showMessageDialog(null, "Vui lòng chọn thông tin khách hàng cần sửa!", "Thông báo",
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -639,31 +652,63 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 
 	// Tìm kiếm
 	private void findKH() {
-		KhachHang kh = daoKhachHang.getKH(txtTK.getText());
-		if (!txtTK.getText().equals("")
-				&& !txtTK.getText().equals("Tìm khách hàng theo mã, tên khách hàng, sđt, loại khách hàng.")) {
+		KhachHang kh = daoKhachHang.getKH(txtTK.getText().toLowerCase().trim());
+		ArrayList<KhachHang>kh1 = daoKhachHang.getTenKH(txtTK.getText().toLowerCase().trim());
+		/*
+		 * String loai = ; JTextField tam = new JTextField(); tam.setText(loai);
+		 */
+		ArrayList<KhachHang>kh2 = daoKhachHang.getKHTheoLoai(daoLoaiKH.getMaLoaiKHTheoTen(txtTK.getText().toString()));
+		if (!txtTK.getText().equals("") && !txtTK.getText().equals("Tìm khách hàng theo mã, tên, sđt và loại khách hàng.")) {
 			String messTenKH = "\n - Họ tên. Ví dụ: Nguyễn Văn A";
 			String messLKH = "\n - Tìm theo loại khách hàng: khách hàng thường, thành viên, VIP, không còn là khách hàng";
 			String messSDT = "\n - SĐT gồm 10 chữ số và bắt đầu bằng số 0";
-
+			//System.out.println(regex.regexTimKiemMaLoaiKH(txtTK));
+			//loadDanhSachKH();
 			if (regex.regexTimKiemMaKH(txtTK)) {
-				if (kh != null) {
+				try {
 					clearTable();
 					loadThongTin(kh);
+				} catch (Exception e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Không tìm thấy mã khách hàng!", "Thông báo", JOptionPane.OK_OPTION);
 				}
 			} else if (regex.regexTenNV(txtTK)) {
-				if (kh != null)
-					loadDanhSachTenKH(kh);
+				try {
+					System.out.println("alo 123 5");
+					clearTable();
+					loadDanhSachTenKH(kh1);
+				} catch (Exception e) {
+					// TODO: handle exception
+
+					JOptionPane.showMessageDialog(null, "Không tìm thấy tên khách hàng!", "Thông báo", JOptionPane.OK_OPTION);
+				}
 			} else if (regex.regexSDT(txtTK)) {
-				if (kh != null) {
+				try {
+					System.out.println(regex.regexSDT(txtTK));
 					clearTable();
 					loadThongTin(kh);
+				} catch (Exception e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Không tìm thấy số điện thoại khách hàng!", "Thông báo", JOptionPane.OK_OPTION);
 				}
-			} else
-				JOptionPane.showMessageDialog(null,
-						"Thông tin tìm kiếm không hợp lệ!\nThông tin có thể tìm kiếm:\n - Mã khách hàng. Ví dụ: KH001"
-								+ messTenKH + messSDT + messLKH,
-						"Thông báo", JOptionPane.ERROR_MESSAGE);
+				}
+			else if (regex.regexTimKiemMaLoaiKH(txtTK)) {
+
+				System.out.println("alo 123 5");
+				try {
+					//System.out.println(regex.regexTimKiemMaLoaiKH(txtTK));
+					//clearTable();
+					loadDanhSachTenKHTheoLoai(kh2);
+				} catch (Exception e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Không tìm thấy loại khách hàng!", "Thông báo", JOptionPane.OK_OPTION);
+				}
+				}
+			
+			  else JOptionPane.showMessageDialog(null,
+			  "Thông tin tìm kiếm không hợp lệ!\nThông tin có thể tìm kiếm:\n - Mã khách hàng. Ví dụ: KH001"
+			  + messTenKH + messSDT + messLKH, "Thông báo", JOptionPane.ERROR_MESSAGE);
+			 
 		} else {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm!", "Thông báo",
 					JOptionPane.WARNING_MESSAGE);
@@ -875,6 +920,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 			suaThongTin();
 		}
 		if (o.equals(btnReset)) {
+			clearTable();
 			resetAll();
 		}
 		if (o.equals(btnXoaKH)) {
@@ -893,6 +939,7 @@ public class FrmKhachHang extends JPanel implements ActionListener, MouseListene
 				sortLoaiKHTangDan(kh);
 		}
 		if(cbbSort.getSelectedItem()=="Giảm dần"){
+			clearTable();
 			if(o.equals(rdoTheoMaKH)) {
 				sortMaKHGiamDan(kh);
 			}

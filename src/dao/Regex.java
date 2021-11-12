@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
@@ -122,6 +121,8 @@ public class Regex {
 	public boolean regexTimKiemMaKH(JTextField txtTK) {
 		String input = txtTK.getText();
 		String regexMaKH = "^(KH[0-9]{3})$";
+		Pattern pattern = Pattern.compile(regexMaKH);
+		Matcher matcher = pattern.matcher(input);
 		if(!input.matches(regexMaKH)) {
 			txtTK.requestFocus();
 			txtTK.selectAll();
@@ -129,6 +130,20 @@ public class Regex {
 		}
 		return true;
 	}
+	public boolean regexTimKiemMaLoaiKH(JTextField txtTK) {
+		DAOLoaiKH daoLKH = new DAOLoaiKH();
+		String input = daoLKH.getMaLoaiKHTheoTen(txtTK.getText().toString()) ;
+		String regexMaLKH = "^(LKH[0-9]{3})$";
+		Pattern pattern = Pattern.compile(regexMaLKH);
+		Matcher matcher = pattern.matcher(input);
+		if(!input.matches(regexMaLKH)) {
+			txtTK.requestFocus();
+			txtTK.selectAll();
+			return false;
+		}
+		return true;
+	}
+
 	
 	public boolean regexTenNV(JTextField txtTen2) {
 		String input = txtTen2.getText();

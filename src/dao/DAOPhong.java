@@ -411,4 +411,25 @@ public Phong getGiaPhongTheoMa(String ma) {
 		}
 		return lsP;
 	}
+	public Phong getThongTinPhong(String info) { 
+		Phong p = new Phong();
+		ConnectDB.getinstance();
+		Connection con = ConnectDB.getConnection();
+		String sqlMa = "select * from Phong where maPhong = '"+info+"'";
+		try {
+			Statement stm = con.createStatement();
+			ResultSet rs = stm.executeQuery(sqlMa);
+			while(rs.next()) {
+				p.setMaPhong(rs.getNString(1));
+				p.setLoaiPhong(new LoaiPhong(rs.getNString(2)));
+				p.setTinhTrangPhong(rs.getNString(3));
+				p.setGiaPhong(rs.getDouble(4));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return p;
+	}
+	
 }
