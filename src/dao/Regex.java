@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -92,10 +93,10 @@ public class Regex {
 	}
 	
 	public boolean regexTimKiemMaNV(JTextField txtTim) {
-		String input = txtTim.getText();
+		String input = txtTim.getText().trim();
 		String regexMaNV = "^(NV[0-9]{3})$";
 		if(!input.matches(regexMaNV)) {
-			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã nhân viên. Ví dụ: NV001\n");
+			JOptionPane.showMessageDialog(null, "Mã nhân viên tìm kiếm không hợp lệ\nMã nhân viên. Ví dụ: NV001\n");
 			txtTim.requestFocus();
 			txtTim.selectAll();
 			return false;
@@ -115,4 +116,32 @@ public class Regex {
 		}
 		return true;
 	}
+	
+	public boolean regexTimDSHD(JTextField txtDSHD) {
+		String input = txtDSHD.getText().toString().trim();
+		String regexMaNV = "^((NV|nv)[0-9]{3})|([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+)$";
+		if(!input.matches(regexMaNV)) {
+			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ!\nThông tin có thể tìm kiếm:\n - Mã nhân viên Ví dụ: NV001\n - Tên Khách hàng Ví dụ Hợp hoặc Nguyễn Thị Bích Hợp...");
+			txtDSHD.requestFocus();
+			txtDSHD.selectAll();
+			return false;
+		}
+		return true;
+	}
+	
+	
+	
+	public boolean regexMatKhau(JPasswordField pwMK) {
+		String input = pwMK.getText().toString().trim();
+		String regexMaNV = "^[A-Z][a-zA-Z0-9 ]{5,}$";
+		if(!input.matches(regexMaNV)) {
+			JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ\nMật khẩu hợp lệ:\n - Kí tự đầu tiên là chữ viết hoa.\n - Có ít nhất 6 kí tự, chỉ chứa chữ, số, và khoảng trắng.\nVí dụ: T123abc hoặc DangNhap123");
+			pwMK.requestFocus();
+			pwMK.selectAll();
+			return false;
+		}
+		return true;
+	}
+	
+	
 }

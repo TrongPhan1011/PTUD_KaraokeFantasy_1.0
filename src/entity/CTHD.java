@@ -7,7 +7,7 @@ public class CTHD {
 	private int soLuong;
 	private MatHang matHang;
 	private HoaDon hoaDon;
-	private double tongTien = soLuong* matHang.getGiaMatHang();
+	private double tongTien ;
 	public int getSoLuong() {
 		return soLuong;
 	}
@@ -32,12 +32,12 @@ public class CTHD {
 	public void setTongTien(double tongTien) {
 		this.tongTien = tongTien;
 	}
-	public CTHD(int soLuong, MatHang matHang, HoaDon hoaDon, double tongTien) {
+	public CTHD(int soLuong, MatHang matHang, HoaDon hoaDon) {
 		super();
 		this.soLuong = soLuong;
 		this.matHang = matHang;
 		this.hoaDon = hoaDon;
-		this.tongTien = tongTien;
+		this.tongTien = soLuong* matHang.getGiaMatHang();
 	}
 	public CTHD() {
 		super();

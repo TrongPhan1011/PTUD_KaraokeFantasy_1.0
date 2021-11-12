@@ -67,7 +67,8 @@ public class DAOPhong {
 	}
 	
 	public ArrayList<Phong> getPhongDangHoatDong() {
-		
+		//fix
+		//and DonDatPhong.ngayDen ='date'
 		
 		ArrayList< Phong> lsPhong = new ArrayList<Phong>();
 		ConnectDB.getinstance();

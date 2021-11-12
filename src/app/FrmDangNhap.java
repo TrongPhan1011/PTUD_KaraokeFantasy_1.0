@@ -8,26 +8,45 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-public class FrmDangNhap extends JFrame implements ActionListener {
+import connection.ConnectDB;
+import dao.DAONhanVien;
+import dao.DAOTaiKhoan;
+import dao.Regex;
+import entity.NhanVien;
+import entity.TaiKhoan;
+
+public class FrmDangNhap extends JFrame implements ActionListener,MouseListener {
 
 	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtTaiKhoan;
-	private JTextField txtMatKhau;
 	private JButton btnThoat;
 	private JButton btnDangNhap;
+	private Regex regex;
+	private DAONhanVien daoNhanVien;
+	private DAOTaiKhoan daoTK;
+	private JPasswordField txtMatKhau;
+	private JLabel lblQuenMK;
 	
 	public static void main(String[] args) {
 
@@ -35,6 +54,8 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(new FlatLightLaf());
+					
+
 					FrmDangNhap frame = new FrmDangNhap();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -50,7 +71,23 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 		setSize(500,500);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
-		getContentPane().setBackground(new Color(138, 28 ,186));
+		getContentPane().setBackground(Color.GRAY);
+		
+		
+		
+//connect database
+		try {
+			ConnectDB.getinstance().connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+//khai bao dao
+		
+		daoNhanVien = new DAONhanVien();
+		daoTK = new DAOTaiKhoan();
+		regex = new Regex();
+		
 		
 		
 		Image imgHeader = Toolkit.getDefaultToolkit ().getImage ("data\\imgDangNhap\\bgHeader.png");
@@ -80,11 +117,10 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 		lblMatKhau.setBounds(61, 251, 112, 20);
 		getContentPane().add(lblMatKhau);
 		
-		txtMatKhau = new JTextField();
+		txtMatKhau = new JPasswordField();
+		txtMatKhau.setBounds(166, 244, 246, 33);
 		txtMatKhau.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		txtMatKhau.setColumns(10);
 		txtMatKhau.setBorder(BorderFactory.createLineBorder(new Color(217,132,219)));
-		txtMatKhau.setBounds(166, 245, 246, 33);
 		getContentPane().add(txtMatKhau);
 		
 		JLabel lblNewLabel = new JLabel("Đăng nhập");
@@ -127,6 +163,12 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 		Image resizeNhac2 = imgNhac2.getScaledInstance(lblNhac2.getWidth(), lblNhac2.getHeight(), 0);
 		lblNhac2.setIcon(new ImageIcon(resizeNhac2));
 		
+		lblQuenMK = new JLabel("Quên mật khẩu?");
+		lblQuenMK.setForeground(Color.WHITE);
+		lblQuenMK.setFont(new Font("SansSerif", Font.ITALIC, 12));
+		lblQuenMK.setBounds(322, 288, 90, 14);
+		getContentPane().add(lblQuenMK);
+		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setBounds(0, 0, 488, 465);
 		getContentPane().add(lblBackground);
@@ -136,12 +178,43 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 		
 		
 		
+		txtTaiKhoan.setText("NV002");
+		txtMatKhau.setText("QL003");
+		
+		
 		
 		btnDangNhap.addActionListener(this);
 		btnThoat.addActionListener(this);
 		
+		lblQuenMK.addMouseListener(this);
+		
 	}
 
+	
+	//Kiểm tra đăng nhập
+	public void dangNhap() {
+		
+		String maTK = txtTaiKhoan.getText().toString().trim();
+		String mk = txtMatKhau.getText().toString().trim();
+		TaiKhoan tk = daoTK.getTaiKhoanTheoMa(maTK);
+		
+		
+		if(tk.getMaTK() == null) {
+			JOptionPane.showMessageDialog(this, "Tài khoản không đúng!\nVui lòng kiểm tra lại.");
+		}
+		else if(!tk.getMatKhau().equalsIgnoreCase(mk)){
+			JOptionPane.showMessageDialog(this, "Mật khẩu không đúng!\nVui lòng kiểm tra lại.");
+		}
+		else {
+			NhanVien nv = daoNhanVien.getNVTheoTK(tk.getMaTK());
+			FrmQuanLy frmQL = new FrmQuanLy(nv);
+			frmQL.setVisible(true);
+			this.setVisible(false);
+		}
+		
+		
+		
+	}
 	
 	//event
 	@Override
@@ -151,12 +224,50 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 		if(o.equals(btnDangNhap)) {	
-			FrmQuanLy frmNhanVien = new FrmQuanLy();
-			frmNhanVien.setVisible(true);
-			this.setVisible(false);
 			
+			dangNhap();
 			
 		}
 		
+		
+		
+	}
+	
+	public void loadFrmQuenMK() {
+	
+		FrmQuenMK frmMK = new FrmQuenMK();
+		frmMK.setVisible(true);
+		this.setVisible(false);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Object o = e.getSource();
+		if(o.equals(lblQuenMK)) {
+			loadFrmQuenMK();
+		}
+	
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 	}
 }
