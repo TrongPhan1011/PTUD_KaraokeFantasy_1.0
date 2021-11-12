@@ -8,6 +8,8 @@ import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
@@ -27,15 +29,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import com.mindfusion.drawing.Colors;
+
 import connection.ConnectDB;
 import dao.DAOLoaiMH;
 import dao.DAOMatHang;
 import dao.DAOPhatSinhMa;
+import dao.Regex;
 import entity.LoaiMatHang;
 import entity.MatHang;
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -69,12 +74,14 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 	private DAOPhatSinhMa daoPhatSinhMa;
 	private JComboBox<Object> cboSapXep;
 	private ArrayList<LoaiMatHang> loaiMH;
-	private JRadioButton rdoTatCa;
+	private JCheckBox chkTatCa;
 	private JRadioButton rdoTheoGiaMH;
 	private JRadioButton rdoTheoLoaiMH;
-	private JRadioButton rdoTheoMaMH;
+	private JRadioButton rdoTheoTenMH;
 	private DecimalFormat dfK;
 	private DecimalFormat dfVND;
+	private MatHang mh;
+	private Regex regex;
 	
 	public Panel getFrmMatHang() {
 		return this.pMain;
@@ -88,6 +95,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		add(pMain);
 		pMain.setLayout(null);
 		
+		regex = new Regex();
 		daoMH = new DAOMatHang();
 		daoLMH = new DAOLoaiMH();
 		daoPhatSinhMa = new DAOPhatSinhMa();
@@ -102,11 +110,32 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		lblQLNV.setBounds(37, 10, 255, 33);
 		pMain.add(lblQLNV);
 //Tim Kiem
+		//txtTim 
 		txtTim = new JTextField();
-		txtTim.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		txtTim.setColumns(10);
+		txtTim.setText("Tìm mặt hàng theo tên mặt hàng, loại mặt hàng");
+		txtTim.setFont(new Font("SansSerif", Font.ITALIC, 15));
+		txtTim.setForeground(Colors.LightGray);
 		txtTim.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
-		txtTim.setBounds(474, 15, 281, 33);
+		txtTim.setBounds(452, 15, 396, 33);
+		txtTim.addFocusListener(new FocusAdapter() {	
+			//place holder
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtTim.getText().equals("Tìm mặt hàng theo tên mặt hàng, loại mặt hàng")) {
+					txtTim.setFont(new Font("SansSerif", Font.PLAIN, 15));
+					txtTim.setForeground(Color.BLACK);
+					txtTim.setText("");
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(txtTim.getText().equals("")) {
+					txtTim.setFont(new Font("SansSerif", Font.ITALIC, 15));
+					txtTim.setForeground(Colors.LightGray);
+					txtTim.setText("Tìm mặt hàng theo tên mặt hàng, loại mặt hàng");
+				}
+			}
+		});
 		pMain.add(txtTim);
 		//lblTim
 		JLabel lblTim = new JLabel("Tìm kiếm:");
@@ -115,18 +144,11 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		pMain.add(lblTim);
 				
 		btnTim = new FixButton("Tìm");
-		btnTim.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		btnTim.setForeground(Color.WHITE);
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnTim.setBackground(new Color(114, 23, 153));
-		btnTim.setBounds(786, 15, 98, 33);
+		btnTim.setBounds(870, 15, 98, 33);
 		Image imgTim = Toolkit.getDefaultToolkit().getImage("data\\img\\iconKinhLup.png");
 		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
 		btnTim.setIcon(new ImageIcon(resizeImgTim));
@@ -253,12 +275,12 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		cboSapXep.setBackground(Color.WHITE);
 		pSapXep.add(cboSapXep);
 		
-		rdoTheoMaMH = new JRadioButton("Theo tên mặt hàng");
-		rdoTheoMaMH.setBounds(312, 15, 170, 27);
-		rdoTheoMaMH.setSelected(true);
-		rdoTheoMaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdoTheoMaMH.setBackground(new Color(207, 195, 237));
-		pSapXep.add(rdoTheoMaMH);
+		rdoTheoTenMH = new JRadioButton("Theo tên mặt hàng");
+		rdoTheoTenMH.setBounds(312, 15, 170, 27);
+		rdoTheoTenMH.setSelected(true);
+		rdoTheoTenMH.setFont(new Font("SansSerif", Font.BOLD, 14));
+		rdoTheoTenMH.setBackground(new Color(207, 195, 237));
+		pSapXep.add(rdoTheoTenMH);
 		
 		rdoTheoLoaiMH = new JRadioButton("Theo loại mặt hàng");
 		rdoTheoLoaiMH.setBounds(518, 15, 170, 27);
@@ -272,17 +294,17 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		rdoTheoGiaMH.setBackground(new Color(207, 195, 237));
 		pSapXep.add(rdoTheoGiaMH);
 		
-		rdoTatCa = new JRadioButton("Tất cả ");
-		rdoTatCa.setFont(new Font("SansSerif", Font.BOLD, 14));
-		rdoTatCa.setBackground(new Color(207, 195, 237));
-		rdoTatCa.setBounds(201, 15, 135, 27);
-		pSapXep.add(rdoTatCa);
+		chkTatCa = new JCheckBox("Tất cả ");
+		chkTatCa.setFont(new Font("SansSerif", Font.BOLD, 14));
+		chkTatCa.setBackground(new Color(207, 195, 237));
+		chkTatCa.setBounds(201, 15, 135, 27);
+		pSapXep.add(chkTatCa);
 		
 		ButtonGroup bgRdo=new ButtonGroup();
-		bgRdo.add(rdoTheoMaMH);
+		bgRdo.add(rdoTheoTenMH);
 		bgRdo.add(rdoTheoLoaiMH);
 		bgRdo.add(rdoTheoGiaMH);
-		bgRdo.add(rdoTatCa);
+		bgRdo.add(chkTatCa);
 		bgRdo.clearSelection();
 //Table
 		String mh [] = {"Mã MH","Tên mặt hàng", "Loại MH", "Số lượng", "Giá bán"};
@@ -327,6 +349,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		tblMH.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
 		tblMH.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
 		tblMH.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+		spMatHang.setViewportView(tblMH);
 ///Background
 		JLabel lblBackGround=new JLabel("");
 		lblBackGround.setIcon(new ImageIcon("data\\img\\background.png"));
@@ -346,11 +369,20 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 		btnTim.addActionListener(this);
 		btnSuaMH.addActionListener(this);
 		btnReset.addActionListener(this);
+		
 		tblMH.addMouseListener(this);
+		
 		rdoTheoGiaMH.addActionListener(this);
 		rdoTheoLoaiMH.addActionListener(this);
-		rdoTheoMaMH.addActionListener(this);
-		rdoTatCa.addActionListener(this);
+		rdoTheoTenMH.addActionListener(this);
+		
+		chkTatCa.addActionListener(this);
+		
+		rdoTheoGiaMH.addActionListener(this);
+		rdoTheoLoaiMH.addActionListener(this);
+		rdoTheoTenMH.addActionListener(this);
+		
+		cboSapXep.addActionListener(this);
 //Dinh dang thap phan, VND
 		dfK = new DecimalFormat("###,###");
 		dfVND = new DecimalFormat("###,### VND");
@@ -377,12 +409,26 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			XoaMH();
 		}else if (o.equals(btnSuaMH)) {
 			SuaMH();
-		}else if(o.equals(rdoTatCa)) {
+		}else if(o.equals(chkTatCa)) {
 			loadTableMH();
+		}else if(o.equals(btnTim)) {
+			timMH();
 		}else if (cboSapXep.getSelectedItem() == "Tăng dần") {
-			String a = "asc";
 			if(o.equals(rdoTheoGiaMH)) {
-				
+				sortGiaTangDan(mh);
+			}else if (o.equals(rdoTheoLoaiMH)) {
+				clearTable();
+				sortLMHTangDan(mh);
+			}else if (o.equals(rdoTheoTenMH)) {
+				sortTenMHTangDan(mh); 
+			} 
+		}else if (cboSapXep.getSelectedItem() == "Giảm dần") {
+			if(o.equals(rdoTheoGiaMH)) {
+				sortGiaGiamDan(mh);
+			}else if (o.equals(rdoTheoLoaiMH)) {
+				sortLMHGiamDan(mh);
+			}else if (o.equals(rdoTheoTenMH)) {
+				sortTenMHGiamDan(mh);
 			} 
 		}
 	}
@@ -438,7 +484,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			int soluong = Integer.parseInt(txtSoLuong.getText());
 			double dongia = Double.parseDouble(txtDonGia.getText());
 			MatHang mh = new MatHang(maMH, tenMH, soluong, dongia, new LoaiMatHang(maLMH));  
-			daoMH.updateMH(mh, maMH);
+			daoMH.updateMH(mh);
 			clearTable();
 			loadTableMH();
 		} catch (Exception e) {
@@ -465,7 +511,7 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 			txtSoLuong.setText("");
 			txtTenMH.requestFocus();
 	}
-	private void sortTenMHTangDan() {
+	private void sortTenMHTangDan(MatHang mh) {
 		clearTable();
 		ArrayList<MatHang> lstMH = daoMH.getDSMatHang();
 		Collections.sort(lstMH, new Comparator<MatHang>() {
@@ -475,12 +521,12 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 				return o1.getTenMatHang().compareTo(o2.getTenMatHang());
 			}
 		});
-		for (MatHang mh : lstMH) {
-			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
-			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
+		for (MatHang infoMH : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(infoMH.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
 		}
 	}
-	private void sortTenMHGiamDan() {
+	private void sortTenMHGiamDan(MatHang mh) {
 		clearTable();
 		ArrayList<MatHang> lstMH = daoMH.getDSMatHang();
 		Collections.sort(lstMH, new Comparator<MatHang>() {
@@ -490,7 +536,77 @@ public class FrmMatHang extends JPanel implements ActionListener, MouseListener 
 				return o2.getTenMatHang().compareTo(o1.getTenMatHang());
 			}
 		});
-		for (MatHang mh : lstMH) {
+		for (MatHang infoMH : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(infoMH.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
+		}
+	}
+	private void sortLMHGiamDan(MatHang mh){
+		clearTable();
+		ArrayList<MatHang> lstMH = daoMH.sortLMH("DESC");
+		for(MatHang infoMH : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(infoMH.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
+		}
+	}
+	private void sortLMHTangDan(MatHang mh){
+		clearTable();
+		ArrayList<MatHang> lstMH = daoMH.sortLMH("ASC");
+		for(MatHang infoMH : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(infoMH.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
+		}
+	}
+	private void sortGiaTangDan(MatHang mh){
+		clearTable();
+		ArrayList<MatHang> lstMH = daoMH.sortGia("ASC");
+		for(MatHang infoMH : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(infoMH.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
+		}
+	}
+	private void sortGiaGiamDan(MatHang mh){
+		clearTable();
+		ArrayList<MatHang> lstMH = daoMH.sortGia("DESC");
+		for(MatHang infoMH : lstMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(infoMH.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {infoMH.getMaMatHang(), infoMH.getTenMatHang(), lMH.getTenLoaiMatHang(), infoMH.getSoLuongMatHang(), infoMH.getGiaMatHang() } );
+		}
+	}
+	private void timMH() {
+		String info = txtTim.getText().toLowerCase().trim();
+		ArrayList<MatHang> mh1 = daoMH.getTenMH(info);
+		ArrayList<MatHang> mh2 = daoMH.getLMH(info);
+		if(!info.equals("") && !info.equals("Tìm mặt hàng theo tên mặt hàng, loại mặt hàng")) {
+			if(regex.regexTenMH(txtTim)) {
+				try {
+					loadTenMH(mh1);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Không tìm thấy tên mặt hàng!", "Thông báo", JOptionPane.OK_OPTION);
+				}
+			}if(regex.regexTimKiemLoaiMatHang(txtTim)) {
+				try {
+					loadLoaiMH(mh2);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Không tìm thấy loại mặt hàng!", "Thông báo", JOptionPane.OK_OPTION);
+				}
+			}
+		}else
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+	}
+	public void loadTenMH(ArrayList<MatHang> mh1) {
+		clearTable();
+		ArrayList<MatHang> lsMH = daoMH.getTenMH(txtTim.getText());
+		for(MatHang mh : lsMH) {
+			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
+			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
+		}
+	}
+	public void loadLoaiMH(ArrayList<MatHang> mh1) {
+		clearTable();
+		String maLoai = daoLMH.getMaLoaiMHTheoTen(txtTim.getText());
+		ArrayList<MatHang> lsMH = daoMH.getLMH(maLoai);
+		for(MatHang mh : lsMH) {
 			LoaiMatHang lMH = daoLMH.getLoaiMHTheoMaLoai(mh.getLoaiMatHang().getMaLoaiMatHang());
 			modelMatHang.addRow(new Object[] {mh.getMaMatHang(), mh.getTenMatHang(), lMH.getTenLoaiMatHang(), mh.getSoLuongMatHang(), mh.getGiaMatHang() } );
 		}

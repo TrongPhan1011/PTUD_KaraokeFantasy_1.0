@@ -11,5 +11,7 @@
 	<classpathentry kind="lib" path="Library/flatlaf-1.4.jar"/>
 	<classpathentry kind="lib" path="Library/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="Library/JPlanner.jar"/>
+	<classpathentry kind="lib" path="Library/jcommon-1.0.0.jar"/>
+	<classpathentry kind="lib" path="Library/jfreechart-1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

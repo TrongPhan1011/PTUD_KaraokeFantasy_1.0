@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -104,11 +105,12 @@ public class Regex {
 	}
 	
 	public boolean regexTimKiemMaNV(JTextField txtTim) {
-		String input = txtTim.getText();
+		String input = txtTim.getText().trim();
 		String regexMaNV = "^(NV[0-9]{3})$";
 		Pattern pattern = Pattern.compile(regexMaNV);
 		Matcher matcher = pattern.matcher(input);
 		if(!input.matches(regexMaNV)) {
+			JOptionPane.showMessageDialog(null, "Mã nhân viên tìm kiếm không hợp lệ\nMã nhân viên. Ví dụ: NV001\n");
 //			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã nhân viên. Ví dụ: NV001\n", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTim.requestFocus();
 			txtTim.selectAll();
@@ -116,6 +118,7 @@ public class Regex {
 		}
 		return true;
 	}
+	
 	public boolean regexTimKiemMaKH(JTextField txtTK) {
 		String input = txtTK.getText();
 		String regexMaKH = "^(KH[0-9]{3})$";
@@ -128,6 +131,7 @@ public class Regex {
 		}
 		return true;
 	}
+<<<<<<< HEAD
 	public boolean regexTimKiemMaLoaiKH(JTextField txtTK) {
 		DAOLoaiKH daoLKH = new DAOLoaiKH();
 		String input = daoLKH.getMaLoaiKHTheoTen(txtTK.getText().toString()) ;
@@ -142,13 +146,16 @@ public class Regex {
 		return true;
 	}
 
+=======
+	
+>>>>>>> 238c4e89834feb61e89950b5ef9d37ea6785938e
 	public boolean regexTenNV(JTextField txtTen2) {
 		String input = txtTen2.getText();
 		String regex = "^([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if (!matcher.find()) {
-//			JOptionPane.showMessageDialog(null, "Họ tên không hợp lệ!\nMẫu họ tên: Nguyễn Văn A", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Họ tên không hợp lệ!\nMẫu họ tên: Nguyễn Văn A", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTen2.requestFocus();
 			txtTen2.selectAll();
 			return false;
@@ -157,7 +164,19 @@ public class Regex {
 
 	}
 
-	
+	public boolean regexTenMH(JTextField txtTen2) {
+		String input = txtTen2.getText();
+		String regex = "^([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*(\\s?))+$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(input);
+		if (!matcher.find()) {
+			txtTen2.requestFocus();
+			txtTen2.selectAll();
+			return false;
+		} else
+			return true;
+
+	}
 	public boolean regexNVTren18(JDateChooser dateChooser) {
 		LocalDate dNow = LocalDate.now();
 		int nam = dNow.getYear();
@@ -171,23 +190,46 @@ public class Regex {
 		return true;
 	}
 	
+	public boolean regexTimDSHD(JTextField txtDSHD) {
+		String input = txtDSHD.getText().toString().trim();
+		String regexMaNV = "^((NV|nv)[0-9]{3})|([ A-Za-za-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+)$";
+		if(!input.matches(regexMaNV)) {
+			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ!\nThông tin có thể tìm kiếm:\n - Mã nhân viên Ví dụ: NV001\n - Tên Khách hàng Ví dụ Hợp hoặc Nguyễn Thị Bích Hợp...");
+			txtDSHD.requestFocus();
+			txtDSHD.selectAll();
+			return false;
+		}
+		return true;
+	}
+	
+	
+	
+	public boolean regexMatKhau(JPasswordField pwMK) {
+		String input = pwMK.getText().toString().trim();
+		String regexMaNV = "^[A-Z][a-zA-Z0-9 ]{5,}$";
+		if(!input.matches(regexMaNV)) {
+			JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ\nMật khẩu hợp lệ:\n - Kí tự đầu tiên là chữ viết hoa.\n - Có ít nhất 6 kí tự, chỉ chứa chữ, số, và khoảng trắng.\nVí dụ: T123abc hoặc DangNhap123");
+			pwMK.requestFocus();
+			pwMK.selectAll();
+			return false;
+		}
+		return true;
+	}
+			
+			
 	public boolean regexTimKiemChucVu(JTextField txtTim) {
 		String input = txtTim.getText().toLowerCase().trim();
-//		String regex = "^[(quản lý)|(thu ngân)|(phục vụ)]$";
-//		String regexQL = "^[ A-Za-zA-ZQqẢảNnLlÝý]*+$";	//chạy đc
 		String regexQL = "^[quản lý]*+$";   			//chạy đc
 		Pattern patternQL = Pattern.compile(regexQL);
 		Matcher matcherQL = patternQL.matcher(input);
 		
-//		String regexTN = "^[ A-Za-zA-ZÂâGgHhNnTtUu]*+$";
+
 		String regexTN = "^[thu ngân]*+$";
-//		String regexTN = "aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz0123456789_]+$";
+
 		Pattern patternTN = Pattern.compile(regexTN);
 		Matcher matcherTN = patternTN.matcher(input);
 		
-//		String regexPV = "^[ A-Za-zA-ZPpHhỤụCcVv]*+$";
 		String regexPV = "^[phục vụ]*+$";
-//		String regexPV = "aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz0123456789_]+$";
 		Pattern patternPV = Pattern.compile(regexPV);
 		Matcher matcherPV = patternPV.matcher(input);
 		if (!matcherQL.find() && !matcherTN.find() && !matcherPV.find()) {
@@ -199,7 +241,32 @@ public class Regex {
 		} else
 			return true;
 	}
-	
+	public boolean regexTimKiemLoaiMatHang(JTextField ten) {
+		String in = ten.getText().toLowerCase().trim();
+		
+		String regexDA = "^[đồ ăn]*+$";
+		Pattern patternDA = Pattern.compile(regexDA);
+		Matcher matcherDA = patternDA.matcher(in);
+		
+		String regexDU = "^[đồ uống]*+$";
+		Pattern patternDU = Pattern.compile(regexDU);
+		Matcher matcherDU = patternDU.matcher(in);
+		
+		String regexKhac = "^[khác]*+$";
+		Pattern patternKhac = Pattern.compile(regexKhac);
+		Matcher matcherKhac = patternKhac.matcher(in);
+		
+		String regexStop = "^[ngừng kinh doanh]*+$";
+		Pattern patternStop = Pattern.compile(regexStop);
+		Matcher matcherStop = patternStop.matcher(in);
+		
+		if(!matcherDA.find() && !matcherDU.find() && !matcherKhac.find() && !matcherStop.find() ) {
+			ten.requestFocus();
+			ten.selectAll();
+			return false;
+		}else
+			return true;
+	}
 	public boolean regexTimKiemCa(JTextField txtTim) {
 		String input = txtTim.getText();
 		String regex = "^[1-3]{1}$";
@@ -238,5 +305,4 @@ public class Regex {
 		return true;
 	}
 	
-
 }
