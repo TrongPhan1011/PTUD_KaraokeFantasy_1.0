@@ -88,7 +88,7 @@ public class DAOMatHang {
 		
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from MatHang where maLoaiMH like N '"+Maloai +"'";
+		String sql = "select * from MatHang where MaLoaiMH = '"+Maloai +"'";
 		
 		try {
 			Statement stm = con.createStatement();

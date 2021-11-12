@@ -314,13 +314,6 @@ public class DAONhanVien implements Serializable{
 		}
 		return nv;
 	}
-//	//Tim NV
-//	public NhanVien timNV(String maNV) {
-//		NhanVien nv=new NhanVien(maNV);
-//		if(dsNV.contains(nv))
-//			return dsNV.get(dsNV.indexOf(nv));
-//		return null;
-//	}
 	
 	//them NV
 	public boolean themNV(NhanVien nv) throws SQLException {

@@ -45,7 +45,7 @@ public class Regex {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if(!matcher.find()) {
-//			JOptionPane.showMessageDialog(null, "SĐT không hợp lệ!\nSĐT gồm 10 chữ số và bắt đầu bằng số 0", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "SĐT không hợp lệ!\nSĐT gồm 10 chữ số và bắt đầu bằng số 0", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtSDT.requestFocus();
 			txtSDT.selectAll();
 			return false;
@@ -59,7 +59,7 @@ public class Regex {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if(!matcher.find()) {
-//			JOptionPane.showMessageDialog(null, "CCCD không hợp lệ!\nCCD gồm 12 chữ số", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "CCCD không hợp lệ!\nCCD gồm 12 chữ số", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtCCCD.requestFocus();
 			txtCCCD.selectAll();
 			return false;
@@ -110,7 +110,7 @@ public class Regex {
 		Matcher matcher = pattern.matcher(input);
 		if(!input.matches(regexMaNV)) {
 			JOptionPane.showMessageDialog(null, "Mã nhân viên tìm kiếm không hợp lệ\nMã nhân viên. Ví dụ: NV001\n");
-//			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã nhân viên. Ví dụ: NV001\n", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Thông tin tìm kiếm không hợp lệ\nThông tin có thể tìm kiếm:\n - Mã nhân viên. Ví dụ: NV001\n", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTim.requestFocus();
 			txtTim.selectAll();
 			return false;
@@ -130,6 +130,7 @@ public class Regex {
 		}
 		return true;
 	}
+
 	public boolean regexTimKiemMaLoaiKH(JTextField txtTK) {
 		DAOLoaiKH daoLKH = new DAOLoaiKH();
 		String input = daoLKH.getMaLoaiKHTheoTen(txtTK.getText().toString()) ;
@@ -230,7 +231,7 @@ public class Regex {
 		Matcher matcherPV = patternPV.matcher(input);
 		if (!matcherQL.find() && !matcherTN.find() && !matcherPV.find()) {
 //		if (!matcherQL.find()) {
-//			JOptionPane.showMessageDialog(null, "Chức vụ không hợp lệ!\nTìm theo chức vụ: phục vụ, thu ngân, quản lý", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Chức vụ không hợp lệ!\nTìm theo chức vụ: phục vụ, thu ngân, quản lý", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTim.requestFocus();
 			txtTim.selectAll();
 			return false;
@@ -269,7 +270,7 @@ public class Regex {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(input);
 		if (!matcher.find()) {
-//			JOptionPane.showMessageDialog(null, "Ca làm việc không hợp lệ!\nTìm theo ca: 1, 2, 3", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ca làm việc không hợp lệ!\nTìm theo ca: 1, 2, 3", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			txtTim.requestFocus();
 			txtTim.selectAll();
 			return false;

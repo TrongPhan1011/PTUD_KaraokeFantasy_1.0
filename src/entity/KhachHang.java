@@ -20,9 +20,6 @@ public class KhachHang implements Serializable {
 	private Date ngayDangKy;
 	private LoaiKH loaiKH;
 	
-	
-	
-	
 	public String getDiaChi() {
 		return diaChi;
 	}
@@ -30,7 +27,6 @@ public class KhachHang implements Serializable {
 		this.diaChi = diaChi;
 	}
 
-	//Get Set
 	public String getMaKhangHang() {
 		return maKhangHang;
 	}
@@ -86,7 +82,6 @@ public class KhachHang implements Serializable {
 		this.loaiKH = loaiKH;
 	}
 	
-	
 	public KhachHang(String maKhangHang, String tenKH, String diaChi, String sdt, String cccd, Date ngaySinh,
 			String gioiTinh, int diemTichLuy, Date ngayDangKy, LoaiKH loaiKH) {
 		super();
@@ -101,10 +96,11 @@ public class KhachHang implements Serializable {
 		this.ngayDangKy = ngayDangKy;
 		this.loaiKH = loaiKH;
 	}
+	
 	public KhachHang() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public KhachHang(String maKhangHang) {
 		super();
 		this.maKhangHang = maKhangHang;
@@ -113,14 +109,24 @@ public class KhachHang implements Serializable {
 	
 	public KhachHang(String maKH, String tenKH2, String diaChi2, String sdt2, String cccd2, Date ngaySinh2,
 			String gioiTinh2, int diemTichLuy2, Date ngayDangKy2, KhachHang tenLoaiKH) {
-		// TODO Auto-generated constructor stub
 	}
+	
+	public KhachHang(String maKhangHang, LoaiKH loaiKH, String tenKH, String sdt, String diaChi) {
+		super();
+		this.maKhangHang = maKhangHang;
+		this.loaiKH = loaiKH;
+		this.tenKH = tenKH;
+		this.sdt = sdt;
+		this.diaChi = diaChi;
+	}
+	
 	@Override
 	public String toString() {
 		return "KhachHang [maKhangHang=" + maKhangHang + ", tenKH=" + tenKH + ", diaChi=" + diaChi + ", sdt=" + sdt
 				+ ", cccd=" + cccd + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diemTichLuy="
 				+ diemTichLuy + ", ngayDangKy=" + ngayDangKy + ", loaiKH=" + loaiKH + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -128,7 +134,6 @@ public class KhachHang implements Serializable {
 		result = prime * result + ((maKhangHang == null) ? 0 : maKhangHang.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

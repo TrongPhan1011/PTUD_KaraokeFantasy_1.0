@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import connection.ConnectDB;
 import entity.DonDatPhong;
 import entity.KhachHang;
+import entity.LoaiKH;
 import entity.LoaiMatHang;
 import entity.LoaiPhong;
 import entity.MatHang;
@@ -23,7 +24,6 @@ public class DAODonDatPhong {
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "select * from DonDatPhong";
-		
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -48,7 +48,6 @@ public class DAODonDatPhong {
 		ConnectDB.getinstance();
 		Connection con = ConnectDB.getConnection();
 		String sql = "select * from DonDatPhong where TrangThaiDDP != N'Hủy'";
-		
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -67,10 +66,8 @@ public class DAODonDatPhong {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return lsDDP;
 	} 
-	
 	
 	public DonDatPhong getDDPTheoMaPhong(String ma){
 		DonDatPhong ddp = new DonDatPhong();
@@ -80,7 +77,6 @@ public class DAODonDatPhong {
 				+ "FROM  DonDatPhong\r\n"
 				+ "where maPhong = N'"+ma+"' and TrangThaiDDP = N'Đã xác nhận'"
 				+ "";
-		
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -94,13 +90,10 @@ public class DAODonDatPhong {
 				ddp.setGioDen(rs.getTime(6));
 				ddp.setNgayDen(rs.getDate(7));
 				ddp.setTrangThaiDDP(rs.getNString(8));
-				
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return ddp;
 	}
 	
@@ -126,5 +119,12 @@ public class DAODonDatPhong {
 		con.close();
 		return false;
 	}
+	
+//	public DonDatPhong getDDPTheoTenKH(String ) {
+//		DonDatPhong ddp=new DonDatPhong();
+//		ConnectDB.getinstance();
+//		Connection con = ConnectDB.getConnection();
+//		PreparedStatement ps = con.prepareStatement("")
+//	}
 	
 }
