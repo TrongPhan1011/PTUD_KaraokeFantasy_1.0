@@ -13,5 +13,8 @@
 	<classpathentry kind="lib" path="Library/JPlanner.jar"/>
 	<classpathentry kind="lib" path="Library/jcommon-1.0.0.jar"/>
 	<classpathentry kind="lib" path="Library/jfreechart-1.0.1.jar"/>
+	<classpathentry kind="lib" path="Library/jiconfont-1.0.0.jar"/>
+	<classpathentry kind="lib" path="Library/jiconfont-font_awesome-4.7.0.0.jar"/>
+	<classpathentry kind="lib" path="Library/jiconfont-swing-1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

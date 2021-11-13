@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -60,6 +61,8 @@ import entity.LoaiMatHang;
 import entity.MatHang;
 import entity.NhanVien;
 import entity.Phong;
+import jiconfont.icons.FontAwesome;
+import jiconfont.swing.IconFontSwing;
 
 public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseListener {
 
@@ -157,9 +160,8 @@ public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseLis
 		btnQuayLai.setForeground(Color.WHITE);
 		btnQuayLai.setBounds(10, 59, 115, 35);
 		
-		Image imgBack = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconBack.png");
-		Image resizeImgback = imgBack.getScaledInstance(25, 25, 0);
-		btnQuayLai.setIcon(new ImageIcon(resizeImgback));
+		Icon iconThoat = IconFontSwing.buildIcon(FontAwesome.ARROW_CIRCLE_LEFT, 20, new Color(255, 255 ,255));
+		btnQuayLai.setIcon(iconThoat);
 		
 		pMain.add(btnQuayLai);
 		
@@ -182,6 +184,7 @@ public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseLis
 		txtTim.setForeground(Color.lightGray);
 		txtTim.setBounds(394, 11, 281, 36);
 		txtTim.setBorder(new LineBorder(new Color(114, 23 ,153), 2, true));
+		
 		pMain.add(txtTim);
 		
 		
@@ -191,9 +194,9 @@ public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseLis
 		btnTim.setBackground(new Color(114, 23 ,153));
 		btnTim.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnTim.setForeground(Color.WHITE);
-		Image imgTim = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconKinhLup.png");
-		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
-		btnTim.setIcon(new ImageIcon(resizeImgTim));
+		
+		Icon iconTim = IconFontSwing.buildIcon(FontAwesome.SEARCH, 18, new Color(255, 255, 255));
+		btnTim.setIcon(iconTim);
 		pMain.add(btnTim);
 		
 		JPanel pSapXep = new JPanel();
@@ -219,6 +222,9 @@ public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseLis
 		chooserNgayBatDau.getCalendarButton().setBackground(new Color(102, 0, 153));
 		chooserNgayBatDau.setBounds(93, 15, 191, 28);
 		
+		Icon iconCalendar = IconFontSwing.buildIcon(FontAwesome.CALENDAR, 18, new Color(255, 255 ,255));
+		
+		chooserNgayBatDau.setIcon((ImageIcon) iconCalendar);
 		chooserNgayBatDau.setDate(dNow);
 		pSapXep.add(chooserNgayBatDau);
 		
@@ -242,6 +248,9 @@ public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseLis
 		chooserNgayKetThuc.getCalendarButton().setBackground(new Color(102, 0, 153));
 		chooserNgayKetThuc.setBounds(398, 15, 191, 28);
 		chooserNgayKetThuc.setDate(dNow);
+		
+		chooserNgayKetThuc.setIcon((ImageIcon) iconCalendar);
+		
 		pSapXep.add(chooserNgayKetThuc);
 	
 		
@@ -251,6 +260,9 @@ public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseLis
 		btnXem.setBackground(new Color(114, 23 ,153));
 		btnXem.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnXem.setForeground(Color.WHITE);
+		
+		Icon iconXem = IconFontSwing.buildIcon(FontAwesome.LIST, 18, new Color(255, 255, 255));
+		btnXem.setIcon(iconXem);
 		pSapXep.add(btnXem);
 		
 	
@@ -448,9 +460,8 @@ public class FrmDanhSachHoaDon extends JFrame implements ActionListener,MouseLis
 		btnLamMoi.setBorder(new LineBorder(new Color(0, 146, 182), 2, true));
 		btnLamMoi.setBackground(new Color(114, 23, 153));
 		
-		Image imgLamMoiDS = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
-		Image resizeImgLamMoiDS = imgLamMoiDS.getScaledInstance(20, 20, 0);
-		btnLamMoi.setIcon(new ImageIcon(resizeImgLamMoiDS));
+		Icon iconLamMoi = IconFontSwing.buildIcon(FontAwesome.REFRESH, 20, new Color(255, 255 ,255));
+		btnLamMoi.setIcon(iconLamMoi);
 		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon("data\\img\\background.png"));

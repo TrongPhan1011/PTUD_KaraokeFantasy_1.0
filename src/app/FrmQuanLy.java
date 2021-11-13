@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +32,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 import connection.ConnectDB;
 import entity.NhanVien;
 import entity.TaiKhoan;
+import jiconfont.icons.FontAwesome;
+import jiconfont.swing.IconFontSwing;
 
 public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 
@@ -87,6 +90,8 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		this.headerNV = nv;
 		
+		IconFontSwing.register(FontAwesome.getIconFont());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Quản lý nhân viên");
 //		setExtendedState(MAXIMIZED_BOTH);
@@ -133,26 +138,28 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		lblHeaderTen = new JLabel(headerNV.getTenNhanVien());
 		lblHeaderTen.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblHeaderTen.setForeground(Color.WHITE);
-		lblHeaderTen.setBounds(873, 11, 170, 20);
+		lblHeaderTen.setBounds(843, 11, 170, 20);
 		panel.add(lblHeaderTen);
 		
 		lblSubMa = new JLabel("Mã nhân viên:");
 		lblSubMa.setForeground(Color.WHITE);
 		lblSubMa.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblSubMa.setBounds(873, 41, 110, 20);
+		lblSubMa.setBounds(843, 41, 110, 20);
 		panel.add(lblSubMa);
 		
 		btnDangXuat = new FixButton("Đăng Xuất");
 		btnDangXuat.setForeground(Color.WHITE);
 		btnDangXuat.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnDangXuat.setBounds(1134, 20, 110, 35);
+		btnDangXuat.setBounds(1112, 20, 132, 35);
 		btnDangXuat.setBackground(new Color(0xE91940));
+		Icon iconDangXuat = IconFontSwing.buildIcon(FontAwesome.SIGN_OUT, 25, new Color(255, 255 ,255));
+		btnDangXuat.setIcon(iconDangXuat);
 		panel.add(btnDangXuat);
 		
 		lblHeaderMaNV = new JLabel(headerNV.getMaNhanVien());
 		lblHeaderMaNV.setForeground(Color.WHITE);
 		lblHeaderMaNV.setFont(new Font("SansSerif", Font.ITALIC, 15));
-		lblHeaderMaNV.setBounds(983, 41, 60, 20);
+		lblHeaderMaNV.setBounds(953, 41, 60, 20);
 		panel.add(lblHeaderMaNV);
 		
 		btnHeaderInfo = new JButton();
@@ -164,7 +171,7 @@ public class FrmQuanLy extends JFrame implements ActionListener,MouseListener{
 		
 		btnHeaderInfo.setForeground(Color.WHITE);
 		btnHeaderInfo.setFont(new Font("SansSerif", Font.BOLD, 20));
-		btnHeaderInfo.setBounds(1053, 11, 60, 56);
+		btnHeaderInfo.setBounds(1023, 11, 60, 56);
 		btnHeaderInfo.setBackground(new Color(57, 210, 247));
 //		btnHeaderInfo.setBorder(new LineBorder(Color.white,10));
 		

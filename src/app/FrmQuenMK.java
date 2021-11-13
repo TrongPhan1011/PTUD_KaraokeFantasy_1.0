@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,6 +37,8 @@ import dao.DAOTaiKhoan;
 import dao.Regex;
 import entity.NhanVien;
 import entity.TaiKhoan;
+import jiconfont.icons.FontAwesome;
+import jiconfont.swing.IconFontSwing;
 
 public class FrmQuenMK extends JFrame implements ActionListener,MouseListener {
 
@@ -104,7 +107,7 @@ public class FrmQuenMK extends JFrame implements ActionListener,MouseListener {
 		lblMatKhauCu.setBounds(61, 209, 112, 20);
 		getContentPane().add(lblMatKhauCu);
 		
-		JLabel lblSubQuenMK = new JLabel("Lấy lại mật khẩu");
+		JLabel lblSubQuenMK = new JLabel("Quên mật khẩu");
 		lblSubQuenMK.setForeground(Color.WHITE);
 		lblSubQuenMK.setFont(new Font("SansSerif", Font.BOLD, 30));
 		lblSubQuenMK.setLabelFor(this);
@@ -117,6 +120,10 @@ public class FrmQuenMK extends JFrame implements ActionListener,MouseListener {
 		btnDoiMK.setBorder(new LineBorder(Color.WHITE, 2, true));
 		btnDoiMK.setForeground(Color.WHITE);
 		btnDoiMK.setBounds(166, 360, 201, 33);
+		
+		Icon iconDoiMK = IconFontSwing.buildIcon(FontAwesome.EXCHANGE, 20, new Color(255, 255 ,255));
+		btnDoiMK.setIcon(iconDoiMK);
+		
 		getContentPane().add(btnDoiMK);
 		
 		btnQuayLai = new JButton("Quay lại");
@@ -125,6 +132,10 @@ public class FrmQuenMK extends JFrame implements ActionListener,MouseListener {
 		btnQuayLai.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		btnQuayLai.setBackground(new Color(164, 44, 167));
 		btnQuayLai.setBounds(166, 404, 201, 33);
+		
+		Icon iconQuayLai = IconFontSwing.buildIcon(FontAwesome.ARROW_CIRCLE_LEFT, 20, new Color(255, 255 ,255));
+		btnQuayLai.setIcon(iconQuayLai);
+		
 		getContentPane().add(btnQuayLai);
 		
 		JLabel lblNhac1 = new JLabel("");

@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,6 +35,8 @@ import dao.DAOTaiKhoan;
 import dao.Regex;
 import entity.NhanVien;
 import entity.TaiKhoan;
+import jiconfont.icons.FontAwesome;
+import jiconfont.swing.IconFontSwing;
 
 public class FrmDangNhap extends JFrame implements ActionListener,MouseListener {
 
@@ -66,6 +69,8 @@ public class FrmDangNhap extends JFrame implements ActionListener,MouseListener 
 	}
 
 	public FrmDangNhap() {
+		IconFontSwing.register(FontAwesome.getIconFont());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Đăng nhập Karaoke Fantasy");
 		setSize(500,500);
@@ -136,6 +141,10 @@ public class FrmDangNhap extends JFrame implements ActionListener,MouseListener 
 		btnDangNhap.setBorder(new LineBorder(Color.WHITE, 2, true));
 		btnDangNhap.setForeground(Color.WHITE);
 		btnDangNhap.setBounds(166, 324, 176, 33);
+		
+		Icon iconDangNhap = IconFontSwing.buildIcon(FontAwesome.SIGN_IN, 20, new Color(255, 255 ,255));
+		btnDangNhap.setIcon(iconDangNhap);
+		
 		getContentPane().add(btnDangNhap);
 		
 		btnThoat = new JButton("Thoát");
@@ -144,6 +153,9 @@ public class FrmDangNhap extends JFrame implements ActionListener,MouseListener 
 		btnThoat.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		btnThoat.setBackground(new Color(164, 44, 167));
 		btnThoat.setBounds(166, 368, 176, 33);
+		Icon iconThoat = IconFontSwing.buildIcon(FontAwesome.POWER_OFF, 20, new Color(255, 255 ,255));
+		btnThoat.setIcon(iconThoat);
+		
 		getContentPane().add(btnThoat);
 		
 		JLabel lblNhac1 = new JLabel("");

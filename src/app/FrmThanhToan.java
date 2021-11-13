@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -61,6 +62,8 @@ import entity.LoaiPhong;
 import entity.MatHang;
 import entity.NhanVien;
 import entity.Phong;
+import jiconfont.icons.FontAwesome;
+import jiconfont.swing.IconFontSwing;
 
 public class FrmThanhToan extends JPanel implements ActionListener, MouseListener,ItemListener {
 
@@ -154,7 +157,11 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		regex = new Regex();
 		
 		
+		
 //Main UI
+		// get font
+		IconFontSwing.register(FontAwesome.getIconFont());
+		
 		setLayout(null);
 		
 		pMain = new Panel();
@@ -180,8 +187,6 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		txtTim.setFont(new Font("SansSerif", Font.ITALIC, 14));
 		txtTim.setText("Tìm phòng đang thuê theo mã phòng.");
 		txtTim.setForeground(Color.lightGray);
-		
-		
 
 		pMain.add(txtTim);
 		txtTim.setColumns(10);
@@ -193,10 +198,9 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnTim.setBackground(new Color(114, 23 ,153));
 		btnTim.setFont(new Font("SansSerif", Font.BOLD, 14));
 		btnTim.setBounds(786, 11, 98, 33);
-		Image imgTim = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconKinhLup.png");
-		Image resizeImgTim = imgTim.getScaledInstance(20, 20, 0);
 		
-		btnTim.setIcon(new ImageIcon(resizeImgTim));
+		Icon iconTim = IconFontSwing.buildIcon(FontAwesome.SEARCH, 20, new Color(255, 255, 255));
+		btnTim.setIcon(iconTim);
 		
 		pMain.add(btnTim);
 		
@@ -211,9 +215,9 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnDSHD.setBackground(new Color(114, 23, 153));
 		btnDSHD.setBounds(1015, 13, 232, 33);
 		
-		Image imgListHD = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconList.png");
-		Image resizeImgListHD = imgListHD.getScaledInstance(25, 25, 0);
-		btnDSHD.setIcon(new ImageIcon(resizeImgListHD));
+
+		Icon iconDSHD = IconFontSwing.buildIcon(FontAwesome.LIST_ALT, 20, new Color(57, 210, 247));
+		btnDSHD.setIcon(iconDSHD);
 		
 		pMain.add(btnDSHD);
 	
@@ -334,13 +338,12 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnThemMH = new FixButton("Thêm mặt hàng");
 		btnThemMH.setForeground(Color.black);
 		btnThemMH.setFont(new Font("SansSerif", Font.BOLD, 14));
-		 //new Color(57, 210, 247)
+		
 		btnThemMH.setBackground(new Color(57, 210, 247));
 		btnThemMH.setBounds(56, 231, 176, 33);
 		
-		Image imgThemMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
-		Image resizeImgThemMH = imgThemMH.getScaledInstance(25, 25, 0);
-		btnThemMH.setIcon(new ImageIcon(resizeImgThemMH));
+		Icon iconThemMH = IconFontSwing.buildIcon(FontAwesome.PLUS_CIRCLE, 20, new Color(255, 255 ,255));
+		btnThemMH.setIcon(iconThemMH);
 		
 		pDichVu.add(btnThemMH);
 		
@@ -348,12 +351,11 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnXoaMH.setForeground(Color.WHITE);
 		btnXoaMH.setFont(new Font("SansSerif", Font.BOLD, 14));
 		
-		btnXoaMH.setBackground(new Color(114, 23, 153));
+		btnXoaMH.setBackground(new Color(0xE91940));
 		btnXoaMH.setBounds(56, 278, 176, 33);
 		
-		Image imgXoaMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconRemove.png");
-		Image resizeImgXoaMH = imgXoaMH.getScaledInstance(25, 25, 0);
-		btnXoaMH.setIcon(new ImageIcon(resizeImgXoaMH));
+		Icon iconXoaMH = IconFontSwing.buildIcon(FontAwesome.TIMES_CIRCLE, 20, new Color(255, 255 ,255));
+		btnXoaMH.setIcon(iconXoaMH);
 		pDichVu.add(btnXoaMH);
 		
 		btnLamMoiMH = new FixButton("Làm mới");
@@ -362,9 +364,8 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnLamMoiMH.setBackground(new Color(114, 23, 153));
 		btnLamMoiMH.setBounds(56, 322, 176, 33);
 		
-		Image imgLamMoiMH = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
-		Image resizeImgLamMoiMH = imgLamMoiMH.getScaledInstance(25, 25, 0);
-		btnLamMoiMH.setIcon(new ImageIcon(resizeImgLamMoiMH));
+		Icon iconLamMoiMH = IconFontSwing.buildIcon(FontAwesome.REFRESH, 20, new Color(255, 255 ,255));
+		btnLamMoiMH.setIcon(iconLamMoiMH);
 		
 		pDichVu.add(btnLamMoiMH);
 		
@@ -475,9 +476,8 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnThanhToan.setBounds(25, 267, 176, 44);
 		pThanhToan.add(btnThanhToan);
 		
-		Image imgThanhToan = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconGrayThem.png");
-		Image resizeImgThanhToan = imgThanhToan.getScaledInstance(30, 30, 0);
-		btnThanhToan.setIcon(new ImageIcon(resizeImgThanhToan));
+		Icon iconThanhToan = IconFontSwing.buildIcon(FontAwesome.PLUS_CIRCLE, 25, new Color(255, 255 ,255));
+		btnThanhToan.setIcon(iconThanhToan);
 		
 		btnLamMoiHD = new FixButton("Làm mới");
 		btnLamMoiHD.setForeground(Color.WHITE);
@@ -486,9 +486,8 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnLamMoiHD.setBounds(25, 322, 176, 33);
 		
 		
-		Image imgLamMoiHD = Toolkit.getDefaultToolkit ().getImage ("data\\img\\iconReset.png");
-		Image resizeImgLamMoiHD = imgLamMoiHD.getScaledInstance(25, 25, 0);
-		btnLamMoiHD.setIcon(new ImageIcon(resizeImgLamMoiHD));
+		Icon iconLamMoiTT = IconFontSwing.buildIcon(FontAwesome.REFRESH, 20, new Color(255, 255 ,255));
+		btnLamMoiHD.setIcon(iconLamMoiTT);
 		
 		
 		pThanhToan.add(btnLamMoiHD);
@@ -539,6 +538,8 @@ public class FrmThanhToan extends JPanel implements ActionListener, MouseListene
 		btnInHoaDon.setBackground(new Color(114, 23, 153));
 		btnInHoaDon.setBounds(25, 223, 176, 33);
 		
+		Icon iconInHD = IconFontSwing.buildIcon(FontAwesome.PRINT, 20, new Color(255, 255 ,255));
+		btnInHoaDon.setIcon(iconInHD);
 		pThanhToan.add(btnInHoaDon);
 
 		
