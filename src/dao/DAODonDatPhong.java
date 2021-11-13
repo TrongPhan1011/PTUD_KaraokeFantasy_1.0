@@ -120,11 +120,5 @@ public class DAODonDatPhong {
 		return false;
 	}
 	
-//	public DonDatPhong getDDPTheoTenKH(String ) {
-//		DonDatPhong ddp=new DonDatPhong();
-//		ConnectDB.getinstance();
-//		Connection con = ConnectDB.getConnection();
-//		PreparedStatement ps = con.prepareStatement("")
-//	}
 	
 }
